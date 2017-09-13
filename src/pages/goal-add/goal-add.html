@@ -1,0 +1,47 @@
+<ion-header>
+
+  <ion-navbar color="primary">
+    <ion-title>创建目标</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+<ion-content>
+
+  <ion-list>
+    <ion-item>
+      <ion-input placeholder="目标名称"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-textarea placeholder="描述你的目标"></ion-textarea>
+    </ion-item>
+  </ion-list>
+
+  <ion-list>
+    <ion-item>
+      <ion-label>开始日期</ion-label>
+      <ion-datetime placeholder="无" (ionCancel)="onClearStartDate()" displayFormat="YYYY-MM-DD" pickerFormat="MMM DD YYYY" cancelText="重置" doneText="保存" [(ngModel)]="goal.start_day"></ion-datetime>
+    </ion-item>
+
+    <ion-item>
+      <ion-label>结束日期</ion-label>
+      <ion-datetime #endDate placeholder="永不结束" (ionCancel)="onClearEndDate()" displayFormat="YYYY-MM-DD" pickerFormat="MMM DD YYYY" cancelText="清空" doneText="保存" [(ngModel)]="goal.end_day"></ion-datetime>
+    </ion-item>
+
+
+  </ion-list>
+
+  <ion-list>
+    <ion-item>
+      <ion-label>是否公开</ion-label>
+      <ion-toggle checked="false"></ion-toggle>
+    </ion-item>
+    <ion-item>
+      <ion-label>提醒时间</ion-label>
+      <ion-datetime placeholder="无" displayFormat="HH:mm" pickerFormat="HH:mm"></ion-datetime>
+    </ion-item>
+  </ion-list>
+
+
+
+</ion-content>

@@ -1,0 +1,111 @@
+<ion-header  no-border>
+    <ion-navbar color="primary">
+        <ion-title>{{viewTitle}}</ion-title>
+
+        <ion-buttons end>
+            <button ion-button icon-only (click)="goGoalAddPage()">
+                <ion-icon name="add"></ion-icon>
+            </button>
+            <button ion-button icon-only (click)="openModal()">
+                <ion-icon name="more"></ion-icon>
+            </button>
+        </ion-buttons>
+    </ion-navbar>
+
+
+
+</ion-header>
+<ion-content class="page-home">
+    <my-calendar (onTitleChanged)="onViewTitleChanged($event)"
+                      (onDaySelected)="onDaySelected($event)">
+
+    </my-calendar>
+
+    <ion-list>
+        <ion-card>
+        <ion-card-content>
+            <ion-item-sliding>
+                <ion-item>
+                    <ion-label>
+                        每天6点起床<br>
+                        <button color="secondary" ion-button small outline>进行中</button>
+                    </ion-label>
+                    <ion-checkbox color="primary" checked="true"></ion-checkbox>
+                    <button ion-button clear item-end>12:00</button>
+                    <!--<ion-note item-end> <ion-icon name="notifications"></ion-icon> 12:00</ion-note>-->
+
+                </ion-item>
+                <ion-item-options>
+                    <button ion-button color="primary" icon-start>
+                        <!--<ion-icon name="text"></ion-icon>-->
+                        打卡
+                    </button>
+                    <button ion-button color="danger" icon-start>
+                        <!--<ion-icon name="call"></ion-icon>-->
+                        删除
+                    </button>
+                </ion-item-options>
+            </ion-item-sliding>
+        </ion-card-content>
+        <ion-row>
+            <p class="progress-title" style="width:0%" data-value="0"></p>
+            <progress value="0" max="100">
+                <div class="progress-bar">
+                    <span style="width: 50%;">50%</span>
+                </div>
+            </progress>
+        </ion-row>
+    </ion-card>
+
+        <ion-card>
+            <ion-card-content>
+                <ion-item-sliding>
+                    <ion-item>
+                        <ion-label>
+                            我要瘦到100斤 <br>
+                            <button color="danger" ion-button small outline>已结束</button>
+                        </ion-label>
+                        <ion-checkbox color="primary" ></ion-checkbox>
+                        <button ion-button clear item-end>14:00</button>
+                        <!--<ion-note item-end> <ion-icon name="notifications"></ion-icon> 12:00</ion-note>-->
+                    </ion-item>
+                    <ion-item-options>
+                        <button ion-button color="primary" icon-start>
+                            <!--<ion-icon name="text"></ion-icon>-->
+                            打卡
+                        </button>
+                        <button ion-button color="danger" icon-start>
+                            <!--<ion-icon name="call"></ion-icon>-->
+                            删除
+                        </button>
+                    </ion-item-options>
+                </ion-item-sliding>
+            </ion-card-content>
+
+            <ion-row>
+                <p class="progress-title" style="width:100%" data-value="100"></p>
+                <progress value="100" max="100">
+                    <div class="progress-bar">
+                        <span style="width: 80%;">80%</span>
+                    </div>
+                </progress>
+            </ion-row>
+        </ion-card>
+
+
+    </ion-list>
+
+    <!--<ion-item-divider color="light">进行中</ion-item-divider>-->
+    <!--<ion-item>-->
+        <!--<ion-label>目标1</ion-label>-->
+        <!--<ion-checkbox color="blue"></ion-checkbox>-->
+    <!--</ion-item>-->
+    <!--<ion-item>-->
+        <!--<ion-label>目标2</ion-label>-->
+        <!--<ion-checkbox color="blue" checked="true"></ion-checkbox>-->
+    <!--</ion-item>-->
+    <!--<ion-item>-->
+        <!--<ion-label>目标3</ion-label>-->
+        <!--<ion-checkbox color="blue" checked="true"></ion-checkbox>-->
+    <!--</ion-item>-->
+</ion-content>

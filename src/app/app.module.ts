@@ -5,22 +5,40 @@ import { SplashScreen } from '@ionic-native/splash-screen';
 import { StatusBar } from '@ionic-native/status-bar';
 import { MyApp } from './app.component';
 
+import { MyHammerConfig } from '../components/MyHammerConfig'
+import { HammerGestureConfig, HAMMER_GESTURE_CONFIG } from '@angular/platform-browser';
+import { MyWeekSelectorComponent } from '../components/my-week-selector/my-week-selector';
+
+
 @NgModule({
   declarations: [
     MyApp,
+    MyWeekSelectorComponent,
   ],
   imports: [
     BrowserModule,
-    IonicModule.forRoot(MyApp)
+    IonicModule.forRoot(MyApp,{
+      tabsHideOnSubPages: 'true' ,       //隐藏全部子页面tabs
+      iconMode: 'ios',
+      mode: 'ios',
+      modalEnter: 'modal-slide-in',
+      modalLeave: 'modal-slide-out',
+      monthNames: ['一', '二', '三','四','五', '六', '七','八','九', '十', '十一','十二'],
+      monthShortNames: ['一月', '二月', '三月','四月','五月', '六月', '七月','八月','九月', '十月', '十一月','十二月'],
+    })
   ],
   bootstrap: [IonicApp],
   entryComponents: [
-    MyApp,
+    MyApp
   ],
   providers: [
     StatusBar,
     SplashScreen,
-    {provide: ErrorHandler, useClass: IonicErrorHandler}
+    {provide: ErrorHandler, useClass: IonicErrorHandler},
+    {
+      provide: HAMMER_GESTURE_CONFIG,
+      useClass: MyHammerConfig
+    }
   ]
 })
 export class AppModule {}

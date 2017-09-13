@@ -4,15 +4,14 @@
 
 import { Component,ViewChild} from '@angular/core';
 import { IonicPage, NavController,Tabs } from 'ionic-angular';
-import {TabTopPage} from "../tab-top/top";
-import {TabHomePage} from "../tab-home/home";
-import {TabMyPage} from "../tab-my/my";
 
-@IonicPage()
+@IonicPage({
+    'name':'explore'
+})
 @Component({
     templateUrl: 'explorer.html'
 })
-export class TabExplorerPage {
+export class ExplorerPage {
 
     constructor() {
 

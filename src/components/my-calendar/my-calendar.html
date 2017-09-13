@@ -1,0 +1,39 @@
+<ion-toolbar class="week-toolbar" no-border-top>
+    <ul [class]="'week-title ' + color">
+        <li *ngFor="let w of _weekArray">{{w}}</li>
+    </ul>
+</ion-toolbar>
+<div (swipe)="swipeEvent($event)">
+<ion-slides #weekSlides >
+    <ion-slide>
+        <div *ngIf="'week'===mode">
+            <div class="days-box">
+                <div class="days" *ngFor="let day of _dayArray.days" class="days">
+                    <button class="days-btn"
+                            *ngIf="day"
+                            [class.today]="day.isToday"
+                            (click)="onSelected(day)"
+                            [class.on-selected]="isSelected(day)"
+                            [disabled]="day.disable">
+                        <p>{{day.title}}</p>
+                    </button>
+                </div>
+            </div>
+        </div>
+        <div *ngIf="'month'===mode">
+            <div class="days-box">
+                <div class="days" *ngFor="let day of _dayArray.days" class="days">
+                    <button class="days-btn"
+                            *ngIf="day"
+                            [class.today]="day.isToday"
+                            (click)="onSelected(day)"
+                            [class.on-selected]="isSelected(day)"
+                            [disabled]="day.disable">
+                    <p>{{day.title}}</p>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </ion-slide>
+</ion-slides>
+</div>

@@ -3,11 +3,11 @@
  */
 
 import { NgModule } from '@angular/core';
-import { TabExplorerPage } from './explorer';
+import { ExplorerPage } from './explorer';
 import { IonicPageModule } from 'ionic-angular';
 
 @NgModule({
-    declarations: [TabExplorerPage],
-    imports: [IonicPageModule.forChild(TabExplorerPage)],
+    declarations: [ExplorerPage],
+    imports: [IonicPageModule.forChild(ExplorerPage)],
 })
 export class ExplorerPageModule { }

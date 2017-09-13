@@ -3,11 +3,11 @@
  */
 
 import { NgModule } from '@angular/core';
-import { TabTopPage } from './top';
+import { TopPage } from './top';
 import { IonicPageModule } from 'ionic-angular';
 
 @NgModule({
-    declarations: [TabTopPage],
-    imports: [IonicPageModule.forChild(TabTopPage)],
+    declarations: [TopPage],
+    imports: [IonicPageModule.forChild(TopPage)],
 })
 export class TopPageModule { }
