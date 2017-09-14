@@ -28,4 +28,8 @@ export class HomePage {
     this.navCtrl.push('goal-add',{});
   }
 
+  goGoalDetailPage() {
+    this.navCtrl.push('setting',{});
+  }
+
 }

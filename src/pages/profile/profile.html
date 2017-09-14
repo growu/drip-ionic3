@@ -1,0 +1,70 @@
+<ion-header>
+
+  <ion-navbar color="primary">
+    <ion-title>编辑资料</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content class="page-profile">
+  <ion-list>
+    <ion-item>
+      头像
+      <ion-avatar item-end>
+        <img src="assets/img/avatar-ts-woody.png">
+      </ion-avatar>
+      <ion-note clear item-end>
+        <ion-icon name="arrow-forward"></ion-icon>
+      </ion-note>
+    </ion-item>
+
+    <ion-item>
+      <ion-label>昵称</ion-label>
+      <ion-input item-right [(ngModel)]="profile.nickname" ngControl="city"
+      maxlength="10"
+      type="text"></ion-input>
+      <ion-note clear item-end>
+        <ion-icon name="arrow-forward"></ion-icon>
+      </ion-note>
+    </ion-item>
+
+    <ion-item>
+      <ion-label>性别</ion-label>
+      <ion-select [(ngModel)]="profile.sex">
+        <ion-option value="male">男</ion-option>
+        <ion-option value="female">女</ion-option>
+        <ion-option value="">不设置</ion-option>
+      </ion-select>
+      <ion-note clear item-end>
+        <ion-icon name="arrow-forward"></ion-icon>
+      </ion-note>
+    </ion-item>
+  </ion-list>
+
+  <ion-list>
+    <ion-item>
+      <ion-label>出生年月</ion-label>
+      <ion-datetime placeholder="未添加" (ionCancel)="onClearBirthday()" displayFormat="YYYY-MM" pickerFormat="YYYY MMM" cancelText="取消" doneText="保存" [(ngModel)]="profile.birthday" min="1900-01"></ion-datetime>
+      <ion-note clear item-end>
+        <ion-icon name="arrow-forward"></ion-icon>
+      </ion-note>
+    </ion-item>
+
+    <ion-item>
+      所在城市
+      <ion-note clear item-end>
+        <ion-icon name="arrow-forward"></ion-icon>
+      </ion-note>
+    </ion-item>
+  </ion-list>
+
+  <ion-list>
+    <ion-item>
+      简介
+    </ion-item>
+    <ion-item>
+      <ion-textarea></ion-textarea>
+    </ion-item>
+  </ion-list>
+</ion-content>

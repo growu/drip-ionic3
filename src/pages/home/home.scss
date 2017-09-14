@@ -18,7 +18,7 @@
   }
 
   progress::-moz-progress-bar { background: #488aff; }
-  progress::-webkit-progress-bar { background: #999; }
+  progress::-webkit-progress-bar { background: #dedede; }
   progress::-webkit-progress-value  { background: #488aff; }
 
   .progress-bar {
@@ -51,7 +51,7 @@
     position: absolute;
     right: 0;
     color:#fff;
-    font-size:0.5rem;
+    font-size:0.5em;
   }
 
 }

@@ -1,0 +1,23 @@
+<ion-toolbar class="week-toolbar" no-border-top>
+  <ul class="week-title primary">
+    <li>日</li>
+    <li>一</li>
+    <li>二</li>
+    <li>三</li>
+    <li>四</li>
+    <li>五</li>
+    <li>六</li>
+  </ul>
+</ion-toolbar>
+<div class="days-box">
+  <div class="days" *ngFor="let day of days;" class="days">
+    <button class="days-btn"
+            *ngIf="day"
+            [class.today]="day.isToday"
+            (click)="onSelected(day)"
+            [class.on-selected]="isSelected(day)"
+            >
+      <p>{{day.title}}</p>
+    </button>
+  </div>
+</div>

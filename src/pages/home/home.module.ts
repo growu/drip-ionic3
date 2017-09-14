@@ -8,7 +8,10 @@ import { IonicPageModule } from 'ionic-angular';
 import { MyCalendarComponent } from '../../components/my-calendar/my-calendar.component';
 
 @NgModule({
-    declarations: [HomePage,MyCalendarComponent],
+    declarations: [
+        HomePage,
+        MyCalendarComponent
+    ],
     imports: [IonicPageModule.forChild(HomePage)],
 })
 export class HomePageModule { }

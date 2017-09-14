@@ -1,0 +1,49 @@
+<ion-content>
+    <ion-segment padding [(ngModel)]="mode" color="primary" (ionChange)="segmentChanged($event)">
+        <ion-segment-button value="week">
+            周
+        </ion-segment-button>
+        <ion-segment-button value="month">
+            月
+        </ion-segment-button>
+        <ion-segment-button value="year">
+            年
+        </ion-segment-button>
+        <ion-segment-button value="total">
+            总
+        </ion-segment-button>
+    </ion-segment>
+
+    <div style="display: block">
+        <canvas baseChart
+                [datasets]="barChartData"
+                [labels]="barChartLabels"
+                [options]="barChartOptions"
+                [legend]="barChartLegend"
+                [colors]="barChartColors"
+                [chartType]="barChartType"
+                (chartHover)="chartHovered($event)"
+                (chartClick)="chartClicked($event)"></canvas>
+    </div>
+    <div padding text-center>
+            <h1>200</h1> 天
+    </div>
+
+    <ion-list>
+        <ion-item>
+            时长
+        <ion-note item-end> 20 小时</ion-note>
+        </ion-item>
+        <ion-item>
+            距离
+            <ion-note item-end>200 公里</ion-note>
+        </ion-item>
+        <ion-item>
+            跑速
+            <ion-note item-end>7.3公里/时</ion-note>
+        </ion-item>
+    </ion-list>
+
+
+
+</ion-content>

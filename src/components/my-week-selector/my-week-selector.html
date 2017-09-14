@@ -1,4 +1,9 @@
-<!-- Generated template for the MyWeekSelectorComponent component -->
-<div>
-  {{text}}
+<div class="weekday-selector">
+    <ul>
+        <li *ngFor="let day of days; let idx = index"
+            (click)="onSelected(idx)"
+            [class.selected]="day.isSelected">
+            <span>{{day.name}}</span>
+        </li>
+    </ul>
 </div>

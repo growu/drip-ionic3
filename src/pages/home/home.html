@@ -22,40 +22,40 @@
     </my-calendar>
 
     <ion-list>
-        <ion-card>
-        <ion-card-content>
-            <ion-item-sliding>
-                <ion-item>
-                    <ion-label>
-                        每天6点起床<br>
-                        <button color="secondary" ion-button small outline>进行中</button>
-                    </ion-label>
-                    <ion-checkbox color="primary" checked="true"></ion-checkbox>
-                    <button ion-button clear item-end>12:00</button>
-                    <!--<ion-note item-end> <ion-icon name="notifications"></ion-icon> 12:00</ion-note>-->
+        <ion-card >
+            <ion-card-content>
+                <ion-item-sliding>
+                    <ion-item>
+                        <ion-label>
+                            每天6点起床<br>
+                            <button color="secondary" ion-button small outline>进行中</button>
+                        </ion-label>
+                        <ion-checkbox color="primary" checked="true" (click)="goGoalDetailPage($event)"></ion-checkbox>
+                        <button ion-button clear item-end>12:00</button>
+                        <!--<ion-note item-end> <ion-icon name="notifications"></ion-icon> 12:00</ion-note>-->
 
-                </ion-item>
-                <ion-item-options>
-                    <button ion-button color="primary" icon-start>
-                        <!--<ion-icon name="text"></ion-icon>-->
-                        打卡
-                    </button>
-                    <button ion-button color="danger" icon-start>
-                        <!--<ion-icon name="call"></ion-icon>-->
-                        删除
-                    </button>
-                </ion-item-options>
-            </ion-item-sliding>
-        </ion-card-content>
-        <ion-row>
-            <p class="progress-title" style="width:0%" data-value="0"></p>
-            <progress value="0" max="100">
-                <div class="progress-bar">
-                    <span style="width: 50%;">50%</span>
-                </div>
-            </progress>
-        </ion-row>
-    </ion-card>
+                    </ion-item>
+                    <ion-item-options>
+                        <button ion-button color="primary" icon-start>
+                            <!--<ion-icon name="text"></ion-icon>-->
+                            打卡
+                        </button>
+                        <button ion-button color="danger" icon-start>
+                            <!--<ion-icon name="call"></ion-icon>-->
+                            删除
+                        </button>
+                    </ion-item-options>
+                </ion-item-sliding>
+            </ion-card-content>
+            <ion-row>
+                <p class="progress-title" style="width:0%" data-value="0"></p>
+                <progress value="0" max="100">
+                    <div class="progress-bar">
+                        <span style="width: 50%;">50%</span>
+                    </div>
+                </progress>
+            </ion-row>
+        </ion-card>
 
         <ion-card>
             <ion-card-content>

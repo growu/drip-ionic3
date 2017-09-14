@@ -1,0 +1,51 @@
+<ion-header>
+
+  <ion-navbar color="primary">
+    <ion-title>关于</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content no-bounce>
+  <div text-center padding-bottom>
+    <img src="assets/icon/drip.png">
+    <h2>水滴打卡</h2>
+    <p>version 1.0.0</p>
+  </div>
+
+  <ion-list>
+    <ion-item>
+      公众号
+      <ion-note clear item-end>
+        格吾社区
+      </ion-note>
+    </ion-item>
+    <ion-item (click)="openUrl('http://weibo.com/growu')">
+      新浪微博
+      <ion-note clear item-end>
+        @格吾社区
+      </ion-note>
+    </ion-item>
+    <ion-item (click)="openUrl(qqQunUrl)">
+      QQ群
+      <ion-note clear item-end>
+        7852084
+      </ion-note>
+    </ion-item>
+    <ion-item (click)="openUrl('http://www.growu.me')">
+      官网
+      <ion-note clear item-end>
+        http://www.growu.me
+      </ion-note>
+    </ion-item>
+    <ion-item (click)="openUrl('mailto:drip@growu.me')">
+      邮箱
+      <ion-note clear item-end>
+        drip@growu.me
+      </ion-note>
+    </ion-item>
+  </ion-list>
+
+
+</ion-content>

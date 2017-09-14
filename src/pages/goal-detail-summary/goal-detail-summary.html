@@ -1,0 +1,51 @@
+<ion-content padding class="page-goal-detail-summary">
+  <div class="row" style="margin:10px auto;">
+    <div class="progress-wrapper">
+      <div class="progress ng-cloak">
+        <ion-icon name="checkmark" style="font-size: 120px;"></ion-icon>
+      </div>
+      <round-progress
+              [current]="20"
+              [max]="100"
+              [color]="'#488aff'"
+              [background]="'#eaeaea'"
+              [radius]="80"
+              [stroke]="15"
+              [semicircle]="false"
+              [rounded]="true"
+              [clockwise]="false"
+              [responsive]="false"
+              [duration]="800"
+              [animation]="'easeInOutQuart'"
+              [animationDelay]="0"
+      ></round-progress>
+    </div>
+  </div>
+
+  <ion-row>
+    <ion-col text-center>
+      <ion-card>
+      <strong ion-text class="num" color="primary">20</strong>
+      <br>目标天数
+      </ion-card>
+    </ion-col>
+    <ion-col text-center>
+      <ion-card>
+      <strong ion-text class="num" color="primary">10</strong>
+      <br>完成天数
+      </ion-card>
+
+    </ion-col>
+    <ion-col text-center>
+      <ion-card>
+        <strong ion-text class="num" color="primary">5</strong>
+        <br>连续天数
+      </ion-card>
+
+    </ion-col>
+  </ion-row>
+
+  <ion-card>
+    <my-week-calendar></my-week-calendar>
+  </ion-card>
+</ion-content>

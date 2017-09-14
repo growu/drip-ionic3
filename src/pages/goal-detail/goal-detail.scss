@@ -1,0 +1,35 @@
+.page-goal-detail {
+
+  .progress-wrapper{
+    position: relative;
+    margin:0px auto;
+    font-size: 12px;
+  }
+
+  .progress-wrapper .current {
+    position: absolute;
+    color: #bbb;
+    font-weight: 500;
+    top:35%;
+    left:0;
+    right:0;
+  }
+
+  .progress{
+    position: absolute;
+    color: #bbb;
+    font-weight: 100;
+    line-height: 1;
+    top: 50%;
+    bottom: auto;
+    left: 50%;
+    transform: translateY(-50%) translateX(-50%);
+    font-size: 35.7143px;
+  }
+
+  .tab-buttons {
+    width:200px;
+  }
+
+
+}

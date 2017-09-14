@@ -6,7 +6,7 @@
 
 </ion-header>
 
-<ion-content>
+<ion-content class="page-goal-add">
 
   <ion-list>
     <ion-item>
@@ -20,15 +20,23 @@
   <ion-list>
     <ion-item>
       <ion-label>开始日期</ion-label>
-      <ion-datetime placeholder="无" (ionCancel)="onClearStartDate()" displayFormat="YYYY-MM-DD" pickerFormat="MMM DD YYYY" cancelText="重置" doneText="保存" [(ngModel)]="goal.start_day"></ion-datetime>
+      <ion-datetime placeholder="无" (ionCancel)="onClearStartDate()" displayFormat="YYYY-MM-DD" pickerFormat="MMM DD YYYY" cancelText="重置" doneText="保存" [(ngModel)]="goal.start_day" min="today"></ion-datetime>
     </ion-item>
 
     <ion-item>
       <ion-label>结束日期</ion-label>
-      <ion-datetime #endDate placeholder="永不结束" (ionCancel)="onClearEndDate()" displayFormat="YYYY-MM-DD" pickerFormat="MMM DD YYYY" cancelText="清空" doneText="保存" [(ngModel)]="goal.end_day"></ion-datetime>
+      <ion-datetime #endDate placeholder="永久" (ionCancel)="onClearEndDate()" displayFormat="YYYY-MM-DD" pickerFormat="MMM DD YYYY" cancelText="清空" doneText="保存" [(ngModel)]="goal.end_day"></ion-datetime>
     </ion-item>
 
+  </ion-list>
 
+  <ion-list>
+    <ion-item>
+      <ion-label>打卡频率</ion-label>
+    </ion-item>
+    <ion-item>
+      <my-week-selector (onWeekChanged)="onWeekChanged($event)"></my-week-selector>
+    </ion-item>
   </ion-list>
 
   <ion-list>
@@ -41,6 +49,11 @@
       <ion-datetime placeholder="无" displayFormat="HH:mm" pickerFormat="HH:mm"></ion-datetime>
     </ion-item>
   </ion-list>
+
+  <div padding>
+    <button ion-button block>提交</button>
+    </div>
+
 
 
 

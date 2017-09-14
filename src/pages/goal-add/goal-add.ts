@@ -1,13 +1,6 @@
 import { Component,ViewChild } from '@angular/core';
 import { IonicPage, NavController, NavParams,DateTime} from 'ionic-angular';
-import { DatePicker } from '@ionic-native/date-picker';
 
-/**
- * Generated class for the GoalAddPage page.
- *
- * See http://ionicframework.com/docs/components/#navigation for more info
- * on Ionic pages and navigation.
- */
 @IonicPage({
   name:'goal-add',
   segment:'goal/add'
@@ -25,12 +18,11 @@ export class GoalAddPage {
   public goal = {
     start_day: this.today,
     end_day: '',
+    weeks:[],
   }
 
 
-  constructor(public navCtrl: NavController,
-              public navParams: NavParams,
-              private datePicker: DatePicker) {
+  constructor() {
   }
 
   ionViewDidLoad() {
@@ -42,7 +34,10 @@ export class GoalAddPage {
 
   onClearEndDate() {
     this.goal.end_day = '';
-    this.endDate._text = '无';
+  }
+
+  onWeekChanged($event) {
+    this.goal.weeks = $event;
   }
 
 

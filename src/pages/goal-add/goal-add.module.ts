@@ -1,12 +1,12 @@
 import { NgModule } from '@angular/core';
 import { IonicPageModule } from 'ionic-angular';
 import { GoalAddPage } from './goal-add';
-import { DatePicker } from '@ionic-native/date-picker';
-import { DatePickerMock } from '@ionic-native-mocks/date-picker';
+import { MyWeekSelectorComponent } from '../../components/my-week-selector/my-week-selector';
 
 @NgModule({
   declarations: [
     GoalAddPage,
+    MyWeekSelectorComponent
   ],
   imports: [
     IonicPageModule.forChild(GoalAddPage),
@@ -15,8 +15,6 @@ import { DatePickerMock } from '@ionic-native-mocks/date-picker';
     GoalAddPage
   ],
   providers: [
-    DatePicker,
-    // { provide: DatePicker, useClass: DatePickerMock }
   ]
 })
 export class GoalAddPageModule {}

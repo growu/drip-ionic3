@@ -163,7 +163,7 @@ export class MyCalendarService {
 
         let week;
 
-        if(currentDay.getFullYear() == year && (currentDay.getMonth() +1) == month) {
+        if(currentDay.getFullYear() == year && currentDay.getMonth()  == month) {
             week = this.getWeekNumber(currentDay)[1];
         } else {
             week = this.getWeekNumber(firstDay)[1];

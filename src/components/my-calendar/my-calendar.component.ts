@@ -34,10 +34,8 @@ export class MyCalendarComponent {
 
     constructor(public myCalendarService:MyCalendarService) {
         this.currentDay = new Date();
-
         this.currentYear = new Date().getFullYear();
         this.currentMonth = new Date().getMonth()+1;
-        console.log(this.currentMonth);
         this.currentWeek = this.myCalendarService.getWeekNumber(new Date())[1];
 
         this.refreshView('');
