@@ -95,4 +95,5 @@
     <plugin name="cordova-plugin-file-transfer" spec="^1.6.3" />
     <plugin name="cordova-plugin-crop" spec="^0.4.0" />
     <plugin name="cordova-plugin-file" spec="^4.3.3" />
+    <plugin name="cordova-sqlite-storage" spec="^2.0.4" />
 </widget>

@@ -17,17 +17,17 @@ export class MyCalendarComponent {
     _weekStart: number = 0;
 
     public currentViewIndex = 0;
-    public mode:MyCalendarMode = 'week';
+    // public currentMode:MyCalendarMode = 'week';
     public currentYear;
     public currentMonth;
     public currentWeek;
     public currentDay;
 
-
-
     @ViewChild('weekSlides') slides:Slides;
 
     @Input()  color: string = 'primary';
+    @Input() _mode: MyCalendarMode = 'week';
+
     @Output() onTitleChanged = new EventEmitter<string>();
     @Output() onDaySelected = new EventEmitter<number>();
 
@@ -42,40 +42,23 @@ export class MyCalendarComponent {
     }
 
     ngAfterViewInit() {
-        this.onTitleChanged.emit(this._dayArray.original.title);
+        if(this._dayArray) {
+            this.onTitleChanged.emit(this._dayArray.original.title);
+        }
     }
 
 
-
-    // @Input()
-    // set weekArray(value: string[]) {
-    //     if (value && value.length === 7) {
-    //         this._weekArray = value;
-    //         this.adjustSort();
-    //     }
-    // }
-    //
-    // @Input()
-    // set weekStart(value: number) {
-    //     if (value === 0 || value === 1) {
-    //         this._weekStart = value;
-    //         this.adjustSort();
-    //     }
-    // }
-    //
-    // adjustSort() {
-    //     if (this._weekStart === 1) {
-    //         this._weekArray.push(this._weekArray.shift())
-    //     }
-    // }
+    @Input()
+    set mode(value: any) {
+        this._mode = value;
+        this.refreshView('');
+    }
 
     onSelected(day:MyCalendarDay) {
         this.currentDay = new Date(day.date);
-        console.log( this.currentDay);
         this.currentYear = this.currentDay.getFullYear();
         this.currentMonth =  this.currentDay.getMonth()+1;
         this.currentWeek =  this.myCalendarService.getWeekNumber(this.currentDay)[1];
-
         this.onDaySelected.emit(day.date);
     }
 
@@ -89,26 +72,26 @@ export class MyCalendarComponent {
     }
 
     refreshView(direction:string){
-        let value = this.mode == 'week'?this.currentWeek:this.currentMonth;
+        let value = this._mode == 'week'?this.currentWeek:this.currentMonth;
 
-        this._dayArray = this.myCalendarService.createCalendarDays(this.currentYear,value,this.currentDay.getTime(),this.mode,direction);
+        this._dayArray = this.myCalendarService.createCalendarDays(this.currentYear,value,this.currentDay.getTime(),this._mode,direction);
 
-        console.log(this._dayArray);
+        if(this._dayArray) {
+            this.currentYear = this._dayArray.original.year;
+            this.currentMonth = this._dayArray.original.month;
+            this.currentWeek = this._dayArray.original.week;
+            this.onTitleChanged.emit(this._dayArray.original.title);
+        }
 
-        this.currentYear = this._dayArray.original.year;
-        this.currentMonth = this._dayArray.original.month;
-        this.currentWeek = this._dayArray.original.week;
-
-        this.onTitleChanged.emit(this._dayArray.original.title);
     }
 
     swipeEvent($event) {
 
         if($event.direction == 8) {
-            this.mode = 'week';
+            this._mode = 'week';
             this.refreshView('');
         } else if($event.direction == 16) {
-            this.mode = 'month';
+            this._mode = 'month';
             this.refreshView('');
         } else if($event.direction == 2) {
             this.refreshView('next');

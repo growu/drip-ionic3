@@ -18,7 +18,7 @@ export class TabsPage {
 
     tabHomeRoot: string = 'home';
     tabExplorerRoot: string = 'explore';
-    tabTopRoot: string = 'top';
+    tabEventRoot: string = 'event';
     tabMyRoot: string = 'my';
 
     constructor() {

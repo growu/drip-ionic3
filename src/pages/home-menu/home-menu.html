@@ -1,0 +1,29 @@
+<ion-list class="popover-page">
+    <ion-item>
+        <ion-label>日历模式</ion-label>
+        <ion-select [(ngModel)]="setting.calendarMode"
+                    (ionChange)="onChangeCalendarMode()"
+                    okText="确认" cancelText="取消">
+            <ion-option value="">不显示</ion-option>
+            <ion-option value="week">周历</ion-option>
+            <ion-option value="month">月历</ion-option>
+        </ion-select>
+    </ion-item>
+    <ion-item>
+        <ion-label>视图模式</ion-label>
+        <ion-select [(ngModel)]="setting.viewMode"
+                    (ionChange)="onChangeViewMode()"
+                    okText="确认" cancelText="取消">
+            <ion-option value="list">列表</ion-option>
+            <ion-option value="card">卡片</ion-option>
+        </ion-select>
+    </ion-item>
+    <!--<ion-item>-->
+        <!--<ion-label>显示进度</ion-label>-->
+        <!--<ion-toggle [(ngModel)]="pepperoni"></ion-toggle>-->
+    <!--</ion-item>-->
+    <!--<ion-item>-->
+        <!--<ion-label>启用排序</ion-label>-->
+        <!--<ion-toggle [(ngModel)]="pepperoni"></ion-toggle>-->
+    <!--</ion-item>-->
+</ion-list>

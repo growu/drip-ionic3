@@ -1,14 +1,18 @@
 <ion-header  no-border>
-    <ion-navbar color="primary">
+    <ion-navbar color="primary" mode="ios">
+        <ion-buttons start>
+            <button ion-button icon-only (click)="openMenu($event)">
+                <ion-icon name="list"></ion-icon>
+            </button>
+        </ion-buttons>
+
         <ion-title>{{viewTitle}}</ion-title>
 
         <ion-buttons end>
             <button ion-button icon-only (click)="goGoalAddPage()">
                 <ion-icon name="add"></ion-icon>
             </button>
-            <button ion-button icon-only (click)="openModal()">
-                <ion-icon name="more"></ion-icon>
-            </button>
+
         </ion-buttons>
     </ion-navbar>
 
@@ -17,82 +21,74 @@
 </ion-header>
 <ion-content class="page-home">
     <my-calendar (onTitleChanged)="onViewTitleChanged($event)"
-                      (onDaySelected)="onDaySelected($event)">
-
+                      (onDaySelected)="onDaySelected($event)"
+                 [mode]="setting?.calendarMode"
+                 *ngIf="setting?.calendarMode">
     </my-calendar>
 
-    <ion-list>
-        <ion-card >
+    <ion-list *ngIf="setting?.viewMode=='list'" class="events-list">
+        <ion-card *ngFor="let event of events">
             <ion-card-content>
                 <ion-item-sliding>
-                    <ion-item>
-                        <ion-label>
-                            每天6点起床<br>
+                    <ion-item (click)="goGoalDetailPage($event)">
+                            <ion-icon name="checkmark-circle" class="check-icon" item-start></ion-icon>
+                            <ion-label  (click)="goGoalDetailPage($event)">
+                                <h2>每天6点起床</h2>
+                                <p><button color="secondary" ion-button small outline>进行中</button>
+                                </p>
+                            </ion-label>
+
+                            <ion-datetime item-end
+                                          displayFormat="HH:mm"
+                                          pickerFormat="HH mm"
+                                          cancelText="清空"
+                                          doneText="保存"
+                                          placeholder="未设置"
+                                          [(ngModel)]="myDate"></ion-datetime>
+
+                    </ion-item>
+                    <ion-item-options>
+                        <button ion-button color="primary">
+                            打卡
+                        </button>
+                        <button ion-button color="danger">
+                            删除
+                        </button>
+                    </ion-item-options>
+                </ion-item-sliding>
+            </ion-card-content>
+            <ion-row>
+                <p class="progress-title" style="width:20%" data-value="20"></p>
+                <progress value="20" max="100">
+                    <div class="progress-bar">
+                        <span style="width: 20%;">20%</span>
+                    </div>
+                </progress>
+            </ion-row>
+        </ion-card>
+    </ion-list>
+
+    <ion-list *ngIf="setting?.viewMode=='card'" class="events-card">
+        <ion-row>
+            <ion-col *ngFor="let event of events" col-6>
+                <ion-card >
+                    <ion-card-header text-center>
+                        每天6点起床
+                    </ion-card-header>
+                    <ion-card-content text-center padding-top (click)="goGoalDetailPage($event)">
+                        <ion-icon name="checkmark-circle" class="check-icon" ></ion-icon>
+                    </ion-card-content>
+                    <ion-row class="footer">
+                        <ion-col class="status">
                             <button color="secondary" ion-button small outline>进行中</button>
-                        </ion-label>
-                        <ion-checkbox color="primary" checked="true" (click)="goGoalDetailPage($event)"></ion-checkbox>
-                        <button ion-button clear item-end>12:00</button>
-                        <!--<ion-note item-end> <ion-icon name="notifications"></ion-icon> 12:00</ion-note>-->
-
-                    </ion-item>
-                    <ion-item-options>
-                        <button ion-button color="primary" icon-start>
-                            <!--<ion-icon name="text"></ion-icon>-->
-                            打卡
-                        </button>
-                        <button ion-button color="danger" icon-start>
-                            <!--<ion-icon name="call"></ion-icon>-->
-                            删除
-                        </button>
-                    </ion-item-options>
-                </ion-item-sliding>
-            </ion-card-content>
-            <ion-row>
-                <p class="progress-title" style="width:0%" data-value="0"></p>
-                <progress value="0" max="100">
-                    <div class="progress-bar">
-                        <span style="width: 50%;">50%</span>
-                    </div>
-                </progress>
-            </ion-row>
-        </ion-card>
-
-        <ion-card>
-            <ion-card-content>
-                <ion-item-sliding>
-                    <ion-item>
-                        <ion-label>
-                            我要瘦到100斤 <br>
-                            <button color="danger" ion-button small outline>已结束</button>
-                        </ion-label>
-                        <ion-checkbox color="primary" ></ion-checkbox>
-                        <button ion-button clear item-end>14:00</button>
-                        <!--<ion-note item-end> <ion-icon name="notifications"></ion-icon> 12:00</ion-note>-->
-                    </ion-item>
-                    <ion-item-options>
-                        <button ion-button color="primary" icon-start>
-                            <!--<ion-icon name="text"></ion-icon>-->
-                            打卡
-                        </button>
-                        <button ion-button color="danger" icon-start>
-                            <!--<ion-icon name="call"></ion-icon>-->
-                            删除
-                        </button>
-                    </ion-item-options>
-                </ion-item-sliding>
-            </ion-card-content>
-
-            <ion-row>
-                <p class="progress-title" style="width:100%" data-value="100"></p>
-                <progress value="100" max="100">
-                    <div class="progress-bar">
-                        <span style="width: 80%;">80%</span>
-                    </div>
-                </progress>
-            </ion-row>
-        </ion-card>
-
-
+                        </ion-col>
+                        <ion-col class="time">
+                            <button ion-button clear>12:00</button>
+                        </ion-col>
+                    </ion-row>
+                </ion-card>
+            </ion-col>
+        </ion-row>
     </ion-list>
 
     <!--<ion-item-divider color="light">进行中</ion-item-divider>-->

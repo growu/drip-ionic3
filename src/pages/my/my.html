@@ -1,3 +1,55 @@
-<ion-content>
-    发现页
+<ion-header>
+
+  <ion-navbar color="primary">
+    <ion-buttons start>
+      <button ion-button icon-only (click)="goSettingPage()">
+        <ion-icon name="settings"></ion-icon>
+      </button>
+    </ion-buttons>
+    <ion-title>我</ion-title>
+    <ion-buttons end>
+      <button ion-button icon-only (click)="goSettingPage()">
+        <ion-icon name="mail"></ion-icon>
+      </button>
+    </ion-buttons>
+  </ion-navbar>
+
+</ion-header>
+
+<ion-content class="page-my">
+  <ion-list>
+    <ion-item>
+      <ion-avatar item-start>
+      <img src="assets/img/avatar.png">
+      </ion-avatar>
+      <h2>Cher</h2>
+      <p>Ugh. As if.</p>
+      <ion-note item-end>
+        <ion-icon name="arrow-forward"></ion-icon>
+      </ion-note>
+    </ion-item>
+    <ion-item>
+      <ion-row text-center>
+        <ion-col>12<br>目标</ion-col>
+        <ion-col>823<br>打卡</ion-col>
+        <ion-col>3482<br>能量</ion-col>
+      </ion-row>
+    </ion-item>
+  </ion-list>
+
+  <ion-list>
+    <ion-item>
+      消息提醒
+      <ion-note clear item-end>
+        <ion-icon name="arrow-forward"></ion-icon>
+      </ion-note>
+    </ion-item>
+    <ion-item>
+      我的徽章
+      <ion-note clear item-end>
+        <ion-icon name="arrow-forward"></ion-icon>
+      </ion-note>
+    </ion-item>
+  </ion-list>
+
 </ion-content>

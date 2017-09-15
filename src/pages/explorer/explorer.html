@@ -1,38 +1,70 @@
-<ion-content>
-    <ion-card>
-        <ion-item>
-            <ion-avatar item-start>
-                <img src="img/marty-avatar.png">
-            </ion-avatar>
-            <h2>Marty McFly</h2>
-            <p>November 5, 1955</p>
-        </ion-item>
+<ion-header>
+    <ion-toolbar color="primary">
+        <ion-searchbar (input)="getItems($event)"></ion-searchbar>
+    </ion-toolbar>
+</ion-header>
 
-        <img src="img/advance-card-bttf.png">
+<ion-content class="page-explore">
+    <ion-row padding>
+        <ion-col col-4 text-center class="category">
+            <ion-icon name="switch" color="primary"></ion-icon>
+            <p>目标</p>
+        </ion-col>
+        <ion-col col-4 text-center class="category">
+            <ion-icon name="color-filter" color="secondary"></ion-icon>
+            <p>活动</p>
+        </ion-col>
+        <ion-col col-4 text-center class="category">
+            <ion-icon name="cart" color="danger"></ion-icon>
+            <p>商城</p>
+        </ion-col>
+        <ion-col col-4 text-center class="category">
+            <ion-icon name="document" color="dark"></ion-icon>
+            <p>文章</p>
+        </ion-col>
+        <ion-col col-4 text-center class="category">
+            <ion-icon name="switch" color="primary"></ion-icon>
+            <p>目标</p>
+        </ion-col>
+        <ion-col col-4 text-center class="category">
+            <ion-icon name="color-filter" color="secondary"></ion-icon>
+            <p>活动</p>
+        </ion-col>
+    </ion-row>
 
-        <ion-card-content>
-            <p>Wait a minute. Wait a minute, Doc. Uhhh... Are you telling me that you built a time machine... out of a DeLorean?! Whoa. This is heavy.</p>
-        </ion-card-content>
+    <!--<super-tabs scrollTabs tabsPlacement="top">-->
+        <!--<super-tab [root]="ex" title="目标"></super-tab>-->
+        <!--<super-tab [root]="page2" title="活动"></super-tab>-->
+        <!--<super-tab [root]="page3" title="课程"></super-tab>-->
+        <!--<super-tab [root]="page3" title="文章"></super-tab>-->
+    <!--</super-tabs>-->
 
-        <ion-row>
-            <ion-col>
-                <button ion-button icon-left clear small>
-                    <ion-icon name="thumbs-up"></ion-icon>
-                    <div>12 Likes</div>
-                </button>
-            </ion-col>
-            <ion-col>
-                <button ion-button icon-left clear small>
-                    <ion-icon name="text"></ion-icon>
-                    <div>4 Comments</div>
-                </button>
-            </ion-col>
-            <ion-col center text-center>
-                <ion-note>
-                    11h ago
-                </ion-note>
-            </ion-col>
-        </ion-row>
+    <!--<ion-slides>-->
+        <!--<ion-slide>-->
+            <!--<img src="https://ss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=980290014,3494954107&fm=27&gp=0.jpg">-->
+        <!--</ion-slide>-->
 
-    </ion-card>
+        <!--<ion-slide >-->
+            <!--<img src="https://ss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=1876707596,1588618309&fm=27&gp=0.jpg">-->
+        <!--</ion-slide>-->
+
+        <!--<ion-slide>-->
+            <!--<img src="https://ss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=3553020298,1715141379&fm=27&gp=0.jpg">-->
+        <!--</ion-slide>-->
+    <!--</ion-slides>-->
+
+    <ion-list class="card-background-page">
+        <ion-card>
+            <img src="http://ionicframework.com/dist/preview-app/www/assets/img/nin-live.png"/>
+            <div class="card-title">San Francisco</div>
+            <div class="card-subtitle">72 Listings</div>
+        </ion-card>
+        <ion-card>
+            <img src="http://ionicframework.com/dist/preview-app/www/assets/img/nin-live.png"/>
+            <div class="card-title">San Francisco</div>
+            <div class="card-subtitle">72 Listings</div>
+        </ion-card>
+    </ion-list>
+
+
 </ion-content>

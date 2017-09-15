@@ -1,0 +1,31 @@
+.page-event {
+
+  ion-slides {
+    height: 150px;
+  }
+
+  .event-footer {
+    padding-left:6px;
+    border-top:1px solid #dedede;
+
+    ion-avatar {
+      margin:0 5px;
+      img {
+        width: 30px;
+        height: 30px;
+      }
+    }
+
+    h2 {
+      font-size:1.2rem;
+    }
+
+    .item-inner {
+      padding-right: 0;
+    }
+  }
+
+
+
+
+}

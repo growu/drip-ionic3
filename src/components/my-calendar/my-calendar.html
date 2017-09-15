@@ -6,7 +6,7 @@
 <div (swipe)="swipeEvent($event)">
 <ion-slides #weekSlides >
     <ion-slide>
-        <div *ngIf="'week'===mode">
+        <div *ngIf="'week'===_mode">
             <div class="days-box">
                 <div class="days" *ngFor="let day of _dayArray.days" class="days">
                     <button class="days-btn"
@@ -20,7 +20,7 @@
                 </div>
             </div>
         </div>
-        <div *ngIf="'month'===mode">
+        <div *ngIf="'month'===_mode">
             <div class="days-box">
                 <div class="days" *ngFor="let day of _dayArray.days" class="days">
                     <button class="days-btn"

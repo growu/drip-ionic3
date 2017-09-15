@@ -8,6 +8,11 @@
 
   <ion-navbar color="primary">
     <ion-title>账号管理</ion-title>
+    <ion-buttons end>
+      <button ion-button clear (click)="goChangePasswordPage()">
+        修改密码
+      </button>
+    </ion-buttons>
   </ion-navbar>
 
 </ion-header>
@@ -59,7 +64,6 @@
   </ion-list>
 
   <div padding>
-  <button ion-button block color="primary">修改密码</button>
     <button ion-button block outline color="danger">退出账号</button>
   </div>
 

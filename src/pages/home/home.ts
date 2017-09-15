@@ -1,5 +1,8 @@
 import { Component,ViewChild } from '@angular/core';
-import { NavController,Tabs,IonicPage } from 'ionic-angular';
+import { NavController,Tabs,IonicPage,PopoverController} from 'ionic-angular';
+import { UserProvider } from '../../providers/user/user'
+
+import { SettingModel } from '../../models/setting.model'
 
 @IonicPage({
   name:'home',
@@ -9,14 +12,35 @@ import { NavController,Tabs,IonicPage } from 'ionic-angular';
   templateUrl: 'home.html'
 })
 export class HomePage {
-  viewTitle;
+  public viewTitle:string;
+  public setting:SettingModel;
 
-  constructor(public navCtrl: NavController) {
+  public events:any;
+
+  constructor(public navCtrl: NavController,
+              private popoverCtrl: PopoverController,
+              private userSrv:UserProvider
+  ) {
+    this.events = Array(6).fill(0).map((x,i)=>i);
+    this.userSrv.getSetting().then((settingData) => {
+      console.log(settingData);
+      if(settingData) {
+        this.setting = settingData;
+      } else {
+        this.setting = this.userSrv.getDefaultSetting();
+      }
+    });
+  }
+
+  ngAfterViewInit() {
 
   }
 
+
+  ionViewDidLoad() {
+    
+  }
   onViewTitleChanged(title) {
-    console.log(title);
     this.viewTitle = title;
   }
 
@@ -29,7 +53,27 @@ export class HomePage {
   }
 
   goGoalDetailPage() {
-    this.navCtrl.push('setting',{});
+    this.navCtrl.push('goal-detail',{});
+  }
+
+  openMenu($event) {
+    let popover = this.popoverCtrl.create('home-menu', {
+      viewMode:this.setting.viewMode,
+      calendarMode:this.setting.calendarMode,
+    },{
+      showBackdrop:true,
+    });
+
+    popover.present({
+      ev: $event
+    });
+
+    popover.onDidDismiss((settingData) => {
+      if(settingData) {
+        this.setting = settingData;
+        this.userSrv.updateSetting(this.setting);
+      }
+    })
   }
 
 }

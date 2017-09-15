@@ -4,6 +4,7 @@
 
 import { NgModule } from '@angular/core';
 import { HomePage } from './home';
+import { HomeMenuPage } from '../home-menu/home-menu';
 import { IonicPageModule } from 'ionic-angular';
 import { MyCalendarComponent } from '../../components/my-calendar/my-calendar.component';
 
@@ -13,5 +14,8 @@ import { MyCalendarComponent } from '../../components/my-calendar/my-calendar.co
         MyCalendarComponent
     ],
     imports: [IonicPageModule.forChild(HomePage)],
+    entryComponents: [
+        // HomeMenuPage
+    ]
 })
 export class HomePageModule { }

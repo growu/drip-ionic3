@@ -18,4 +18,8 @@ export class AccountPage {
     console.log('ionViewDidLoad AccountPage');
   }
 
+  goChangePasswordPage() {
+    this.navCtrl.push('change-password');
+  }
+
 }

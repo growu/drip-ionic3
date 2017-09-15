@@ -1,0 +1,64 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-buttons start>
+      <button ion-button icon-only>
+        <ion-icon name="person-add"></ion-icon>
+      </button>
+    </ion-buttons>
+    <ion-segment color="light" [(ngModel)]="mode">
+      <ion-segment-button value="hot">
+        热门
+      </ion-segment-button>
+      <ion-segment-button value="follow">
+        关注
+      </ion-segment-button>
+    </ion-segment>
+    <ion-buttons end>
+      <button ion-button icon-only>
+        <ion-icon name="camera"></ion-icon>
+      </button>
+    </ion-buttons>
+  </ion-toolbar>
+
+</ion-header>
+
+
+<ion-content class="page-event">
+
+  <ion-slides>
+    <ion-slide>
+      <img src="https://ss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=980290014,3494954107&fm=27&gp=0.jpg">
+    </ion-slide>
+
+    <ion-slide >
+      <img src="https://ss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=1876707596,1588618309&fm=27&gp=0.jpg">
+    </ion-slide>
+
+    <ion-slide>
+      <img src="https://ss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=3553020298,1715141379&fm=27&gp=0.jpg">
+    </ion-slide>
+
+  </ion-slides>
+
+  <ion-row>
+    <ion-col col-6 *ngFor="let event of events">
+      <ion-card>
+        <img src="http://img5.imgtn.bdimg.com/it/u=2294603976,2094842433&fm=27&gp=0.jpg"/>
+        <ion-card-content>
+          <p>
+           今天运动的真爽
+          </p>
+        </ion-card-content>
+        <ion-item class="event-footer">
+          <ion-avatar item-start>
+            <img src="assets/img/avatar.png">
+          </ion-avatar>
+          <h2>小兔子的名字很长的话</h2>
+          <ion-note item-end><ion-icon name="thumbs-up"></ion-icon> 20</ion-note>
+        </ion-item>
+      </ion-card>
+    </ion-col>
+  </ion-row>
+
+
+</ion-content>
