@@ -1,5 +1,5 @@
 <!--
-  Generated template for the SettingPage page.
+  Generated template for the AccountPage page.
 
   See http://ionicframework.com/docs/components/#navigation for more info on
   Ionic pages and navigation.
@@ -7,71 +7,61 @@
 <ion-header>
 
   <ion-navbar color="primary">
-    <ion-title>设置</ion-title>
+    <ion-title>账号管理</ion-title>
   </ion-navbar>
 
 </ion-header>
 
 
-<ion-content class="page-setting">
-    <ion-list>
-      <ion-item (click)="goPage('profile')">
-        个人资料
-        <ion-avatar item-end>
-          <img src="assets/img/avatar-ts-woody.png">
-        </ion-avatar>
-        <ion-note clear item-end>
-          <ion-icon name="arrow-forward"></ion-icon>
-        </ion-note>
-      </ion-item>
-
-      <ion-item (click)="goPage('account')">
-        账号管理
-        <ion-note clear item-end>
-          <ion-icon name="arrow-forward"></ion-icon>
-        </ion-note>
-      </ion-item>
-    </ion-list>
-
+<ion-content class="page-account">
   <ion-list>
     <ion-item>
-      消息提醒
+      手机号
       <ion-note clear item-end>
+        18106500627
         <ion-icon name="arrow-forward"></ion-icon>
       </ion-note>
     </ion-item>
     <ion-item>
-      缓存管理
+      电子邮箱
       <ion-note clear item-end>
+        ccnuzxg@163.com
         <ion-icon name="arrow-forward"></ion-icon>
       </ion-note>
     </ion-item>
   </ion-list>
 
   <ion-list>
-    <ion-item (click)="goPage('about')">
-      关于我们
+    <ion-list-header>
+      第三方账号
+    </ion-list-header>
+    <ion-item>
+      微信
       <ion-note clear item-end>
+        未绑定
         <ion-icon name="arrow-forward"></ion-icon>
       </ion-note>
     </ion-item>
     <ion-item>
-      邀请好友
+      微博
       <ion-note clear item-end>
+        未绑定
         <ion-icon name="arrow-forward"></ion-icon>
       </ion-note>
     </ion-item>
     <ion-item>
-      帮助与反馈
+      QQ
       <ion-note clear item-end>
-        <ion-icon name="arrow-forward"></ion-icon>
-      </ion-note>
-    </ion-item>
-    <ion-item>
-      去评分
-      <ion-note clear item-end>
+        未绑定
         <ion-icon name="arrow-forward"></ion-icon>
       </ion-note>
     </ion-item>
   </ion-list>
+
+  <div padding>
+  <button ion-button block color="primary">修改密码</button>
+    <button ion-button block outline color="danger">退出账号</button>
+  </div>
+
+
 </ion-content>

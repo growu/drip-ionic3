@@ -9,10 +9,10 @@
 
 <ion-content class="page-profile">
   <ion-list>
-    <ion-item>
+    <ion-item (click)="onChangeAvatar()">
       头像
       <ion-avatar item-end>
-        <img src="assets/img/avatar-ts-woody.png">
+        <img [src]="profile.avatar" >
       </ion-avatar>
       <ion-note clear item-end>
         <ion-icon name="arrow-forward"></ion-icon>
@@ -21,7 +21,7 @@
 
     <ion-item>
       <ion-label>昵称</ion-label>
-      <ion-input item-right [(ngModel)]="profile.nickname" ngControl="city"
+      <ion-input item-right [(ngModel)]="profile.nickname"  text-right
       maxlength="10"
       type="text"></ion-input>
       <ion-note clear item-end>
@@ -52,7 +52,8 @@
     </ion-item>
 
     <ion-item>
-      所在城市
+      <ion-label>所在城市</ion-label>
+      <ion-multi-picker id="cities" item-content [multiPickerColumns]="cityColumns" placeholder="未添加"></ion-multi-picker>
       <ion-note clear item-end>
         <ion-icon name="arrow-forward"></ion-icon>
       </ion-note>
@@ -64,7 +65,7 @@
       简介
     </ion-item>
     <ion-item>
-      <ion-textarea></ion-textarea>
+      <ion-textarea rows="3" placeholder="用简短的话介绍你自己"></ion-textarea>
     </ion-item>
   </ion-list>
 </ion-content>
