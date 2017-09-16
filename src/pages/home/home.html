@@ -1,5 +1,5 @@
 <ion-header  no-border>
-    <ion-navbar color="primary" mode="ios">
+    <ion-toolbar color="primary" >
         <ion-buttons start>
             <button ion-button icon-only (click)="openMenu($event)">
                 <ion-icon name="list"></ion-icon>
@@ -12,12 +12,8 @@
             <button ion-button icon-only (click)="goGoalAddPage()">
                 <ion-icon name="add"></ion-icon>
             </button>
-
         </ion-buttons>
-    </ion-navbar>
-
-
-
+    </ion-toolbar>
 </ion-header>
 <ion-content class="page-home">
     <my-calendar (onTitleChanged)="onViewTitleChanged($event)"

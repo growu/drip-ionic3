@@ -6,20 +6,21 @@ import { Component,ViewChild} from '@angular/core';
 import { NavController,Tabs,IonicPage } from 'ionic-angular';
 
 
-@IonicPage(
-)
-@Component({
-    selector: 'page-tabs',
-    templateUrl: 'tabs.html'
+@IonicPage( {
+    name: 'main',
 })
-export class TabsPage {
+@Component({
+    selector: 'page-main',
+    templateUrl: 'main.html'
+})
+export class MainPage {
 
     @ViewChild('mainTabs') tabs: Tabs;
 
-    tabHomeRoot: string = 'home';
-    tabExplorerRoot: string = 'explore';
-    tabEventRoot: string = 'event';
-    tabMyRoot: string = 'my';
+    homeRoot: string = 'home';
+    explorerRoot: string = 'explore';
+    eventRoot: string = 'event';
+    myRoot: string = 'my';
 
     constructor() {
     }

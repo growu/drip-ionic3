@@ -12,7 +12,7 @@ import { SettingModel } from '../../models/setting.model'
   templateUrl: 'home.html'
 })
 export class HomePage {
-  public viewTitle:string;
+  public viewTitle:string = "目标";
   public setting:SettingModel;
 
   public events:any;
@@ -53,7 +53,7 @@ export class HomePage {
   }
 
   goGoalDetailPage() {
-    this.navCtrl.push('goal-detail',{});
+    this.navCtrl.push('goal-detail');
   }
 
   openMenu($event) {
