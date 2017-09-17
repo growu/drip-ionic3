@@ -1,126 +1,173 @@
-.login-page{
-  #header {
-    display: block;
-    background-color: #f9f9f9;
-    background-size: 100% 44px;
-    width: 100%;
-    height: 44px;
-    overflow: hidden;
-  }
-  .header-left {
-    width: 40px;
-    height: 44px;
-    position: absolute;
-  }
-  .header-left img {
-    //src:url('../');
-    width: 100%;
-    height: 100%;
-    padding: 10px;
-  }
-  .header-center {
-    display: flex;
-    height: 44px;
-    position: absolute;
-    left: 40px;
-    right: 40px;
-    align-items: center;
-    justify-content: center;
-  }
-  .header-center span {
-    font-size: 17px;
-    color: #616161;
-  }
-  .header-right {
-    width: 40px;
-    height: 44px;
-    position: absolute;
-    right: 0;
-  }
-  .content {
-    display: flex;
-    flex-direction: column;
-    flex-flow: wrap;
-    background-color: #F3F5F7;
+.login-page {
+  background-color: #488aff;
 
+  .third-title {
+    color:#c8c7cc;
   }
-  //.content #user_name{
-  //  width: 90%;
-  //  margin-top: 25px;
-  //  margin-left: 5%;
-  //  margin-right: 5%;
-  //  border-radius:5px;
-  //  border: 1px solid #EEEEEE;
-  //  background-color: white;
-  //}
-  .content #user_name {
-    width: 90%;
-    margin-left: 5%;
-    margin-right: 5%;
-    margin-top: 15px;
-    border-radius: 5px;
-    border: 1px solid #EEEEEE;
-    background-color: white;
-  }
-  .div_password_conetnt {
-    display: flex;
-    flex-direction: row;
-    border: 1px solid #EEEEEE;
-    background-color: white;
-    width: 90%;
-    margin-left: 5%;
-    margin-right: 5%;
-    margin-top: 15px;
-    border-radius: 5px;
-    border: 1px solid #EEEEEE;
-  }
-  .content #user_password {
-    type: "password"
-  }
-  #btn_login {
-    width: 90%;
-    height: 45px;
-    margin-left: 5%;
-    margin-right: 5%;
-    border-radius: 5px;
-    border: 1px solid #EEEEEE;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin-top: 35px;
-    background-color: #EEEEEE;
-  }
-  #onetep_btn_login {
-    width: 90%;
-    height: 45px;
-    margin-left: 5%;
-    margin-right: 5%;
-    border-radius: 5px;
-    border: 1px solid red;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin-top: 25px;
-    background-color: white;
-  }
-  .div_login_check{
-    width: 90%;
-    margin-left: 5%;
-    margin-right: 5%;
-    display: flex;
-    //align-items:flex-start;
-    //justify-content: center;
-    margin-top: 15px;
-  }
-  #checkbox_login{
 
+  .third-toolbar {
+    padding-top:10px;
+
+    .icon {
+      font-size:3rem;
+      color:#fff;
+    }
   }
-  .div_bttom_function{
-    width: 90%;
-    margin-top: 10px;
-    margin-left: 5%;
-    margin-right: 5%;
+
+  .login-button {
+    color:#488aff;
+    font-weight: 600;
+  }
+
+  .register-title {
+    color:#c8c7cc;
+    position: absolute;
+    bottom:0;
+    left:0;
+    right:0;
+
+    a {
+      color:#fff;
+    }
+  }
+
+
+  // Animation properties
+  $anim-width:    200px;
+  $anim-height:   250px;
+  $anim-duration: 10s;
+
+  // Splash properties
+  $splash-width:  $anim-width;
+  $splash-height: $anim-width / 2;
+  $splash-origin: $splash-height / 2;
+  $water-level:   $splash-origin;
+
+  // Drip properties
+  $drip-size:     15px;
+  $drip-pos:      ($splash-width / 2) - ($drip-size / 2);
+  $drip-rebound:  40px;
+  $drip-re-size:  5px;
+  $drip-re-pos:   ($splash-width / 2) - ($drip-re-size / 2);
+
+  // Colours
+  $c-drip:        #FFF;
+  $c-splash:      #FFF;
+  $c-bg:          #43A2CE;
+
+
+
+  .drip {
+    width: $anim-width;
+    height: $anim-height;
     display: flex;
-    justify-content: space-between;
+    flex-wrap: wrap;
+    justify-content: center;
+    margin: auto;
+    position: relative;
+
+    &:before {
+      position: absolute;
+      left: $drip-pos;
+      top: 0;
+      content: '';
+      width: $drip-size;
+      height: $drip-size;
+      background-color: $c-drip;
+      border-radius: 50%;
+      opacity: 0;
+      animation: drip $anim-duration ease infinite;
+    }
+
+    &:after {
+      box-sizing: border-box;
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      content: '';
+      width: 0px;
+      height: 0px;
+      border: solid 4px $c-drip;
+      border-radius: 50%;
+      opacity: 0;
+      animation: splash $anim-duration ease infinite;
+    }
   }
+
+  @keyframes drip {
+    10% {
+      top: 0;
+      opacity: 1;
+      animation-timing-function: cubic-bezier(.24,0,.76,.14);
+    }
+    25% {
+      opacity: 1;
+      top: $anim-height - $water-level;
+      animation-timing-function: ease-out;
+      width: $drip-size;
+      height: $drip-size;
+      left: $drip-pos;
+    }
+    30% {
+      opacity: 1;
+      top: $anim-height - ($water-level + $drip-rebound);
+      width: $drip-re-size;
+      height: $drip-re-size;
+      animation-timing-function: ease-in;
+      left: $drip-re-pos;
+    }
+    33% {
+      top: $anim-height - $water-level;
+      opacity: 0;
+      animation-timing-function: ease-out;
+      left: $drip-re-pos;
+    }
+    33.001% {
+      opacity: 0;
+    }
+    100% {
+      opacity: 0;
+    }
+  }
+
+  @keyframes splash {
+    0% {
+      opacity: 0;
+    }
+    25% {
+      bottom: $splash-height / 2;
+      left: $splash-width / 2;
+      opacity: 0;
+      width: 0px;
+      height: 0px;
+    }
+    25.001% {
+      opacity: 1;
+    }
+    33% {
+      bottom: 0;
+      left: 0;
+      opacity: 0;
+      width: $splash-width;
+      height: $splash-height;
+    }
+    33.001% {
+      bottom: $splash-height / 2;
+      left: $splash-width / 2;
+      opacity: 1;
+      width: 0px;
+      height: 0px;
+    }
+    43% {
+      bottom: 0;
+      left: 0;
+      opacity: 0;
+      width: $splash-width;
+      height: $splash-height;
+    }
+    43.001% {
+      opacity: 0;
+    }
+  }
+
 }

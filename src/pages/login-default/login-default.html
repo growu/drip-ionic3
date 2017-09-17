@@ -1,0 +1,37 @@
+<ion-header>
+    <ion-navbar color="primary">
+        <ion-title>登录</ion-title>
+    </ion-navbar>
+</ion-header>
+<ion-content padding class="page-login-default">
+    <form [formGroup]="loginForm" (ngSubmit)="doLogin()">
+        <ion-list>
+            <ion-item>
+                <ion-label>
+                    <ion-icon name="md-phone-portrait" color="light"></ion-icon>
+                </ion-label>
+                <ion-input type="text" formControlName="account" placeholder="手机号或邮箱" clearInput></ion-input>
+            </ion-item>
+            <ion-item>
+                <ion-label>
+                    <ion-icon name="md-unlock" color="light"></ion-icon>
+                </ion-label>
+                <ion-input formControlName="password" type="{{isShowPassword?'text':'password'}}" placeholder="密码"></ion-input>
+                <button ion-button clear color="dark" item-right (click)="showPassword()" class="show-btn">
+                    <ion-icon name="{{isShowPassword?'eye':'eye-off'}}" color="light"></ion-icon>
+                </button>
+            </ion-item>
+        </ion-list>
+        <ion-row padding>
+            <button block round ion-button  type="submit">登录</button>
+        </ion-row>
+    </form>
+    <ion-row padding class="footer-bar">
+        <ion-col col-6 text-left>
+            <span (click)="goRegisterPage()">注册账号</span>
+        </ion-col>
+        <ion-col col-6 text-right>
+            <span (click)="goForgetPage()">忘记密码?</span>
+        </ion-col>
+    </ion-row>
+</ion-content>

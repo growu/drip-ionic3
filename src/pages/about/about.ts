@@ -3,10 +3,8 @@ import { IonicPage, NavController, NavParams} from 'ionic-angular';
 import { InAppBrowser } from '@ionic-native/in-app-browser';
 import { Platform } from 'ionic-angular';
 
-
 @IonicPage({
   name:'about',
-  segment:'about'
 })
 @Component({
   selector: 'page-about',

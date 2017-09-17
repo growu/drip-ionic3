@@ -12,7 +12,7 @@ import { SettingModel } from '../../models/setting.model'
   templateUrl: 'home.html'
 })
 export class HomePage {
-  public viewTitle:string = "目标";
+  public viewTitle:string = "今天";
   public setting:SettingModel;
 
   public events:any;
@@ -40,6 +40,7 @@ export class HomePage {
   ionViewDidLoad() {
     
   }
+
   onViewTitleChanged(title) {
     this.viewTitle = title;
   }
@@ -74,6 +75,15 @@ export class HomePage {
         this.userSrv.updateSetting(this.setting);
       }
     })
+  }
+
+  doRefresh(refresher) {
+    console.log('Begin async operation', refresher);
+
+    setTimeout(() => {
+      console.log('Async operation has ended');
+      refresher.complete();
+    }, 2000);
   }
 
 }

@@ -4,11 +4,18 @@ import 'rxjs/add/operator/map';
 import { SettingModel } from '../../models/setting.model'
 import { Storage } from '@ionic/storage';
 
+import { HttpProvider } from '../http/http';
+
 @Injectable()
 export class UserProvider {
 
-  constructor(public http: Http,private storage: Storage) {
+  constructor(public httpProivder: HttpProvider,private storage: Storage) {
   }
+
+  login(user) {
+    return this.httpProivder.httpPostNoAuth("/auth/login", user);
+  }
+
 
   getSetting() {
    return this.storage.get('setting');

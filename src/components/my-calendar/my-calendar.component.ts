@@ -44,6 +44,8 @@ export class MyCalendarComponent {
     ngAfterViewInit() {
         if(this._dayArray) {
             this.onTitleChanged.emit(this._dayArray.original.title);
+        } else {
+            this.onTitleChanged.emit("今天");
         }
     }
 
@@ -81,6 +83,9 @@ export class MyCalendarComponent {
             this.currentMonth = this._dayArray.original.month;
             this.currentWeek = this._dayArray.original.week;
             this.onTitleChanged.emit(this._dayArray.original.title);
+        } else {
+            this.onTitleChanged.emit("今天");
+            this.onDaySelected.emit(new Date().getTime());
         }
 
     }
