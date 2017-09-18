@@ -81,7 +81,7 @@ my-calendar{
     width: 14%;
     float: left;
     text-align: center;
-    height: 40px;
+    height: 50px;
   }
 
    .days .marked p {
@@ -89,9 +89,9 @@ my-calendar{
     font-weight: 500;
   }
 
-  .days .today p {
-    border-bottom: 2px solid #3b97f7;
-    padding-bottom: 2px;
+  .days .today {
+    border: 1px solid #3b97f7;
+    //padding-bottom: 2px;
   }
 
   .days .on-selected {
@@ -119,6 +119,27 @@ my-calendar{
     margin: 0;
     font-size: 1.0em;
     color: #333;
+  }
+
+  .days .day-events {
+    list-style: none;
+    margin-top: 3px;
+    text-align: center;
+    height: 12px;
+    line-height: 6px;
+    overflow: hidden;
+  }
+
+  .days .day-events span {
+    vertical-align: top;
+    display: inline-block;
+    padding: 0;
+    margin: 0;
+    width: 5px;
+    height: 5px;
+    line-height: 5px;
+    margin: 0 1px;
+    background-color: #495aa7;
   }
 
 

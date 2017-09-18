@@ -3,6 +3,7 @@ import { NavController,Tabs,IonicPage,PopoverController} from 'ionic-angular';
 import { UserProvider } from '../../providers/user/user'
 
 import { SettingModel } from '../../models/setting.model'
+import * as moment from 'moment'
 
 @IonicPage({
   name:'home',
@@ -14,15 +15,13 @@ import { SettingModel } from '../../models/setting.model'
 export class HomePage {
   public viewTitle:string = "今天";
   public setting:SettingModel;
-
-  public events:any;
-  public goals:any;
+  public remindTime;
+  public goals:any[];
 
   constructor(public navCtrl: NavController,
               private popoverCtrl: PopoverController,
               private userProvider:UserProvider
   ) {
-    this.events = Array(6).fill(0).map((x,i)=>i);
 
     this.userProvider.getSetting().then((settingData) => {
       console.log(settingData);
@@ -40,12 +39,14 @@ export class HomePage {
 
 
   ionViewDidLoad() {
-    this.getGoals();
+    let today = moment().format("YYYY-MM-DD");
+    this.getGoals(today);
   }
 
-  getGoals() {
-    this.userProvider.getGoals().then((data)=>{
-      this.goals =  data.goals;
+  getGoals(date) {
+    this.userProvider.getGoals(date).then((data)=>{
+      console.log(data);
+      this.goals =  data;
     });
   }
 
@@ -54,7 +55,7 @@ export class HomePage {
   }
 
   onDaySelected(day) {
-    console.log(day);
+    this.getGoals(moment(day).format("YYYY-MM-DD"));
   }
 
   goGoalAddPage() {
@@ -65,8 +66,12 @@ export class HomePage {
     this.navCtrl.push('goal-detail',{'homePage':this});
   }
 
-  setRemindTime() {
+  setRemindTime(goal,$event) {
+    console.log($event);
 
+    this.userProvider.updateGoal(goal).then((data)=>{
+
+    });
   }
 
   openMenu($event) {

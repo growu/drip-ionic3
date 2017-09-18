@@ -76,18 +76,19 @@ export class MyCalendarComponent {
     refreshView(direction:string){
         let value = this._mode == 'week'?this.currentWeek:this.currentMonth;
 
-        this._dayArray = this.myCalendarService.createCalendarDays(this.currentYear,value,this.currentDay.getTime(),this._mode,direction);
-
-        if(this._dayArray) {
-            this.currentYear = this._dayArray.original.year;
-            this.currentMonth = this._dayArray.original.month;
-            this.currentWeek = this._dayArray.original.week;
-            this.onTitleChanged.emit(this._dayArray.original.title);
-        } else {
-            this.onTitleChanged.emit("今天");
-            this.onDaySelected.emit(new Date().getTime());
-        }
-
+        this.myCalendarService.createCalendarDays(this.currentYear,value,this.currentDay.getTime(),this._mode,direction).then((data)=>{
+            console.log(data);
+            this._dayArray = data;
+            if(this._dayArray) {
+                this.currentYear = this._dayArray.original.year;
+                this.currentMonth = this._dayArray.original.month;
+                this.currentWeek = this._dayArray.original.week;
+                this.onTitleChanged.emit(this._dayArray.original.title);
+            } else {
+                this.onTitleChanged.emit("今天");
+                this.onDaySelected.emit(new Date().getTime());
+            }
+        });
     }
 
     swipeEvent($event) {

@@ -6,17 +6,20 @@
  * @version 1.0
  */
 import { Injectable } from '@angular/core';
-import {MyCalendarMode, MyCalendarDay, MyCalendarDays,MyCalendarOriginal} from './my-calendar.model';
+import { MyCalendarMode, MyCalendarDay, MyCalendarDays,MyCalendarOriginal} from './my-calendar.model';
+import { UserProvider } from '../../providers/user/user'
+import { DatePipe } from '@angular/common';
+import * as moment from 'moment'
 
 @Injectable()
 
 export class MyCalendarService {
 
-    constructor() {
+    constructor(private userProvider:UserProvider) {
 
     }
 
-    createCalendarDays(year:number,value:number,day:number,mode:MyCalendarMode,direction:string): MyCalendarDays {
+    createCalendarDays(year:number,value:number,day:number,mode:MyCalendarMode,direction:string):Promise<MyCalendarDays> {
     
         if(mode == 'week') {
             // 取出当年的周数
@@ -90,18 +93,20 @@ export class MyCalendarService {
 
     createCalendarDay(date:number,disable:boolean): MyCalendarDay {
 
+        let myCalendarDay: MyCalendarDay = {} as any;
+
         let day = new Date(date);
         let today = new Date();
-
         let isToday = (day.toDateString() == today.toDateString())?true:false;
 
-        return {
-            date:date,
-            isToday:isToday,
-            selected:true,
-            disable:disable,
-            title:new Date(date).getDate().toString()
-        };
+        myCalendarDay.date = date;
+        myCalendarDay.isToday = isToday;
+        myCalendarDay.disable = disable;
+        myCalendarDay.title = isToday?"今":new Date(date).getDate().toString();
+        myCalendarDay.events = 0;
+
+        return myCalendarDay;
+
     }
 
     createCalendarOriginal(year: number,month:number,week:number,mode:MyCalendarMode): MyCalendarOriginal {
@@ -122,26 +127,26 @@ export class MyCalendarService {
         }
     }
 
-    createCalendarMonth(year:number,month:number,day:number):MyCalendarDays {
+    createCalendarMonth(year:number,month:number,day:number):Promise<MyCalendarDays> {
         console.log(month);
 
         let totalDays = new Date(year, month, 0).getDate();
-        let firstDay = new Date(year, month-1, 1);
-        let lastDay = new Date(year, month, 0);
+        let firstDayOfMonth = new Date(year, month-1, 1);
+        let lastDayOfMonth = new Date(year, month, 0);
 
         console.log(totalDays);
 
         let days: Array<MyCalendarDay> = new Array<MyCalendarDay>();
+        // let promises:Promise<any>[] = [];
 
         // 获取之前
-        if(firstDay.getDay()>0) {
-            for (let i=0;i<firstDay.getDay();i++) {
+        if(firstDayOfMonth.getDay()>0) {
+            for (let i=0;i<firstDayOfMonth.getDay();i++) {
                 let tmpDay = new Date(year, month-1, 1);
-                let day = tmpDay.setDate(firstDay.getDate() - (firstDay.getDay()-i));
+                let day = tmpDay.setDate(firstDayOfMonth.getDate() - (firstDayOfMonth.getDay()-i));
                 days.push(this.createCalendarDay(day,true));
             }
         }
-
 
         for(let i=0;i<totalDays;i++) {
 
@@ -151,10 +156,10 @@ export class MyCalendarService {
         }
 
         // 获取尾数
-        if(lastDay.getDay()<6) {
-            for(let i=1;i<=(6-lastDay.getDay());i++) {
+        if(lastDayOfMonth.getDay()<6) {
+            for(let i=1;i<=(6-lastDayOfMonth.getDay());i++) {
                 let tmpDay = new Date(year, month, 0);
-                let day = tmpDay.setDate(lastDay.getDate()+i);
+                let day = tmpDay.setDate(lastDayOfMonth.getDate()+i);
                 days.push(this.createCalendarDay(day,true));
             }
         }
@@ -166,16 +171,31 @@ export class MyCalendarService {
         if(currentDay.getFullYear() == year && currentDay.getMonth()  == month) {
             week = this.getWeekNumber(currentDay)[1];
         } else {
-            week = this.getWeekNumber(firstDay)[1];
+            week = this.getWeekNumber(firstDayOfMonth)[1];
         }
 
-        return {
-            original:this.createCalendarOriginal(year,month,week,'month'),
-           days:days,
-        }
+        let num = firstDayOfMonth.getDay()+totalDays+6-lastDayOfMonth.getDay();
+
+        let firstDay = moment(days[0].date).format('YYYY-MM-DD')
+
+        let lastDay = moment(days[num-1].date).format('YYYY-MM-DD')
+
+        return this.userProvider.getGoalsCalendar(firstDay,lastDay).then((data)=>{
+            if(data) {
+                data.forEach((item,index) => {
+                    days[index].events = item;
+                });
+            }
+
+            return {
+                original:this.createCalendarOriginal(year,month,week,'month'),
+                days:days,
+            }
+        });
+
     }
 
-    createCalendarWeek(year:number,week:number):MyCalendarDays {
+    createCalendarWeek(year:number,week:number):Promise<MyCalendarDays> {
         let d = new Date("Jan 01, "+year+" 01:00:00");
 
         let w = d.getTime() + 604800000 * (week-1);
@@ -184,16 +204,32 @@ export class MyCalendarService {
 
         let days: Array<MyCalendarDay> = new Array<MyCalendarDay>();
 
+        let promises:Promise<any>[] = [];
+
         for (let i=0;i<7;i++) {
             let day = 0;
             day = w + 60*1000*60*24*i;
-            days.push(this.createCalendarDay(day,false))
+            days.push(this.createCalendarDay(day,false));
         }
 
-        return {
-            original:this.createCalendarOriginal(year,month,week,'week'),
-            days:days,
-        }
+        let firstDay = moment(days[0].date).format('YYYY-MM-DD');
+
+        let lastDay = moment(days[6].date).format('YYYY-MM-DD');
+
+        return this.userProvider.getGoalsCalendar(firstDay,lastDay).then((data)=>{
+            if(data) {
+                data.forEach((item,index) => {
+                    days[index].events = item;
+                });
+            }
+
+            return {
+                original:this.createCalendarOriginal(year,month,week,'month'),
+                days:days,
+            }
+        });
+
+
 
     }
 }

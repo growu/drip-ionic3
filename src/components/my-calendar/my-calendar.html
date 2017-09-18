@@ -8,7 +8,7 @@
     <ion-slide>
         <div *ngIf="'week'===_mode">
             <div class="days-box">
-                <div class="days" *ngFor="let day of _dayArray.days" class="days">
+                <div class="days" *ngFor="let day of _dayArray?.days" class="days">
                     <button class="days-btn"
                             *ngIf="day"
                             [class.today]="day.isToday"
@@ -17,12 +17,15 @@
                             [disabled]="day.disable">
                         <p>{{day.title}}</p>
                     </button>
+                    <div class="day-events" *ngIf="day.events>0">
+                        <span class="orange"></span>
+                    </div>
                 </div>
             </div>
         </div>
         <div *ngIf="'month'===_mode">
             <div class="days-box">
-                <div class="days" *ngFor="let day of _dayArray.days" class="days">
+                <div class="days" *ngFor="let day of _dayArray?.days" class="days">
                     <button class="days-btn"
                             *ngIf="day"
                             [class.today]="day.isToday"
@@ -31,6 +34,9 @@
                             [disabled]="day.disable">
                     <p>{{day.title}}</p>
                     </button>
+                    <div class="day-events" *ngIf="day.events>0">
+                        <span class="orange"></span>
+                    </div>
                 </div>
             </div>
         </div>

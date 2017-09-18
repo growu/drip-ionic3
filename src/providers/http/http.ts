@@ -1,8 +1,9 @@
-import { Injectable } from '@angular/core';
+import { Injectable,Injector } from '@angular/core';
 import { Http, Response } from '@angular/http';
-import { Observable } from 'rxjs/Observable';
+// import { Observable } from 'rxjs/Observable';
+import { Observable } from 'rxjs/Rx'
 import { Headers, RequestOptions,URLSearchParams} from '@angular/http';
-import { ToastController } from 'ionic-angular';
+import { App,NavController,ToastController } from 'ionic-angular';
 
 import 'rxjs/add/operator/toPromise';
 
@@ -13,11 +14,14 @@ export class HttpProvider {
   myInfoLocal: any;
   host : string;
 
-  API_URL = 'http://localhost:8102/api';
+  API_URL = 'http://localhost:8104/api';
 
   constructor(
       private http: Http,
-      private toastCtrl:ToastController) {
+      private toastCtrl:ToastController,
+      protected injector: Injector,
+      protected app: App,
+      private storage:Storage) {
   }
 
   public httpGetWithAuth(url: string,params: URLSearchParams) {
@@ -29,7 +33,7 @@ export class HttpProvider {
       let options = new RequestOptions({ headers: headers,search: params });
       return this.http.get(this.API_URL+url, options).toPromise()
           .then(res => this.handleSuccess(res.json()))
-          .catch(err => this.handleError(err));
+          .catch(err => {this.handleError(err)});
     });
 
   }
@@ -42,7 +46,7 @@ export class HttpProvider {
     let options = new RequestOptions({ headers: headers,search: params });
     return this.http.get(this.API_URL+url, options).toPromise()
         .then(res => this.handleSuccess(res.json()))
-        .catch(err => this.handleError(err));
+        .catch(err => {this.handleError(err)});
   }
   public httpPostNoAuth(url: string, body: any) {
     var headers = new Headers();
@@ -54,27 +58,29 @@ export class HttpProvider {
         .catch(err => this.handleError(err));
   }
 
-  public httpPostWithAuth(body: any, url: string) {
+  public httpPostWithAuth( url: string,body: any) {
 
     return this.storage.get("token").then(data=>{
       var headers = new Headers();
-              headers.append('Content-Type', 'application/json');
-              headers.append('Authorization', result.ID + '-' + result.UserToken);
-              let options = new RequestOptions({ headers: headers });
-              return this.http.post(url, body, options).toPromise()
+      headers.append('Content-Type', 'application/json');
+      headers.append('Accept', 'application/x.drip.v2+json');
+      headers.append('Authorization', 'Bearer '+data );
+      let options = new RequestOptions({ headers: headers });
+              return this.http.post(this.API_URL+url, body, options).toPromise()
                 .then(res => this.handleSuccess(res.json()))
                 .catch(err => this.handleError(err));
           });
   }
 
-  public httpPatchWithAuth(body: any, url: string) {
+  public httpPatchWithAuth(url: string,body: any) {
 
     return this.storage.get("token").then(data=>{
       var headers = new Headers();
       headers.append('Content-Type', 'application/json');
-      headers.append('Authorization', result.ID + '-' + result.UserToken);
+      headers.append('Accept', 'application/x.drip.v2+json');
+      headers.append('Authorization', 'Bearer '+data );
       let options = new RequestOptions({ headers: headers });
-      return this.http.patch(url, body, options).toPromise()
+      return this.http.patch(this.API_URL+url, body, options).toPromise()
           .then(res => this.handleSuccess(res.json()))
           .catch(err => this.handleError(err));
     });
@@ -89,19 +95,11 @@ export class HttpProvider {
   private handleError(error: Response | any) {
     console.log(error);
 
-    let msg = error.message || '请求地址错误';
+    let msg = error.json().message || '请求地址错误';
 
-    // if (error.status == 0) {
-    //   msg = '请求地址错误';
-    // }
-    // if (error.status == 400) {
-    //   msg = '请求无效';
-    //   console.log('请检查参数类型是否匹配');
-    // }
-    // if (error.status == 404) {
-    //   msg = '请求资源不存在';
-    //   console.error(msg+'，请检查路径是否正确');
-    // }
+    if (error.status == 400) {
+      this.app.getActiveNav().push('login-default');
+    }
 
     let toast = this.toastCtrl.create({
       message: msg,
@@ -113,6 +111,6 @@ export class HttpProvider {
 
     toast.present();
 
-    return {status: false, message: msg};
+    return Observable.throw(msg);
   }
 }

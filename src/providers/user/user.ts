@@ -4,6 +4,7 @@ import { SettingModel } from '../../models/setting.model'
 import { Storage } from '@ionic/storage';
 import { Device } from '@ionic-native/device';
 import { HttpProvider } from '../http/http';
+import { URLSearchParams } from '@angular/http';
 
 @Injectable()
 export class UserProvider {
@@ -18,12 +19,21 @@ export class UserProvider {
     return this.httpProivder.httpPostNoAuth("/auth/login", user);
   }
 
-  getGoals(){
-    return this.httpProivder.httpGetWithAuth("/user/goals",null);
+  getGoals(date){
+    var params = new URLSearchParams();
+    params.set('day',date);
+    return this.httpProivder.httpGetWithAuth("/user/goals",params);
   }
 
-  updateGoal(){
-    return this.httpProivder.httpPatchWithAuth("/user/goal",null);
+  getGoalsCalendar(start_date,end_date){
+    let params: URLSearchParams = new URLSearchParams();
+    params.set('start_date',start_date);
+    params.set('end_date',end_date);
+    return this.httpProivder.httpGetWithAuth("/user/goals/calendar",params);
+  }
+
+  updateGoal(goal){
+    return this.httpProivder.httpPatchWithAuth("/user/goal/"+goal.id,goal);
   }
 
   getSetting() {

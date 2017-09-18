@@ -17,9 +17,9 @@ export interface MyCalendarOriginal {
 
 
 export interface MyCalendarDay {
-    date: any;
+    date: number;
     isToday: boolean;
-    selected: boolean;
+    events: number;
     disable: boolean;
     title:string;
 }
