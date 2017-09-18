@@ -3,6 +3,7 @@ import { HttpModule } from '@angular/http';
 import { ErrorHandler, NgModule } from '@angular/core';
 import { IonicApp, IonicErrorHandler, IonicModule} from 'ionic-angular';
 import { SplashScreen } from '@ionic-native/splash-screen';
+import { Device } from '@ionic-native/device';
 import { StatusBar } from '@ionic-native/status-bar';
 import { MyApp } from './app.component';
 import { IonicStorageModule } from '@ionic/storage';
@@ -39,6 +40,7 @@ import { HttpProvider } from '../providers/http/http';
   providers: [
     StatusBar,
     SplashScreen,
+    Device,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
     {
       provide: HAMMER_GESTURE_CONFIG,

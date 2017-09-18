@@ -67,6 +67,10 @@
     .check-icon {
       font-size:4rem;
     }
+
+    .check-icon.active {
+      color:#488aff;
+    }
     ion-card-content {
       padding:0;
     }

@@ -22,6 +22,7 @@ export class GoalDetailPage {
 
   ionViewDidLoad() {
     console.log("goal detail tabs page");
+    this.navParams.get("homePage").getGoals();
   }
 
 }

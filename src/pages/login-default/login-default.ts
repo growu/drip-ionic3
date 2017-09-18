@@ -2,6 +2,8 @@ import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, ToastController} from 'ionic-angular';
 import { Validators, FormBuilder, FormGroup } from '@angular/forms';
 import { AccountValidator } from '../../validators/account';
+import { UserProvider } from "./../../providers/user/user";
+import { Storage } from '@ionic/storage';
 
 @IonicPage({
   name:'login-default',
@@ -20,7 +22,10 @@ export class LoginDefaultPage {
   constructor(public navCtrl: NavController,
               public navParams: NavParams,
               public toastCtrl: ToastController,
-              private formBuilder: FormBuilder) {
+              private formBuilder: FormBuilder,
+              private userProvider: UserProvider,
+              private storage: Storage
+  ) {
 
     this.loginForm = this.formBuilder.group({
       'account': ['', [Validators.required, AccountValidator.isValid]],
@@ -54,7 +59,11 @@ export class LoginDefaultPage {
       }
     }
 
-    this.userProvider.login(this.loginForm.value);
+    this.userProvider.login(this.loginForm.value).then(data => {
+      this.storage.set('token', data.token);
+      this.storage.set('user', data.user);
+      this.navCtrl.push('main');
+    });;
   }
 
   ionViewDidLoad() {

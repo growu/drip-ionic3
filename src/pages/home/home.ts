@@ -16,18 +16,20 @@ export class HomePage {
   public setting:SettingModel;
 
   public events:any;
+  public goals:any;
 
   constructor(public navCtrl: NavController,
               private popoverCtrl: PopoverController,
-              private userSrv:UserProvider
+              private userProvider:UserProvider
   ) {
     this.events = Array(6).fill(0).map((x,i)=>i);
-    this.userSrv.getSetting().then((settingData) => {
+
+    this.userProvider.getSetting().then((settingData) => {
       console.log(settingData);
       if(settingData) {
         this.setting = settingData;
       } else {
-        this.setting = this.userSrv.getDefaultSetting();
+        this.setting = this.userProvider.getDefaultSetting();
       }
     });
   }
@@ -38,7 +40,13 @@ export class HomePage {
 
 
   ionViewDidLoad() {
-    
+    this.getGoals();
+  }
+
+  getGoals() {
+    this.userProvider.getGoals().then((data)=>{
+      this.goals =  data.goals;
+    });
   }
 
   onViewTitleChanged(title) {
@@ -54,7 +62,11 @@ export class HomePage {
   }
 
   goGoalDetailPage() {
-    this.navCtrl.push('goal-detail');
+    this.navCtrl.push('goal-detail',{'homePage':this});
+  }
+
+  setRemindTime() {
+
   }
 
   openMenu($event) {
@@ -72,18 +84,18 @@ export class HomePage {
     popover.onDidDismiss((settingData) => {
       if(settingData) {
         this.setting = settingData;
-        this.userSrv.updateSetting(this.setting);
+        this.userProvider.updateSetting(this.setting);
       }
     })
   }
 
-  doRefresh(refresher) {
-    console.log('Begin async operation', refresher);
-
-    setTimeout(() => {
-      console.log('Async operation has ended');
-      refresher.complete();
-    }, 2000);
-  }
+  // doRefresh(refresher) {
+  //   console.log('Begin async operation', refresher);
+  //
+  //   setTimeout(() => {
+  //     console.log('Async operation has ended');
+  //     refresher.complete();
+  //   }, 2000);
+  // }
 
 }

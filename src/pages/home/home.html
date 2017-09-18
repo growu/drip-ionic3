@@ -33,16 +33,17 @@
                  *ngIf="setting?.calendarMode">
     </my-calendar>
 
-
     <ion-list *ngIf="setting?.viewMode=='list'" class="events-list">
-            <ion-card *ngFor="let event of events">
+            <ion-card *ngFor="let goal of goals">
                 <ion-card-content>
                     <ion-item-sliding>
                         <ion-item (click)="goGoalDetailPage($event)">
-                            <ion-icon name="checkmark-circle" class="check-icon" item-start></ion-icon>
-                            <ion-label  (click)="goGoalDetailPage($event)">
-                                <h2>每天6点起床</h2>
-                                <p><button color="secondary" ion-button small outline>进行中</button>
+                            <ion-icon name="checkmark-circle" class="check-icon" [class.active]="!goal.is_today_checkin" item-start></ion-icon>
+                            <ion-label>
+                                <h2>{{goal.name}}</h2>
+                                <p>
+                                    <button *ngIf="goal.status==0" color="secondary" ion-button small outline>进行中</button>
+                                    <button *ngIf="goal.status==1" color="danger" ion-button small outline>已完成</button>
                                 </p>
                             </ion-label>
 
@@ -51,8 +52,9 @@
                                           pickerFormat="HH mm"
                                           cancelText="清空"
                                           doneText="保存"
-                                          placeholder="未设置"
-                                          [(ngModel)]="myDate"></ion-datetime>
+                                          placeholder="{{goal.remind_time || '未设置' }}"
+                                          (ionChnage)="setRemindTime(goal)">
+                            </ion-datetime>
 
                         </ion-item>
                         <ion-item-options>
@@ -78,7 +80,7 @@
 
     <ion-list *ngIf="setting?.viewMode=='card'" class="events-card">
             <ion-row>
-                <ion-col *ngFor="let event of events" col-6>
+                <ion-col *ngFor="let event of goals" col-6>
                     <ion-card >
                         <ion-card-header text-center>
                             每天6点起床
