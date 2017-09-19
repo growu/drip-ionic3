@@ -19,10 +19,16 @@ export class UserProvider {
     return this.httpProivder.httpPostNoAuth("/auth/login", user);
   }
 
-  getGoals(date){
+  getGoals(data){
     var params = new URLSearchParams();
-    params.set('day',date);
+    params.set('day',data);
     return this.httpProivder.httpGetWithAuth("/user/goals",params);
+  }
+
+  getGoal(id){
+    var params = new URLSearchParams();
+    params.set('id',id);
+    return this.httpProivder.httpGetWithAuth("/user/goal",params);
   }
 
   getGoalsCalendar(start_date,end_date){
@@ -35,6 +41,7 @@ export class UserProvider {
   updateGoal(goal){
     return this.httpProivder.httpPatchWithAuth("/user/goal/"+goal.id,goal);
   }
+
 
   getSetting() {
    return this.storage.get('setting');

@@ -63,14 +63,22 @@
     color:#488aff;
   }
 
+  .check-icon.active {
+    color:#488aff;
+  }
+
+  .button-small {
+    padding:0 5px;
+    height:1.5rem;
+  }
+
+
   .events-list {
     .check-icon {
       font-size:4rem;
     }
 
-    .check-icon.active {
-      color:#488aff;
-    }
+
     ion-card-content {
       padding:0;
     }
@@ -109,6 +117,11 @@
         font-size:12px;
         padding:0;
       }
+
+      ion-datetime {
+        padding:5px 0;
+      }
+
 
 
 

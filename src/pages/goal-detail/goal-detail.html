@@ -20,9 +20,9 @@
 <ion-content class="page-goal-detail">
 
     <super-tabs scrollTabs tabsPlacement="bottom">
-      <super-tab [root]="page1" title="概况"></super-tab>
-      <super-tab [root]="page2" title="动态"></super-tab>
-      <super-tab [root]="page3" title="统计"></super-tab>
+      <super-tab [root]="page1" [rootParams]="navParams" title="概况"></super-tab>
+      <super-tab [root]="page2" [rootParams]="navParams" title="动态"></super-tab>
+      <super-tab [root]="page3" [rootParams]="navParams" title="统计"></super-tab>
     </super-tabs>
 
 </ion-content>

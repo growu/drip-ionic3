@@ -59,11 +59,11 @@ export class HomePage {
   }
 
   goGoalAddPage() {
-    this.navCtrl.push('goal-add',{});
+    this.navCtrl.push('goal-create',{});
   }
 
-  goGoalDetailPage() {
-    this.navCtrl.push('goal-detail',{'homePage':this});
+  goGoalDetailPage(id) {
+    this.navCtrl.push('goal-detail',{'id':id,'homePage':this});
   }
 
   setRemindTime(goal,$event) {

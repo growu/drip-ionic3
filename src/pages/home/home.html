@@ -37,7 +37,7 @@
             <ion-card *ngFor="let goal of goals">
                 <ion-card-content>
                     <ion-item-sliding>
-                        <ion-item (click)="goGoalDetailPage($event)">
+                        <ion-item (click)="goGoalDetailPage(goal.id,$event)">
                             <ion-icon name="checkmark-circle" class="check-icon" [class.active]="!goal.is_today_checkin" item-start></ion-icon>
                             <ion-label>
                                 <h2>{{goal.name}}</h2>
@@ -86,8 +86,8 @@
                         <ion-card-header text-center>
                             {{goal.name}}
                         </ion-card-header>
-                        <ion-card-content text-center padding-top (click)="goGoalDetailPage($event)">
-                            <ion-icon name="checkmark-circle" class="check-icon" ></ion-icon>
+                        <ion-card-content text-center padding-top (click)="goGoalDetailPage(goal.id,$event)">
+                            <ion-icon name="checkmark-circle" class="check-icon" [class.active]="!goal.is_today_checkin"></ion-icon>
                         </ion-card-content>
                         <ion-row class="footer">
                             <ion-col class="status">

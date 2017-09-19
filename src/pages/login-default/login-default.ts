@@ -63,7 +63,7 @@ export class LoginDefaultPage {
       this.storage.set('token', data.token);
       this.storage.set('user', data.user);
       this.navCtrl.push('main');
-    });;
+    });
   }
 
   ionViewDidLoad() {

@@ -14,10 +14,13 @@ export class GoalDetailPage {
   page1: any = "goal-detail-summary";
   page2: any = "goal-detail-event";
   page3: any = "goal-detail-chart";
+  goalId:number;
 
   constructor(public navCtrl: NavController,
               public navParams: NavParams,
               private superTabsCtrl: SuperTabsController) {
+
+    this.goalId = this.navParams.get('go');
   }
 
   ionViewDidLoad() {

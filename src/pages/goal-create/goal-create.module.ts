@@ -1,20 +1,20 @@
 import { NgModule } from '@angular/core';
 import { IonicPageModule } from 'ionic-angular';
-import { GoalAddPage } from './goal-add';
+import { GoalCreatePage } from './goal-create';
 import { MyWeekSelectorComponent } from '../../components/my-week-selector/my-week-selector';
 
 @NgModule({
   declarations: [
-    GoalAddPage,
+    GoalCreatePage,
     MyWeekSelectorComponent
   ],
   imports: [
-    IonicPageModule.forChild(GoalAddPage),
+    IonicPageModule.forChild(GoalCreatePage),
   ],
   exports: [
-    GoalAddPage
+    GoalCreatePage
   ],
   providers: [
   ]
 })
-export class GoalAddPageModule {}
+export class GoalCreatePageModule {}

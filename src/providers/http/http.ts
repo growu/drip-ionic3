@@ -14,7 +14,7 @@ export class HttpProvider {
   myInfoLocal: any;
   host : string;
 
-  API_URL = 'http://localhost:8104/api';
+  API_URL = 'http://localhost:8106/api';
 
   constructor(
       private http: Http,
@@ -55,7 +55,7 @@ export class HttpProvider {
     let options = new RequestOptions({ headers: headers });
     return this.http.post(this.API_URL+url, body, options).toPromise()
         .then(res => this.handleSuccess(res.json()))
-        .catch(err => this.handleError(err));
+        .catch(err => {this.handleError(err)});
   }
 
   public httpPostWithAuth( url: string,body: any) {
@@ -68,7 +68,7 @@ export class HttpProvider {
       let options = new RequestOptions({ headers: headers });
               return this.http.post(this.API_URL+url, body, options).toPromise()
                 .then(res => this.handleSuccess(res.json()))
-                .catch(err => this.handleError(err));
+                .catch(err => {this.handleError(err)});
           });
   }
 
@@ -82,7 +82,7 @@ export class HttpProvider {
       let options = new RequestOptions({ headers: headers });
       return this.http.patch(this.API_URL+url, body, options).toPromise()
           .then(res => this.handleSuccess(res.json()))
-          .catch(err => this.handleError(err));
+          .catch(err => {this.handleError(err)});
     });
   }
 

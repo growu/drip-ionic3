@@ -1,0 +1,60 @@
+<ion-header>
+
+  <ion-navbar color="primary">
+    <ion-title>创建目标</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+<ion-content class="page-goal-create">
+  <form [formGroup]="goalCreateForm" (ngSubmit)="doCreateGoal()">
+  <ion-list>
+    <ion-item>
+      <ion-input placeholder="目标名称" formControlName="name"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-textarea placeholder="描述你的目标" formControlName="desc"></ion-textarea>
+    </ion-item>
+  </ion-list>
+
+  <ion-list>
+    <ion-item>
+      <ion-label>开始日期</ion-label>
+      <ion-datetime placeholder="今天" displayFormat="YYYY-MM-DD" pickerFormat="MMM DD YYYY" cancelText="重置" doneText="保存"  min="today" formControlName="start_date"></ion-datetime>
+    </ion-item>
+
+    <ion-item>
+      <ion-label>结束日期</ion-label>
+      <ion-datetime #endDate placeholder="永久" (ionCancel)="onClearEndDate()" displayFormat="YYYY-MM-DD" pickerFormat="MMM DD YYYY" cancelText="清空" doneText="保存" formControlName="end_date"></ion-datetime>
+    </ion-item>
+
+  </ion-list>
+
+  <!--<ion-list>-->
+    <!--<ion-item>-->
+      <!--<ion-label>打卡频率</ion-label>-->
+    <!--</ion-item>-->
+    <!--<ion-item>-->
+      <!--<my-week-selector (onWeekChanged)="onWeekChanged($event)"></my-week-selector>-->
+    <!--</ion-item>-->
+  <!--</ion-list>-->
+
+  <ion-list>
+    <ion-item>
+      <ion-label>是否公开</ion-label>
+      <ion-toggle checked="false" formControlName="is_public"></ion-toggle>
+    </ion-item>
+    <ion-item>
+      <ion-label>提醒时间</ion-label>
+      <ion-datetime placeholder="无" displayFormat="HH:mm" pickerFormat="HH:mm" formControlName="remind_time"></ion-datetime>
+    </ion-item>
+  </ion-list>
+
+  <div padding>
+    <button ion-button block type="submit">提交</button>
+    </div>
+
+  </form>
+
+
+</ion-content>

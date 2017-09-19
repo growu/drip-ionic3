@@ -13,6 +13,7 @@ import { MyHammerConfig } from '../components/MyHammerConfig'
 import { HammerGestureConfig, HAMMER_GESTURE_CONFIG } from '@angular/platform-browser';
 import { UserProvider } from '../providers/user/user';
 import { HttpProvider } from '../providers/http/http';
+import { GoalProvider } from '../providers/goal/goal';
 
 
 @NgModule({
@@ -47,7 +48,8 @@ import { HttpProvider } from '../providers/http/http';
       useClass: MyHammerConfig
     },
     UserProvider,
-    HttpProvider
+    HttpProvider,
+    GoalProvider
   ]
 })
 export class AppModule {}
