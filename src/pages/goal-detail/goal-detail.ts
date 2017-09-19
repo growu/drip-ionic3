@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { SuperTabsController } from "ionic2-super-tabs/dist/index";
+import { UserProvider } from '../../providers/user/user'
 
 @IonicPage({
   name:"goal-detail"
@@ -14,18 +15,24 @@ export class GoalDetailPage {
   page1: any = "goal-detail-summary";
   page2: any = "goal-detail-event";
   page3: any = "goal-detail-chart";
-  goalId:number;
+
+  goal:any = {};
 
   constructor(public navCtrl: NavController,
               public navParams: NavParams,
+              private userProvider: UserProvider,
               private superTabsCtrl: SuperTabsController) {
+  }
 
-    this.goalId = this.navParams.get('go');
+  getGoal() {
+    let id = this.navParams.data.id;
+    this.userProvider.getGoal(id).then((data)=>{
+      this.goal = data;
+    });
   }
 
   ionViewDidLoad() {
-    console.log("goal detail tabs page");
-    // this.navParams.get("homePage").getGoals();
+    this.getGoal();
   }
 
 }

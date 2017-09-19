@@ -2,7 +2,7 @@
   <div class="row" style="margin:10px auto;">
     <div class="progress-wrapper">
       <div class="progress ng-cloak">
-        <ion-icon name="checkmark" style="font-size: 120px;"></ion-icon>
+        <ion-icon name="checkmark" style="font-size: 120px;" [class.active]="goal?.is_today_checkin"></ion-icon>
       </div>
       <round-progress
               [current]="20"
@@ -25,20 +25,20 @@
   <ion-row>
     <ion-col text-center>
       <ion-card>
-      <strong ion-text class="num" color="primary">20</strong>
+      <strong ion-text class="num" color="primary">{{goal?.expect_days}}</strong>
       <br>目标天数
       </ion-card>
     </ion-col>
     <ion-col text-center>
       <ion-card>
-      <strong ion-text class="num" color="primary">10</strong>
+      <strong ion-text class="num" color="primary">{{goal?.total_days}}</strong>
       <br>完成天数
       </ion-card>
 
     </ion-col>
     <ion-col text-center>
       <ion-card>
-        <strong ion-text class="num" color="primary">5</strong>
+        <strong ion-text class="num" color="primary">{{goal?.series_days}}</strong>
         <br>连续天数
       </ion-card>
 

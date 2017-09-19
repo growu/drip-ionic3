@@ -26,9 +26,11 @@ export class UserProvider {
   }
 
   getGoal(id){
-    var params = new URLSearchParams();
-    params.set('id',id);
-    return this.httpProivder.httpGetWithAuth("/user/goal",params);
+    return this.httpProivder.httpGetWithAuth("/user/goal/"+id,null);
+  }
+
+  getGoalEvents(id){
+    return this.httpProivder.httpGetWithAuth("/user/goal/"+id+"/events",null);
   }
 
   getGoalsCalendar(start_date,end_date){

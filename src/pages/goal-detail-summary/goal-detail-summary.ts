@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import {NavController, NavParams, IonicPage} from "ionic-angular";
+import { UserProvider } from '../../providers/user/user'
 
 @IonicPage({
   name:"goal-detail-summary"
@@ -10,13 +11,23 @@ import {NavController, NavParams, IonicPage} from "ionic-angular";
 })
 export class GoalDetailSummaryPage {
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+  goal:any = {};
 
+  constructor(public navCtrl: NavController,
+              public navParams: NavParams,
+              private userProvider: UserProvider) {
     console.log(this.navParams.data);
   }
 
+  getGoal() {
+    let id = this.navParams.data.id;
+    this.userProvider.getGoal(id).then((data)=>{
+        this.goal = data;
+    });
+  }
+
   ionViewDidLoad() {
-    console.log('ionViewDidLoad GoalDetailSummaryPage');
+    this.getGoal();
   }
 
 }
