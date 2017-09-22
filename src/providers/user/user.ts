@@ -19,6 +19,10 @@ export class UserProvider {
     return this.httpProivder.httpPostNoAuth("/auth/login", user);
   }
 
+  follow(id) {
+    return this.httpProivder.httpPutWithAuth("/user/follow/"+id, null);
+  }
+
   getGoals(data){
     var params = new URLSearchParams();
     params.set('day',data);

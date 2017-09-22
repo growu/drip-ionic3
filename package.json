@@ -79,6 +79,7 @@
   "devDependencies": {
     "@ionic/app-scripts": "1.3.12",
     "@types/hammerjs": "^2.0.35",
+    "ionic": "3.12.0",
     "typescript": "2.3.4"
   },
   "description": "An Ionic project",

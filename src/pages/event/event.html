@@ -41,20 +41,22 @@
   </ion-slides>
 
   <ion-row>
-    <ion-col col-6 *ngFor="let event of events">
-      <ion-card>
-        <img src="http://img5.imgtn.bdimg.com/it/u=2294603976,2094842433&fm=27&gp=0.jpg"/>
+    <ion-col col-6 *ngFor="let event of events" class="event-col" (click)="goEventDetailPage(event)">
+      <ion-card class="event-card">
+        <div class="event-image">
+          <img [src]="attach.url" *ngFor="let attach of event.attachs"/>
+        </div>
         <ion-card-content>
           <p>
-           今天运动的真爽
+            {{event.content}}
           </p>
         </ion-card-content>
         <ion-item class="event-footer">
           <ion-avatar item-start>
-            <img src="assets/img/avatar.png">
+            <img src="{{event.owner?.avatar_url}}">
           </ion-avatar>
-          <h2>小兔子的名字很长的话</h2>
-          <ion-note item-end><ion-icon name="thumbs-up"></ion-icon> 20</ion-note>
+          <h2>{{event.owner?.nickname}}</h2>
+          <ion-note item-end><ion-icon name="thumbs-up"></ion-icon> {{event.like_count}}</ion-note>
         </ion-item>
       </ion-card>
     </ion-col>

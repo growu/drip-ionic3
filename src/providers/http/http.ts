@@ -14,7 +14,7 @@ export class HttpProvider {
   myInfoLocal: any;
   host : string;
 
-  API_URL = 'http://localhost:8108/api';
+  API_URL = 'http://localhost:8100/api';
 
   constructor(
       private http: Http,

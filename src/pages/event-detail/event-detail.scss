@@ -1,0 +1,45 @@
+page-event-detail {
+  ion-content {
+    background-color: #e0e0e0!important;
+  }
+
+  .list{
+    margin-bottom:10px;
+  }
+
+  ion-list-header {
+    margin-top: 0!important;
+  }
+
+  .list-header {
+    background-color: #fff!important;
+  }
+
+  .card-content {
+    blockquote {
+      background-color: #f4f4f4;
+      padding:10px;
+      margin:10px 0;
+      color:#999;
+    }
+  }
+
+  .likes-item {
+    ion-avatar {
+      float:left;
+      margin-left:5px;
+    }
+  }
+
+  .card{
+    margin:1px 0;
+    width: 100%;
+  }
+
+  .comment-card {
+    ion-icon {
+      color:#999;
+      font-size:2rem;
+    }
+  }
+}

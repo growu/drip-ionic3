@@ -2,6 +2,8 @@ import { Component } from '@angular/core';
 import { NavController, NavParams, IonicPage, ActionSheetController} from "ionic-angular";
 import { ImagePicker } from '@ionic-native/image-picker';
 import { Camera, CameraOptions } from '@ionic-native/camera';
+import { FileTransfer, FileUploadOptions, FileTransferObject } from '@ionic-native/file-transfer';
+import { File } from '@ionic-native/file';
 
 
 @IonicPage({
@@ -66,9 +68,6 @@ export class GoalCheckinPage {
     this.imagePicker.getPictures(options).then((results) => {
       console.log(results);
       if(results&&results.length>0){
-        this.crop.crop(results[0], {quality: 75})
-            .then((newImage) =>{
-                  console.log('new image path is: ' + newImage);
 
                   let options: FileUploadOptions = {
                     fileKey: 'file',
@@ -78,21 +77,12 @@ export class GoalCheckinPage {
 
                   const fileTransfer: FileTransferObject = this.transfer.create();
 
-                  fileTransfer.upload(newImage, '<api endpoint>', options)
-                      .then((data) => {
-                        // success
-                      }, (err) => {
-                        // error
-                      })
-
-                } ,
-                (error) => {
-                  console.error('Error cropping image', error);
-                }
-            );
-
-
-        this.profile.avatar = results[0];
+                  fileTransfer.upload(results[0], '<api endpoint>', options)
+                  .then((data) => {
+                    // success
+                  }, (err) => {
+                    // error
+                  });
       }
     }, (err) => {
 

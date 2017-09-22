@@ -2,7 +2,6 @@ import { NgModule } from '@angular/core';
 import { IonicPageModule } from 'ionic-angular';
 import { GoalDetailEventPage } from './goal-detail-event';
 import { MyEventComponent } from '../../components/my-event/my-event';
-import { TimeAgoPipeModule } from '../../pipes/time-ago/time-ago.module';
 import { MomentModule } from 'angular2-moment';
 
 
@@ -13,7 +12,6 @@ import { MomentModule } from 'angular2-moment';
   ],
   imports: [
     IonicPageModule.forChild(GoalDetailEventPage),
-    TimeAgoPipeModule,
     MomentModule
   ],
 })

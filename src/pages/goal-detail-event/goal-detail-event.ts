@@ -50,7 +50,6 @@ export class GoalDetailEventPage {
     this.getGoalEvents(1);
 
     setTimeout(() => {
-      console.log('Async operation has ended');
       refresher.complete();
     }, 2000);
   }
@@ -64,12 +63,9 @@ export class GoalDetailEventPage {
       this.getGoalEvents(page);
     }
 
-    // return new Promise((resolve) => {
-      setTimeout(() => {
-        console.log('Async operation has ended');
+    setTimeout(() => {
         infiniteScroll.complete();
-      }, 2000);
-    // })
+    }, 2000);
   }
 
 }

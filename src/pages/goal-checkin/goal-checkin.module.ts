@@ -20,8 +20,7 @@ import { Camera } from '@ionic-native/camera';
     { provide: ImagePicker, useClass: ImagePickerMock },
     { provide: File, useClass: FileMock },
     { provide: FileTransfer, useClass: FileTransferMock },
-    { provide: Camera },
-
+    Camera
   ]
 })
 export class GoalCheckinPageModule {}

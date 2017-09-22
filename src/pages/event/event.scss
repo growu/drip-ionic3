@@ -4,20 +4,47 @@
     height: 150px;
   }
 
+  .event-col {
+    padding:0;
+  }
+
+  .event-card {
+    margin:5px;
+    width: calc(100% - 10px);
+
+    ion-card-content {
+      padding:10px 5px;
+
+      p{
+        font-size: 1rem;
+        color:#222;
+      }
+    }
+
+    .event-image {
+      overflow: hidden;
+      max-height: 150px;
+    }
+  }
+
   .event-footer {
+    min-height: 3.3rem;
     padding-left:6px;
-    border-top:1px solid #dedede;
+    //border-top:1px solid #dedede;
 
     ion-avatar {
+      min-width: 24px;
+      min-height: 24px;
       margin:0 5px;
       img {
-        width: 30px;
-        height: 30px;
+        width: 24px;
+        height: 24px;
       }
     }
 
     h2 {
-      font-size:1.2rem;
+      font-size:1rem;
+      color:#999;
     }
 
     .item-inner {
