@@ -29,8 +29,18 @@ export class UserProvider {
     return this.httpProivder.httpGetWithAuth("/user/goal/"+id,null);
   }
 
-  getGoalEvents(id){
-    return this.httpProivder.httpGetWithAuth("/user/goal/"+id+"/events",null);
+  getGoalEvents(id,page,per_page){
+    let params: URLSearchParams = new URLSearchParams();
+    params.set('page',page);
+    params.set('per_page',per_page);
+    return this.httpProivder.httpGetWithAuth("/user/goal/"+id+"/events",params);
+  }
+
+  getGoalChart(id,mode,day){
+    let params: URLSearchParams = new URLSearchParams();
+    params.set('mode',mode);
+    params.set('day',day);
+    return this.httpProivder.httpGetWithAuth("/user/goal/"+id+"/chart",params);
   }
 
   getGoalsCalendar(start_date,end_date){

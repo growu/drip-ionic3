@@ -1,0 +1,35 @@
+<ion-header>
+
+  <ion-navbar color="primary">
+    <ion-title>创建打卡</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content>
+  <ion-list>
+    <ion-item>
+      <ion-textarea rows="5" placeholder="说点儿什么"></ion-textarea>
+    </ion-item>
+    <ion-item no-border no-lines>
+      <ion-icon name="camera" large item-start (click)="choosePic($event)"></ion-icon>
+      <!--<ion-icon name="mic" large item-start></ion-icon>-->
+      <!--<ion-icon name="videocam" large item-start></ion-icon>-->
+    </ion-item>
+  </ion-list>
+
+  <!--<ion-row padding>-->
+    <!--<ion-col>-->
+      <!--<ion-icon large name="camera"></ion-icon>-->
+    <!--</ion-col>-->
+    <!--<ion-col>-->
+      <!--<ion-icon name="camera"></ion-icon>-->
+    <!--</ion-col>-->
+  <!--</ion-row>-->
+
+  <ion-row padding>
+    <button block ion-button  type="submit">提交</button>
+  </ion-row>
+
+</ion-content>

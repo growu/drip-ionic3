@@ -4,7 +4,8 @@ import { SuperTabsController } from "ionic2-super-tabs/dist/index";
 import { UserProvider } from '../../providers/user/user'
 
 @IonicPage({
-  name:"goal-detail"
+  name:"goal-detail",
+  segment:'goal/:id/detail'
 })
 @Component({
   selector: 'page-goal-detail',

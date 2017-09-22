@@ -9,7 +9,8 @@ import { UserProvider } from '../../providers/user/user'
  * Ionic pages and navigation.
  */
 @IonicPage({
-  name:"goal-detail-event"
+  name:"goal-detail-event",
+  segment:"event"
 })
 
 @Component({
@@ -19,7 +20,7 @@ import { UserProvider } from '../../providers/user/user'
 export class GoalDetailEventPage {
 
   events:any = [];
-  private page:number = 1;
+  private perPage:number = 20;
 
   constructor(public navCtrl: NavController,
               public navParams: NavParams,
@@ -27,20 +28,48 @@ export class GoalDetailEventPage {
   }
 
   ionViewDidLoad() {
-    this.getGoalEvents();
+    this.getGoalEvents(1);
   }
 
-  getGoalEvents() {
+  getGoalEvents(page) {
     let id = this.navParams.data.id;
-    this.userProvider.getGoalEvents(id).then((data)=>{
+
+    this.userProvider.getGoalEvents(id,page,this.perPage).then((data)=>{
       if(data) {
-          if(this.page == 1){
+          if(this.events.length ==0){
             this.events = data;
           } else {
             this.events.concat(data);
           }
       }
     });
+  }
+
+  doRefresh(refresher) {
+
+    this.getGoalEvents(1);
+
+    setTimeout(() => {
+      console.log('Async operation has ended');
+      refresher.complete();
+    }, 2000);
+  }
+
+  doInfinite(infiniteScroll) {
+
+    var num = this.events.length;
+
+    if (num > 0 && num % 20 == 0) {
+      var page = Math.floor(this.events.length/20)+1;
+      this.getGoalEvents(page);
+    }
+
+    // return new Promise((resolve) => {
+      setTimeout(() => {
+        console.log('Async operation has ended');
+        infiniteScroll.complete();
+      }, 2000);
+    // })
   }
 
 }

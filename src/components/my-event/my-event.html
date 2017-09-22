@@ -1,0 +1,39 @@
+<ion-card *ngFor="let event of eventSource">
+  <ion-item>
+    <ion-avatar item-start>
+      <img src="{{event.owner.user_avatar}}">
+    </ion-avatar>
+    <h2>{{event.owner.nickname}}</h2>
+    <p>{{event.created_at | amLocale:"zh_cn" | amUtc | amTimeAgo }}</p>
+  </ion-item>
+
+  <img src="img/advance-card-bttf.png">
+
+  <ion-card-content>
+    <p>{{event.content}}</p>
+    <blockquote>完成<a> 早起打卡 </a>第5天</blockquote>
+  </ion-card-content>
+
+  <ion-row>
+    <ion-col>
+      <button ion-button icon-left clear small (click)="doLike(event)">
+        <ion-icon name="ios-thumbs-up-outline" isActive="false" *ngIf="!event.is_like" color="gray"></ion-icon>
+        <ion-icon name="ios-thumbs-up" isActive="true" *ngIf="event.is_like" color="primary"></ion-icon>
+        <div>{{event.like_count}}</div>
+      </button>
+    </ion-col>
+    <ion-col>
+      <button ion-button icon-left clear small>
+        <ion-icon name="ios-text-outline"></ion-icon>
+        <div>{{event.comment_count}}</div>
+      </button>
+    </ion-col>
+    <ion-col center text-center>
+      <button ion-button icon-left clear small (click)="showMore()">
+        <ion-icon name="ios-more-outline"></ion-icon>
+        <div></div>
+      </button>
+    </ion-col>
+  </ion-row>
+
+</ion-card>

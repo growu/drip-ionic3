@@ -8,13 +8,12 @@ import { StatusBar } from '@ionic-native/status-bar';
 import { MyApp } from './app.component';
 import { IonicStorageModule } from '@ionic/storage';
 
-
 import { MyHammerConfig } from '../components/MyHammerConfig'
 import { HammerGestureConfig, HAMMER_GESTURE_CONFIG } from '@angular/platform-browser';
 import { UserProvider } from '../providers/user/user';
 import { HttpProvider } from '../providers/http/http';
 import { GoalProvider } from '../providers/goal/goal';
-
+import { EventProvider } from '../providers/event/event';
 
 @NgModule({
   declarations: [
@@ -49,7 +48,8 @@ import { GoalProvider } from '../providers/goal/goal';
     },
     UserProvider,
     HttpProvider,
-    GoalProvider
+    GoalProvider,
+    EventProvider
   ]
 })
 export class AppModule {}

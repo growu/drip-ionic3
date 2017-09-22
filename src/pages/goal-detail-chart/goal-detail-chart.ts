@@ -1,15 +1,11 @@
 import { Component } from '@angular/core';
 import {NavController, NavParams, IonicPage} from "ionic-angular";
+import { UserProvider } from '../../providers/user/user'
+import * as moment from 'moment'
 
-
-/**
- * Generated class for the GoalDetailChartPage page.
- *
- * See https://ionicframework.com/docs/components/#navigation for more info on
- * Ionic pages and navigation.
- */
 @IonicPage({
-  name:"goal-detail-chart"
+  name:"goal-detail-chart",
+  segment:'chart'
 })
 
 @Component({
@@ -19,12 +15,19 @@ import {NavController, NavParams, IonicPage} from "ionic-angular";
 export class GoalDetailChartPage {
 
   public mode:string = "week";
+  public chartTitle:string = "";
+  public chartCheckinCount:number = 0;
+  public chartCheckinRate:number = 0;
+
+  public prevValue = "";
+  public nextValue = "";
+  public currentValue = "";
 
   public barChartOptions:any = {
     scaleShowVerticalLines: false,
     responsive: true
   };
-  public barChartLabels:string[] = ['2006', '2007', '2008', '2009', '2010', '2011', '2012'];
+  public barChartLabels:string[] = [];
   public barChartType:string = 'bar';
   public barChartLegend:boolean = true;
 
@@ -36,9 +39,12 @@ export class GoalDetailChartPage {
     pointHoverBackgroundColor: '#fff',
     pointHoverBorderColor: 'rgba(148,159,177,0.8)'
   }];
-  public barChartData:any[] = [
-    {data: [28, 48, 40, 19, 86, 27, 90], label: 'Series B'}
-  ];
+
+  // public barChartColors:Array<any> = [];
+
+    public barChartData:any[] = [
+      {data:[],label:'打卡次数'}
+    ];
 
   // events
   public chartClicked(e:any):void {
@@ -49,11 +55,70 @@ export class GoalDetailChartPage {
     console.log(e);
   }
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+
+  constructor(public navCtrl: NavController,
+              public navParams: NavParams,
+              private userProvider: UserProvider) {
   }
 
   ionViewDidLoad() {
-    console.log('ionViewDidLoad GoalDetailChartPage');
+    // this.curretValue = moment().format("YYYY-MM-DD");
+    this.getData(moment().format("YYYY-MM-DD"));
+  }
+
+  getData (day) {
+    let id = this.navParams.data.id;
+    this.userProvider.getGoalChart(id,this.mode,day).then((response)=>{
+
+      let chartData:any[] = [];
+      let chartLabels:any[] = [];
+
+
+      this.chartTitle = response.title;
+      this.nextValue = response.next;
+      this.prevValue = response.prev;
+
+      this.chartCheckinCount = response.checkin_count;
+      this.chartCheckinRate = response.checkin_rate;
+
+      console.log(response);
+      var data = response.data;
+      console.log(data);
+      console.log(typeof data);
+
+      data.forEach((item,index)=>{
+        chartLabels.push(item.label);
+        chartData.push(item.checkin_count);
+      });
+
+      let clone = JSON.parse(JSON.stringify(this.barChartData));
+      clone[0].data = chartData;
+
+      this.barChartData = clone;
+
+
+      // let clone2 = JSON.parse(JSON.stringify(this.barChartLabels));
+      // clone[0].data = chartData;
+      this.barChartLabels = chartLabels;
+
+      console.log(this.barChartColors);
+      console.log(this.barChartLabels);
+      console.log(this.barChartData);
+    });
+  }
+
+  public goPrev() {
+    this.currentValue = this.prevValue;
+    this.getData(this.prevValue);
+  }
+
+  public goNext() {
+    this.currentValue = this.nextValue;
+    this.getData(this.nextValue);
+  }
+
+  public changeMode($event) {
+    this.getData(this.currentValue);
   }
 
 }

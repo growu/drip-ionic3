@@ -1,40 +1,20 @@
 <ion-content>
-    <ion-card *ngFor="let event of events">
-        <ion-item>
-            <ion-avatar item-start>
-                <img src="{{event.owner.user_avatar}}">
-            </ion-avatar>
-            <h2>{{event.owner.nickname}}</h2>
-            <p>10小时前</p>
-        </ion-item>
+    <ion-refresher (ionRefresh)="doRefresh($event)">
+        <ion-refresher-content
+                pullingIcon="arrow-dropdown"
+                pullingText="下拉刷新"
+                refreshingSpinner="circles"
+                refreshingText="加载中...">
+        </ion-refresher-content>
+    </ion-refresher>
+    <my-event [eventSource]="events"></my-event>
 
-        <img src="img/advance-card-bttf.png">
+    <ion-infinite-scroll (ionInfinite)="doInfinite($event)">
+        <ion-infinite-scroll-content
+                loadingSpinner="bubbles"
+                loadingText="加载更多数据">
+        </ion-infinite-scroll-content>
+    </ion-infinite-scroll>
 
-        <ion-card-content>
-            <p>{{event.content}}</p>
-            <blockquote>完成<a> 早起打卡 </a>第5天</blockquote>
-        </ion-card-content>
 
-        <ion-row>
-            <ion-col>
-                <button ion-button icon-left clear small>
-                    <ion-icon name="thumbs-up"></ion-icon>
-                    <div>{{event.like_count}}</div>
-                </button>
-            </ion-col>
-            <ion-col>
-                <button ion-button icon-left clear small>
-                    <ion-icon name="text"></ion-icon>
-                    <div>{{event.comment_count}}</div>
-                </button>
-            </ion-col>
-            <ion-col center text-center>
-                <button ion-button icon-left clear small>
-                    <ion-icon name="more"></ion-icon>
-                    <div></div>
-                </button>
-            </ion-col>
-        </ion-row>
-
-    </ion-card>
 </ion-content>

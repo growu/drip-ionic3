@@ -1,5 +1,5 @@
 <ion-content padding class="page-goal-detail-summary">
-  <div class="row" style="margin:10px auto;">
+  <div class="row" style="margin:10px auto;" (click)="goCheckinPage()">
     <div class="progress-wrapper">
       <div class="progress ng-cloak">
         <ion-icon name="checkmark" style="font-size: 120px;" [class.active]="goal?.is_today_checkin"></ion-icon>

@@ -1,5 +1,5 @@
 <ion-content>
-    <ion-segment padding [(ngModel)]="mode" color="primary" (ionChange)="segmentChanged($event)">
+    <ion-segment padding [(ngModel)]="mode" color="primary" (ionChange)="changeMode($event)">
         <ion-segment-button value="week">
             周
         </ion-segment-button>
@@ -9,12 +9,24 @@
         <ion-segment-button value="year">
             年
         </ion-segment-button>
-        <ion-segment-button value="total">
-            总
-        </ion-segment-button>
     </ion-segment>
 
-    <div style="display: block">
+    <div class="chart-container" style="display: block">
+        <ion-toolbar  no-border-top>
+            <ion-buttons start>
+            <button ion-button icon-only color="gray" *ngIf="prevValue" (click)="goPrev()">
+                <ion-icon name="md-arrow-dropleft"></ion-icon>
+            </button>
+            </ion-buttons>
+
+            <ion-title>{{chartTitle}}</ion-title>
+
+            <ion-buttons end>
+                <button ion-button icon-only color="gray" *ngIf="nextValue" (click)="goNext()">
+                    <ion-icon name="md-arrow-dropright"></ion-icon>
+                </button>
+            </ion-buttons>
+        </ion-toolbar>
         <canvas baseChart
                 [datasets]="barChartData"
                 [labels]="barChartLabels"
@@ -25,22 +37,15 @@
                 (chartHover)="chartHovered($event)"
                 (chartClick)="chartClicked($event)"></canvas>
     </div>
-    <div padding text-center>
-            <h1>200</h1> 天
-    </div>
 
-    <ion-list>
+    <ion-list margin-top>
         <ion-item>
-            时长
-        <ion-note item-end> 20 小时</ion-note>
+            打卡天数
+        <ion-note item-end> {{chartCheckinCount}} 天</ion-note>
         </ion-item>
         <ion-item>
-            距离
-            <ion-note item-end>200 公里</ion-note>
-        </ion-item>
-        <ion-item>
-            跑速
-            <ion-note item-end>7.3公里/时</ion-note>
+            打卡率
+            <ion-note item-end>{{chartCheckinRate}} %</ion-note>
         </ion-item>
     </ion-list>
 

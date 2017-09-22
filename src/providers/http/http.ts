@@ -14,7 +14,7 @@ export class HttpProvider {
   myInfoLocal: any;
   host : string;
 
-  API_URL = 'http://localhost:8106/api';
+  API_URL = 'http://localhost:8108/api';
 
   constructor(
       private http: Http,
@@ -32,7 +32,7 @@ export class HttpProvider {
       headers.append('Authorization', 'Bearer '+data );
       let options = new RequestOptions({ headers: headers,search: params });
       return this.http.get(this.API_URL+url, options).toPromise()
-          .then(res => this.handleSuccess(res.json()))
+          .then(res => this.handleSuccess(res))
           .catch(err => {this.handleError(err)});
     });
 
@@ -45,7 +45,7 @@ export class HttpProvider {
 
     let options = new RequestOptions({ headers: headers,search: params });
     return this.http.get(this.API_URL+url, options).toPromise()
-        .then(res => this.handleSuccess(res.json()))
+        .then(res => this.handleSuccess(res))
         .catch(err => {this.handleError(err)});
   }
   public httpPostNoAuth(url: string, body: any) {
@@ -54,7 +54,7 @@ export class HttpProvider {
     headers.append('Accept', 'application/x.drip.v2+json');
     let options = new RequestOptions({ headers: headers });
     return this.http.post(this.API_URL+url, body, options).toPromise()
-        .then(res => this.handleSuccess(res.json()))
+        .then(res => this.handleSuccess(res))
         .catch(err => {this.handleError(err)});
   }
 
@@ -67,9 +67,37 @@ export class HttpProvider {
       headers.append('Authorization', 'Bearer '+data );
       let options = new RequestOptions({ headers: headers });
               return this.http.post(this.API_URL+url, body, options).toPromise()
-                .then(res => this.handleSuccess(res.json()))
+                  .then(res => this.handleSuccess(res))
                 .catch(err => {this.handleError(err)});
           });
+  }
+
+  public httpPutWithAuth( url: string,body: any) {
+
+    return this.storage.get("token").then(data=>{
+      var headers = new Headers();
+      headers.append('Content-Type', 'application/json');
+      headers.append('Accept', 'application/x.drip.v2+json');
+      headers.append('Authorization', 'Bearer '+data );
+      let options = new RequestOptions({ headers: headers });
+      return this.http.put(this.API_URL+url, body, options).toPromise()
+          .then(res => this.handleSuccess(res))
+          .catch(err => {this.handleError(err)});
+    });
+  }
+
+  public httpDeleteWithAuth( url: string) {
+
+    return this.storage.get("token").then(data=>{
+      var headers = new Headers();
+      headers.append('Content-Type', 'application/json');
+      headers.append('Accept', 'application/x.drip.v2+json');
+      headers.append('Authorization', 'Bearer '+data );
+      let options = new RequestOptions({ headers: headers });
+      return this.http.delete(this.API_URL+url, options).toPromise()
+          .then(res => this.handleSuccess(res))
+          .catch(err => {this.handleError(err)});
+    });
   }
 
   public httpPatchWithAuth(url: string,body: any) {
@@ -81,21 +109,19 @@ export class HttpProvider {
       headers.append('Authorization', 'Bearer '+data );
       let options = new RequestOptions({ headers: headers });
       return this.http.patch(this.API_URL+url, body, options).toPromise()
-          .then(res => this.handleSuccess(res.json()))
+          .then(res => this.handleSuccess(res))
           .catch(err => {this.handleError(err)});
     });
   }
 
   private handleSuccess(result) {
-    console.log(result);
-    return result;
+    return result.text() ? result.json() : {};
   }
-
 
   private handleError(error: Response | any) {
     console.log(error);
 
-    let msg = error.json().message || '请求地址错误';
+    let msg = error.text()?error.json().message:'请求地址错误';
 
     if (error.status == 400) {
       this.app.getActiveNav().push('login-default');
@@ -105,7 +131,7 @@ export class HttpProvider {
       message: msg,
       duration: 3000,
       position: 'middle',
-      showCloseButton: true,
+      showCloseButton: false,
       closeButtonText: '关闭'
     });
 

@@ -60,9 +60,11 @@ export class LoginDefaultPage {
     }
 
     this.userProvider.login(this.loginForm.value).then(data => {
-      this.storage.set('token', data.token);
-      this.storage.set('user', data.user);
-      this.navCtrl.push('main');
+      if(data) {
+        this.storage.set('token', data.token);
+        this.storage.set('user', data.user);
+        this.navCtrl.push('main');
+      }
     });
   }
 
