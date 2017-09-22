@@ -72,7 +72,8 @@ export class LoginDefaultPage {
     console.log('ionViewDidLoad LoginDefaultPage');
   }
 
-  showPassword() {
+  showPassword($event) {
+    $event.preventDefault();
     this.isShowPassword = !this.isShowPassword;
   }
 

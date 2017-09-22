@@ -30,7 +30,13 @@ export class EventLikePage {
     var id = this.navParams.get("id");
 
     this.eventProvider.getEventLikes(id,page,this.perPage).then((data)=>{
-      this.likes = data;
+
+      if(page == 1){
+        this.likes = data;
+      } else {
+        this.likes = this.likes.concat(data);
+      }
+
     });
   }
 
@@ -57,11 +63,26 @@ export class EventLikePage {
     }, 2000);
   }
 
-  doFollow(like) {
+  doFollow(like,$event) {
+    $event.stopPropagation();
+
     this.userProvider.follow(like.user.id).then((data)=>{
       let index =  this.likes.indexOf(like);
       this.likes[index].user.is_follow = true;
     });
+  }
+
+  doUnFollow(like,$event) {
+    $event.stopPropagation();
+
+    this.userProvider.unFollow(like.user.id).then((data)=>{
+      let index =  this.likes.indexOf(like);
+      this.likes[index].user.is_follow = false;
+    });
+  }
+
+  goUserHomePage(user) {
+    this.navCtrl.push('page-user-home',{'id':user.id});
   }
 
 }

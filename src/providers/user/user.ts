@@ -23,6 +23,10 @@ export class UserProvider {
     return this.httpProivder.httpPutWithAuth("/user/follow/"+id, null);
   }
 
+  unFollow(id) {
+    return this.httpProivder.httpDeleteWithAuth("/user/follow/"+id);
+  }
+
   getGoals(data){
     var params = new URLSearchParams();
     params.set('day',data);

@@ -17,7 +17,7 @@
                     <ion-icon name="md-unlock" color="light"></ion-icon>
                 </ion-label>
                 <ion-input formControlName="password" type="{{isShowPassword?'text':'password'}}" placeholder="密码"></ion-input>
-                <button ion-button clear color="dark" item-right (click)="showPassword()" class="show-btn">
+                <button ion-button clear color="dark" item-right (click)="showPassword($event)" class="show-btn">
                     <ion-icon name="{{isShowPassword?'eye':'eye-off'}}" color="light"></ion-icon>
                 </button>
             </ion-item>
