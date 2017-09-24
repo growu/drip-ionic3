@@ -8,7 +8,7 @@
     </ion-buttons>
     <ion-title>我</ion-title>
     <ion-buttons end>
-      <button ion-button icon-only (click)="goSettingPage()">
+      <button ion-button icon-only (click)="goMessagePage()">
         <ion-icon name="mail"></ion-icon>
       </button>
     </ion-buttons>
@@ -17,29 +17,39 @@
 </ion-header>
 
 <ion-content class="page-my">
-  <ion-list>
-    <ion-item>
-      <ion-avatar item-start>
+  <ion-list class="profile-list">
+    <ion-item (click)="goUserHomePage()">
+      <ion-thumbnail item-start>
       <img src="assets/img/avatar.png">
-      </ion-avatar>
-      <h2>Cher</h2>
-      <p>Ugh. As if.</p>
+      </ion-thumbnail >
+      <h2>Jason.z</h2>
+      <p>成为海贼王一样的男人</p>
       <ion-note item-end>
         <ion-icon name="arrow-forward"></ion-icon>
       </ion-note>
     </ion-item>
-    <ion-item>
-      <ion-row text-center>
-        <ion-col>12<br>目标</ion-col>
-        <ion-col>823<br>打卡</ion-col>
-        <ion-col>3482<br>能量</ion-col>
-      </ion-row>
-    </ion-item>
   </ion-list>
+  <ion-row class="follow-row" margin-bottom>
+    <ion-col text-center>
+      <strong ion-text class="num" color="dark">200</strong>
+      <br>
+      <ion-note>关注</ion-note>
+    </ion-col>
+    <ion-col text-center>
+      <strong ion-text class="num" color="dark">1.2K</strong>
+      <br>
+      <ion-note>粉丝</ion-note>
+    </ion-col>
+    <ion-col text-center>
+      <strong ion-text class="num" color="dark">9999</strong>
+      <br>
+      <ion-note>动态</ion-note>
+    </ion-col>
+  </ion-row>
 
   <ion-list>
     <ion-item>
-      消息提醒
+      我的收藏
       <ion-note clear item-end>
         <ion-icon name="arrow-forward"></ion-icon>
       </ion-note>

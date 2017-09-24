@@ -1,3 +1,16 @@
 page-my {
+  ion-content{
+    background-color: #e0e0e0!important;
+  }
 
+  .profile-list {
+    margin-bottom:0px;
+  }
+
+  .follow-row {
+    background-color: #fff;
+    .num {
+      font-size: 1.8rem;
+    }
+  }
 }

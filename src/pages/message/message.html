@@ -1,0 +1,50 @@
+<ion-header>
+
+  <ion-navbar color="primary">
+    <ion-title>消息中心</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content>
+  <ion-list>
+    <ion-item (click)="goPage('message-comment')">
+      <ion-icon name="ios-chatboxes" item-start></ion-icon>
+      评论
+      <ion-note clear item-end>
+        <ion-icon name="arrow-forward"></ion-icon>
+      </ion-note>
+    </ion-item>
+    <!--<ion-item (click)="goPage('message-at')">-->
+      <!--<ion-icon name="ios-at" item-start></ion-icon>-->
+      <!--@-->
+      <!--<ion-note clear item-end>-->
+        <!--<ion-icon name="arrow-forward"></ion-icon>-->
+      <!--</ion-note>-->
+    <!--</ion-item>-->
+    <ion-item (click)="goPage('message-like')">
+      <ion-icon name="ios-thumbs-up" item-start></ion-icon>
+      赞
+      <ion-note clear item-end>
+        <ion-icon name="arrow-forward"></ion-icon>
+      </ion-note>
+    </ion-item>
+    <ion-item (click)="goPage('message-fan')">
+      <ion-icon name="ios-contacts" item-start></ion-icon>
+      粉丝
+      <ion-note clear item-end>
+        <ion-icon name="arrow-forward"></ion-icon>
+      </ion-note>
+    </ion-item>
+    <ion-item (click)="goPage('message-notice')">
+      <ion-icon name="ios-notifications" item-start></ion-icon>
+      通知
+      <ion-badge item-end color="danger">20</ion-badge>
+      <ion-note clear item-end>
+        <ion-icon name="arrow-forward"></ion-icon>
+      </ion-note>
+    </ion-item>
+  </ion-list>
+
+</ion-content>

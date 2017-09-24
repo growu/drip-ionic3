@@ -1,7 +1,6 @@
 import {Component, Input} from '@angular/core';
 import { ActionSheetController } from 'ionic-angular';
 import { EventProvider } from '../../providers/event/event'
-import { TimeAgoPipe } from '../../pipes/time-ago/time-ago'
 
 @Component({
   selector: 'my-event',

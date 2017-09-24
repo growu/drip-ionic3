@@ -1,3 +1,21 @@
 page-user-home {
+  .profile-row {
+    background-color: color($colors, 'primary');
+    color:#fff;
+    img {
+      width: 64px;
+      height: 64px;
+      border-radius: 50%;
+    }
+  }
 
+  .follow-row {
+    background-color: #e0e0e0;
+    .num {
+      font-size: 1.8rem;
+    }
+    p {
+      color:#999;
+    }
+  }
 }

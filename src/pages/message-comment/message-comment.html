@@ -1,0 +1,52 @@
+<ion-header>
+
+  <ion-navbar color="primary">
+    <ion-title>评论</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content>
+  <ion-refresher (ionRefresh)="doRefresh($event)">
+    <ion-refresher-content
+            pullingIcon="arrow-dropdown"
+            pullingText="下拉刷新"
+            refreshingSpinner="circles"
+            refreshingText="加载中...">
+    </ion-refresher-content>
+  </ion-refresher>
+
+  <ion-list>
+      <ion-card *ngFor="let message of messages">
+          <ion-item  (click)="goUserHomePage(message.user)">
+          <ion-avatar item-start >
+            <img [src]="message.user.avatar_url">
+          </ion-avatar>
+          <h2>{{message.user.nickname}}</h2>
+          <p>{{message.created_at}}</p>
+          <button ion-button outline item-end (click)="doReply(message,$event)">回复</button>
+        </ion-item>
+          <ion-card-content>
+              <p></p>
+              <blockquote>{{message.comment.content}}</blockquote>
+          </ion-card-content>
+      </ion-card>
+  </ion-list>
+
+  <ion-infinite-scroll (ionInfinite)="doInfinite($event)">
+    <ion-infinite-scroll-content
+            loadingSpinner="bubbles"
+            loadingText="加载更多">
+    </ion-infinite-scroll-content>
+  </ion-infinite-scroll>
+
+
+</ion-content>
+
+<ion-footer>
+    <ion-item *ngIf="isShowReply">
+        <ion-input type="text" item-start placeholder="回复 {{replyMessage.user?.nickname}}"></ion-input>
+        <button clear ion-button item-end (click)="submitReply()">发布</button>
+    </ion-item>
+</ion-footer>

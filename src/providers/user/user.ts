@@ -81,4 +81,18 @@ export class UserProvider {
     this.storage.set('setting', data);
   }
 
+  getFanMessages(page,perPage){
+    var params = new URLSearchParams();
+    params.set('page',page);
+    params.set('per_page',perPage);
+    return this.httpProivder.httpGetWithAuth("/user/messages/fan",params);
+  }
+
+  getCommentMessages(page,perPage){
+    var params = new URLSearchParams();
+    params.set('page',page);
+    params.set('per_page',perPage);
+    return this.httpProivder.httpGetWithAuth("/user/messages/comment",params);
+  }
+
 }

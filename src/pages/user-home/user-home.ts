@@ -3,7 +3,7 @@ import { IonicPage, NavController, NavParams, ToastController} from 'ionic-angul
 
 
 @IonicPage({
-  name:'page-user-home',
+  name:'user-home',
   segment:'user/:id/home'
 })
 @Component({
@@ -16,7 +16,6 @@ export class UserHomePage {
   }
 
   ionViewDidLoad() {
-    console.log('ionViewDidLoad UserHomePage');
   }
 
 }

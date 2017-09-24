@@ -1,0 +1,38 @@
+<ion-header>
+
+  <ion-navbar color="primary">
+    <ion-title>粉丝</ion-title>
+  </ion-navbar>
+
+</ion-header>
+<ion-content>
+
+  <ion-refresher (ionRefresh)="doRefresh($event)">
+    <ion-refresher-content
+            pullingIcon="arrow-dropdown"
+            pullingText="下拉刷新"
+            refreshingSpinner="circles"
+            refreshingText="加载中...">
+    </ion-refresher-content>
+  </ion-refresher>
+
+  <ion-list>
+    <ion-item *ngFor="let message of messages" (click)="goUserHomePage(message.user)">
+      <ion-avatar item-start >
+        <img [src]="message.user.avatar_url">
+      </ion-avatar>
+      <h2>{{message.user.nickname}} 关注了你</h2>
+      <p>{{message.created_at}}</p>
+      <my-follow-button [followStatus]="message.user.is_follow" [followUser]="message.user.id" item-end></my-follow-button>
+    </ion-item>
+  </ion-list>
+
+  <ion-infinite-scroll (ionInfinite)="doInfinite($event)">
+    <ion-infinite-scroll-content
+            loadingSpinner="bubbles"
+            loadingText="加载更多">
+    </ion-infinite-scroll-content>
+  </ion-infinite-scroll>
+
+
+</ion-content>

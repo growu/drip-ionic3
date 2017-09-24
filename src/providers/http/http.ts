@@ -14,7 +14,7 @@ export class HttpProvider {
   myInfoLocal: any;
   host : string;
 
-  API_URL = 'http://drip.growu.me/api';
+  API_URL = 'http://localhost:8103/api';
 
   constructor(
       private http: Http,

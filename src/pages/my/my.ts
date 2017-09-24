@@ -22,4 +22,11 @@ export class MyPage {
     this.navCtrl.push("setting");
   }
 
+  goMessagePage() {
+    this.navCtrl.push("message");
+  }
+
+  goUserHomePage() {
+    this.navCtrl.push("page-user-home",{'id':8});
+  }
 }
