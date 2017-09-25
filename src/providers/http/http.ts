@@ -14,7 +14,7 @@ export class HttpProvider {
   myInfoLocal: any;
   host : string;
 
-  API_URL = 'http://localhost:8103/api';
+  API_URL = 'http://localhost:8104/api';
 
   constructor(
       private http: Http,
@@ -82,7 +82,7 @@ export class HttpProvider {
       let options = new RequestOptions({ headers: headers });
       return this.http.put(this.API_URL+url, body, options).toPromise()
           .then(res => this.handleSuccess(res))
-          .catch(err => {this.handleError(err)});
+          .catch(err => this.handleError(err));
     });
   }
 
@@ -110,7 +110,7 @@ export class HttpProvider {
       let options = new RequestOptions({ headers: headers });
       return this.http.patch(this.API_URL+url, body, options).toPromise()
           .then(res => this.handleSuccess(res))
-          .catch(err => {this.handleError(err)});
+          .catch(err => this.handleError(err));
     });
   }
 
@@ -118,7 +118,7 @@ export class HttpProvider {
     return result.text() ? result.json() : {};
   }
 
-  private handleError(error: Response | any) {
+  private handleError(error: Response | any){
     console.log(error);
 
     let msg = error.text()?error.json().message:'请求地址错误';
@@ -138,5 +138,7 @@ export class HttpProvider {
     toast.present();
 
     return Observable.throw(msg);
+    // return Promise.reject(msg);
+
   }
 }

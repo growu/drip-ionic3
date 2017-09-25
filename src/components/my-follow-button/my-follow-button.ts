@@ -22,14 +22,18 @@ export class MyFollowButtonComponent {
   doFollow($event) {
     $event.stopPropagation();
     this.userProvider.follow(this.followUser).then((data)=>{
-      this.followStatus = true;
+      if(data) {
+        this.followStatus = true;
+      }
     });
   }
 
   doUnFollow($event) {
     $event.stopPropagation();
     this.userProvider.unFollow(this.followUser).then((data)=>{
-      this.followStatus = false;
+        if(data) {
+          this.followStatus = false;
+        }
     });
   }
 

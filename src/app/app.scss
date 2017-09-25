@@ -19,3 +19,11 @@
 .my-toast {
   text-align: center;
 }
+
+.my-alert-danger {
+  background-color: white!important;
+  color: red!important;
+  button{
+    color: red!important;
+  }
+}

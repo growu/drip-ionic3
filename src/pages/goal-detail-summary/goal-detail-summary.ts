@@ -18,7 +18,6 @@ export class GoalDetailSummaryPage {
               private app:App,
               public navParams: NavParams,
               private userProvider: UserProvider) {
-    console.log(this.navParams.data);
   }
 
   getGoal() {
@@ -29,7 +28,7 @@ export class GoalDetailSummaryPage {
   }
 
   goCheckinPage() {
-    this.app.getRootNav().push('page-goal-checkin',{'id':this.navParams.data.id});
+    this.app.getRootNav().push('goal-checkin',{'id':this.navParams.data.id});
   }
 
   ionViewDidLoad() {

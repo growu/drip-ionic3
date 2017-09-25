@@ -28,8 +28,8 @@
           <button ion-button outline item-end (click)="doReply(message,$event)">回复</button>
         </ion-item>
           <ion-card-content>
-              <p></p>
-              <blockquote>{{message.comment.content}}</blockquote>
+              <p>评论了你: {{message.comment.content}}</p>
+              <blockquote (click)="goEventDetailPage(message.comment.event_id)">{{message.comment.source | slice:0:50}}</blockquote>
           </ion-card-content>
       </ion-card>
   </ion-list>
@@ -46,7 +46,7 @@
 
 <ion-footer>
     <ion-item *ngIf="isShowReply">
-        <ion-input type="text" item-start placeholder="回复 {{replyMessage.user?.nickname}}"></ion-input>
+        <ion-input type="text" item-start placeholder="回复 {{replyMessage.user?.nickname}}" [(ngModel)]="replyContent"></ion-input>
         <button clear ion-button item-end (click)="submitReply()">发布</button>
     </ion-item>
 </ion-footer>

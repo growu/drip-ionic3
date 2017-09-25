@@ -31,7 +31,7 @@ export class EventPage {
   }
 
   goEventDetailPage(event) {
-    this.navCtrl.push('page-event-detail',{'id':event.id});
+    this.navCtrl.push('event-detail',{'id':event.id});
   }
 
 }

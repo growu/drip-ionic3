@@ -1,15 +1,15 @@
 import { NgModule } from '@angular/core';
 import { IonicPageModule } from 'ionic-angular';
-import { MessageFanPage } from './message-fan';
+import { MessageLikePage } from './message-like';
 import { MyFollowButtonComponent } from '../../components/my-follow-button/my-follow-button'
 
 @NgModule({
   declarations: [
-    MessageFanPage,
-      MyFollowButtonComponent
+    MessageLikePage,
+    MyFollowButtonComponent
   ],
   imports: [
-    IonicPageModule.forChild(MessageFanPage),
+    IonicPageModule.forChild(MessageLikePage),
   ],
 })
-export class MessageFanPageModule {}
+export class MessageLikePageModule {}

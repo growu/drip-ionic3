@@ -1,0 +1,44 @@
+<ion-header>
+
+  <ion-navbar color="primary">
+    <ion-title>鼓励和赞</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content>
+  <ion-refresher (ionRefresh)="doRefresh($event)">
+    <ion-refresher-content
+            pullingIcon="arrow-dropdown"
+            pullingText="下拉刷新"
+            refreshingSpinner="circles"
+            refreshingText="加载中...">
+    </ion-refresher-content>
+  </ion-refresher>
+
+  <ion-list>
+    <ion-card *ngFor="let message of messages">
+      <ion-item  (click)="goUserHomePage(message.user)">
+        <ion-avatar item-start >
+          <img [src]="message.user.avatar_url">
+        </ion-avatar>
+        <h2>{{message.user.nickname}}</h2>
+        <p>{{message.created_at}}</p>
+        <my-follow-button [followStatus]="message.user.is_follow" [followUser]="message.user.id" item-end></my-follow-button>
+      </ion-item>
+      <ion-card-content>
+        <p>鼓励了你</p>
+        <blockquote (click)="goEventDetailPage(message.like.event_id)">{{message.like?.source | slice:0:20}}</blockquote>
+      </ion-card-content>
+    </ion-card>
+  </ion-list>
+
+  <ion-infinite-scroll (ionInfinite)="doInfinite($event)">
+    <ion-infinite-scroll-content
+            loadingSpinner="bubbles"
+            loadingText="加载更多">
+    </ion-infinite-scroll-content>
+  </ion-infinite-scroll>
+
+</ion-content>

@@ -1,12 +1,6 @@
-import {Component, EventEmitter, Output} from '@angular/core';
-import {MyWeekCalendarDay} from "./my-week-calendar.model";
+import { Component, EventEmitter, Output} from '@angular/core';
+import { MyWeekCalendarDay } from "./my-week-calendar.model";
 
-/**
- * Generated class for the MyWeekCalendarComponent component.
- *
- * See https://angular.io/api/core/Component for more info on Angular
- * Components.
- */
 @Component({
   selector: 'my-week-calendar',
   templateUrl: 'my-week-calendar.html'
@@ -16,8 +10,7 @@ export class MyWeekCalendarComponent {
   public currentDay;
 
   @Output() onDaySelected = new EventEmitter<number>();
-
-
+  
   constructor() {
     console.log('Hello MyWeekCalendarComponent Component');
   }

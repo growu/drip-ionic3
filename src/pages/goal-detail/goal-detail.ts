@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import {IonicPage, NavController, NavParams, PopoverController} from 'ionic-angular';
 import { SuperTabsController } from "ionic2-super-tabs/dist/index";
 import { UserProvider } from '../../providers/user/user'
 
@@ -22,7 +22,8 @@ export class GoalDetailPage {
   constructor(public navCtrl: NavController,
               public navParams: NavParams,
               private userProvider: UserProvider,
-              private superTabsCtrl: SuperTabsController) {
+              private superTabsCtrl: SuperTabsController,
+              private popoverCtrl: PopoverController) {
   }
 
   getGoal() {
@@ -34,6 +35,21 @@ export class GoalDetailPage {
 
   ionViewDidLoad() {
     this.getGoal();
+  }
+
+  openMenu($event) {
+    let popover = this.popoverCtrl.create('goal-detail-menu', {
+    },{
+      showBackdrop:true,
+    });
+
+    popover.present({
+      ev: $event
+    });
+
+    popover.onDidDismiss((settingData) => {
+
+    })
   }
 
 }

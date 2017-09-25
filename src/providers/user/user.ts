@@ -20,11 +20,15 @@ export class UserProvider {
   }
 
   follow(id) {
-    return this.httpProivder.httpPutWithAuth("/user/follow/"+id, null);
+    return this.httpProivder.httpPutWithAuth("/user/follow/"+id, null).then(value=>{
+      return value;
+    }).catch(e=>{console.log(e)});;
   }
 
   unFollow(id) {
-    return this.httpProivder.httpDeleteWithAuth("/user/follow/"+id);
+    return this.httpProivder.httpDeleteWithAuth("/user/follow/"+id).then(value=>{
+      return value;
+    }).catch(e=>{console.log(e)});
   }
 
   getGoals(data){
@@ -35,6 +39,12 @@ export class UserProvider {
 
   getGoal(id){
     return this.httpProivder.httpGetWithAuth("/user/goal/"+id,null);
+  }
+
+  deleteGoal(id) {
+    return this.httpProivder.httpDeleteWithAuth("/user/goal/"+id).then(value=>{
+      return value;
+    }).catch(e=>{console.log(e)});
   }
 
   getGoalEvents(id,page,per_page){
@@ -58,10 +68,9 @@ export class UserProvider {
     return this.httpProivder.httpGetWithAuth("/user/goals/calendar",params);
   }
 
-  updateGoal(goal){
-    return this.httpProivder.httpPatchWithAuth("/user/goal/"+goal.id,goal);
+  updateGoal(id,body){
+    return this.httpProivder.httpPatchWithAuth("/user/goal/"+id,body);
   }
-
 
   getSetting() {
    return this.storage.get('setting');
@@ -93,6 +102,13 @@ export class UserProvider {
     params.set('page',page);
     params.set('per_page',perPage);
     return this.httpProivder.httpGetWithAuth("/user/messages/comment",params);
+  }
+
+  getLikeMessages(page,perPage){
+    var params = new URLSearchParams();
+    params.set('page',page);
+    params.set('per_page',perPage);
+    return this.httpProivder.httpGetWithAuth("/user/messages/like",params);
   }
 
 }

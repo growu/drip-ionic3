@@ -38,7 +38,7 @@
                 <ion-card-content>
                     <ion-item-sliding>
                         <ion-item (click)="goGoalDetailPage(goal.id,$event)">
-                            <ion-icon name="checkmark-circle" class="check-icon" [class.active]="!goal.is_today_checkin" item-start></ion-icon>
+                            <ion-icon name="checkmark-circle" class="check-icon" [class.active]="goal.is_checkin" item-start></ion-icon>
                             <ion-label>
                                 <h2>{{goal.name}}</h2>
                                 <p>
@@ -59,10 +59,10 @@
 
                         </ion-item>
                         <ion-item-options>
-                            <button ion-button color="primary">
+                            <button ion-button color="primary" (click)="goGoalCheckinPage(goal.id)">
                                 打卡
                             </button>
-                            <button ion-button color="danger">
+                            <button ion-button color="danger" (click)="deleteGoal(goal)">
                                 删除
                             </button>
                         </ion-item-options>
@@ -87,7 +87,7 @@
                             {{goal.name}}
                         </ion-card-header>
                         <ion-card-content text-center padding-top (click)="goGoalDetailPage(goal.id,$event)">
-                            <ion-icon name="checkmark-circle" class="check-icon" [class.active]="!goal.is_today_checkin"></ion-icon>
+                            <ion-icon name="checkmark-circle" class="check-icon" [class.active]="goal.is_checkin"></ion-icon>
                         </ion-card-content>
                         <ion-row class="footer">
                             <ion-col class="status">
@@ -109,7 +109,5 @@
                 </ion-col>
             </ion-row>
         </ion-list>
-
-
 
 </ion-content>

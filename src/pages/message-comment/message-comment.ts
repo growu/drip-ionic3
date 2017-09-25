@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
-import {NavController, NavParams, IonicPage} from "ionic-angular";
+import { NavController, NavParams, IonicPage } from "ionic-angular";
 import { UserProvider } from '../../providers/user/user'
+import { CommentProvider } from '../../providers/comment/comment'
 
 @IonicPage({
   name:"message-comment",
@@ -13,13 +14,19 @@ import { UserProvider } from '../../providers/user/user'
 export class MessageCommentPage {
   public messages:any = [];
   private perPage:number = 20;
-    public isShowReply:boolean = false;
-  public replyMessage = {};
+  public isShowReply:boolean = false;
+  public replyMessage = {
+    'comment':{
+      'id':0
+    },
+  };
+  public replyContent:string = '';
 
 
   constructor(public navCtrl: NavController,
               public navParams: NavParams,
-              private userProvider: UserProvider) {
+              private userProvider: UserProvider,
+              private commentProvider: CommentProvider) {
   }
 
   ionViewDidLoad() {
@@ -72,7 +79,13 @@ export class MessageCommentPage {
   }
 
   submitReply() {
+    this.commentProvider.reply(this.replyMessage.comment.id,this.replyContent).then((data)=>{
+      this.isShowReply = false;
+    });
+  }
 
+  goEventDetailPage(id) {
+    this.navCtrl.push("event-detail",{'id':id});
   }
 
 

@@ -25,7 +25,7 @@
   <ion-row>
     <ion-col text-center>
       <ion-card>
-      <strong ion-text class="num" color="primary">{{goal?.expect_days}}</strong>
+      <strong ion-text class="num" color="primary">{{goal?.expect_days==0?'999':goal?.expect_days}}</strong>
       <br>目标天数
       </ion-card>
     </ion-col>

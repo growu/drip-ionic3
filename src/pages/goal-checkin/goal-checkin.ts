@@ -7,7 +7,7 @@ import { File } from '@ionic-native/file';
 
 
 @IonicPage({
-  name:"page-goal-checkin",
+  name:"goal-checkin",
   segment:"goal/:id/checkin"
 })
 @Component({

@@ -3,7 +3,7 @@ import { IonicPage, NavController, NavParams} from 'ionic-angular';
 import { EventProvider } from '../../providers/event/event'
 
 @IonicPage({
-  name:'page-event-detail',
+  name:'event-detail',
   segment:'event/:id/detail'
 })
 @Component({

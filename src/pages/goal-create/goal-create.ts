@@ -60,12 +60,10 @@ export class GoalCreatePage {
           message: "创建成功，开始打卡吧！",
           duration: 3000,
           position: 'middle',
-          showCloseButton: true,
-          closeButtonText: '关闭'
         });
 
         toast.present();
-        this.navCtrl.push('goal-detail',{id:data.goal_id});
+        this.navCtrl.push('goal-detail',{id:data.id});
       }
     });
   }

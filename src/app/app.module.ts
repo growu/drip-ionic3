@@ -14,6 +14,7 @@ import { UserProvider } from '../providers/user/user';
 import { HttpProvider } from '../providers/http/http';
 import { GoalProvider } from '../providers/goal/goal';
 import { EventProvider } from '../providers/event/event';
+import { CommentProvider } from '../providers/comment/comment';
 
 @NgModule({
   declarations: [
@@ -49,7 +50,8 @@ import { EventProvider } from '../providers/event/event';
     UserProvider,
     HttpProvider,
     GoalProvider,
-    EventProvider
+    EventProvider,
+    CommentProvider
   ]
 })
 export class AppModule {}
