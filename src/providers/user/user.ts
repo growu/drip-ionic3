@@ -41,8 +41,18 @@ export class UserProvider {
     return this.httpProivder.httpGetWithAuth("/user/goal/"+id,null);
   }
 
+  getGoalWeek(id){
+    return this.httpProivder.httpGetWithAuth("/user/goal/"+id+"/week",null);
+  }
+
   deleteGoal(id) {
     return this.httpProivder.httpDeleteWithAuth("/user/goal/"+id).then(value=>{
+      return value;
+    }).catch(e=>{console.log(e)});
+  }
+
+  checkinGoal(id,body) {
+    return this.httpProivder.httpPostWithAuth("/user/goal/"+id+"/checkin",body).then(value=>{
       return value;
     }).catch(e=>{console.log(e)});
   }

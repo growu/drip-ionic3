@@ -13,6 +13,7 @@ import { UserProvider } from '../../providers/user/user'
 export class GoalDetailSummaryPage {
 
   goal:any = {};
+  public week:any = [];
 
   constructor(public navCtrl: NavController,
               private app:App,
@@ -20,8 +21,13 @@ export class GoalDetailSummaryPage {
               private userProvider: UserProvider) {
   }
 
+  ionViewDidLoad() {
+    this.getGoal();
+    this.getGoalWeek();
+  }
+
   getGoal() {
-    let id = this.navParams.data.id;
+    let id = this.navParams.get('id');
     this.userProvider.getGoal(id).then((data)=>{
         this.goal = data;
     });
@@ -31,8 +37,13 @@ export class GoalDetailSummaryPage {
     this.app.getRootNav().push('goal-checkin',{'id':this.navParams.data.id});
   }
 
-  ionViewDidLoad() {
-    this.getGoal();
+  getGoalWeek() {
+    let id = this.navParams.get('id');
+    this.userProvider.getGoalWeek(id).then((data)=>{
+      this.week = data;
+    });
   }
+
+
 
 }

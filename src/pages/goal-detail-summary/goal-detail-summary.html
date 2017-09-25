@@ -5,8 +5,8 @@
         <ion-icon name="checkmark" style="font-size: 120px;" [class.active]="goal?.is_today_checkin"></ion-icon>
       </div>
       <round-progress
-              [current]="20"
-              [max]="100"
+              [current]="goal?.total_days"
+              [max]="goal?.expect_days"
               [color]="'#488aff'"
               [background]="'#eaeaea'"
               [radius]="80"
@@ -25,7 +25,7 @@
   <ion-row>
     <ion-col text-center>
       <ion-card>
-      <strong ion-text class="num" color="primary">{{goal?.expect_days==0?'999':goal?.expect_days}}</strong>
+      <strong ion-text class="num" color="primary">{{goal?.expect_days>0?goal?.expect_days:999}}</strong>
       <br>目标天数
       </ion-card>
     </ion-col>
@@ -46,6 +46,6 @@
   </ion-row>
 
   <ion-card>
-    <my-week-calendar></my-week-calendar>
+    <my-week-calendar [weekSource]="week"></my-week-calendar>
   </ion-card>
 </ion-content>

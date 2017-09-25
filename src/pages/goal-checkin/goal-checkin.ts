@@ -1,9 +1,11 @@
 import { Component } from '@angular/core';
 import { NavController, NavParams, IonicPage, ActionSheetController} from "ionic-angular";
+import { Validators, FormBuilder, FormGroup } from '@angular/forms';
 import { ImagePicker } from '@ionic-native/image-picker';
 import { Camera, CameraOptions } from '@ionic-native/camera';
 import { FileTransfer, FileUploadOptions, FileTransferObject } from '@ionic-native/file-transfer';
 import { File } from '@ionic-native/file';
+import { UserProvider } from "../../providers/user/user";
 
 
 @IonicPage({
@@ -16,18 +18,37 @@ import { File } from '@ionic-native/file';
 })
 export class GoalCheckinPage {
 
-  constructor(public navCtrl: NavController,
+    private checkinForm: FormGroup;
+
+    constructor(public navCtrl: NavController,
               public navParams: NavParams,
               private imagePicker: ImagePicker,
               private transfer: FileTransfer,
               private file: File,
               public camera: Camera,
-              public actionSheetCtrl:ActionSheetController) {
+              public actionSheetCtrl:ActionSheetController,
+                private formBuilder: FormBuilder,
+                private  userProvider: UserProvider
+    ) {
+
+        this.checkinForm = this.formBuilder.group({
+            'content': ['', []],
+        });
   }
 
   ionViewDidLoad() {
-    console.log('ionViewDidLoad GoalCheckinPage');
+
   }
+
+    doCheckin() {
+        let goal_id = this.navParams.get('id');
+
+        this.userProvider.checkinGoal(goal_id,this.checkinForm.value).then(data => {
+            if(data) {
+                this.navCtrl.push('goal-detail',{id:goal_id});
+            }
+        });
+    }
 
 
   choosePic($event) {

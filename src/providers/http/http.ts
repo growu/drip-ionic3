@@ -130,7 +130,7 @@ export class HttpProvider {
     let toast = this.toastCtrl.create({
       message: msg,
       duration: 3000,
-      position: 'middle',
+      position: 'top',
       showCloseButton: false,
       closeButtonText: '关闭'
     });

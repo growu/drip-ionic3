@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Output} from '@angular/core';
+import {Component, EventEmitter, Output, Input} from '@angular/core';
 import { MyWeekCalendarDay } from "./my-week-calendar.model";
 
 @Component({
@@ -9,10 +9,10 @@ export class MyWeekCalendarComponent {
   public days: Array<MyWeekCalendarDay>;
   public currentDay;
 
+  @Input() weekSource;
   @Output() onDaySelected = new EventEmitter<number>();
   
   constructor() {
-    console.log('Hello MyWeekCalendarComponent Component');
   }
 
   ngAfterViewInit() {
@@ -22,7 +22,6 @@ export class MyWeekCalendarComponent {
 
   onSelected(day:MyWeekCalendarDay) {
     this.currentDay = new Date(day.date);
-
     this.onDaySelected.emit(day.date);
   }
 
@@ -32,11 +31,9 @@ export class MyWeekCalendarComponent {
     if (selectDay.toDateString() == this.currentDay.toDateString()) {
       return true ;
     }
-
     return false;
   }
-
-
+  
   private createWeek() {
 
     this.days = new Array<MyWeekCalendarDay>();

@@ -1,0 +1,15 @@
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>goalDetailCalendarPage</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+  <ion-calendar [(ngModel)]="dateRangeObj"
+                [options]="optionsRange"
+                [format]="format">
+  </ion-calendar>
+</ion-content>

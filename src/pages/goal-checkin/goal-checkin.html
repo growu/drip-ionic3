@@ -8,9 +8,12 @@
 
 
 <ion-content>
+
+  <form [formGroup]="checkinForm" (ngSubmit)="doCheckin()">
+
   <ion-list>
     <ion-item>
-      <ion-textarea rows="5" placeholder="说点儿什么"></ion-textarea>
+      <ion-textarea rows="5" formControlName="content" placeholder="说点儿什么"></ion-textarea>
     </ion-item>
     <ion-item no-border no-lines>
       <ion-icon name="camera" large item-start (click)="choosePic($event)"></ion-icon>
@@ -31,5 +34,5 @@
   <ion-row padding>
     <button block ion-button  type="submit">提交</button>
   </ion-row>
-
+  </form>
 </ion-content>

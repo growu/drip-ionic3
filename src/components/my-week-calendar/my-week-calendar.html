@@ -1,5 +1,5 @@
 <ion-toolbar class="week-toolbar" no-border-top>
-  <ul class="week-title primary">
+  <ul class="week-title light">
     <li>日</li>
     <li>一</li>
     <li>二</li>
@@ -10,9 +10,10 @@
   </ul>
 </ion-toolbar>
 <div class="days-box">
-  <div class="days" *ngFor="let day of days;" class="days">
-    <button class="days-btn" ion-button clear>
-      <ion-icon name="ios-checkmark-circle" color="gray"></ion-icon>
+  <div class="days" *ngFor="let day of weekSource;" class="days">
+    <button class="days-btn" ion-button clear icon-only>
+      <ion-icon name="ios-checkmark-circle" color="gray" *ngIf="!day"></ion-icon>
+      <ion-icon name="ios-checkmark-circle" color="primary" *ngIf="day"></ion-icon>
     </button>
     <!--<button class="days-btn"-->
             <!--*ngIf="day"-->
