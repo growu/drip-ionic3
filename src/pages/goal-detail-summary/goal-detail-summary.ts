@@ -44,6 +44,10 @@ export class GoalDetailSummaryPage {
     });
   }
 
+  goGoalCalendarPage() {
+    this.navCtrl.push('goal-calendar',{id:this.navParams.get('id')});
+  }
+
 
 
 }

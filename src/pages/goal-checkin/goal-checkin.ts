@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NavController, NavParams, IonicPage, ActionSheetController} from "ionic-angular";
+import { App, NavController, NavParams, IonicPage, ActionSheetController} from "ionic-angular";
 import { Validators, FormBuilder, FormGroup } from '@angular/forms';
 import { ImagePicker } from '@ionic-native/image-picker';
 import { Camera, CameraOptions } from '@ionic-native/camera';
@@ -22,7 +22,8 @@ export class GoalCheckinPage {
 
     constructor(public navCtrl: NavController,
               public navParams: NavParams,
-              private imagePicker: ImagePicker,
+                public app: App,
+                private imagePicker: ImagePicker,
               private transfer: FileTransfer,
               private file: File,
               public camera: Camera,
@@ -40,12 +41,22 @@ export class GoalCheckinPage {
 
   }
 
-    doCheckin() {
+    doCheckin($event) {
+        $event.preventDefault();
+
         let goal_id = this.navParams.get('id');
 
-        this.userProvider.checkinGoal(goal_id,this.checkinForm.value).then(data => {
+        let body = this.checkinForm.value;
+
+        if(this.navParams.get('day')) {
+            body.day = this.navParams.get('day');
+        }
+
+        this.userProvider.checkinGoal(goal_id,body).then(data => {
             if(data) {
-                this.navCtrl.push('goal-detail',{id:goal_id});
+                this.navCtrl.push('goal-detail-summary',{id:goal_id});
+                // this.navCtrl.push('goal-detail',{id:goal_id});
+                // this.app.getRootNavs()[0].push('goal-detail',{id:goal_id});
             }
         });
     }

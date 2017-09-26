@@ -1,6 +1,6 @@
-import {Component, Input, ViewChild, Output,EventEmitter} from '@angular/core';
+import { Component, Input, ViewChild, Output,EventEmitter} from '@angular/core';
 import { Slides } from 'ionic-angular';
-import {MyCalendarMode, MyCalendarDays, MyCalendarDay} from './my-calendar.model'
+import { MyCalendarMode, MyCalendarDays, MyCalendarDay} from './my-calendar.model'
 import { MyCalendarService } from './my-calendar.service';
 
 @Component({

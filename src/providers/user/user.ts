@@ -41,8 +41,18 @@ export class UserProvider {
     return this.httpProivder.httpGetWithAuth("/user/goal/"+id,null);
   }
 
+  getGoalDay(id,day){
+    let params: URLSearchParams = new URLSearchParams();
+    params.set('day',day);
+    return this.httpProivder.httpGetWithAuth("/user/goal/"+id+"/day",params);
+  }
+
   getGoalWeek(id){
     return this.httpProivder.httpGetWithAuth("/user/goal/"+id+"/week",null);
+  }
+
+  getGoalCalendar(id){
+    return this.httpProivder.httpGetWithAuth("/user/goal/"+id+"/calendar",null);
   }
 
   deleteGoal(id) {

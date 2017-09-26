@@ -11,10 +11,9 @@ import { Storage } from '@ionic/storage';
 
 @Injectable()
 export class HttpProvider {
-  myInfoLocal: any;
   host : string;
 
-  API_URL = 'http://localhost:8104/api';
+  API_URL = 'http://localhost:8111/api';
 
   constructor(
       private http: Http,

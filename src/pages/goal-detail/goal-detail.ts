@@ -16,6 +16,7 @@ export class GoalDetailPage {
   page1: any = "goal-detail-summary";
   page2: any = "goal-detail-event";
   page3: any = "goal-detail-chart";
+  selectedTabIndex: number = 0;
 
   goal:any = {};
 
