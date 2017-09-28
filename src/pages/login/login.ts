@@ -34,7 +34,10 @@ export class LoginPage {
 
 
     doQQLogin() {
-
+        this.userProvider.doQQLogin().then((data)=>{
+        }).catch((err)=>{
+            console.log(err);
+        });
     }
 
     doWeiboLogin() {
@@ -52,7 +55,7 @@ export class LoginPage {
     }
 
     ionViewDidLoad() {
-        this.userProvider.isWechatInstalled().then((data)=>{
+        this.userProvider.checkWechatInstalled().then((data)=>{
             this.isWechatInstalled = true;
         }).catch((err)=>console.log(err));
     }

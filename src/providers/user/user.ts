@@ -10,6 +10,8 @@ import { Http, Response } from '@angular/http';
 
 declare var Wechat;
 declare var WeiboSDK;
+declare var QQSDK;
+
 
 @Injectable()
 export class UserProvider {
@@ -49,6 +51,41 @@ export class UserProvider {
       });
   }
 
+  doQQLogin():Promise<any> {
+    return new Promise((resolve, reject) => {
+      if(this.platform.is('cordova')) {
+
+        var args = {
+          client:QQSDK.ClientType.QQ
+        };
+
+        QQSDK.ssoLogin(function (result) {
+          alert('token is ' + result.access_token);
+          alert('userid is ' + result.userid);
+          alert('expires_time is ' + new Date(parseInt(result.expires_time)) + ' TimeStamp is ' + result.expires_time);
+
+          var url = "https://graph.qq.com/user/get_user_info?access_token=" + result.access_token + "&oauth_consumer_key=1104758278&openid=" + result.userid;
+          this.http.get(url, {}).toPromise()
+              .then(res => {
+                resolve(res);
+              })
+              .catch(err => {
+                reject(err);
+              });
+        }, function (failReason) {
+          alert(failReason);
+          reject(failReason);
+
+        }, args);
+
+      } else {
+        reject("非cordova平台");
+      }
+
+    });
+  }
+
+
   doWeiboLogin():Promise<any> {
     return new Promise((resolve, reject) => {
       if(this.platform.is('cordova')) {
@@ -81,7 +118,7 @@ export class UserProvider {
     });
   }
 
-  isWechatInstalled():Promise<any> {
+  checkWechatInstalled():Promise<any> {
     return new Promise<any>((resolve, reject) => {
 
       if(this.platform.is('cordova')) {
@@ -98,6 +135,41 @@ export class UserProvider {
     });
 
   }
+
+  checkQQInstalled():Promise<any> {
+    return new Promise<any>((resolve, reject) => {
+
+      if(this.platform.is('cordova')) {
+        var args = {
+          client :QQSDK.ClientType.QQ
+        }
+
+        QQSDK.checkClientInstalled(function () {
+          alert('client is installed');
+          resolve(true);
+        }, function (reason) {
+          // if installed QQ Client version is not supported sso,also will get this error
+          alert('client is not installed');
+          reject(reason);
+
+        }, args);
+
+      } else {
+        reject("非cordova平台");
+      }
+    });
+
+  }
+
+  doThirdLogin(provider,data) {
+  // var loginData = {};
+  data.provider = provider;
+  data.device = this.device;
+
+  return this.httpProivder.httpPostNoAuth('auth/oauth',data);
+
+}
+
 
   register(user) {
     user.device = this.device;
