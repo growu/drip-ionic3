@@ -13,7 +13,7 @@ import { Storage } from '@ionic/storage';
 export class HttpProvider {
   host : string;
 
-  API_URL = 'http://localhost:8111/api';
+  API_URL = 'http://localhost:8100/api';
 
   constructor(
       private http: Http,

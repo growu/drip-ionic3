@@ -19,6 +19,23 @@ export class UserProvider {
     return this.httpProivder.httpPostNoAuth("/auth/login", user);
   }
 
+  register(user) {
+    user.device = this.device;
+    return this.httpProivder.httpPostNoAuth("/auth/register", user);
+  }
+
+  getCode(object,type) {
+    let param = {
+      object:object,
+      type:type
+    };
+
+    let body = JSON.stringify(param);
+
+    return this.httpProivder.httpPostNoAuth("/auth/code", body);
+  }
+
+
   follow(id) {
     return this.httpProivder.httpPutWithAuth("/user/follow/"+id, null).then(value=>{
       return value;

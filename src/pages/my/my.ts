@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams} from 'ionic-angular';
+import { Storage } from '@ionic/storage';
 
 @IonicPage({
   name:'my',
@@ -10,12 +11,17 @@ import { IonicPage, NavController, NavParams} from 'ionic-angular';
   templateUrl: 'my.html',
 })
 export class MyPage {
-
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+  user:any = {};
+  constructor(public navCtrl: NavController,
+              public navParams: NavParams,
+              private storage: Storage) {
   }
 
   ionViewDidLoad() {
-    console.log('ionViewDidLoad MyPage');
+    this.storage.get('user').then((data)=>{
+      this.user = data;
+    });
+
   }
 
   goSettingPage() {
@@ -27,6 +33,6 @@ export class MyPage {
   }
 
   goUserHomePage() {
-    this.navCtrl.push("page-user-home",{'id':8});
+    this.navCtrl.push("user-home",{'id':this.user.id});
   }
 }

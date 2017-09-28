@@ -20,10 +20,10 @@
   <ion-list class="profile-list">
     <ion-item (click)="goUserHomePage()">
       <ion-thumbnail item-start>
-      <img src="assets/img/avatar.png">
+      <img src="{{user.avatar_url || 'assets/img/default-avatar.jpg'}}">
       </ion-thumbnail >
-      <h2>Jason.z</h2>
-      <p>成为海贼王一样的男人</p>
+      <h2>{{user.nickname || '还没有昵称'}}</h2>
+      <p>{{user.signature}}</p>
       <ion-note item-end>
         <ion-icon name="arrow-forward"></ion-icon>
       </ion-note>
@@ -31,35 +31,35 @@
   </ion-list>
   <ion-row class="follow-row" margin-bottom>
     <ion-col text-center>
-      <strong ion-text class="num" color="dark">200</strong>
+      <strong ion-text class="num" color="dark">{{user.follow_count}}</strong>
       <br>
       <ion-note>关注</ion-note>
     </ion-col>
     <ion-col text-center>
-      <strong ion-text class="num" color="dark">1.2K</strong>
+      <strong ion-text class="num" color="dark">{{user.fans_count}}</strong>
       <br>
       <ion-note>粉丝</ion-note>
     </ion-col>
     <ion-col text-center>
-      <strong ion-text class="num" color="dark">9999</strong>
+      <strong ion-text class="num" color="dark">{{user.event_count}}</strong>
       <br>
       <ion-note>动态</ion-note>
     </ion-col>
   </ion-row>
 
   <ion-list>
-    <ion-item>
-      我的收藏
-      <ion-note clear item-end>
-        <ion-icon name="arrow-forward"></ion-icon>
-      </ion-note>
-    </ion-item>
-    <ion-item>
-      我的徽章
-      <ion-note clear item-end>
-        <ion-icon name="arrow-forward"></ion-icon>
-      </ion-note>
-    </ion-item>
+    <!--<ion-item>-->
+      <!--我的收藏-->
+      <!--<ion-note clear item-end>-->
+        <!--<ion-icon name="arrow-forward"></ion-icon>-->
+      <!--</ion-note>-->
+    <!--</ion-item>-->
+    <!--<ion-item>-->
+      <!--我的徽章-->
+      <!--<ion-note clear item-end>-->
+        <!--<ion-icon name="arrow-forward"></ion-icon>-->
+      <!--</ion-note>-->
+    <!--</ion-item>-->
   </ion-list>
 
 </ion-content>
