@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams} from 'ionic-angular';
+import { Storage } from '@ionic/storage';
+import * as moment from 'moment'
 
 @IonicPage({
   name:'welcome',
@@ -10,15 +12,44 @@ import { IonicPage, NavController, NavParams} from 'ionic-angular';
 })
 export class WelcomePage {
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+  public days:any = ['0','0','0','0'];
+
+  constructor(public navCtrl: NavController,
+              public navParams: NavParams,
+              private storage: Storage) {
   }
 
+  ionViewWillEnter() {
+    this.storage.get('user').then((data)=>{
+      if(data) {
+        if(data.created_at) {
+          var now = moment(new Date());
+          var end = moment(data.created_at);
+          var duration = moment.duration(now.diff(end));
+          this.days = this.pad(Math.ceil(duration.asDays()),4).split('');
+        }
+
+        setTimeout(() => {
+          this.navCtrl.push('main');
+        }, 2000);
+
+      } else {
+        this.navCtrl.push('login');
+      }
+    });
+  }
+
+  // ionViewCanEnter(): boolean {
+  //   return false;
+  // }
+
   ionViewDidLoad() {
+  }
 
-    let timeoutId = setTimeout(() => {
-      this.navCtrl.push('main');
-    }, 2000);
-
+  pad(num:number, size:number): string {
+    let s = num+"";
+    while (s.length < size) s = "0" + s;
+    return s;
   }
 
 }

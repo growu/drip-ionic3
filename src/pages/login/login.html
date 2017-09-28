@@ -16,10 +16,10 @@
     </ion-row>
     <ion-row text-center class="third-toolbar">
         <ion-col col-4 >
-            <ion-icon ios="logo-apple" md="logo-apple"></ion-icon>
+            <ion-icon ios="logo-apple" md="logo-apple" (click)="doWeiboLogin()"></ion-icon>
         </ion-col>
         <ion-col col-4>
-            <ion-icon name="chatbubbles"></ion-icon>
+            <ion-icon name="chatbubbles" (click)="doWechatLogin()"></ion-icon>
         </ion-col>
         <ion-col col-4>
             <ion-icon ios="logo-facebook" md="logo-facebook"></ion-icon>

@@ -23,7 +23,7 @@
       <img src="{{user.avatar_url || 'assets/img/default-avatar.jpg'}}">
       </ion-thumbnail >
       <h2>{{user.nickname || '还没有昵称'}}</h2>
-      <p>{{user.signature}}</p>
+      <p>{{user.signature || ' '}}</p>
       <ion-note item-end>
         <ion-icon name="arrow-forward"></ion-icon>
       </ion-note>
@@ -31,17 +31,17 @@
   </ion-list>
   <ion-row class="follow-row" margin-bottom>
     <ion-col text-center>
-      <strong ion-text class="num" color="dark">{{user.follow_count}}</strong>
+      <strong ion-text class="num" color="dark">{{user.follow_count || '--'}}</strong>
       <br>
       <ion-note>关注</ion-note>
     </ion-col>
     <ion-col text-center>
-      <strong ion-text class="num" color="dark">{{user.fans_count}}</strong>
+      <strong ion-text class="num" color="dark">{{user.fans_count || '--'}}</strong>
       <br>
       <ion-note>粉丝</ion-note>
     </ion-col>
     <ion-col text-center>
-      <strong ion-text class="num" color="dark">{{user.event_count}}</strong>
+      <strong ion-text class="num" color="dark">{{user.event_count || '--'}}</strong>
       <br>
       <ion-note>动态</ion-note>
     </ion-col>

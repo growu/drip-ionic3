@@ -1,26 +1,12 @@
 <ion-content class="page-welcome">
   <div class="container">
     <!--<h1 class="day">1489</h1>-->
-    <ion-row class="days">
-      <ion-col col-3>
+    <ion-row class="days" >
+      <ion-col col-3 *ngFor="let day of days">
         <div class="line"></div>
-        <div class="day">4
+        <div class="day">{{day}}
         </div>
       </ion-col>
-      <ion-col col-3>
-        <div class="line"></div>
-        <div class="day">3</div>
-      </ion-col>
-      <ion-col col-3>
-        <div class="line"></div>
-        <div class="day">9</div>
-      </ion-col>
-      <ion-col col-3>
-        <div class="line"></div>
-        <div class="day">1</div>
-      </ion-col>
-
     </ion-row>
   </div>
-
 </ion-content >

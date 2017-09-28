@@ -54,6 +54,14 @@ export class RegisterPage {
     }
 
     this.userProvider.getCode(this.registerForm.value.account,'register').then((data)=>{
+      let toast = this.toastCtrl.create({
+        message: "验证码已发送到，请注意查收",
+        duration: 3000,
+        position: 'top',
+        cssClass: 'my-toast'
+      });
+      toast.present();
+
       this.isTimerStart = true;
       this.timerTracker();
     });

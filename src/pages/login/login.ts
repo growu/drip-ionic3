@@ -14,6 +14,8 @@ import { UserProvider } from "./../../providers/user/user";
 })
 export class LoginPage {
 
+    public isWechatInstalled:boolean = false;
+
     constructor(
         public navCtrl: NavController,
         public toastCtrl: ToastController,
@@ -34,5 +36,27 @@ export class LoginPage {
     doQQLogin() {
 
     }
+
+    doWeiboLogin() {
+        this.userProvider.doWeiboLogin().then((data)=>{
+        }).catch((err)=>{
+            console.log(err);
+        });
+    }
+
+    doWechatLogin() {
+        this.userProvider.doWechatLogin().then((data)=>{
+        }).catch((err)=>{
+            console.log(err);
+        });
+    }
+
+    ionViewDidLoad() {
+        this.userProvider.isWechatInstalled().then((data)=>{
+            this.isWechatInstalled = true;
+        }).catch((err)=>console.log(err));
+    }
+
+
 
 }

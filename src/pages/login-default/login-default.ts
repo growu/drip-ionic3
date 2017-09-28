@@ -18,7 +18,6 @@ export class LoginDefaultPage {
   public isShowPassword:boolean = false;
   private loginForm: FormGroup;
 
-
   constructor(public navCtrl: NavController,
               public navParams: NavParams,
               public toastCtrl: ToastController,
@@ -69,7 +68,7 @@ export class LoginDefaultPage {
   }
 
   ionViewDidLoad() {
-    console.log('ionViewDidLoad LoginDefaultPage');
+
   }
 
   showPassword($event) {

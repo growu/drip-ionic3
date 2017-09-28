@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, ToastController} from 'ionic-angular';
+import { UserProvider } from "./../../providers/user/user";
 
 
 @IonicPage({
@@ -12,10 +13,20 @@ import { IonicPage, NavController, NavParams, ToastController} from 'ionic-angul
 })
 export class UserHomePage {
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+  public user:any = {};
+
+  constructor(public navCtrl: NavController,
+              public navParams: NavParams,
+              private userProvider: UserProvider) {
   }
 
   ionViewDidLoad() {
+
+    this.userProvider.getUser(this.navParams.get('id')).then((data)=>{
+      if(data) {
+        this.user = data;
+      }
+    });
   }
 
 }

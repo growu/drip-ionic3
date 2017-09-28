@@ -34,14 +34,12 @@ export class HttpProvider {
           .then(res => this.handleSuccess(res))
           .catch(err => {this.handleError(err)});
     });
-
   }
-  public httpGetNoAuth(url: string,params: URLSearchParams) {
 
+  public httpGetNoAuth(url: string,params: URLSearchParams) {
     var headers = new Headers();
     headers.append('Content-Type', 'application/json');
     headers.append('Accept', 'application/x.drip.v2+json');
-
     let options = new RequestOptions({ headers: headers,search: params });
     return this.http.get(this.API_URL+url, options).toPromise()
         .then(res => this.handleSuccess(res))
