@@ -1,24 +1,24 @@
 <ion-header>
 
-  <ion-navbar>
+  <ion-navbar color="primary">
     <ion-title>找回密码</ion-title>
   </ion-navbar>
 
 </ion-header>
 
 
-<ion-content>
-  <form [formGroup]="forgetForm" (ngSubmit)="doRest()">
+<ion-content padding class="page-forget">
+  <form [formGroup]="forgetForm" (ngSubmit)="doReset()">
 
     <ion-list>
       <ion-item>
-        <ion-label> <ion-icon name="md-phone-portrait" color="light"></ion-icon></ion-label>
+        <ion-label> <ion-icon name="ios-person" color="light"></ion-icon></ion-label>
         <ion-input type="text" placeholder="手机号或邮箱" clearInput formControlName="account"></ion-input>
       </ion-item>
 
       <ion-item>
         <ion-label> <ion-icon name="ios-color-filter" color="light"></ion-icon></ion-label>
-        <ion-input type="text" placeholder="验证码" clearInput formControlName="code"></ion-input>
+        <ion-input type="number" min="1000" max="9999" placeholder="验证码" clearInput formControlName="code"></ion-input>
 
         <button ion-button clear item-right (click)="sendCode($event)" #sendBtn [disabled]="isTimerStart">
           {{timerText}}
@@ -28,7 +28,7 @@
 
       <ion-item>
         <ion-label> <ion-icon name="md-unlock" color="light"></ion-icon></ion-label>
-        <ion-input type="{{isShowPassword?'text':'password'}}" placeholder="密码" formControlName="password"></ion-input>
+        <ion-input type="{{isShowPassword?'text':'password'}}" placeholder="新密码" formControlName="password"></ion-input>
         <button ion-button clear item-right (click)="showPassword($event)" class="show-btn">
           <ion-icon name="{{isShowPassword?'eye':'eye-off'}}" color="light"> </ion-icon>
         </button>
@@ -36,7 +36,7 @@
     </ion-list>
 
     <ion-row padding>
-      <button block round ion-button>充值密码</button>
+      <button block round ion-button>重置密码</button>
     </ion-row>
   </form>
 

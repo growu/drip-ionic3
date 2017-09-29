@@ -108,4 +108,7 @@
     <plugin name="cordova-plugin-qqsdk" spec="^0.9.6">
         <variable name="QQ_APP_ID" value="1106192747" />
     </plugin>
+    <plugin name="jpush-phonegap-plugin" spec="^3.2.6">
+        <variable name="APP_KEY" value="46becc0d96be0a46d601867f" />
+    </plugin>
 </widget>

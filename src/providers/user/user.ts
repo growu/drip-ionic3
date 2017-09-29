@@ -162,18 +162,21 @@ export class UserProvider {
   }
 
   doThirdLogin(provider,data) {
-  // var loginData = {};
-  data.provider = provider;
-  data.device = this.device;
+    // var loginData = {};
+    data.provider = provider;
+    data.device = this.device;
 
-  return this.httpProivder.httpPostNoAuth('auth/oauth',data);
-
-}
-
+    return this.httpProivder.httpPostNoAuth('auth/oauth',data);
+  }
 
   register(user) {
     user.device = this.device;
     return this.httpProivder.httpPostNoAuth("/auth/register", user);
+  }
+
+  forget(user) {
+    user.device = this.device;
+    return this.httpProivder.httpPostNoAuth("/auth/forget", user);
   }
 
   getUser(id) {

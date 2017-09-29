@@ -58,6 +58,7 @@
         "cordova-plugin-file-transfer": "^1.6.3",
         "cordova-plugin-globalization": "^1.0.7",
         "cordova-plugin-inappbrowser": "^1.7.1",
+        "cordova-plugin-jcore": "^1.1.9",
         "cordova-plugin-qqsdk": "^0.9.6",
         "cordova-plugin-splashscreen": "^4.0.3",
         "cordova-plugin-telerik-imagepicker": "^2.1.8",
@@ -73,6 +74,7 @@
         "ionic-plugin-keyboard": "^2.2.1",
         "ionic2-super-tabs": "^4.1.0",
         "ionicons": "3.0.0",
+        "jpush-phonegap-plugin": "^3.2.6",
         "moment": "^2.18.1",
         "ng2-charts": "^1.6.0",
         "rxjs": "5.4.0",
@@ -115,6 +117,9 @@
             },
             "cordova-plugin-qqsdk": {
                 "QQ_APP_ID": "1106192747"
+            },
+            "jpush-phonegap-plugin": {
+                "APP_KEY": "46becc0d96be0a46d601867f"
             }
         },
         "platforms": [
