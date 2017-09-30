@@ -30,6 +30,9 @@ export class UserProvider {
 
   doWechatLogin():Promise<any> {
 
+    var localHttpProvider = this.httpProivder;
+
+
     return new Promise((resolve, reject) => {
         if(this.platform.is('cordova')) {
 
@@ -37,8 +40,28 @@ export class UserProvider {
               state = "_" + (+new Date());
 
           Wechat.auth(scope, state, function (response) {
-            alert(JSON.stringify(response));
-            resolve(response);
+
+            let url = 'https://api.weixin.qq.com/sns/oauth2/access_token?appid=wxac31b5ac3e65915a&secret=f8b8aac88586192c2b60bfbbf807ef7d&code='+response.code+'&grant_type=authorization_code';
+
+            localHttpProvider.httpGetNoAuth2(url).then((res)=>{
+              let url = 'https://api.weixin.qq.com/sns/userinfo?access_token='+res.access_token+'&openid='+res.openid;
+              localHttpProvider.httpGetNoAuth2(url)
+                  .then(res2 => {
+
+                    res2.userid = res.openid;
+                    res2.access_token = res.access_token;
+                    res2.refresh_token = res.refresh_token;
+
+                    this.doThirdLogin('wechat',res2).then((data)=>{
+                      resolve(data);
+                    }).catch((err)=>{
+                      reject(err);
+                    });
+                  }).catch(err => {
+                reject(err);
+              });
+            });
+
           }, function (reason) {
             alert("Failed: " + reason);
             reject(reason);
@@ -52,6 +75,9 @@ export class UserProvider {
   }
 
   doQQLogin():Promise<any> {
+
+    var localHttpProvider = this.httpProivder;
+
     return new Promise((resolve, reject) => {
       if(this.platform.is('cordova')) {
 
@@ -60,14 +86,20 @@ export class UserProvider {
         };
 
         QQSDK.ssoLogin(function (result) {
-          alert('token is ' + result.access_token);
-          alert('userid is ' + result.userid);
-          alert('expires_time is ' + new Date(parseInt(result.expires_time)) + ' TimeStamp is ' + result.expires_time);
 
           var url = "https://graph.qq.com/user/get_user_info?access_token=" + result.access_token + "&oauth_consumer_key=1104758278&openid=" + result.userid;
-          this.http.get(url, {}).toPromise()
+          localHttpProvider.httpGetNoAuth2(url)
               .then(res => {
-                resolve(res);
+
+                res.userid = result.userid;
+                res.expires_time = result.expires_time;
+                res.access_token = result.access_token;
+
+                this.doThirdLogin('qq',res).then((data)=>{
+                  resolve(data);
+                }).catch((err)=>{
+                  reject(err);
+                });
               })
               .catch(err => {
                 reject(err);
@@ -87,6 +119,9 @@ export class UserProvider {
 
 
   doWeiboLogin():Promise<any> {
+
+    var localHttpProvider = this.httpProivder;
+
     return new Promise((resolve, reject) => {
       if(this.platform.is('cordova')) {
 
@@ -94,17 +129,19 @@ export class UserProvider {
             state = "_" + (+new Date());
 
         WeiboSDK.ssoLogin(function (args) {
-          alert('access token is ' + args.access_token);
-          alert('userId is ' + args.userId);
-          alert('expires_time is ' + new Date(parseInt(args.expires_time)) + ' TimeStamp is ' + args.expires_time);
-
           let url = 'https://api.weibo.com/2/users/show.json?uid=' + args.userId + '&&access_token=' + args.access_token;
-
-          this.http.get(url, {}).toPromise()
+          localHttpProvider.httpGetNoAuth2(url)
               .then(res => {
-                resolve(res);
-              })
-              .catch(err => {
+                res.userid = args.userId;
+                res.expires_time = args.expires_time;
+                res.access_token = args.access_token;
+
+                this.doThirdLogin('weibo',res).then((data)=>{
+                  resolve(data);
+                }).catch((err)=>{
+                  reject(err);
+                });
+              }).catch(err => {
                 reject(err);
               });
         }, function (failReason) {
@@ -162,11 +199,10 @@ export class UserProvider {
   }
 
   doThirdLogin(provider,data) {
-    // var loginData = {};
     data.provider = provider;
     data.device = this.device;
 
-    return this.httpProivder.httpPostNoAuth('auth/oauth',data);
+    return this.httpProivder.httpPostNoAuth('auth/third',data);
   }
 
   register(user) {
@@ -174,18 +210,18 @@ export class UserProvider {
     return this.httpProivder.httpPostNoAuth("/auth/register", user);
   }
 
-  forget(user) {
+  find(user) {
     user.device = this.device;
-    return this.httpProivder.httpPostNoAuth("/auth/forget", user);
+    return this.httpProivder.httpPostNoAuth("/auth/find", user);
   }
 
   getUser(id) {
     return this.httpProivder.httpGetWithAuth("/user/"+id,null);
   }
 
-  getCode(object,type) {
+  getCode(account,type) {
     let param = {
-      object:object,
+      account:account,
       type:type
     };
 

@@ -18,7 +18,7 @@
 
       <ion-item>
         <ion-label> <ion-icon name="ios-color-filter" color="light"></ion-icon></ion-label>
-        <ion-input type="number" min="1000" max="9999" placeholder="验证码" clearInput formControlName="code"></ion-input>
+        <ion-input type="tel" maxlength="4"  placeholder="验证码" clearInput formControlName="code"></ion-input>
 
         <button ion-button clear item-right (click)="sendCode($event)" #sendBtn [disabled]="isTimerStart">
           {{timerText}}

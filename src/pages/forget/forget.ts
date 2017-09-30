@@ -51,7 +51,7 @@ export class ForgetPage {
       return;
     }
 
-    this.userProvider.getCode(this.forgetForm.value.account,'register').then((data)=>{
+    this.userProvider.getCode(this.forgetForm.value.account,'find').then((data)=>{
       let toast = this.toastCtrl.create({
         message: "验证码已发送到，请注意查收",
         duration: 3000,
@@ -63,8 +63,6 @@ export class ForgetPage {
       this.isTimerStart = true;
       this.timerTracker();
     });
-
-
   }
 
   timerTracker() {
@@ -132,12 +130,16 @@ export class ForgetPage {
 
     }
 
-    this.userProvider.forget(this.forgetForm.value).then(data => {
-      if(data) {
-        this.storage.set('token', data.token);
-        this.storage.set('user', data.user);
-        this.navCtrl.push('main');
-      }
+    this.userProvider.find(this.forgetForm.value).then(data => {
+        let toast = this.toastCtrl.create({
+          message: "密码修改成功，请重新登录",
+          duration: 3000,
+          position: 'top',
+          cssClass: 'my-toast'
+        });
+        toast.present();
+
+        this.navCtrl.push('login-default');
     });
   }
 

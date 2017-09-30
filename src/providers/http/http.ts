@@ -13,7 +13,8 @@ import { Storage } from '@ionic/storage';
 export class HttpProvider {
   host : string;
 
-  API_URL = 'http://localhost:8100/api';
+  // API_URL = 'http://localhost:8105/api';
+  API_URL = 'http://drip.growu.me/api';
 
   constructor(
       private http: Http,
@@ -45,6 +46,13 @@ export class HttpProvider {
         .then(res => this.handleSuccess(res))
         .catch(err => {this.handleError(err)});
   }
+
+  public httpGetNoAuth2(url: string) {
+    return this.http.get(url, {}).toPromise()
+        .then(res => res.json())
+        .catch(err => {this.handleError(err)});
+  }
+
   public httpPostNoAuth(url: string, body: any) {
     var headers = new Headers();
     headers.append('Content-Type', 'application/json');

@@ -4,7 +4,7 @@ import { EventProvider } from '../../providers/event/event'
 
 @IonicPage({
   name:'event',
-  segment:'event'
+  segment:'hot'
 })
 @Component({
   selector: 'page-event',
