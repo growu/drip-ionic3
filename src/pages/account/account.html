@@ -23,14 +23,14 @@
     <ion-item>
       手机号
       <ion-note clear item-end>
-        18106500627
+        {{user.phone || '未设置'}}
         <ion-icon name="arrow-forward"></ion-icon>
       </ion-note>
     </ion-item>
     <ion-item>
       电子邮箱
       <ion-note clear item-end>
-        ccnuzxg@163.com
+        {{user.email || '未设置'}}
         <ion-icon name="arrow-forward"></ion-icon>
       </ion-note>
     </ion-item>
@@ -40,31 +40,32 @@
     <ion-list-header>
       第三方账号
     </ion-list-header>
-    <ion-item>
+    <ion-item (click)="showBindMenu('wechat')">
       微信
       <ion-note clear item-end>
-        未绑定
+        {{ user.wechat?.nickname || '未绑定'}}
+
         <ion-icon name="arrow-forward"></ion-icon>
       </ion-note>
     </ion-item>
-    <ion-item>
+    <ion-item (click)="showBindMenu('weibo')">
       微博
       <ion-note clear item-end>
-        未绑定
+        {{ user.weibo?.nickname || '未绑定'}}
         <ion-icon name="arrow-forward"></ion-icon>
       </ion-note>
     </ion-item>
-    <ion-item>
+    <ion-item (click)="showBindMenu('qq')">
       QQ
       <ion-note clear item-end>
-        未绑定
+        {{ user.qq?.nickname || '未绑定'}}
         <ion-icon name="arrow-forward"></ion-icon>
       </ion-note>
     </ion-item>
   </ion-list>
 
   <div padding>
-    <button ion-button block outline color="danger">退出账号</button>
+    <button ion-button block outline color="danger" (click)="doLogout()">退出账号</button>
   </div>
 
 

@@ -11,7 +11,8 @@ import { Storage } from '@ionic/storage';
   templateUrl: 'my.html',
 })
 export class MyPage {
-  user:any = {};
+  public user:any = {};
+
   constructor(public navCtrl: NavController,
               public navParams: NavParams,
               private storage: Storage) {

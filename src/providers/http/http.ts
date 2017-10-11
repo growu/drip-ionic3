@@ -13,7 +13,7 @@ import { Storage } from '@ionic/storage';
 export class HttpProvider {
   host : string;
 
-  // API_URL = 'http://localhost:8105/api';
+  // API_URL = 'http://localhost:8080/api';
   API_URL = 'http://drip.growu.me/api';
 
   constructor(
@@ -125,6 +125,7 @@ export class HttpProvider {
 
   private handleError(error: Response | any){
     console.log(error);
+    console.log(JSON.stringify(error, null, 4));
 
     let msg = error.text()?error.json().message:'请求地址错误';
 

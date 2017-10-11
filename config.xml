@@ -1,9 +1,9 @@
 <?xml version='1.0' encoding='utf-8'?>
-<widget id="me.growu.driptest" version="0.0.1" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
+<widget id="me.growu.drip" version="0.0.1" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
     <name>水滴打卡</name>
     <description>水滴石穿，持之以恒</description>
     <author email="drip@growu.me" href="http://drip.growu.me/">格吾社区</author>
-    <content original-src="index.html" src="http://192.168.2.229:8112" />
+    <content src="index.html" />
     <access origin="*" />
     <allow-navigation href="http://ionic.local/*" />
     <allow-intent href="http://*/*" />
@@ -83,10 +83,10 @@
         <splash height="480" src="resources/ios/splash/Default~iphone.png" width="320" />
     </platform>
     <allow-navigation href="*" />
-    <allow-navigation href="http://192.168.56.1:8108" />
-    <allow-navigation href="http://192.168.56.1:8109" />
-    <allow-navigation href="http://192.168.2.229:8111" />
-    <allow-navigation href="http://192.168.2.229:8112" />
+    <allow-navigation href="http://localhost:8080/*" />
+    <allow-navigation href="http://192.168.2.225:8106" />
+    <allow-navigation href="http://192.168.56.1:8107" />
+    <allow-navigation href="http://192.168.2.234:8102" />
     <engine name="android" spec="^6.2.3" />
     <engine name="ios" spec="^4.4.0" />
     <plugin name="com.synconset.imagepicker" spec="~2.1.8">
