@@ -6,7 +6,7 @@
       </div>
       <round-progress
               [current]="goal?.total_days"
-              [max]="goal?.expect_days"
+              [max]="goal?.expect_days || 99999"
               [color]="'#488aff'"
               [background]="'#eaeaea'"
               [radius]="80"

@@ -18,7 +18,35 @@
 
 .my-toast {
   text-align: center;
+  top:33px;
+  .toast-message {
+    padding:3px;
+  }
+  .toast-wrapper {
+    left:0;
+    right:0;
+    border-radius: 0;
+  }
 }
+
+.my-toast-success {
+  .toast-wrapper {
+    background: #5cb85c;
+  }
+}
+
+.my-toast-error {
+  .toast-wrapper {
+    background: #d9534f;
+  }
+}
+
+.my-toast-warning {
+  .toast-wrapper {
+    background: #f0ad4e;
+  }
+}
+
 
 .my-alert-danger {
   background-color: white!important;

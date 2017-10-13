@@ -6,26 +6,26 @@
 
 </ion-header>
 
-<ion-content class="page-goal-create">
+<ion-content class="page-goal-create" padding-top>
   <form [formGroup]="goalCreateForm" (ngSubmit)="doCreateGoal()">
   <ion-list>
     <ion-item>
-      <ion-input placeholder="目标名称" formControlName="name"></ion-input>
+      <ion-input placeholder="目标名称" formControlName="name" maxlength="20"></ion-input>
     </ion-item>
     <ion-item>
-      <ion-textarea placeholder="描述你的目标" formControlName="desc"></ion-textarea>
+      <ion-textarea placeholder="描述你的目标" formControlName="desc" maxlength="255"></ion-textarea>
     </ion-item>
   </ion-list>
 
   <ion-list>
     <ion-item>
       <ion-label>开始日期</ion-label>
-      <ion-datetime placeholder="今天" displayFormat="YYYY-MM-DD" pickerFormat="MMM DD YYYY" cancelText="重置" doneText="保存"  min="today" formControlName="start_date"></ion-datetime>
+      <ion-datetime placeholder="今天"  (ionCancel)="onClearStartDate()" (ionChange)="onChangeDate()" displayFormat="YYYY-MM-DD" pickerFormat="YYYY MMM DD" cancelText="重置" doneText="保存" [min]="today" [max]="max" formControlName="start_date" [(ngModel)]="goal.start_date"></ion-datetime>
     </ion-item>
 
     <ion-item>
       <ion-label>结束日期</ion-label>
-      <ion-datetime #endDate placeholder="永久" (ionCancel)="onClearEndDate()" displayFormat="YYYY-MM-DD" pickerFormat="MMM DD YYYY" cancelText="清空" doneText="保存" formControlName="end_date"></ion-datetime>
+      <ion-datetime #endDate placeholder="无" (ionCancel)="onClearEndDate()"  (ionChange)="onChangeDate()" displayFormat="YYYY-MM-DD" pickerFormat="YYYY MMM DD" [min]="goal.start_day" [max]="max" cancelText="清空" doneText="保存" formControlName="end_date" [(ngModel)]="goal.end_date"></ion-datetime>
     </ion-item>
 
   </ion-list>
@@ -46,7 +46,7 @@
     </ion-item>
     <ion-item>
       <ion-label>提醒时间</ion-label>
-      <ion-datetime placeholder="无" displayFormat="HH:mm" pickerFormat="HH:mm" formControlName="remind_time"></ion-datetime>
+      <ion-datetime placeholder="无" displayFormat="HH:mm" pickerFormat="HH:mm" (ionCancel)="onClearRemindTime()" formControlName="remind_time" cancelText="清空" doneText="保存" [(ngModel)]="goal.remind_time"></ion-datetime>
     </ion-item>
   </ion-list>
 

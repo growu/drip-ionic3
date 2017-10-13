@@ -1,31 +1,29 @@
-
 <ion-header no-border>
 
-  <ion-navbar color="primary">
-    <ion-title></ion-title>
-  </ion-navbar>
+    <ion-navbar color="primary">
+        <ion-title></ion-title>
+    </ion-navbar>
 
 </ion-header>
 
-
 <ion-content>
-  <ion-row text-center class="profile-row">
-    <ion-col>
-        <img src="{{user.avatar_url || 'assets/img/default-avatar.jpg'}}">
-        <h2>{{user.nickname || '还没有昵称'}}</h2>
-      <p>{{user.signature || ' '}}</p>
-    </ion-col>
-  </ion-row>
-  <ion-row class="follow-row">
-    <ion-col text-center>
-        <strong ion-text class="num" color="dark">{{user.follow_count || '--'}}</strong>
-        <br>
-        <ion-note>关注</ion-note>
-    </ion-col>
-    <ion-col text-center>
-        <strong ion-text class="num" color="dark">{{user.fans_count || '--'}}</strong>
-        <br>
-        <ion-note>粉丝</ion-note>
-    </ion-col>
-  </ion-row>
+    <ion-row text-center class="profile-row">
+        <ion-col>
+            <img src="{{user.avatar_url || 'assets/img/default-avatar.jpg'}}">
+            <h2>{{user.nickname || '还没有昵称'}} <i class="iconfont icon-vip-copy" ion-text color="gray"></i></h2>
+            <p>{{user.signature || ' '}}</p>
+        </ion-col>
+    </ion-row>
+    <ion-row class="follow-row">
+        <ion-col text-center>
+            <strong ion-text class="num" color="dark">{{user.follow_count || '--'}}</strong>
+            <br>
+            <ion-note>关注</ion-note>
+        </ion-col>
+        <ion-col text-center>
+            <strong ion-text class="num" color="dark">{{user.fans_count || '--'}}</strong>
+            <br>
+            <ion-note>粉丝</ion-note>
+        </ion-col>
+    </ion-row>
 </ion-content>

@@ -15,6 +15,8 @@ import { HttpProvider } from '../providers/http/http';
 import { GoalProvider } from '../providers/goal/goal';
 import { EventProvider } from '../providers/event/event';
 import { CommentProvider } from '../providers/comment/comment';
+import { ToastProvider } from '../providers/toast/toast';
+import { LoadingProvider } from '../providers/loading/loading';
 
 @NgModule({
   declarations: [
@@ -51,7 +53,9 @@ import { CommentProvider } from '../providers/comment/comment';
     HttpProvider,
     GoalProvider,
     EventProvider,
-    CommentProvider
+    CommentProvider,
+    ToastProvider,
+    LoadingProvider
   ]
 })
 export class AppModule {}

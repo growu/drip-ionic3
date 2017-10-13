@@ -3,7 +3,7 @@
         <li *ngFor="let w of _weekArray">{{w}}</li>
     </ul>
 </ion-toolbar>
-<div (swipe)="swipeEvent($event)">
+<div (swipe)="swipeEvent($event)" class="days-container">
 <ion-slides #weekSlides >
     <ion-slide>
         <div *ngIf="'week'===_mode">

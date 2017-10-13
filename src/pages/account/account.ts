@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, ActionSheetController } from 'ionic-angular';
 import { AppRate } from '@ionic-native/app-rate';
 import { Storage } from '@ionic/storage';
+import { UserProvider } from "./../../providers/user/user";
 
 @IonicPage({
   name:"account"
@@ -15,6 +16,7 @@ export class AccountPage {
 
   constructor(public navCtrl: NavController,
               public navParams: NavParams,
+              private userProvider: UserProvider,
               public actionSheetCtrl: ActionSheetController,
               private storage: Storage) {
   }
@@ -80,6 +82,24 @@ export class AccountPage {
     }
 
     doBind(provider) {
+        if(provider == 'wechat') {
+            this.userProvider.doWechatBind().then((data) => {
+
+            });
+        }
+
+        if(provider == 'qq') {
+            this.userProvider.doWechatBind().then((data) => {
+
+            });
+        }
+
+        if(provider == 'weibo') {
+            this.userProvider.doWechatBind().then((data) => {
+
+            });
+        }
+
 
     }
 

@@ -14,7 +14,7 @@ export class MyApp {
       statusBar.styleDefault();
       splashScreen.hide();
       if(platform.is('cordova')) {
-        (<any>window).plugins.JPush.init()
+        (<any>window).plugins.JPush.init();
       }
     });
   }

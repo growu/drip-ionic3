@@ -33,7 +33,7 @@
                  *ngIf="setting?.calendarMode">
     </my-calendar>
 
-    <ion-list *ngIf="setting?.viewMode=='list'" class="events-list">
+    <ion-list *ngIf="setting?.viewMode=='list'" class="events-list" margin-top>
             <ion-card *ngFor="let goal of goals">
                 <ion-card-content>
                     <ion-item-sliding>

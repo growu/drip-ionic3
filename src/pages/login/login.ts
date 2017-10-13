@@ -1,12 +1,11 @@
-
-import { Component } from '@angular/core';
-import { NavController, IonicPage, ToastController } from 'ionic-angular';
-import 'rxjs/add/operator/toPromise';
-import { UserProvider } from "./../../providers/user/user";
-import { Storage } from '@ionic/storage';
+import {Component} from '@angular/core';
+import {NavController, IonicPage} from 'ionic-angular';
+import {UserProvider} from "./../../providers/user/user";
+import {Storage} from '@ionic/storage';
+import swal from 'sweetalert2'
 
 @IonicPage({
-    name:'login'
+    name: 'login'
 })
 
 @Component({
@@ -16,76 +15,71 @@ import { Storage } from '@ionic/storage';
 export class LoginPage {
 
     // public isWechatInstalled:boolean = false;
-    public isQQInstalled:boolean = false;
+    public isQQInstalled: boolean = false;
     // public isWeiboInstalled:boolean = false;
 
-    constructor(
-        public navCtrl: NavController,
-        public toastCtrl: ToastController,
-        private userProvider: UserProvider,
-        private storage: Storage
-    ){
+    constructor(public navCtrl: NavController,
+                private userProvider: UserProvider,
+                private storage: Storage) {
 
     }
 
-    goLoginDefaultPage(){
+    goLoginDefaultPage() {
         this.navCtrl.push('login-default');
     }
 
-    goRegisterPage(){
+    goRegisterPage() {
         this.navCtrl.push('register');
     }
 
     doQQLogin() {
-        this.userProvider.doQQLogin().then((data)=>{
-            this.successLogin(data);
-        }).catch((err)=>{
+        this.userProvider.doQQLogin().then((response) => {
+            this.successLogin(response);
+        }).catch((err) => {
             console.log(err);
         });
     }
 
     doWeiboLogin() {
-        this.userProvider.doWeiboLogin().then((data)=>{
-            this.successLogin(data);
-        }).catch((err)=>{
-            console.log(err);
+        this.userProvider.doWeiboLogin().then((response) => {
+            this.successLogin(response);
+        }).catch((err) => {
         });
     }
 
     doWechatLogin() {
-        this.userProvider.doWechatLogin().then((data)=>{
-           this.successLogin(data);
-        }).catch((err)=>{
-            console.log(err);
+        this.userProvider.doWechatLogin().then((response) => {
+            this.successLogin(response);
+        }).catch((err) => {
         });
     }
 
-    private successLogin(data) {
-        this.storage.set('token', data.token);
-        this.storage.set('user', data.user);
+    private successLogin(response) {
 
-        let toast = this.toastCtrl.create({
-            message: "登录成功",
-            duration: 3000,
-            position: 'top',
-            cssClass: 'my-toast'
+        this.storage.set('token', response.token);
+        this.storage.set('user', response.user);
+
+        swal({
+            title: '登录成功',
+            // text: '欢迎回来',
+            type: 'success',
+            timer: 2000,
+            showConfirmButton: false,
+            width: '50%'
+        }).then(() => {
+        }, dismiss => {
+            this.navCtrl.push('main');
         });
-        toast.present();
-
-        this.navCtrl.push('main');
     }
 
     ionViewDidLoad() {
-        // this.userProvider.checkWechatInstalled().then((data)=>{
+        // this.userProvider.checkWechatInstalled().then((response)=>{
         //     this.isWechatInstalled = true;
         // }).catch((err)=>console.log(err));
 
-        this.userProvider.checkQQInstalled().then((data)=>{
+        this.userProvider.checkQQInstalled().then((response) => {
             this.isQQInstalled = true;
-        }).catch((err)=>console.log(err));
-
+        }).catch((err) => console.log(err));
     }
-
-
 
 }

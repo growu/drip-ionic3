@@ -1,4 +1,6 @@
 .page-home {
+  background-color: #f4f4f4;
+
   .toolbar-background {
     top:1px!important;
   }
@@ -74,6 +76,7 @@
 
 
   .events-list {
+
     .check-icon {
       font-size:4rem;
     }
@@ -86,13 +89,21 @@
     ion-datetime {
       position: relative;
     }
+
+    ion-card {
+      border-top: 4px solid #7a8493;
+      border-radius: 0;
+    }
   }
 
   .events-card {
+
+
     ion-card-header {
       font-size: 1.4rem;
-      padding:10px;
-      background-color: #dedede;
+      padding:5px;
+      background-color: #7a8493;
+      color:#fff;
     }
     .check-icon {
       font-size:7rem;

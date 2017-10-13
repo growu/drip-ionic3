@@ -1,9 +1,3 @@
-<!--
-  Generated template for the AccountPage page.
-
-  See http://ionicframework.com/docs/components/#navigation for more info on
-  Ionic pages and navigation.
--->
 <ion-header>
 
   <ion-navbar color="primary">
@@ -20,14 +14,14 @@
 
 <ion-content class="page-account">
   <ion-list>
-    <ion-item>
+    <ion-item (click)="showBindMenu('phone')">
       手机号
       <ion-note clear item-end>
         {{user.phone || '未设置'}}
         <ion-icon name="arrow-forward"></ion-icon>
       </ion-note>
     </ion-item>
-    <ion-item>
+    <ion-item (click)="showBindMenu('email')">
       电子邮箱
       <ion-note clear item-end>
         {{user.email || '未设置'}}

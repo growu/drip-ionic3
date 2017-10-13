@@ -18,10 +18,6 @@ import { AppProvider } from '../../providers/AppProvider';
     AppProvider.getFileProvider(),
     AppProvider.getFileTransferProvider(),
     AppProvider.getCropProvider(),
-    // { provide: ImagePicker, useClass: ImagePickerMock },
-    // { provide: File, useClass: FileMock },
-    // { provide: FileTransfer, useClass: FileTransferMock },
-    // { provide: Crop, useClass: CropMock }
   ]
 })
 export class ProfilePageModule {}
