@@ -77,7 +77,7 @@
         "ionic": "^3.10.3",
         "ionic-angular": "^3.7.1",
         "ionic-plugin-keyboard": "^2.2.1",
-        "ionic2-super-tabs": "^4.1.0",
+        "ionic2-super-tabs": "^4.1.3",
         "ionicons": "3.0.0",
         "jpush-phonegap-plugin": "^3.2.6",
         "moment": "^2.18.1",

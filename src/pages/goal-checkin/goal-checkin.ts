@@ -31,6 +31,8 @@ export class GoalCheckinPage {
                 private formBuilder: FormBuilder,
                 private  userProvider: UserProvider) {
 
+        console.log(this.navParams);
+
         this.checkinForm = this.formBuilder.group({
             'content': ['', []],
         });
@@ -43,6 +45,7 @@ export class GoalCheckinPage {
     doCheckin($event) {
         $event.preventDefault();
 
+
         let goal_id = this.navParams.get('id');
 
         let body = this.checkinForm.value;
@@ -53,9 +56,7 @@ export class GoalCheckinPage {
 
         this.userProvider.checkinGoal(goal_id, body).then(data => {
             if (data) {
-                //this.navCtrl.push('goal-detail-summary', {id: goal_id});
-                this.navCtrl.push('goal-detail',{id:goal_id});
-                // this.app.getRootNavs()[0].push('goal-detail',{id:goal_id});
+                this.navCtrl.pop();
             }
         });
     }

@@ -28,6 +28,9 @@ export class GoalDetailPage {
   }
 
   getGoal() {
+    console.log(this.navParams);
+    var params = this.navParams;
+
     let id = this.navParams.data.id;
     this.userProvider.getGoal(id).then((data)=>{
       this.goal = data;

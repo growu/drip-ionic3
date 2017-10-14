@@ -14,11 +14,16 @@ export class GoalDetailSummaryPage {
 
     goal: any = {};
     public week: any = [];
+    public rootNavCtrl: NavController;
 
     constructor(public navCtrl: NavController,
                 private app: App,
                 public navParams: NavParams,
                 private userProvider: UserProvider) {
+        console.log(navParams);
+
+        this.rootNavCtrl = navParams.get('rootNavCtrl');
+        console.log(this.rootNavCtrl);
     }
 
     ionViewDidLoad() {
@@ -34,6 +39,8 @@ export class GoalDetailSummaryPage {
     }
 
     goCheckinPage() {
+
+        // this.rootNavCtrl.push('goal-checkin', {'id': this.navParams.data.id});
         this.app.getRootNav().push('goal-checkin', {'id': this.navParams.data.id});
     }
 

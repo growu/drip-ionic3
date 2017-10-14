@@ -2,7 +2,7 @@
   <div class="row" style="margin:10px auto;" (click)="goCheckinPage()">
     <div class="progress-wrapper">
       <div class="progress ng-cloak">
-        <ion-icon name="checkmark" style="font-size: 120px;" [class.active]="goal?.is_today_checkin"></ion-icon>
+        <ion-icon name="checkmark" style="font-size: 120px;font-weight: 900;" [color]="goal?.is_today_checkin?'primary':'gray'"></ion-icon>
       </div>
       <round-progress
               [current]="goal?.total_days"
