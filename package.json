@@ -30,7 +30,7 @@
         "@ionic-native-mocks/image-picker": "^2.0.3",
         "@ionic-native/app-rate": "^4.2.1",
         "@ionic-native/camera": "^4.2.1",
-        "@ionic-native/core": "3.12.1",
+        "@ionic-native/core": "^4.2.0",
         "@ionic-native/crop": "^4.2.1",
         "@ionic-native/date-picker": "^4.2.1",
         "@ionic-native/device": "^4.2.1",

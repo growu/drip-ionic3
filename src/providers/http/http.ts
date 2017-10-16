@@ -31,7 +31,7 @@ export class HttpProvider {
             let options = new RequestOptions({headers: headers, search: params});
             return this.http.get(this.API_URL + url, options).toPromise()
                 .then(this.extractData)
-                .catch(err=>this.handleError(err));
+                .catch(err => this.handleError(err));
         });
     }
 
@@ -42,13 +42,13 @@ export class HttpProvider {
         let options = new RequestOptions({headers: headers, search: params});
         return this.http.get(this.API_URL + url, options).toPromise()
             .then(this.extractData)
-            .catch(err=>this.handleError(err));
+            .catch(err => this.handleError(err));
     }
 
     public httpGetNoAuth2(url: string) {
         return this.http.get(url, {}).toPromise()
             .then(this.extractData)
-            .catch(err=>this.handleError(err));
+            .catch(err => this.handleError(err));
     }
 
     public httpPostNoAuth(url: string, body: any) {
@@ -58,7 +58,7 @@ export class HttpProvider {
         let options = new RequestOptions({headers: headers});
         return this.http.post(this.API_URL + url, body, options).toPromise()
             .then(this.extractData)
-            .catch(err=>this.handleError(err));
+            .catch(err => this.handleError(err));
     }
 
     public httpPostWithAuth(url: string, body: any) {
@@ -70,7 +70,7 @@ export class HttpProvider {
             let options = new RequestOptions({headers: headers});
             return this.http.post(this.API_URL + url, body, options).toPromise()
                 .then(this.extractData)
-                .catch(err=>this.handleError(err));
+                .catch(err => this.handleError(err));
         });
     }
 
@@ -84,7 +84,7 @@ export class HttpProvider {
             let options = new RequestOptions({headers: headers});
             return this.http.put(this.API_URL + url, body, options).toPromise()
                 .then(this.extractData)
-                .catch(err=>this.handleError(err));
+                .catch(err => this.handleError(err));
         });
     }
 
@@ -98,7 +98,7 @@ export class HttpProvider {
             let options = new RequestOptions({headers: headers});
             return this.http.delete(this.API_URL + url, options).toPromise()
                 .then(this.extractData)
-                .catch(err=>this.handleError(err));
+                .catch(err => this.handleError(err));
         });
     }
 
@@ -112,12 +112,12 @@ export class HttpProvider {
             let options = new RequestOptions({headers: headers});
             return this.http.patch(this.API_URL + url, body, options).toPromise()
                 .then(this.extractData)
-                .catch(err=>this.handleError(err));
+                .catch(err => this.handleError(err));
         });
     }
 
     private extractData(res: Response) {
-        return res.text()?res.json():{};
+        return res.text() ? res.json() : {};
     }
 
     private handleError(error: Response | any): Promise<any> {
@@ -127,7 +127,7 @@ export class HttpProvider {
             return Promise.resolve("success");
         }
 
-        let msg = error.text?error.json().message:'请求地址错误';
+        let msg = error.text ? error.json().message : '请求地址错误';
 
         if (error.status == 400) {
             this.app.getActiveNav().push('login-default');

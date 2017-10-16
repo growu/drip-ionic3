@@ -6,6 +6,7 @@ import {Camera, CameraOptions} from '@ionic-native/camera';
 import {FileTransfer, FileUploadOptions, FileTransferObject} from '@ionic-native/file-transfer';
 import {File} from '@ionic-native/file';
 import {UserProvider} from "../../providers/user/user";
+import {Storage} from '@ionic/storage';
 
 
 @IonicPage({
@@ -23,6 +24,7 @@ export class GoalCheckinPage {
     constructor(public navCtrl: NavController,
                 public navParams: NavParams,
                 public app: App,
+                private storage:Storage,
                 private imagePicker: ImagePicker,
                 private transfer: FileTransfer,
                 private file: File,
@@ -101,15 +103,17 @@ export class GoalCheckinPage {
             console.log(results);
             if (results && results.length > 0) {
 
-                let options: FileUploadOptions = {
-                    fileKey: 'file',
-                    fileName: "",
-                    headers: {}
-                }
+                this.storage.get("token").then(token => {
+                    let options: FileUploadOptions = {
+                        fileKey: 'file',
+                        fileName: "",
+                        headers: {"Authorization": 'Bearer '+token, "Accept":'application/x.drip.v2+json'}
+                    }
+                });
 
                 const fileTransfer: FileTransferObject = this.transfer.create();
 
-                fileTransfer.upload(results[0], '<api endpoint>', options)
+                fileTransfer.upload(results[0], 'http://drip.growu.me/api/upload/image', options)
                     .then((data) => {
                         // success
                     }, (err) => {
