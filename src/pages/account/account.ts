@@ -1,59 +1,59 @@
-import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, ActionSheetController } from 'ionic-angular';
-import { AppRate } from '@ionic-native/app-rate';
-import { Storage } from '@ionic/storage';
-import { UserProvider } from "./../../providers/user/user";
+import {Component} from '@angular/core';
+import {IonicPage, NavController, NavParams, ActionSheetController} from 'ionic-angular';
+import {AppRate} from '@ionic-native/app-rate';
+import {Storage} from '@ionic/storage';
+import {UserProvider} from "./../../providers/user/user";
 
 @IonicPage({
-  name:"account"
+    name: "account"
 })
 @Component({
-  selector: 'page-account',
-  templateUrl: 'account.html',
+    selector: 'page-account',
+    templateUrl: 'account.html',
 })
 export class AccountPage {
-  public user:any = {};
+    public user: any = {};
 
-  constructor(public navCtrl: NavController,
-              public navParams: NavParams,
-              private userProvider: UserProvider,
-              public actionSheetCtrl: ActionSheetController,
-              private storage: Storage) {
-  }
+    constructor(public navCtrl: NavController,
+                public navParams: NavParams,
+                private userProvider: UserProvider,
+                public actionSheetCtrl: ActionSheetController,
+                private storage: Storage) {
+    }
 
-  ionViewDidLoad() {
-      this.storage.get('user').then((data)=>{
-          this.user = data;
-      });
-  }
+    ionViewDidLoad() {
+        this.storage.get('user').then((data) => {
+            this.user = data;
+        });
+    }
 
-  goChangePasswordPage() {
-    this.navCtrl.push('change-password');
-  }
+    goChangePasswordPage() {
+        this.navCtrl.push('change-password');
+    }
 
-  doLogout() {
-      this.storage.clear().then((data)=>{
-          this.navCtrl.push('login');
-      });
-  }
+    doLogout() {
+        this.storage.clear().then((data) => {
+            this.navCtrl.push('login');
+        });
+    }
 
     showBindMenu(provider) {
 
         console.log(this.user[provider].nickname);
 
-        let is_bind:boolean = this.user[provider].nickname ? true:false;
+        let is_bind: boolean = this.user[provider].nickname ? true : false;
 
         let button;
 
-        if(is_bind) {
+        if (is_bind) {
 
-          button = {
-              text: '解除绑定',
-              role: 'destructive',
-              handler: () => {
-                 this.doUnBind(provider);
-              }
-          }
+            button = {
+                text: '解除绑定',
+                role: 'destructive',
+                handler: () => {
+                    this.doUnBind(provider);
+                }
+            }
 
         } else {
             button = {
@@ -82,19 +82,19 @@ export class AccountPage {
     }
 
     doBind(provider) {
-        if(provider == 'wechat') {
+        if (provider == 'wechat') {
             this.userProvider.doWechatBind().then((data) => {
 
             });
         }
 
-        if(provider == 'qq') {
+        if (provider == 'qq') {
             this.userProvider.doWechatBind().then((data) => {
 
             });
         }
 
-        if(provider == 'weibo') {
+        if (provider == 'weibo') {
             this.userProvider.doWechatBind().then((data) => {
 
             });

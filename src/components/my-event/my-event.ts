@@ -1,65 +1,84 @@
 import {Component, Input} from '@angular/core';
-import { ActionSheetController } from 'ionic-angular';
-import { EventProvider } from '../../providers/event/event'
+import {ActionSheetController, App} from 'ionic-angular';
+import {EventProvider} from '../../providers/event/event'
 
 @Component({
-  selector: 'my-event',
-  templateUrl: 'my-event.html',
+    selector: 'my-event',
+    templateUrl: 'my-event.html',
 })
 export class MyEventComponent {
 
-  // public events:any = [];
-  @Input() eventSource;
-  constructor(
-      public actionSheetCtrl: ActionSheetController,
-      private eventProvider: EventProvider) {
-  }
+    // public events:any = [];
+    @Input() _eventSource: any = [];
 
-  ionViewDidLoad() {
-    console.log(this.eventSource);
-  }
+    constructor(public actionSheetCtrl: ActionSheetController,
+                private app: App,
+                private eventProvider: EventProvider) {
 
-  doLike(event,$event) {
-    console.log($event);
-    let index =  this.eventSource.indexOf(event);
-
-    if(event.is_like) {
-      this.eventProvider.unLike(event.id).then((data)=>{
-        this.eventSource[index].is_like = false;
-        this.eventSource[index].like_count -= 1;
-      });
-    } else {
-      this.eventProvider.like(event.id).then((data)=>{
-        this.eventSource[index].is_like = true;
-        this.eventSource[index].like_count += 1;
-      });
     }
-  }
 
-  showMore() {
-    let actionSheet = this.actionSheetCtrl.create({
-      title: '更多',
-      buttons: [
-        {
-          text: '分享',
-          role: 'destructive',
-          handler: () => {
-            console.log('Destructive clicked');
-          }
-        },{
-          text: '举报',
-          handler: () => {
-            console.log('Archive clicked');
-          }
-        },{
-          text: '取消',
-          role: 'cancel',
-          handler: () => {
-            console.log('Cancel clicked');
-          }
+    ionViewDidLoad() {
+    }
+
+    @Input()
+    set eventSource(value: any) {
+        this._eventSource = value;
+    }
+
+
+    doLike(event, $event) {
+        console.log($event);
+        let index = this._eventSource.indexOf(event);
+
+        if (event.is_like) {
+            this.eventProvider.unLike(event.id).then((data) => {
+                this._eventSource[index].is_like = false;
+                this._eventSource[index].like_count -= 1;
+            }).catch((err)=>{
+
+            });
+        } else {
+            this.eventProvider.like(event.id).then((data) => {
+                this._eventSource[index].is_like = true;
+                this._eventSource[index].like_count += 1;
+            }).catch((err)=>{
+
+            });
         }
-      ]
-    });
-    actionSheet.present();
-  }
+    }
+
+    showMore() {
+        let actionSheet = this.actionSheetCtrl.create({
+            title: '更多',
+            buttons: [
+                {
+                    text: '分享',
+                    role: 'destructive',
+                    handler: () => {
+                        console.log('Destructive clicked');
+                    }
+                }, {
+                    text: '举报',
+                    handler: () => {
+                        console.log('Archive clicked');
+                    }
+                }, {
+                    text: '取消',
+                    role: 'cancel',
+                    handler: () => {
+                        console.log('Cancel clicked');
+                    }
+                }
+            ]
+        });
+        actionSheet.present();
+    }
+
+    goEventDetailPage(id) {
+        this.app.getRootNav().push('event-detail', {id: id});
+    }
+
+    goUserHomePage(id) {
+        this.app.getRootNav().push('user-home', {id: id});
+    }
 }

@@ -117,13 +117,17 @@ export class HttpProvider {
     }
 
     private extractData(res: Response) {
-        return res.json() || null;
+        return res.text()?res.json():{};
     }
 
     private handleError(error: Response | any): Promise<any> {
         console.log(error);
 
-        let msg = error.json().message || '请求地址错误';
+        if (error.status == 200) {
+            return Promise.resolve("success");
+        }
+
+        let msg = error.text?error.json().message:'请求地址错误';
 
         if (error.status == 400) {
             this.app.getActiveNav().push('login-default');

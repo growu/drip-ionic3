@@ -1,20 +1,19 @@
-<ion-card *ngFor="let event of eventSource">
-  <ion-item>
+<div *ngIf="_eventSource">
+<ion-card *ngFor="let event of _eventSource">
+  <ion-item (click)="goUserHomePage(event.owner)">
     <ion-avatar item-start>
-      <img src="{{event.owner.user_avatar}}">
+      <img [src]="event.owner?.avatar_url || 'assets/img/default-avatar.jpg'">
     </ion-avatar>
-    <h2>{{event.owner.nickname}} </h2>
+    <h2>{{event.owner?.nickname || '一颗小水滴'}} </h2>
     <p>{{event.created_at | amLocale:"zh_cn" | amUtc | amTimeAgo }}</p>
   </ion-item>
 
-  <img src="img/advance-card-bttf.png">
-
-  <ion-card-content>
-    <p>{{event.content}}</p>
-    <blockquote>完成<a> 早起打卡 </a>第5天</blockquote>
+  <ion-card-content (click)="goEventDetailPage(event.id)">
+    <p [innerHTML]="event.content"></p>
+    <blockquote>完成<a> {{event.goal.name}} </a>第 {{event.checkin?.total_days || 0}} 天</blockquote>
   </ion-card-content>
 
-  <ion-row>
+  <ion-row class="action-toolbar">
     <ion-col>
       <button ion-button icon-left clear small (click)="doLike(event)">
         <ion-icon name="ios-thumbs-up-outline" isActive="false" *ngIf="!event.is_like" color="gray"></ion-icon>
@@ -23,7 +22,7 @@
       </button>
     </ion-col>
     <ion-col>
-      <button ion-button icon-left clear small>
+      <button ion-button icon-left clear small (click)="goEventDetailPage(event.id)">
         <ion-icon name="ios-text-outline"></ion-icon>
         <div>{{event.comment_count}}</div>
       </button>
@@ -37,3 +36,4 @@
   </ion-row>
 
 </ion-card>
+</div>

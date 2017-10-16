@@ -111,13 +111,7 @@ export class HomePage {
 
         this.userProvider.updateGoal(goal.id, body).then((data) => {
             if (data) {
-                let toast = this.toastCtrl.create({
-                    message: '设置成功',
-                    duration: 3000,
-                    position: 'top',
-                    cssClass: 'my-toast'
-                });
-                toast.present();
+                this.toastProvider.show('设置成功','success');
             }
         });
     }

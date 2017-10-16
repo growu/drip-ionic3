@@ -1,37 +1,71 @@
-import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams} from 'ionic-angular';
-import { EventProvider } from '../../providers/event/event'
+import {Component} from '@angular/core';
+import {IonicPage, NavController, NavParams} from 'ionic-angular';
+import {EventProvider} from '../../providers/event/event'
 
 @IonicPage({
-  name:'event',
-  segment:'hot'
+    name: 'event',
+    segment: 'hot'
 })
 @Component({
-  selector: 'page-event',
-  templateUrl: 'event.html',
+    selector: 'page-event',
+    templateUrl: 'event.html',
 })
 export class EventPage {
-  public mode:string = "hot";
-  public events:any;
+    public mode: string = "hot";
+    public events: any = [];
+    private perPage: number = 20;
 
-  constructor(public navCtrl: NavController,
-              public navParams: NavParams,
-              public eventProvider:EventProvider) {
-    this.events = Array(6).fill(0).map((x,i)=>i);
-  }
+    constructor(public navCtrl: NavController,
+                public navParams: NavParams,
+                public eventProvider: EventProvider) {
+    }
 
-  ionViewDidLoad() {
-    this.getEvents();
-  }
+    ionViewDidLoad() {
+        this.getEvents(1);
+    }
 
-  getEvents() {
-    this.eventProvider.getEvents(this.mode).then((data)=>{
-      this.events = data;
-    });
-  }
+    changeMode() {
+        this.events = [];
+        this.getEvents(1);
+    }
 
-  goEventDetailPage(event) {
-    this.navCtrl.push('event-detail',{'id':event.id});
-  }
+    getEvents(page) {
+        this.eventProvider.getEvents(this.mode, page, this.perPage).then((data) => {
+            if (data) {
+                if (this.events.length == 0) {
+                    this.events = data;
+                } else {
+                    this.events = this.events.concat(data);
+                }
+            }
+        });
+    }
+
+    goEventDetailPage(event) {
+        this.navCtrl.push('event-detail', {'id': event.id});
+    }
+
+    doRefresh(refresher) {
+
+        this.getEvents(1);
+
+        setTimeout(() => {
+            refresher.complete();
+        }, 2000);
+    }
+
+    doInfinite(infiniteScroll) {
+
+        var num = this.events.length;
+
+        if (num > 0 && num % 20 == 0) {
+            var page = Math.floor(this.events.length / 20) + 1;
+            this.getEvents(page);
+        }
+
+        setTimeout(() => {
+            infiniteScroll.complete();
+        }, 2000);
+    }
 
 }

@@ -19,8 +19,11 @@ export class EventProvider {
     return this.httpProvider.httpDeleteWithAuth("/event/"+id+"/like");
   }
 
-  getEvents(mode){
-    return this.httpProvider.httpGetWithAuth("/event/"+mode,null);
+  getEvents(mode,page,per_page){
+      let params: URLSearchParams = new URLSearchParams();
+      params.set('page',page);
+      params.set('per_page',per_page);
+    return this.httpProvider.httpGetWithAuth("/event/"+mode,params);
   }
 
   getEventDetail(id){

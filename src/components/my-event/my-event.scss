@@ -3,4 +3,22 @@ my-event {
     color:#ccc;
   }
 
+  .card-content {
+    padding-bottom:0;
+    blockquote {
+      background-color: #f4f4f4;
+      padding:10px;
+      margin:10px 0 0 0;
+      color:#999;
+    }
+  }
+
+  .action-toolbar {
+    color:#bdbdbd;
+    .icon {
+      //color:#bdbdbd;
+      font-weight:800;
+    }
+  }
+
 }
