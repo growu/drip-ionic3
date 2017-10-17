@@ -8,6 +8,10 @@
     <p>{{event.created_at | amLocale:"zh_cn" | amUtc | amTimeAgo }}</p>
   </ion-item>
 
+  <div class="event-image">
+    <img [src]="attach.url" *ngFor="let attach of event.attachs" imageViewer>
+  </div>
+
   <ion-card-content (click)="goEventDetailPage(event.id)">
     <p [innerHTML]="event.content"></p>
     <blockquote>完成<a> {{event.goal.name}} </a>第 {{event.checkin?.total_days || 0}} 天</blockquote>
@@ -34,6 +38,5 @@
       </button>
     </ion-col>
   </ion-row>
-
 </ion-card>
 </div>

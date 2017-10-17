@@ -87,6 +87,7 @@
     <allow-navigation href="http://192.168.2.225:8106" />
     <allow-navigation href="http://192.168.56.1:8107" />
     <allow-navigation href="http://192.168.2.234:8102" />
+    <allow-navigation href="http://192.168.2.236:8103" />
     <engine name="android" spec="^6.2.3" />
     <engine name="ios" spec="^4.4.0" />
     <plugin name="com.synconset.imagepicker" spec="~2.1.8">

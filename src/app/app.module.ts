@@ -17,9 +17,7 @@ import {EventProvider} from '../providers/event/event';
 import {CommentProvider} from '../providers/comment/comment';
 import {ToastProvider} from '../providers/toast/toast';
 import {LoadingProvider} from '../providers/loading/loading';
-
-// import { IonicImageViewerModule } from 'ionic-img-viewer';
-
+import {IonicImageViewerModule} from 'ionic-img-viewer';
 
 @NgModule({
     declarations: [
@@ -38,7 +36,7 @@ import {LoadingProvider} from '../providers/loading/loading';
             monthNames: ['一', '二', '三', '四', '五', '六', '七', '八', '九', '十', '十一', '十二'],
             monthShortNames: ['一月', '二月', '三月', '四月', '五月', '六月', '七月', '八月', '九月', '十月', '十一月', '十二月'],
         }),
-        // IonicImageViewerModule
+        IonicImageViewerModule
 
     ],
     bootstrap: [IonicApp],

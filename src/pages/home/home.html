@@ -16,7 +16,7 @@
     </ion-toolbar>
 
 </ion-header>
-<ion-content class="page-home">
+<ion-content class="page-home no-scroll">
 
     <!--<ion-refresher (ionRefresh)="doRefresh($event)">-->
         <!--<ion-refresher-content-->
@@ -26,14 +26,17 @@
                 <!--refreshingText="Refreshing...">-->
         <!--</ion-refresher-content>-->
     <!--</ion-refresher>-->
+    <!--<div class="fixed-content">-->
 
     <my-calendar (onTitleChanged)="onViewTitleChanged($event)"
                  (onDaySelected)="onDaySelected($event)"
                  [mode]="setting?.calendarMode"
                  *ngIf="setting?.calendarMode">
     </my-calendar>
-
-    <ion-list *ngIf="setting?.viewMode=='list'" class="events-list" margin-top>
+    <!--</div>-->
+    <ion-scroll scrollX="true" style="height: 100%">
+    <div class="scroll-content">
+        <ion-list *ngIf="setting?.viewMode=='list'" class="events-list" margin-top>
             <ion-card *ngFor="let goal of goals">
                 <ion-card-content>
                     <ion-item-sliding>
@@ -79,7 +82,7 @@
             </ion-card>
         </ion-list>
 
-    <ion-list *ngIf="setting?.viewMode=='card'" class="events-card">
+        <ion-list *ngIf="setting?.viewMode=='card'" class="events-card">
             <ion-row>
                 <ion-col *ngFor="let goal of goals" col-6>
                     <ion-card >
@@ -109,5 +112,8 @@
                 </ion-col>
             </ion-row>
         </ion-list>
+    </div>
+    </ion-scroll>
+
 
 </ion-content>

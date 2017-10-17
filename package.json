@@ -76,6 +76,7 @@
         "ion2-calendar": "^2.0.3",
         "ionic": "^3.10.3",
         "ionic-angular": "^3.7.1",
+        "ionic-img-viewer": "^2.7.3",
         "ionic-plugin-keyboard": "^2.2.1",
         "ionic2-super-tabs": "^4.1.3",
         "ionicons": "3.0.0",

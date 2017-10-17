@@ -34,14 +34,14 @@ export class MyEventComponent {
             this.eventProvider.unLike(event.id).then((data) => {
                 this._eventSource[index].is_like = false;
                 this._eventSource[index].like_count -= 1;
-            }).catch((err)=>{
+            }).catch((err) => {
 
             });
         } else {
             this.eventProvider.like(event.id).then((data) => {
                 this._eventSource[index].is_like = true;
                 this._eventSource[index].like_count += 1;
-            }).catch((err)=>{
+            }).catch((err) => {
 
             });
         }
@@ -78,7 +78,7 @@ export class MyEventComponent {
         this.app.getRootNav().push('event-detail', {id: id});
     }
 
-    goUserHomePage(id) {
-        this.app.getRootNav().push('user-home', {id: id});
+    goUserHomePage(user) {
+        this.app.getRootNav().push('user-home', {id: user.id});
     }
 }

@@ -30,7 +30,7 @@ export class MessageLikePage {
         if(this.messages.length ==0){
           this.messages = data;
         } else {
-          this.messages.concat(data);
+          this.messages = this.messages.concat(data);
         }
       }
     });

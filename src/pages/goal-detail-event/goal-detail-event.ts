@@ -33,7 +33,7 @@ export class GoalDetailEventPage {
                 if (this.events.length == 0) {
                     this.events = data;
                 } else {
-                    this.events.concat(data);
+                    this.events = this.events.concat(data);
                 }
             }
         });

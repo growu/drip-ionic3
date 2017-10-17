@@ -13,6 +13,11 @@ my-event {
     }
   }
 
+  .event-image {
+    max-height:400px;
+    overflow: hidden;
+  }
+
   .action-toolbar {
     color:#bdbdbd;
     .icon {

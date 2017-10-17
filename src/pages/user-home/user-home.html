@@ -6,7 +6,7 @@
 
 </ion-header>
 
-<ion-content>
+<ion-content class="no-scroll">
     <ion-row text-center class="profile-row">
         <ion-col>
             <img src="{{user.avatar_url || 'assets/img/default-avatar.jpg'}}">
@@ -26,4 +26,7 @@
             <ion-note>粉丝</ion-note>
         </ion-col>
     </ion-row>
+    <ion-scroll scrollX="true" style="height: 100%">
+
+    </ion-scroll>
 </ion-content>
