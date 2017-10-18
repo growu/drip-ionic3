@@ -71,7 +71,11 @@
     </ion-col>
   </ion-row>
 
-  <my-event [eventSource]="events" *ngIf="mode=='follow'"></my-event>
+  <my-event [eventSource]="events" *ngIf="mode=='follow' && events.length>0"></my-event>
+
+  <div text-center style="position: absolute;left: 0;right: 0;top: 40%;" *ngIf="events.length == 0">
+    <p>暂时还没有动态</p>
+  </div>
 
   <ion-infinite-scroll (ionInfinite)="doInfinite($event)">
     <ion-infinite-scroll-content

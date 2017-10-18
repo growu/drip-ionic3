@@ -130,6 +130,9 @@ export class HomePage {
 
         popover.onDidDismiss((settingData) => {
             if (settingData) {
+                if(!settingData.calendarMode) {
+                    this.viewTitle = "今天";
+                }
                 this.setting = settingData;
                 this.userProvider.updateSetting(this.setting);
             }
