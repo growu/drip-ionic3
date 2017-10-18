@@ -1,10 +1,9 @@
 import {Component} from '@angular/core';
 import {App, NavController, NavParams, IonicPage, ActionSheetController} from "ionic-angular";
-import {Validators, FormBuilder, FormGroup} from '@angular/forms';
+import {FormBuilder, FormGroup} from '@angular/forms';
 import {ImagePicker} from '@ionic-native/image-picker';
 import {Camera, CameraOptions} from '@ionic-native/camera';
 import {FileTransfer, FileUploadOptions, FileTransferObject} from '@ionic-native/file-transfer';
-import {File} from '@ionic-native/file';
 import {UserProvider} from "../../providers/user/user";
 import {ToastProvider} from "../../providers/toast/toast";
 import {Storage} from '@ionic/storage';
@@ -29,7 +28,6 @@ export class GoalCheckinPage {
                 private storage: Storage,
                 private imagePicker: ImagePicker,
                 private transfer: FileTransfer,
-                private file: File,
                 public camera: Camera,
                 public actionSheetCtrl: ActionSheetController,
                 private formBuilder: FormBuilder,

@@ -246,6 +246,10 @@ export class UserProvider {
         return this.httpProvider.httpGetWithAuth("/user/" + id, null);
     }
 
+    updateUser(id, body) {
+        return this.httpProvider.httpPatchWithAuth("/user/" + id, body);
+    }
+
     getCode(account, type) {
         let param = {
             account: account,

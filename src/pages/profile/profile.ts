@@ -1,89 +1,118 @@
-import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, DateTime} from 'ionic-angular';
-import { ImagePicker } from '@ionic-native/image-picker';
-import { FileTransfer, FileUploadOptions, FileTransferObject } from '@ionic-native/file-transfer';
-import { File } from '@ionic-native/file';
-import { Crop } from '@ionic-native/crop';
-
+import {Component} from '@angular/core';
+import {IonicPage, NavController, NavParams, DateTime} from 'ionic-angular';
+import {ImagePicker} from '@ionic-native/image-picker';
+import {FileTransfer, FileUploadOptions, FileTransferObject} from '@ionic-native/file-transfer';
+import {Crop} from '@ionic-native/crop';
+import {Storage} from '@ionic/storage';
 import * as citise from '../../assets/chinese-cities.json';
+import {ToastProvider} from "../../providers/toast/toast";
+import {UserProvider} from "../../providers/user/user";
 
 @IonicPage({
-  name:'profile',
-  segment:'profile'
+    name: 'profile',
+    segment: 'profile'
 })
 @Component({
-  selector: 'page-profile',
-  templateUrl: 'profile.html',
+    selector: 'page-profile',
+    templateUrl: 'profile.html',
 })
 export class ProfilePage {
 
-  public profile = {
-    avatar:'',
-    birthday:null,
-    sex:"",
-    nickname:"Jason.z"
-  };
-
-  cityColumns: any[];
-
-
-  constructor(public navCtrl: NavController,
-              public navParams: NavParams,
-              private crop: Crop,
-              private imagePicker: ImagePicker,
-              private transfer: FileTransfer,
-              private file: File) {
-
-    this.cityColumns = <any>citise;
-  }
-
-  ionViewDidLoad() {
-    console.log('ionViewDidLoad ProfilePage');
-  }
-
-  onClearBirthday() {
-    this.profile.birthday = null;
-  }
-
-  onChangeAvatar() {
-    var options = {
-      maximumImagesCount:1
+    public user = {
+        id:0,
+        avatar_url: '',
+        birthday: null,
+        sex: "",
+        nickname: "",
+        signature:""
     };
 
-    this.imagePicker.getPictures(options).then((results) => {
-      console.log(results);
-      if(results&&results.length>0){
-        this.crop.crop(results[0], {quality: 75})
-            .then((newImage) =>{
-                  console.log('new image path is: ' + newImage);
+    cityColumns: any[];
 
-                  let options: FileUploadOptions = {
-                    fileKey: 'file',
-                    fileName: "",
-                    headers: {}
-                  }
+    constructor(public navCtrl: NavController,
+                public navParams: NavParams,
+                private storage: Storage,
+                private crop: Crop,
+                private imagePicker: ImagePicker,
+                private toastProvider: ToastProvider,
+                private userProvider: UserProvider,
+                private transfer: FileTransfer) {
 
-                  const fileTransfer: FileTransferObject = this.transfer.create();
+        this.cityColumns = <any>citise;
+    }
 
-                  fileTransfer.upload(newImage, '<api endpoint>', options)
-                      .then((data) => {
-                        // success
-                      }, (err) => {
-                        // error
-                      })
+    ionViewDidLoad() {
+        this.storage.get('user').then((data) => {
+            console.log(data);
+            this.user = data;
+        });
+    }
 
-                } ,
-                (error) => {
-                  console.error('Error cropping image', error);
-                }
-            );
+    onClearBirthday() {
+        this.user.birthday = null;
+    }
+
+    onChangeAvatar() {
+        var options = {
+            maximumImagesCount: 1
+        };
+
+        this.imagePicker.getPictures(options).then((results) => {
+            console.log(results);
+            if (results && results.length > 0) {
+                this.crop.crop(results[0], {quality: 75})
+                    .then((newImage) => {
+                            console.log('new image path is: ' + newImage);
+                            this.uploadImage(newImage);
+                        },
+                        (error) => {
+                            console.error('Error cropping image', error);
+                        }
+                    );
+            }
+        }, (err) => {
+            this.toastProvider.show(err.json().message, 'error');
+        });
+    }
+
+    uploadImage(fileUrl) {
+        this.storage.get("token").then(token => {
+            let options: FileUploadOptions = {
+                fileKey: 'file',
+                fileName: fileUrl.substr(fileUrl.lastIndexOf('/') + 1),
+                headers: {"Authorization": 'Bearer ' + token, "Accept": 'application/x.drip.v2+json'}
+            }
+
+            const fileTransfer: FileTransferObject = this.transfer.create();
+
+            fileTransfer.upload(fileUrl, 'http://drip.growu.me/api/upload/image', options)
+                .then((res) => {
+                    console.log(res);
+                    var result = JSON.parse(res.response);
+                    this.updateUser('avatar_url',result);
+                }, (err) => {
+                    console.log(err);
+                    this.toastProvider.show(err.json().message, 'error');
+                });
+        });
+    }
 
 
-        this.profile.avatar = results[0];
-      }
-    }, (err) => {
+    updateUser(key,value) {
 
-    });
-  }
+        let param = {};
+        param[key] = value;
+
+        let body = JSON.stringify(param);
+
+        this.userProvider.updateUser(this.user.id,body).then((data)=>{
+            this.user = data;
+            this.storage.set("user",data);
+
+        }).catch((err)=>{
+
+        });
+    }
+
 
 }

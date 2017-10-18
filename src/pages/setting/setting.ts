@@ -2,6 +2,7 @@ import {Component} from '@angular/core';
 import {IonicPage, NavController, NavParams} from 'ionic-angular';
 import {AppRate} from '@ionic-native/app-rate';
 import {Storage} from '@ionic/storage';
+import {ToastProvider} from '../../providers/toast/toast';
 
 @IonicPage({
     name: "setting"
@@ -16,6 +17,7 @@ export class SettingPage {
     constructor(public navCtrl: NavController,
                 public navParams: NavParams,
                 public storage: Storage,
+                public toastProvider: ToastProvider,
                 private appRate: AppRate) {
     }
 
@@ -29,14 +31,17 @@ export class SettingPage {
         this.navCtrl.push(name);
     }
 
+    clearCache() {
+        this.toastProvider.show("清理成功",'success');
+    }
+
     goAppRate() {
-        // or, override the whole preferences object
         this.appRate.preferences = {
             usesUntilPrompt: 3,
             storeAppURL: {
-                ios: '<app_id>',
-                android: 'market://details?id=<package_name>',
-                windows: 'ms-windows-store://review/?ProductId=<store_id>'
+                ios: '1255579223',
+                android: 'market://details?id=me.growu.drip',
+                windows: 'ms-windows-store://review/?ProductId=me.growu.drip'
             }
         };
 

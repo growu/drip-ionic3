@@ -39,6 +39,10 @@ export class AccountPage {
 
     showBindMenu(provider) {
 
+        return;
+
+        if(provider == 'phone' || provider == 'email') return;
+
         console.log(this.user[provider].nickname);
 
         let is_bind: boolean = this.user[provider].nickname ? true : false;

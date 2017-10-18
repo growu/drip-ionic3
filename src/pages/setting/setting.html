@@ -33,20 +33,20 @@
       </ion-item>
     </ion-list>
 
-  <ion-list>
-    <ion-item (click)="goPage('remind')">
-      消息提醒
-      <ion-note clear item-end>
-        <ion-icon name="arrow-forward"></ion-icon>
-      </ion-note>
-    </ion-item>
-    <ion-item>
-      缓存管理
-      <ion-note clear item-end>
-        <ion-icon name="arrow-forward"></ion-icon>
-      </ion-note>
-    </ion-item>
-  </ion-list>
+  <!--<ion-list>-->
+    <!--<ion-item (click)="goPage('remind')">-->
+      <!--消息提醒-->
+      <!--<ion-note clear item-end>-->
+        <!--<ion-icon name="arrow-forward"></ion-icon>-->
+      <!--</ion-note>-->
+    <!--</ion-item>-->
+    <!--<ion-item (click)="clearCache()">-->
+      <!--缓存管理-->
+      <!--<ion-note clear item-end>-->
+        <!--0 MB-->
+      <!--</ion-note>-->
+    <!--</ion-item>-->
+  <!--</ion-list>-->
 
   <ion-list>
     <ion-item (click)="goPage('about')">
@@ -55,19 +55,19 @@
         <ion-icon name="arrow-forward"></ion-icon>
       </ion-note>
     </ion-item>
-    <ion-item>
-      邀请好友
-      <ion-note clear item-end>
-        <ion-icon name="arrow-forward"></ion-icon>
-      </ion-note>
-    </ion-item>
+    <!--<ion-item>-->
+      <!--邀请好友-->
+      <!--<ion-note clear item-end>-->
+        <!--<ion-icon name="arrow-forward"></ion-icon>-->
+      <!--</ion-note>-->
+    <!--</ion-item>-->
     <ion-item>
       帮助与反馈
       <ion-note clear item-end>
         <ion-icon name="arrow-forward"></ion-icon>
       </ion-note>
     </ion-item>
-    <ion-item>
+    <ion-item (click)="goAppRate()">
       去评分
       <ion-note clear item-end>
         <ion-icon name="arrow-forward"></ion-icon>
