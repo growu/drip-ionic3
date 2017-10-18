@@ -2,11 +2,12 @@
  * Created by Jason.z on 2017/7/4.
  */
 
-import { Component,ViewChild} from '@angular/core';
-import { NavController,Tabs,IonicPage } from 'ionic-angular';
+import {Component, ViewChild} from '@angular/core';
+import {NavController, Tabs, IonicPage} from 'ionic-angular';
+import {Storage} from '@ionic/storage';
 
 
-@IonicPage( {
+@IonicPage({
     name: 'main',
 })
 @Component({
@@ -21,8 +22,12 @@ export class MainPage {
     explorerRoot: string = 'explore';
     eventRoot: string = 'event';
     myRoot: string = 'my';
+    messageCount: number = 0;
 
-    constructor() {
+    constructor(storage: Storage) {
+        storage.get("messages").then((data)=>{
+            this.messageCount = data.total_count;
+        });
     }
 
 }

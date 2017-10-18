@@ -41,48 +41,46 @@ export class AccountPage {
 
         return;
 
-        if(provider == 'phone' || provider == 'email') return;
-
-        console.log(this.user[provider].nickname);
-
-        let is_bind: boolean = this.user[provider].nickname ? true : false;
-
-        let button;
-
-        if (is_bind) {
-
-            button = {
-                text: '解除绑定',
-                role: 'destructive',
-                handler: () => {
-                    this.doUnBind(provider);
-                }
-            }
-
-        } else {
-            button = {
-                text: '绑定账号',
-                handler: () => {
-                    this.doBind(provider);
-                }
-            }
-        }
-
-
-        let actionSheet = this.actionSheetCtrl.create({
-            title: '更多操作',
-            buttons: [
-                button,
-                {
-                    text: '取消',
-                    role: 'cancel',
-                    handler: () => {
-
-                    }
-                }
-            ]
-        });
-        actionSheet.present();
+        // console.log(this.user[provider].nickname);
+        //
+        // let is_bind: boolean = this.user[provider].nickname ? true : false;
+        //
+        // let button;
+        //
+        // if (is_bind) {
+        //
+        //     button = {
+        //         text: '解除绑定',
+        //         role: 'destructive',
+        //         handler: () => {
+        //             this.doUnBind(provider);
+        //         }
+        //     }
+        //
+        // } else {
+        //     button = {
+        //         text: '绑定账号',
+        //         handler: () => {
+        //             this.doBind(provider);
+        //         }
+        //     }
+        // }
+        //
+        //
+        // let actionSheet = this.actionSheetCtrl.create({
+        //     title: '更多操作',
+        //     buttons: [
+        //         button,
+        //         {
+        //             text: '取消',
+        //             role: 'cancel',
+        //             handler: () => {
+        //
+        //             }
+        //         }
+        //     ]
+        // });
+        // actionSheet.present();
     }
 
     doBind(provider) {

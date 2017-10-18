@@ -382,4 +382,8 @@ export class UserProvider {
         return this.httpProvider.httpGetWithAuth("/user/messages/like", params);
     }
 
+    getNewMessages(){
+        return this.httpProvider.httpGetWithAuth("/user/messages/new", null);
+    }
+
 }

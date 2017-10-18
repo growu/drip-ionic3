@@ -34,6 +34,7 @@ export class MyPage {
 
     goVipPage($event) {
         $event.preventDefault();
+        $event.stopPropagation();
         this.navCtrl.push("vip");
     }
 
