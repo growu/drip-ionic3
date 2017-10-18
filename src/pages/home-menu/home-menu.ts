@@ -1,39 +1,40 @@
-import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, ViewController} from 'ionic-angular';
-import { SettingModel } from '../../models/setting.model'
+import {Component} from '@angular/core';
+import {IonicPage, NavController, NavParams, ViewController} from 'ionic-angular';
+import {SettingModel} from '../../models/setting.model'
 
 @IonicPage({
-  name:'home-menu',
+    name: 'home-menu',
 })
 @Component({
-  selector: 'page-home-menu',
-  templateUrl: 'home-menu.html',
+    selector: 'page-home-menu',
+    templateUrl: 'home-menu.html',
 })
 export class HomeMenuPage {
 
-  public setting:SettingModel;
+    public setting: SettingModel;
+    public user: any = {
+        is_vip: 0
+    };
 
-
-  constructor(public navCtrl: NavController,
-              public navParams: NavParams,
-              private viewCtrl: ViewController
-              ) {
-    if(this.navParams.data) {
-      delete this.navParams.data.opts;
-      this.setting = this.navParams.data;
+    constructor(public navCtrl: NavController,
+                public navParams: NavParams,
+                private viewCtrl: ViewController) {
+        if (this.navParams.data) {
+            this.setting = this.navParams.get('setting');
+            this.user = this.navParams.get('user');
+        }
     }
-  }
 
-  ionViewDidLoad() {
+    ionViewDidLoad() {
 
-  }
+    }
 
-  onChangeViewMode() {
-    this.viewCtrl.dismiss(this.setting);
-  }
+    onChangeViewMode() {
+        this.viewCtrl.dismiss(this.setting);
+    }
 
-  onChangeCalendarMode() {
-    this.viewCtrl.dismiss(this.setting);
-  }
+    onChangeCalendarMode() {
+        this.viewCtrl.dismiss(this.setting);
+    }
 
 }

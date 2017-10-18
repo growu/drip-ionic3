@@ -347,7 +347,7 @@ export class UserProvider {
 
         var d = <SettingModel> {
             viewMode: "list",
-            calendarMode: "week"
+            calendarMode: ""
         };
 
         return d;

@@ -39,8 +39,6 @@ export class GoalDetailSummaryPage {
     }
 
     goCheckinPage() {
-
-        // this.rootNavCtrl.push('goal-checkin', {'id': this.navParams.data.id});
         this.app.getRootNav().push('goal-checkin', {'id': this.navParams.data.id});
     }
 

@@ -1,5 +1,5 @@
-<ion-header  no-border>
-    <ion-toolbar color="primary" >
+<ion-header no-border>
+    <ion-toolbar color="primary">
         <ion-buttons start>
             <button ion-button icon-only (click)="openMenu($event)">
                 <ion-icon name="ios-menu"></ion-icon>
@@ -19,100 +19,116 @@
 <ion-content class="page-home no-scroll">
 
     <!--<ion-refresher (ionRefresh)="doRefresh($event)">-->
-        <!--<ion-refresher-content-->
-                <!--pullingIcon="arrow-dropdown"-->
-                <!--pullingText="Pull to refresh"-->
-                <!--refreshingSpinner="circles"-->
-                <!--refreshingText="Refreshing...">-->
-        <!--</ion-refresher-content>-->
+    <!--<ion-refresher-content-->
+    <!--pullingIcon="arrow-dropdown"-->
+    <!--pullingText="Pull to refresh"-->
+    <!--refreshingSpinner="circles"-->
+    <!--refreshingText="Refreshing...">-->
+    <!--</ion-refresher-content>-->
     <!--</ion-refresher>-->
     <!--<div class="fixed-content">-->
 
     <my-calendar (onTitleChanged)="onViewTitleChanged($event)"
                  (onDaySelected)="onDaySelected($event)"
                  [mode]="setting?.calendarMode"
-                 *ngIf="setting?.calendarMode">
+                 *ngIf="setting?.calendarMode && user.is_vip">
     </my-calendar>
     <!--</div>-->
     <ion-scroll scrollX="true" style="height: 100%">
-    <div class="scroll-content">
-        <ion-list *ngIf="setting?.viewMode=='list'" class="events-list" margin-top>
-            <ion-card *ngFor="let goal of goals">
-                <ion-card-content>
-                    <ion-item-sliding>
-                        <ion-item (click)="goGoalDetailPage(goal.id,$event)">
-                            <ion-icon name="checkmark-circle" class="check-icon" [class.active]="goal.is_checkin" item-start></ion-icon>
-                            <ion-label>
-                                <h2>{{goal.name}}</h2>
-                                <p>
-                                    <button *ngIf="goal.status==0" color="secondary" ion-button small outline>进行中</button>
-                                    <button *ngIf="goal.status==1" color="danger" ion-button small outline>已完成</button>
-                                </p>
-                            </ion-label>
+        <div class="scroll-content">
+            <div *ngIf="goals.length > 0">
+                <ion-list *ngIf="setting?.viewMode=='list'" class="events-list" margin-top>
+                    <ion-card *ngFor="let goal of goals">
+                        <ion-card-content>
+                            <ion-item-sliding>
+                                <ion-item (click)="goGoalDetailPage(goal.id,$event)">
+                                    <ion-icon name="checkmark-circle" class="check-icon"
+                                              [class.active]="goal.is_checkin" item-start></ion-icon>
+                                    <ion-label>
+                                        <h2>{{goal.name}}</h2>
+                                        <p>
+                                            <button *ngIf="goal.status==0" color="secondary" ion-button small outline>
+                                                进行中
+                                            </button>
+                                            <button *ngIf="goal.status==1" color="danger" ion-button small outline>已完成
+                                            </button>
+                                        </p>
+                                    </ion-label>
 
-                            <ion-datetime item-end
-                                          displayFormat="HH:mm"
-                                          pickerFormat="HH mm"
-                                          cancelText="清空"
-                                          doneText="保存"
-                                          [(ngModel)]="goal.remind_time"
-                                          placeholder="{{goal.remind_time || '未设置' }}"
-                                          (ionChange)="setRemindTime(goal,$event)">
-                            </ion-datetime>
+                                    <ion-datetime item-end
+                                                  displayFormat="HH:mm"
+                                                  pickerFormat="HH mm"
+                                                  cancelText="清空"
+                                                  doneText="保存"
+                                                  [(ngModel)]="goal.remind_time"
+                                                  placeholder="{{goal.remind_time || '未设置' }}"
+                                                  (ionChange)="setRemindTime(goal,$event)">
+                                    </ion-datetime>
 
-                        </ion-item>
-                        <ion-item-options>
-                            <button ion-button color="primary" (click)="goGoalCheckinPage(goal.id)">
-                                打卡
-                            </button>
-                            <button ion-button color="danger" (click)="deleteGoal(goal)">
-                                删除
-                            </button>
-                        </ion-item-options>
-                    </ion-item-sliding>
-                </ion-card-content>
-                <!--<ion-row>-->
-                <!--<p class="progress-title" style="width:20%" data-value="20"></p>-->
-                <!--<progress value="20" max="100">-->
-                <!--<div class="progress-bar">-->
-                <!--<span style="width: 20%;">20%</span>-->
-                <!--</div>-->
-                <!--</progress>-->
-                <!--</ion-row>-->
-            </ion-card>
-        </ion-list>
-
-        <ion-list *ngIf="setting?.viewMode=='card'" class="events-card">
-            <ion-row>
-                <ion-col *ngFor="let goal of goals" col-6>
-                    <ion-card >
-                        <ion-card-header text-center>
-                            {{goal.name}}
-                        </ion-card-header>
-                        <ion-card-content text-center padding-top (click)="goGoalDetailPage(goal.id,$event)">
-                            <ion-icon name="checkmark-circle" class="check-icon" [class.active]="goal.is_checkin"></ion-icon>
+                                </ion-item>
+                                <ion-item-options>
+                                    <button ion-button color="primary" (click)="goGoalCheckinPage(goal.id)">
+                                        打卡
+                                    </button>
+                                    <button ion-button color="danger" (click)="deleteGoal(goal)">
+                                        删除
+                                    </button>
+                                </ion-item-options>
+                            </ion-item-sliding>
                         </ion-card-content>
-                        <ion-row class="footer">
-                            <ion-col class="status">
-                                <button *ngIf="goal.status==0" color="secondary" ion-button small outline>进行中</button>
-                                <button *ngIf="goal.status==1" color="danger" ion-button small outline>已完成</button>                            </ion-col>
-                            <ion-col class="time">
-                                <ion-datetime item-end
-                                              displayFormat="HH:mm"
-                                              pickerFormat="HH mm"
-                                              cancelText="清空"
-                                              doneText="保存"
-                                              [(ngModel)]="goal.remind_time"
-                                              placeholder="{{goal.remind_time || '未设置' }}"
-                                              (ionChange)="setRemindTime(goal,$event)">
-                                </ion-datetime>
-                            </ion-col>
-                        </ion-row>
+                        <!--<ion-row>-->
+                        <!--<p class="progress-title" style="width:20%" data-value="20"></p>-->
+                        <!--<progress value="20" max="100">-->
+                        <!--<div class="progress-bar">-->
+                        <!--<span style="width: 20%;">20%</span>-->
+                        <!--</div>-->
+                        <!--</progress>-->
+                        <!--</ion-row>-->
                     </ion-card>
-                </ion-col>
-            </ion-row>
-        </ion-list>
-    </div>
+                </ion-list>
+
+                <ion-list *ngIf="setting?.viewMode=='card'" class="events-card">
+                    <ion-row>
+                        <ion-col *ngFor="let goal of goals" col-6>
+                            <ion-card>
+                                <ion-card-header text-center>
+                                    {{goal.name}}
+                                </ion-card-header>
+                                <ion-card-content text-center padding-top (click)="goGoalDetailPage(goal.id,$event)">
+                                    <ion-icon name="checkmark-circle" class="check-icon"
+                                              [class.active]="goal.is_checkin"></ion-icon>
+                                </ion-card-content>
+                                <ion-row class="footer">
+                                    <ion-col class="status">
+                                        <button *ngIf="goal.status==0" color="secondary" ion-button small outline>进行中
+                                        </button>
+                                        <button *ngIf="goal.status==1" color="danger" ion-button small outline>已完成
+                                        </button>
+                                    </ion-col>
+                                    <ion-col class="time">
+                                        <ion-datetime item-end
+                                                      displayFormat="HH:mm"
+                                                      pickerFormat="HH mm"
+                                                      cancelText="清空"
+                                                      doneText="保存"
+                                                      [(ngModel)]="goal.remind_time"
+                                                      placeholder="{{goal.remind_time || '未设置' }}"
+                                                      (ionChange)="setRemindTime(goal,$event)">
+                                        </ion-datetime>
+                                    </ion-col>
+                                </ion-row>
+                            </ion-card>
+                        </ion-col>
+                    </ion-row>
+                </ion-list>
+            </div>
+
+            <div text-center style="position: absolute;left: 0;right: 0;top: 40%;" *ngIf="goals.length == 0">
+                <p>暂时没有安排</p>
+                <button ion-button (click)="goGoalAddPage()">创建目标</button>
+            </div>
+
+        </div>
     </ion-scroll>
 
 

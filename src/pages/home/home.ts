@@ -14,27 +14,23 @@ import * as moment from 'moment'
 })
 export class HomePage {
     public viewTitle: string = "今天";
-    public setting: SettingModel;
+    public setting: SettingModel = {
+        viewMode: "list",
+        calendarMode: ""
+    };
     public remindTime;
-    public goals: any[];
+    public goals: any = [];
+    public user: any = {};
 
     constructor(public navCtrl: NavController,
                 private popoverCtrl: PopoverController,
                 private userProvider: UserProvider,
                 private alertCtrl: AlertController,
                 private toastProvider: ToastProvider) {
-
-
     }
-
-    ngAfterViewInit() {
-
-    }
-
 
     ionViewDidLoad() {
         this.userProvider.getSetting().then((settingData) => {
-            console.log(settingData);
             if (settingData) {
                 this.setting = settingData;
             } else {
@@ -48,7 +44,6 @@ export class HomePage {
 
     getGoals(date) {
         this.userProvider.getGoals(date).then((data) => {
-            console.log(data);
             this.goals = data;
         });
     }
@@ -88,7 +83,7 @@ export class HomePage {
                     cssClass: 'my-alert-danger',
                     handler: () => {
                         this.userProvider.deleteGoal(goal.id).then((data) => {
-                            this.toastProvider.show("删除成功",'success');
+                            this.toastProvider.show("删除成功", 'success');
                             var index = this.goals.indexOf(goal);
                             this.goals.splice(index, 1);
                         });
@@ -111,15 +106,15 @@ export class HomePage {
 
         this.userProvider.updateGoal(goal.id, body).then((data) => {
             if (data) {
-                this.toastProvider.show('设置成功','success');
+                this.toastProvider.show('设置成功', 'success');
             }
         });
     }
 
     openMenu($event) {
         let popover = this.popoverCtrl.create('home-menu', {
-            viewMode: this.setting.viewMode,
-            calendarMode: this.setting.calendarMode,
+            setting: this.setting,
+            user: this.user,
         }, {
             showBackdrop: true,
         });
@@ -130,7 +125,7 @@ export class HomePage {
 
         popover.onDidDismiss((settingData) => {
             if (settingData) {
-                if(!settingData.calendarMode) {
+                if (!settingData.calendarMode) {
                     this.viewTitle = "今天";
                 }
                 this.setting = settingData;

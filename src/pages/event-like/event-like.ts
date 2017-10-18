@@ -82,7 +82,7 @@ export class EventLikePage {
   }
 
   goUserHomePage(user) {
-    this.navCtrl.push('page-user-home',{'id':user.id});
+    this.navCtrl.push('user-home',{'id':user.id});
   }
 
 }

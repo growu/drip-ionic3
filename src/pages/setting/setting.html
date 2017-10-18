@@ -18,7 +18,7 @@
       <ion-item (click)="goPage('profile')">
         个人资料
         <ion-avatar item-end>
-          <img src="assets/img/avatar-ts-woody.png">
+          <img [src]="user.avatar_url || 'assets/img/default-avatar.jpg'">
         </ion-avatar>
         <ion-note clear item-end>
           <ion-icon name="arrow-forward"></ion-icon>

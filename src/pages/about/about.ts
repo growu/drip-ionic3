@@ -28,11 +28,10 @@ export class AboutPage {
   }
 
   ionViewDidLoad() {
-    console.log('ionViewDidLoad AboutPage');
   }
 
   openUrl(url:string) {
-    this.iab.create(url);
+    this.iab.create(url,'_blank','toolbar=yes');
   }
 
 }

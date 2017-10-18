@@ -10,18 +10,18 @@
     <ion-row text-center class="profile-row">
         <ion-col>
             <img src="{{user.avatar_url || 'assets/img/default-avatar.jpg'}}">
-            <h2>{{user.nickname || '还没有昵称'}} <i class="iconfont icon-vip-copy" ion-text color="danger" *ngIf="user.is_vip"></i></h2>
+            <h2>{{user.nickname || '还没有昵称'}} <i class="iconfont icon-vip-copy" ion-text color="danger" *ngIf="user.is_vip" (click)="goVipPage()"></i></h2>
             <p>{{user.signature || ' '}}</p>
         </ion-col>
     </ion-row>
     <ion-row class="follow-row">
         <ion-col text-center>
-            <strong ion-text class="num" color="dark">{{user.follow_count || '--'}}</strong>
+            <strong ion-text class="num" color="dark">{{user.follow_count || '0'}}</strong>
             <br>
             <ion-note>关注</ion-note>
         </ion-col>
         <ion-col text-center>
-            <strong ion-text class="num" color="dark">{{user.fans_count || '--'}}</strong>
+            <strong ion-text class="num" color="dark">{{user.fans_count || '0' }}</strong>
             <br>
             <ion-note>粉丝</ion-note>
         </ion-col>

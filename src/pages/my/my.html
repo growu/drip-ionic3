@@ -22,7 +22,7 @@
       <ion-thumbnail item-start>
       <img src="{{user.avatar_url || 'assets/img/default-avatar.jpg'}}">
       </ion-thumbnail >
-      <h2>{{user.nickname || '还没有昵称'}} <i class="iconfont icon-vip-copy" ion-text color="gray"></i></h2>
+      <h2>{{user.nickname || '还没有昵称'}} <i class="iconfont icon-vip-copy" ion-text [color]="user.is_vip?'danger':'gray'" (click)="goVipPage($event)"></i></h2>
       <p>{{user.signature || ' '}}</p>
       <ion-note item-end>
         <ion-icon name="arrow-forward"></ion-icon>
