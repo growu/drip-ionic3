@@ -13,7 +13,9 @@
       <ion-icon name="ios-chatboxes" item-start></ion-icon>
       评论
       <ion-note clear item-end>
-        <ion-icon name="arrow-forward"></ion-icon>
+        <ion-badge color="danger" *ngIf="messages.comment_count>0">{{messages.comment_count}}</ion-badge>
+        <ion-icon name="arrow-forward">
+        </ion-icon>
       </ion-note>
     </ion-item>
     <!--<ion-item (click)="goPage('message-at')">-->
@@ -26,6 +28,7 @@
     <ion-item (click)="goPage('message-like')">
       <ion-icon name="ios-thumbs-up" item-start></ion-icon>
       赞
+      <ion-badge item-end color="danger" *ngIf="messages.like_count>0">{{messages.like_count}}</ion-badge>
       <ion-note clear item-end>
         <ion-icon name="arrow-forward"></ion-icon>
       </ion-note>
@@ -34,6 +37,7 @@
       <ion-icon name="ios-contacts" item-start></ion-icon>
       粉丝
       <ion-note clear item-end>
+        <ion-badge color="danger" *ngIf="messages.fan_count>0">{{messages.fan_count}}</ion-badge>
         <ion-icon name="arrow-forward"></ion-icon>
       </ion-note>
     </ion-item>

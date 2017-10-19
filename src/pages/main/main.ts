@@ -5,6 +5,7 @@
 import {Component, ViewChild} from '@angular/core';
 import {NavController, Tabs, IonicPage} from 'ionic-angular';
 import {Storage} from '@ionic/storage';
+import {UserProvider} from "../../providers/user/user";
 
 
 @IonicPage({
@@ -24,10 +25,19 @@ export class MainPage {
     myRoot: string = 'my';
     messageCount: number = 0;
 
-    constructor(storage: Storage) {
-        storage.get("messages").then((data)=>{
-            this.messageCount = data.total_count;
-        });
+    constructor(storage: Storage,userProvider: UserProvider) {
+        //storage.get("messages").then((data)=>{
+        //     this.messageCount = data.total_count;
+        // });
+
+        setInterval(() => {
+            userProvider.getNewMessages().then((data)=>{
+                this.messageCount = data.total_count;
+                storage.set('messages',data);
+            }).catch((err)=>{
+
+            })
+        }, 60000);
     }
 
 }

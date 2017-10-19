@@ -26,16 +26,15 @@
     <!--refreshingText="Refreshing...">-->
     <!--</ion-refresher-content>-->
     <!--</ion-refresher>-->
-    <!--<div class="fixed-content">-->
 
     <my-calendar (onTitleChanged)="onViewTitleChanged($event)"
                  (onDaySelected)="onDaySelected($event)"
                  [mode]="setting?.calendarMode"
-                 *ngIf="setting?.calendarMode && user.is_vip">
+                 *ngIf="setting?.calendarMode">
     </my-calendar>
-    <!--</div>-->
+
     <ion-scroll scrollX="true" style="height: 100%">
-        <div class="scroll-content">
+        <div class="scroll-content" style="overflow: scroll;">
             <div *ngIf="goals.length > 0">
                 <ion-list *ngIf="setting?.viewMode=='list'" class="events-list" margin-top>
                     <ion-card *ngFor="let goal of goals">

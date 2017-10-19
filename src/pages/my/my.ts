@@ -12,6 +12,7 @@ import {Storage} from '@ionic/storage';
 })
 export class MyPage {
     public user: any = {};
+    public messageCount: number = 0;
 
     constructor(public navCtrl: NavController,
                 public navParams: NavParams,
@@ -21,6 +22,10 @@ export class MyPage {
     ionViewDidLoad() {
         this.storage.get('user').then((data) => {
             this.user = data;
+        });
+
+        this.storage.get('messages').then((data) => {
+            this.messageCount = data.total_count;
         });
     }
 

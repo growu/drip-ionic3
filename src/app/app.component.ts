@@ -23,13 +23,7 @@ export class MyApp {
                 (<any>window).plugins.JPush.init();
             }
 
-            setInterval(() => {
-                userProvider.getNewMessages().then((data)=>{
-                    storage.set('messages',data);
-                }).catch((err)=>{
-
-                })
-            }, 10000);
+          
         });
     }
 }

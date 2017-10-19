@@ -8,8 +8,10 @@
     </ion-buttons>
     <ion-title>我</ion-title>
     <ion-buttons end>
-      <button ion-button icon-only (click)="goMessagePage()">
-        <ion-icon name="mail"></ion-icon>
+      <button ion-button icon-only (click)="goMessagePage()" id="message-btn">
+        <ion-icon name="mail">
+          <ion-badge id="message-badge" color="danger" *ngIf="messageCount>0">{{messageCount}}</ion-badge>
+        </ion-icon>
       </button>
     </ion-buttons>
   </ion-navbar>
@@ -31,17 +33,17 @@
   </ion-list>
   <ion-row class="follow-row" margin-bottom>
     <ion-col text-center>
-      <strong ion-text class="num" color="dark">{{user.follow_count || '--'}}</strong>
+      <strong ion-text class="num" color="dark">{{user.follow_count || '0'}}</strong>
       <br>
       <ion-note>关注</ion-note>
     </ion-col>
     <ion-col text-center>
-      <strong ion-text class="num" color="dark">{{user.fans_count || '--'}}</strong>
+      <strong ion-text class="num" color="dark">{{user.fans_count || '0'}}</strong>
       <br>
       <ion-note>粉丝</ion-note>
     </ion-col>
     <ion-col text-center>
-      <strong ion-text class="num" color="dark">{{user.event_count || '--'}}</strong>
+      <strong ion-text class="num" color="dark">{{user.event_count || '0'}}</strong>
       <br>
       <ion-note>动态</ion-note>
     </ion-col>

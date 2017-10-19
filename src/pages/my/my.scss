@@ -13,4 +13,22 @@ page-my {
       font-size: 1.8rem;
     }
   }
+
+
+  #message-btn {
+    position: relative;
+    width: 42px;
+    top:1px;
+    right: 1px;
+    overflow: visible!important;
+  }
+
+
+  #message-badge {
+    background-color: red;
+    position: absolute;
+    top: -3px;
+    right: -3px;
+    border-radius: 100%;
+  }
 }
