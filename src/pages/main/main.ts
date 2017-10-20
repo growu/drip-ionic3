@@ -25,12 +25,14 @@ export class MainPage {
     myRoot: string = 'my';
     messageCount: number = 0;
 
+    private timer: any;
+
     constructor(storage: Storage,userProvider: UserProvider) {
         //storage.get("messages").then((data)=>{
         //     this.messageCount = data.total_count;
         // });
 
-        setInterval(() => {
+        this.timer = setInterval(() => {
             userProvider.getNewMessages().then((data)=>{
                 this.messageCount = data.total_count;
                 storage.set('messages',data);
@@ -38,6 +40,17 @@ export class MainPage {
 
             })
         }, 60000);
+
+
+    }
+
+    ionViewDidLoad() {
+        console.log("main load");
+    }
+
+    ionViewDidLeave() {
+        console.log("main leave");
+        clearInterval(this.timer);
     }
 
 }

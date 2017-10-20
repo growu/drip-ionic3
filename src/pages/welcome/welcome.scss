@@ -6,6 +6,19 @@
   //  height:10%;
   //}
 
+  .title {
+    position:absolute;
+    top:20%;
+    left:0;
+    right:0;
+    color:#fff;
+    text-align:center;
+    h2 {
+      text-align: center;
+      margin: auto;
+    }
+  }
+
   .days {
     font-size:5em;
     position:absolute;
@@ -30,7 +43,7 @@
     left: 10px;
     right: 0;
     z-index: 100;
-    background-color: #fff;
+    //background-color: #fff;
     width: 80%;
   }
 }

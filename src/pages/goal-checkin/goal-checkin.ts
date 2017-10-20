@@ -111,17 +111,18 @@ export class GoalCheckinPage {
     pickImgFromCamera() {
         const options: CameraOptions = {
             quality: 100,
-            destinationType: this.camera.DestinationType.DATA_URL,
+            destinationType: this.camera.DestinationType.FILE_URI,
             encodingType: this.camera.EncodingType.JPEG,
-            mediaType: this.camera.MediaType.PICTURE
+            mediaType: this.camera.MediaType.PICTURE,
+            allowEdit:true
         }
 
         this.camera.getPicture(options).then((imageData) => {
             // imageData is either a base64 encoded string or a file URI
             // If it's base64:
-            let base64Image = 'data:image/jpeg;base64,' + imageData;
-            console.log(base64Image);
-            this.uploadImage(base64Image);
+            // let base64Image = 'data:image/jpeg;base64,' + imageData;
+            // console.log(base64Image);
+            this.uploadImage(imageData);
         }, (err) => {
             // Handle error
             this.toastProvider.show(err, 'error');

@@ -89,7 +89,7 @@ export class ProfilePage {
                 .then((res) => {
                     console.log(res);
                     var result = JSON.parse(res.response);
-                    this.updateUser('avatar_url',result);
+                    this.updateUser('user_avatar',result.url);
                 }, (err) => {
                     console.log(err);
                     this.toastProvider.show(err.json().message, 'error');

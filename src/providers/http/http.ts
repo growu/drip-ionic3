@@ -130,7 +130,8 @@ export class HttpProvider {
         let msg = error.text ? error.json().message : '请求地址错误';
 
         if (error.status == 400) {
-            this.app.getActiveNav().push('login-default');
+            // this.app.getActiveNav().push('login-default');
+            this.app.getRootNav().push('login-default');
         }
 
         let toast = this.toastCtrl.create({

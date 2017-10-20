@@ -7,7 +7,6 @@ import {ToastProvider} from "./../../providers/toast/toast";
 import {Storage} from '@ionic/storage';
 import swal from 'sweetalert2';
 
-
 @IonicPage({
     name: 'login-default',
     segment: 'login/default'
@@ -38,12 +37,12 @@ export class LoginDefaultPage {
 
         if (!this.loginForm.valid) {
             if (!this.loginForm.controls.account.valid || this.loginForm.controls.account.errors) {
-               this.toastProvider.show('请输入正确的手机号码或邮箱','error')
+                this.toastProvider.show('请输入正确的手机号码或邮箱', 'error')
                 return;
             }
 
             if (!this.loginForm.controls.password.valid) {
-                this.toastProvider.show('请输入密码','error')
+                this.toastProvider.show('请输入密码', 'error')
                 return;
             }
         }
@@ -59,14 +58,14 @@ export class LoginDefaultPage {
                     type: 'success',
                     timer: 2000,
                     showConfirmButton: false,
-                    width:'80%',
-                    padding:0
+                    width: '80%',
+                    padding: 0
                 }).then(() => {
                 }, dismiss => {
                     this.navCtrl.push('main');
                 });
             }
-        }).catch((err)=>{
+        }).catch((err) => {
 
         });
     }

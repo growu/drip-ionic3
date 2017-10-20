@@ -24,9 +24,7 @@ export class MyApp {
             splashScreen.hide();
             if (platform.is('cordova')) {
                 (<any>window).plugins.jPushPlugin.init();
-                // (<any>window).plugins.JPush.init();
-                // JPushPlugin.init();
-                if(!platform.is('android')) {
+                if (!platform.is('android')) {
                     (<any>window).plugins.jPushPlugin.setDebugModeFromIos(true);
                     (<any>window).plugins.jPushPlugin.setApplicationIconBadgeNumber(0);
                 } else {
@@ -35,7 +33,7 @@ export class MyApp {
                 }
             }
 
-          
+
         });
     }
 }

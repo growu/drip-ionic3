@@ -5,16 +5,18 @@
  * @date：2017/9/28
  * @version 1.0
  */
-import { Provider } from "@angular/core/core";
-import { Platform } from "ionic-angular";
-import { Crop } from '@ionic-native/crop';
-import { CropMock } from '@ionic-native-mocks/crop';
-import { File } from '@ionic-native/file';
-import { FileMock } from '@ionic-native-mocks/file';
-import { FileTransfer } from '@ionic-native/file-transfer';
-import { FileTransferMock } from '@ionic-native-mocks/file-transfer';
-import { ImagePicker } from '@ionic-native/image-picker';
-import { ImagePickerMock } from '@ionic-native-mocks/image-picker';
+import {Provider} from "@angular/core/core";
+import {Platform} from "ionic-angular";
+import {Crop} from '@ionic-native/crop';
+import {CropMock} from '@ionic-native-mocks/crop';
+import {File} from '@ionic-native/file';
+import {FileMock} from '@ionic-native-mocks/file';
+import {FileTransfer} from '@ionic-native/file-transfer';
+import {FileTransferMock} from '@ionic-native-mocks/file-transfer';
+import {ImagePicker} from '@ionic-native/image-picker';
+import {ImagePickerMock} from '@ionic-native-mocks/image-picker';
+import {AppRate} from '@ionic-native/app-rate';
+import {AppRateMock} from '@ionic-native-mocks/app-rate';
 
 export class AppProvider {
 
@@ -61,6 +63,18 @@ export class AppProvider {
                     return new ImagePicker();
                 } else {
                     return new ImagePickerMock();
+                }
+            }, deps: [Platform]
+        };
+    }
+
+    public static getAppRateProvider(): Provider {
+        return {
+            provide: AppRate, useFactory: (platform: Platform) => {
+                if (this.deviceRunningCordova(platform)) {
+                    return new AppRate();
+                } else {
+                    return new AppRateMock();
                 }
             }, deps: [Platform]
         };

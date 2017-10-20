@@ -1,6 +1,5 @@
 import {Component} from '@angular/core';
-import {IonicPage, NavController, NavParams, ActionSheetController} from 'ionic-angular';
-import {AppRate} from '@ionic-native/app-rate';
+import {IonicPage, NavController, NavParams, ActionSheetController, App} from 'ionic-angular';
 import {Storage} from '@ionic/storage';
 import {UserProvider} from "./../../providers/user/user";
 
@@ -17,6 +16,7 @@ export class AccountPage {
     constructor(public navCtrl: NavController,
                 public navParams: NavParams,
                 private userProvider: UserProvider,
+                private app: App,
                 public actionSheetCtrl: ActionSheetController,
                 private storage: Storage) {
     }
@@ -33,7 +33,9 @@ export class AccountPage {
 
     doLogout() {
         this.storage.clear().then((data) => {
-            this.navCtrl.push('login');
+            // this.navCtrl.push('login');
+            this.app.getRootNav().push('login',{});
+
         });
     }
 

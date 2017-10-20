@@ -6,13 +6,10 @@ import {Device} from '@ionic-native/device';
 import {HttpProvider} from '../http/http';
 import {URLSearchParams} from '@angular/http';
 import {Platform} from "ionic-angular";
-import {Http, Response} from '@angular/http';
-import {Observable} from "rxjs/Rx";
 
 declare var Wechat;
 declare var WeiboSDK;
 declare var QQSDK;
-// declare var JPushPlugin;
 
 @Injectable()
 export class UserProvider {
@@ -20,20 +17,17 @@ export class UserProvider {
     constructor(public httpProvider: HttpProvider,
                 private storage: Storage,
                 private device: Device,
-                private platform: Platform,
-                private http: Http) {
-        console.log(device);
-        console.log(device.platform);
+                private platform: Platform) {
+
     }
 
     login(user) : Promise<any>  {
-        user.device = this.device;
-
+        user.device = this.getDevice();
         return new Promise((resolve, reject) => {
             if(this.platform.is('cordova')) {
                 (<any>window).plugins.jPushPlugin.getRegistrationID((data) => {
                     console.log("JPushPlugin:registrationID is " + data);
-                    user.push_id = data;
+                    user.device.push_id = data;
                     this.httpProvider.httpPostNoAuth("/auth/login", user).then((data)=>{
                         resolve(data);
                     }).catch((err)=>{
@@ -48,13 +42,23 @@ export class UserProvider {
                 });
             }
         });
-
-
-
     }
 
     changePassword(data) {
         return this.httpProvider.httpPostWithAuth("/user/password/change", data);
+    }
+
+    getDevice() {
+        return {
+            cordova:this.device.cordova,
+            model:this.device.model,
+            platform:this.device.platform,
+            uuid:this.device.uuid,
+            version:this.device.version,
+            manufacturer:this.device.manufacturer,
+            isVirtual:this.device.isVirtual,
+            serial:this.device.serial
+        }
     }
 
     doWechatLogin(): Promise<any> {

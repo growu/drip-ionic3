@@ -27,7 +27,9 @@ export class MyPage {
         });
 
         this.storage.get('messages').then((data) => {
-            this.messageCount = data.total_count;
+            if(data) {
+                this.messageCount = data.total_count;
+            }
         });
     }
 
