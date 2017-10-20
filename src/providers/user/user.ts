@@ -12,7 +12,7 @@ import {Observable} from "rxjs/Rx";
 declare var Wechat;
 declare var WeiboSDK;
 declare var QQSDK;
-
+// declare var JPushPlugin;
 
 @Injectable()
 export class UserProvider {
@@ -22,11 +22,35 @@ export class UserProvider {
                 private device: Device,
                 private platform: Platform,
                 private http: Http) {
+        console.log(device);
+        console.log(device.platform);
     }
 
-    login(user) {
+    login(user) : Promise<any>  {
         user.device = this.device;
-        return this.httpProvider.httpPostNoAuth("/auth/login", user);
+
+        return new Promise((resolve, reject) => {
+            if(this.platform.is('cordova')) {
+                (<any>window).plugins.jPushPlugin.getRegistrationID((data) => {
+                    console.log("JPushPlugin:registrationID is " + data);
+                    user.push_id = data;
+                    this.httpProvider.httpPostNoAuth("/auth/login", user).then((data)=>{
+                        resolve(data);
+                    }).catch((err)=>{
+                        reject(err);
+                    });
+                });
+            } else {
+                this.httpProvider.httpPostNoAuth("/auth/login", user).then((data)=>{
+                    resolve(data);
+                }).catch((err)=>{
+                    reject(err);
+                });
+            }
+        });
+
+
+
     }
 
     changePassword(data) {

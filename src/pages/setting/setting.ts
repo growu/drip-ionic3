@@ -45,7 +45,7 @@ export class SettingPage {
             }
         };
 
-        this.appRate.promptForRating(false);
+        this.appRate.promptForRating(true);
     }
 
 }

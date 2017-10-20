@@ -21,7 +21,9 @@ export class MyPage {
 
     ionViewDidLoad() {
         this.storage.get('user').then((data) => {
-            this.user = data;
+            if(data) {
+                this.user = data;
+            }
         });
 
         this.storage.get('messages').then((data) => {
