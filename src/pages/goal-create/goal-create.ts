@@ -93,7 +93,7 @@ export class GoalCreatePage {
                     type: 'success',
                     timer: 2000,
                     showConfirmButton: false,
-                    width: '50%'
+                    width: '80%'
                 }).then(() => {
                 }, dismiss => {
                     this.navCtrl.push('goal-detail', {id: data.id});

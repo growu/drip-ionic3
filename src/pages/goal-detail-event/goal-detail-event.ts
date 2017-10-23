@@ -1,5 +1,5 @@
 import {Component} from '@angular/core';
-import {NavController, NavParams, IonicPage} from "ionic-angular";
+import {App, NavController, NavParams, IonicPage} from "ionic-angular";
 import {UserProvider} from '../../providers/user/user'
 
 @IonicPage({
@@ -18,6 +18,7 @@ export class GoalDetailEventPage {
 
     constructor(public navCtrl: NavController,
                 public navParams: NavParams,
+                private app: App,
                 private userProvider: UserProvider) {
     }
 
@@ -60,6 +61,10 @@ export class GoalDetailEventPage {
         setTimeout(() => {
             infiniteScroll.complete();
         }, 2000);
+    }
+
+    goCheckinPage() {
+        this.app.getRootNav().push('goal-checkin', {'id': this.navParams.data.id});
     }
 
 }

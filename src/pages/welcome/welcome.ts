@@ -29,9 +29,9 @@ export class WelcomePage {
                     this.days = this.pad(Math.ceil(duration.asDays()), 4).split('');
                 }
 
-                // setTimeout(() => {
-                //     this.navCtrl.push('main');
-                // }, 2000);
+                setTimeout(() => {
+                    this.navCtrl.push('main');
+                }, 2000);
 
             } else {
                 this.navCtrl.push('login');

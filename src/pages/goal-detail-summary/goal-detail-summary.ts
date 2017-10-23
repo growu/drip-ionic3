@@ -26,7 +26,7 @@ export class GoalDetailSummaryPage {
         console.log(this.rootNavCtrl);
     }
 
-    ionViewDidLoad() {
+    ionViewDidEnter() {
         this.getGoal();
         this.getGoalWeek();
     }

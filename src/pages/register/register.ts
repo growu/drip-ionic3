@@ -116,7 +116,7 @@ export class RegisterPage {
                     type: 'success',
                     timer: 2000,
                     showConfirmButton: false,
-                    width: '50%'
+                    width: '80%'
                 }).then(() => {
 
                 }, dismiss => {

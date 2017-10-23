@@ -19,10 +19,25 @@
     }
   }
 
+  .title2 {
+    position:absolute;
+    top:55%;
+    left:0;
+    right:0;
+    color:#fff;
+    text-align:center;
+    font-size:2rem;
+    span {
+      text-align: center;
+      margin: auto;
+    }
+  }
+
+
   .days {
     font-size:5em;
     position:absolute;
-    top:35%;
+    top:30%;
     left:0;
     right:0;
     color:#fff;
@@ -46,4 +61,21 @@
     //background-color: #fff;
     width: 80%;
   }
+
+  .quote{
+    position:absolute;
+    top:75%;
+    left:0;
+    right:0;
+    color:#fff;
+    padding:0 40px;
+    font-style: oblique;
+    font-weight: 800;
+    font-size:1.5rem;
+
+    .quote-people {
+      width:100%;
+    }
+  }
+
 }

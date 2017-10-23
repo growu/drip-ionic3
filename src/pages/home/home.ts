@@ -29,7 +29,7 @@ export class HomePage {
                 private toastProvider: ToastProvider) {
     }
 
-    ionViewDidLoad() {
+    ionViewDidEnter() {
         this.userProvider.getSetting().then((settingData) => {
             if (settingData) {
                 this.setting = settingData;
