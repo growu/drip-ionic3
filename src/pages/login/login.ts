@@ -14,7 +14,7 @@ import swal from 'sweetalert2'
 })
 export class LoginPage {
 
-    // public isWechatInstalled:boolean = false;
+    public isWechatInstalled:boolean = false;
     public isQQInstalled: boolean = false;
 
     // public isWeiboInstalled:boolean = false;
@@ -74,9 +74,9 @@ export class LoginPage {
     }
 
     ionViewDidLoad() {
-        // this.userProvider.checkWechatInstalled().then((response)=>{
-        //     this.isWechatInstalled = true;
-        // }).catch((err)=>console.log(err));
+        this.userProvider.checkWechatInstalled().then((response)=>{
+            this.isWechatInstalled = true;
+        }).catch((err)=>console.log(err));
 
         this.userProvider.checkQQInstalled().then((response) => {
             this.isQQInstalled = true;

@@ -226,20 +226,20 @@ export class UserProvider {
     }
 
 
-    // checkWechatInstalled():Promise<any> {
-    //   return new Promise<any>((resolve, reject) => {
-    //
-    //     if(this.platform.is('cordova')) {
-    //       Wechat.isInstalled(function (installed) {
-    //         resolve(true);
-    //       }, function (reason) {
-    //         reject(reason);
-    //       });
-    //     } else {
-    //       reject("非cordova平台");
-    //     }
-    //   });
-    // }
+    checkWechatInstalled():Promise<any> {
+      return new Promise<any>((resolve, reject) => {
+
+        if(this.platform.is('cordova')) {
+          Wechat.isInstalled(function (installed) {
+            resolve(true);
+          }, function (reason) {
+            reject(reason);
+          });
+        } else {
+          reject("非cordova平台");
+        }
+      });
+    }
 
     checkQQInstalled(): Promise<any> {
         return new Promise<any>((resolve, reject) => {

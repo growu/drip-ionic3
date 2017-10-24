@@ -1,4 +1,7 @@
 {
-  "content_url": "http://drip.growu.me/www",
-  "config_url": "http://drip.growu.me/www/chcp.json"
+    "content_url": "http://drip.growu.me/www",
+    "config_url": "http://drip.growu.me/www/chcp.json",
+    "min_native_interface": 10,
+    "ios_identifier":"id1255579223",
+    "android_identifier":"http://drip.growu.me"
 }

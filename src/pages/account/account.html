@@ -37,22 +37,21 @@
         <ion-item (click)="showBindMenu('wechat')">
             微信
             <ion-note clear item-end>
-                {{ user?.wechat.nickname || '未绑定'}}
-
+                {{ user?.wechat || '未绑定'}}
                 <ion-icon name="arrow-forward"></ion-icon>
             </ion-note>
         </ion-item>
         <ion-item (click)="showBindMenu('weibo')">
             微博
             <ion-note clear item-end>
-                {{ user?.weibo.nickname || '未绑定'}}
+                {{ user?.weibo || '未绑定'}}
                 <ion-icon name="arrow-forward"></ion-icon>
             </ion-note>
         </ion-item>
         <ion-item (click)="showBindMenu('qq')">
             QQ
             <ion-note clear item-end>
-                {{ user?.qq.nickname || '未绑定'}}
+                {{ user?.qq || '未绑定'}}
                 <ion-icon name="arrow-forward"></ion-icon>
             </ion-note>
         </ion-item>

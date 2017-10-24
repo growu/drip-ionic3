@@ -18,7 +18,7 @@ import {ImagePickerMock} from '@ionic-native-mocks/image-picker';
 import {AppRate} from '@ionic-native/app-rate';
 import {AppRateMock} from '@ionic-native-mocks/app-rate';
 
-export class AppProvider {
+    export class AppProvider {
 
     public static getCropProvider(): Provider {
         return {

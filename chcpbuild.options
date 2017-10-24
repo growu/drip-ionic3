@@ -1,0 +1,8 @@
+{
+  "dev": {
+    "config-file": "http://drip.growu.me/dev/www/chcp.json"
+  },
+  "production": {
+    "config-file": "http://drip.growu.me/www/chcp.json"
+  }
+}

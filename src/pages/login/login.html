@@ -14,7 +14,7 @@
         </ion-col>
     </ion-row>
     <ion-row text-center class="third-toolbar">
-        <ion-col col-4>
+        <ion-col col-4 *ngIf="isWechatInstalled">
             <i class="iconfont icon-weixin" color="" (click)="doWechatLogin()"></i>
         </ion-col>
         <ion-col col-4 *ngIf="isQQInstalled">
