@@ -7,6 +7,7 @@ import {Storage} from '@ionic/storage';
 import * as citise from '../../assets/chinese-cities.json';
 import {ToastProvider} from "../../providers/toast/toast";
 import {UserProvider} from "../../providers/user/user";
+import {LoadingController} from 'ionic-angular';
 
 @IonicPage({
     name: 'profile',
@@ -19,12 +20,12 @@ import {UserProvider} from "../../providers/user/user";
 export class ProfilePage {
 
     public user = {
-        id:0,
+        id: 0,
         avatar_url: '',
         birthday: null,
         sex: "",
         nickname: "",
-        signature:""
+        signature: ""
     };
 
     cityColumns: any[];
@@ -36,6 +37,7 @@ export class ProfilePage {
                 private imagePicker: ImagePicker,
                 private toastProvider: ToastProvider,
                 private userProvider: UserProvider,
+                private loadingCtrl: LoadingController,
                 private transfer: FileTransfer) {
 
         this.cityColumns = <any>citise;
@@ -76,6 +78,16 @@ export class ProfilePage {
     }
 
     uploadImage(fileUrl) {
+
+        let loading = this.loadingCtrl.create({
+            content: "头像上传中,请稍候...",
+            dismissOnPageChange: true,
+            showBackdrop: false,
+            duration: 10000
+        });
+
+        loading.present();// 弹出load框
+
         this.storage.get("token").then(token => {
             let options: FileUploadOptions = {
                 fileKey: 'file',
@@ -89,27 +101,30 @@ export class ProfilePage {
                 .then((res) => {
                     console.log(res);
                     var result = JSON.parse(res.response);
-                    this.updateUser('user_avatar',result.url);
+                    this.updateUser('user_avatar', result.url);
+                    loading.dismiss();
                 }, (err) => {
                     console.log(err);
+                    loading.dismiss();
                     this.toastProvider.show(err.json().message, 'error');
+
                 });
         });
     }
 
 
-    updateUser(key,value) {
+    updateUser(key, value) {
 
         let param = {};
         param[key] = value;
 
         let body = JSON.stringify(param);
 
-        this.userProvider.updateUser(this.user.id,body).then((data)=>{
+        this.userProvider.updateUser(this.user.id, body).then((data) => {
             this.user = data;
-            this.storage.set("user",data);
+            this.storage.set("user", data);
 
-        }).catch((err)=>{
+        }).catch((err) => {
 
         });
     }

@@ -1,5 +1,5 @@
 <ion-list class="popover-page">
-    <ion-item>
+    <ion-item *ngIf="user.is_vip">
         <ion-label>日历模式</ion-label>
         <ion-select [(ngModel)]="setting.calendarMode"
                     (ionChange)="onChangeCalendarMode()"

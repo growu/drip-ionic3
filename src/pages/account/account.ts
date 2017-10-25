@@ -11,7 +11,11 @@ import {UserProvider} from "./../../providers/user/user";
     templateUrl: 'account.html',
 })
 export class AccountPage {
-    public user: any = {};
+    public user: any = {
+        wechat:null,
+        qq:null,
+        weibo:null
+    };
 
     constructor(public navCtrl: NavController,
                 public navParams: NavParams,
