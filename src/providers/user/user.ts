@@ -231,7 +231,11 @@ export class UserProvider {
 
         if(this.platform.is('cordova')) {
           Wechat.isInstalled(function (installed) {
-            resolve(true);
+              if(installed){
+                  resolve(true);
+              }else {
+                  reject("未安装微信");
+              }
           }, function (reason) {
             reject(reason);
           });

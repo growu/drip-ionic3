@@ -75,8 +75,12 @@ export class LoginPage {
 
     ionViewDidLoad() {
         this.userProvider.checkWechatInstalled().then((response)=>{
+            console.log("检测到微信客户端");
             this.isWechatInstalled = true;
-        }).catch((err)=>console.log(err));
+        }).catch((err)=>{
+            console.log("未检测到微信客户端");
+            console.log(err);
+        });
 
         this.userProvider.checkQQInstalled().then((response) => {
             this.isQQInstalled = true;

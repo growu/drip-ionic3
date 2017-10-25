@@ -50,13 +50,13 @@ export class MyApp {
                         chcp.isUpdateAvailableForInstallation(function(error, data) {
                             if (error) {
                                 console.log('未发现安装资源包，开始向服务器请求..');
-                                chcp.fetchUpdate(this.fetchUpdateCallback);
+                                chcp.fetchUpdate(appUpdate.fetchUpdateCallback);
                                 return;
                             }
                             // update is in cache and can be installed - install it
                             console.log('当前版本: ' + data.currentVersion);
                             console.log('最新版本: ' + data.readyToInstallVersion);
-                            chcp.installUpdate(this.installationCallback);
+                            chcp.installUpdate(appUpdate.installationCallback);
                         });
                     },
                     fetchUpdateCallback: function(error, data) {
