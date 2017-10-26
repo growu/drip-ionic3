@@ -19,6 +19,7 @@ export class HomeMenuPage {
     constructor(public navCtrl: NavController,
                 public navParams: NavParams,
                 private viewCtrl: ViewController) {
+        console.log(this.navParams);
         if (this.navParams.data) {
             this.setting = this.navParams.get('setting');
             this.user = this.navParams.get('user');

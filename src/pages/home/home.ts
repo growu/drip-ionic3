@@ -4,6 +4,7 @@ import {UserProvider} from '../../providers/user/user'
 import {ToastProvider} from '../../providers/toast/toast'
 import {SettingModel} from '../../models/setting.model'
 import * as moment from 'moment'
+import {Storage} from '@ionic/storage';
 
 @IonicPage({
     name: 'home',
@@ -14,6 +15,7 @@ import * as moment from 'moment'
 })
 export class HomePage {
     public viewTitle: string = "今天";
+    private currentDay: any = null;
     public setting: SettingModel = {
         viewMode: "list",
         calendarMode: ""
@@ -26,10 +28,12 @@ export class HomePage {
                 private popoverCtrl: PopoverController,
                 private userProvider: UserProvider,
                 private alertCtrl: AlertController,
+                public storage: Storage,
                 private toastProvider: ToastProvider) {
     }
 
     ionViewDidEnter() {
+
         this.userProvider.getSetting().then((settingData) => {
             if (settingData) {
                 this.setting = settingData;
@@ -38,7 +42,13 @@ export class HomePage {
             }
         });
 
+        this.storage.get('user').then((data) => {
+            this.user = data;
+        });
+
+
         let today = moment().format("YYYY-MM-DD");
+        this.currentDay = today;
         this.getGoals(today);
     }
 
@@ -53,6 +63,7 @@ export class HomePage {
     }
 
     onDaySelected(day) {
+        this.currentDay = moment(day).format("YYYY-MM-DD");
         this.getGoals(moment(day).format("YYYY-MM-DD"));
     }
 
@@ -107,6 +118,7 @@ export class HomePage {
         this.userProvider.updateGoal(goal.id, body).then((data) => {
             if (data) {
                 this.toastProvider.show('设置成功', 'success');
+                this.getGoals(this.currentDay);
             }
         });
     }

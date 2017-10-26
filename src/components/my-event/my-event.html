@@ -20,7 +20,7 @@
   <ion-row class="action-toolbar">
     <ion-col>
       <button ion-button icon-left clear small (click)="doLike(event)">
-        <ion-icon name="ios-thumbs-up-outline" isActive="false" *ngIf="!event.is_like" color="gray"></ion-icon>
+        <ion-icon name="ios-thumbs-up-outline" isActive="false" *ngIf="!event.is_like" color="dark-gray"></ion-icon>
         <ion-icon name="ios-thumbs-up" isActive="true" *ngIf="event.is_like" color="primary"></ion-icon>
         <div>{{event.like_count}}</div>
       </button>

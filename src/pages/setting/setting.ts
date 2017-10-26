@@ -3,6 +3,10 @@ import {IonicPage, NavController, NavParams} from 'ionic-angular';
 import {AppRate} from '@ionic-native/app-rate';
 import {Storage} from '@ionic/storage';
 import {ToastProvider} from '../../providers/toast/toast';
+import {Platform} from 'ionic-angular';
+
+
+declare var chcp;
 
 @IonicPage({
     name: "setting"
@@ -18,6 +22,7 @@ export class SettingPage {
                 public navParams: NavParams,
                 public storage: Storage,
                 public toastProvider: ToastProvider,
+                private platform: Platform,
                 private appRate: AppRate) {
     }
 
@@ -57,5 +62,7 @@ export class SettingPage {
 
         this.appRate.promptForRating(true);
     }
+
+
 
 }

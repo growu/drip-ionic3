@@ -80,7 +80,8 @@ export class MyApp {
 
                         var error = eventData.detail.error;
 
-                        console.log("更新失败："+error);
+                        console.log("更新失败："+error.code);
+                        console.log("更新失败："+error.description);
 
                         // 当检测出内核版本过小
                         if (error && error.code == chcp.error.APPLICATION_BUILD_VERSION_TOO_LOW) {
