@@ -30,7 +30,14 @@ page-event {
 
     .event-image {
       overflow: hidden;
-      max-height: 150px;
+      height: 150px;
+      p {
+        height:150px;
+        line-height:150px;
+        img {
+          vertical-align:middle;
+        }
+      }
     }
   }
 

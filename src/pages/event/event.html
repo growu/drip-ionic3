@@ -53,11 +53,10 @@
     <ion-col col-6 *ngFor="let event of events" class="event-col" (click)="goEventDetailPage(event)">
       <ion-card class="event-card">
         <div class="event-image">
-          <img [src]="attach.url" *ngFor="let attach of event.attachs"/>
+          <p><img [src]="attach.url" *ngFor="let attach of event.attachs"/></p>
         </div>
         <ion-card-content>
-          <p>
-            {{event.content}}
+          <p [innerHTML]="event.content">
           </p>
         </ion-card-content>
         <ion-item class="event-footer">

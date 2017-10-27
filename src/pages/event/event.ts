@@ -32,7 +32,7 @@ export class EventPage {
     getEvents(page) {
         this.eventProvider.getEvents(this.mode, page, this.perPage).then((data) => {
             if (data) {
-                if (this.events.length == 0) {
+                if (page == 1) {
                     this.events = data;
                 } else {
                     this.events = this.events.concat(data);

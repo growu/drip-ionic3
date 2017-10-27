@@ -22,7 +22,7 @@ export class GoalDetailEventPage {
                 private userProvider: UserProvider) {
     }
 
-    ionViewDidLoad() {
+    ionViewDidEnter() {
         this.getGoalEvents(1);
     }
 
@@ -31,7 +31,7 @@ export class GoalDetailEventPage {
 
         this.userProvider.getGoalEvents(id, page, this.perPage).then((data) => {
             if (data) {
-                if (this.events.length == 0) {
+                if (page == 1) {
                     this.events = data;
                 } else {
                     this.events = this.events.concat(data);
