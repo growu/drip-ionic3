@@ -17,7 +17,9 @@ export class AboutPage {
     public qqQunUrl: string = '';
     public isUpdate: boolean = false;
     public isInstall: boolean = false;
-    public isGoToStore: boolean = false;
+
+    public appVersion: string = '1.0';
+    public webVersion: string = '20171027000000';
 
     constructor(public navCtrl: NavController,
                 public navParams: NavParams,
@@ -27,22 +29,30 @@ export class AboutPage {
 
         if (this.platform.is('ios')) {
             this.qqQunUrl = 'mqqapi://card/show_pslcard?src_type=internal&version=1&uin=7852084&key=ae5495ce139b42cc872fdd0da42fc3e6527731aa040ae569fa17ba6e17edd531&card_type=group&source=external';
-
         } else if (this.platform.is('android')) {
             this.qqQunUrl = 'mqqopensdkapi://bizAgent/qm/qr?url=http%3A%2F%2Fqm.qq.com%2Fcgi-bin%2Fqm%2Fqr%3Ffrom%3Dapp%26p%3Dandroid%26k%3D65XQJ2wNSi1AwllnyzOvIVQKO8rcgTtZ';
         } else {
             this.qqQunUrl = 'http://shang.qq.com/wpa/qunwpa?idkey=ae5495ce139b42cc872fdd0da42fc3e6527731aa040ae569fa17ba6e17edd531';
         }
 
+        console.log(this.qqQunUrl);
     }
+
+
 
     ionViewDidLoad() {
 
         if (this.platform.is('cordova')) {
 
+            chcp.getVersionInfo((err, data) =>{
+                this.webVersion = data.currentVersion;
+                this.appVersion = data.appVersion.replace('-','');
+                this.appVersion = this.appVersion.replace('.','');
+            });
+
             chcp.isUpdateAvailableForInstallation((error, data) => {
                 if (error) {
-                    console.log('未发现安装资源包，开始向服务器请求..');
+                    console.log('未发现安装包，开始向服务器请求..');
                     chcp.fetchUpdate((error, data) => {
                         if (error) {
                             console.log('加载更新失败: ' + error.code);
@@ -54,12 +64,11 @@ export class AboutPage {
                     return;
                 }
 
-                this.isUpdate = true;
-                this.isInstall = true;
-
-                // update is in cache and can be installed - install it
                 console.log('当前版本: ' + data.currentVersion);
                 console.log('最新版本: ' + data.readyToInstallVersion);
+
+                this.isUpdate = true;
+                this.isInstall = true;
             });
 
         }

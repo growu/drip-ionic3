@@ -45,11 +45,9 @@ export class MainPage {
     }
 
     ionViewDidLoad() {
-        console.log("main load");
     }
 
     ionViewDidLeave() {
-        console.log("main leave");
         clearInterval(this.timer);
     }
 

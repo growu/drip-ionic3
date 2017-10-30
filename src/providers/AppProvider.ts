@@ -1,10 +1,3 @@
-/**
- * @author：Jason.z
- * @email：ccnuzxg@163.com
- * @website：http://www.jason-z.com
- * @date：2017/9/28
- * @version 1.0
- */
 import {Provider} from "@angular/core/core";
 import {Platform} from "ionic-angular";
 import {Crop} from '@ionic-native/crop';
@@ -18,9 +11,9 @@ import {ImagePickerMock} from '@ionic-native-mocks/image-picker';
 import {AppRate} from '@ionic-native/app-rate';
 import {AppRateMock} from '@ionic-native-mocks/app-rate';
 
-    export class AppProvider {
+export class AppProvider {
 
-    public static getCropProvider(): Provider {
+     public static getCropProvider(): Provider {
         return {
             provide: Crop, useFactory: (platform: Platform) => {
                 if (this.deviceRunningCordova(platform)) {
@@ -84,3 +77,50 @@ import {AppRateMock} from '@ionic-native-mocks/app-rate';
         return platform.is('cordova');
     }
 }
+
+export function ImagePickerFactory() {
+    return (window.hasOwnProperty('cordova')) ? ImagePicker : ImagePickerMock;
+};
+
+export const ImagePickerProvider = {
+        provide: ImagePicker,
+        useFactory: ImagePickerFactory
+};
+
+export function FileFactory():any {
+    return (window.hasOwnProperty('cordova')) ? new File() : new FileMock();
+};
+
+export const FileProvider = {
+    provide: File,
+    useFactory: FileFactory
+};
+
+export function FileTransferFactory():any {
+    return (window.hasOwnProperty('cordova')) ? new FileTransfer() : new FileTransferMock();
+};
+
+export const FileTransferProvider = {
+    provide: FileTransfer,
+    useFactory: FileTransferFactory
+};
+
+export function CropFactory():any {
+    return (window.hasOwnProperty('cordova')) ? new Crop() : new CropMock();
+};
+
+export const CropProvider = {
+    provide: Crop,
+    useFactory: CropFactory
+};
+
+export function AppRateFactory():any {
+    return (window.hasOwnProperty('cordova')) ? new AppRate() : new AppRateMock();
+}
+
+export const AppRateProvider = {
+    provide: AppRate,
+    useFactory: AppRateFactory
+};
+
+

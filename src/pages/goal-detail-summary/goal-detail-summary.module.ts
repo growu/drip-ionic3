@@ -2,17 +2,17 @@ import {NgModule} from '@angular/core';
 import {IonicPageModule} from 'ionic-angular';
 import {GoalDetailSummaryPage} from './goal-detail-summary';
 import {RoundProgressModule} from 'angular-svg-round-progressbar';
-import {MyWeekCalendarComponent} from '../../components/my-week-calendar/my-week-calendar';
+import {MyWeekCalendarComponentModule} from '../../components/my-week-calendar/my-week-calendar.module';
 import {CalendarModule} from "ion2-calendar";
 
 @NgModule({
     declarations: [
-        GoalDetailSummaryPage,
-        MyWeekCalendarComponent
+        GoalDetailSummaryPage
     ],
     imports: [
         IonicPageModule.forChild(GoalDetailSummaryPage),
         RoundProgressModule,
+        MyWeekCalendarComponentModule,
         CalendarModule
     ],
 })

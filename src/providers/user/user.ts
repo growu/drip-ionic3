@@ -21,26 +21,16 @@ export class UserProvider {
 
     }
 
-    login(user) : Promise<any>  {
-        user.device = this.getDevice();
+    login(user): Promise<any> {
         return new Promise((resolve, reject) => {
-            if(this.platform.is('cordova')) {
-                (<any>window).plugins.jPushPlugin.getRegistrationID((data) => {
-                    console.log("JPushPlugin:registrationID is " + data);
-                    user.device.push_id = data;
-                    this.httpProvider.httpPostNoAuth("/auth/login", user).then((data)=>{
-                        resolve(data);
-                    }).catch((err)=>{
-                        reject(err);
-                    });
-                });
-            } else {
-                this.httpProvider.httpPostNoAuth("/auth/login", user).then((data)=>{
+            this.getDevice().then((device) => {
+                user.device = device;
+                this.httpProvider.httpPostNoAuth("/auth/login", user).then((data) => {
                     resolve(data);
-                }).catch((err)=>{
+                }).catch((err) => {
                     reject(err);
                 });
-            }
+            });
         });
     }
 
@@ -48,38 +38,59 @@ export class UserProvider {
         return this.httpProvider.httpPostWithAuth("/user/password/change", data);
     }
 
-    getDevice() {
-        return {
-            cordova:this.device.cordova,
-            model:this.device.model,
-            platform:this.device.platform,
-            uuid:this.device.uuid,
-            version:this.device.version,
-            manufacturer:this.device.manufacturer,
-            isVirtual:this.device.isVirtual,
-            serial:this.device.serial
-        }
+    getDevice(): Promise<any> {
+        return new Promise((resolve, reject) => {
+            if (this.platform.is('cordova')) {
+                (<any>window).plugins.jPushPlugin.getRegistrationID((data) => {
+                    console.log("获取极光推送ID" + data);
+                    let device = {
+                        cordova: this.device.cordova,
+                        model: this.device.model,
+                        platform: this.device.platform,
+                        uuid: this.device.uuid,
+                        version: this.device.version,
+                        manufacturer: this.device.manufacturer,
+                        isVirtual: this.device.isVirtual,
+                        serial: this.device.serial,
+                        push_id: data
+                    };
+                    resolve(device);
+                });
+            } else {
+                resolve(null);
+            }
+        });
+    }
+
+    doThirdLogin(data,provider):Promise<any> {
+        return new Promise((resolve, reject) => {
+            this.getDevice().then((device) => {
+                data.device = device;
+                data.provider = provider;
+                this.httpProvider.httpPostNoAuth("/auth/third", data).then((data) => {
+                    resolve(data);
+                }).catch((err) => {
+                    reject(err);
+                });
+            });
+        });
     }
 
     doWechatLogin(): Promise<any> {
+
         return new Promise((resolve, reject) => {
+
             if (this.platform.is('cordova')) {
+
                 var scope = "snsapi_userinfo",
                     state = "_" + (+new Date());
 
                 Wechat.auth(scope, state, response => {
-                    response.provider = 'wechat';
-                    response.device = this.device;
-
-                    this.httpProvider.httpPostNoAuth('/auth/third', response).then((data) => {
-                        console.log(data);
-                        resolve(data);
-                    }).catch((err) => {
-                        console.log(err);
+                    this.doThirdLogin(response,'wechat').then((res)=>{
+                        resolve(res);
+                    }).catch((err)=>{
                         reject(err);
                     });
-                }, reason => {
-                    reject(reason);
                 });
             } else {
                 reject("非cordova平台");
@@ -88,7 +99,6 @@ export class UserProvider {
     }
 
     doQQLogin(): Promise<any> {
-
         return new Promise((resolve, reject) => {
             if (this.platform.is('cordova')) {
 
@@ -97,15 +107,9 @@ export class UserProvider {
                 };
 
                 QQSDK.ssoLogin(result => {
-
-                    result.provider = 'qq';
-                    result.device = this.device;
-
-                    this.httpProvider.httpPostNoAuth('/auth/third', result).then((data) => {
-                        console.log(data);
-                        resolve(data);
-                    }).catch((err) => {
-                        console.log(err);
+                    this.doThirdLogin(result,'qq').then((res)=>{
+                        resolve(res);
+                    }).catch((err)=>{
                         reject(err);
                     });
                 }, err => {
@@ -114,7 +118,6 @@ export class UserProvider {
             } else {
                 reject("非cordova平台");
             }
-
         });
     }
 
@@ -125,13 +128,11 @@ export class UserProvider {
                 WeiboSDK.ssoLogin(result => {
 
                     result.provider = 'weibo';
-                    result.device = this.device;
+                    result.device = this.getDevice();
 
-                    this.httpProvider.httpPostNoAuth('/auth/third', result).then((data) => {
-                        console.log(data);
-                        resolve(data);
-                    }).catch((err) => {
-                        console.log(err);
+                    this.doThirdLogin(result,'weibo').then((res)=>{
+                        resolve(res);
+                    }).catch((err)=>{
                         reject(err);
                     });
                 }, err => {
@@ -226,23 +227,23 @@ export class UserProvider {
     }
 
 
-    checkWechatInstalled():Promise<any> {
-      return new Promise<any>((resolve, reject) => {
+    checkWechatInstalled(): Promise<any> {
+        return new Promise<any>((resolve, reject) => {
 
-        if(this.platform.is('cordova')) {
-          Wechat.isInstalled(function (installed) {
-              if(installed){
-                  resolve(true);
-              }else {
-                  reject("未安装微信");
-              }
-          }, function (reason) {
-            reject(reason);
-          });
-        } else {
-          reject("非cordova平台");
-        }
-      });
+            if (this.platform.is('cordova')) {
+                Wechat.isInstalled(function (installed) {
+                    if (installed) {
+                        resolve(true);
+                    } else {
+                        reject("未安装微信");
+                    }
+                }, function (reason) {
+                    reject(reason);
+                });
+            } else {
+                reject("非cordova平台");
+            }
+        });
     }
 
     checkQQInstalled(): Promise<any> {
@@ -414,7 +415,7 @@ export class UserProvider {
         return this.httpProvider.httpGetWithAuth("/user/messages/like", params);
     }
 
-    getNewMessages(){
+    getNewMessages() {
         return this.httpProvider.httpGetWithAuth("/user/messages/new", null);
     }
 

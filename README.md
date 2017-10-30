@@ -72,7 +72,9 @@ ionic v1版本的源码可以参考[drip-ionic](https://github.com/growu/drip-io
 
 QQ群：7852084
 
-微信群：![微信群](wechat.jpg)
+微信群：
+
+![微信群](wechat.jpg)
 
 *如遇二维码过期，也可以添加格吾君微信（微信号：growu001）,发送暗号"水滴打卡"即可*
 
