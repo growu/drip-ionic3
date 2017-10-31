@@ -29,7 +29,7 @@ export class LoginDefaultPage {
 
         this.loginForm = this.formBuilder.group({
             'account': ['', [Validators.required, AccountValidator.isValid]],
-            'password': ['', [Validators.required, Validators.minLength(6), Validators.maxLength(32)]]
+            'password': ['', [Validators.required, Validators.minLength(6), Validators.maxLength(16)]]
         });
     }
 
