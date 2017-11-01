@@ -1,6 +1,7 @@
 import {Component, Input} from '@angular/core';
 import {ActionSheetController, App} from 'ionic-angular';
 import {EventProvider} from '../../providers/event/event'
+import {MyShareController} from "../my-share/my-share.controller";
 
 @Component({
     selector: 'my-event',
@@ -12,6 +13,7 @@ export class MyEventComponent {
     @Input() _eventSource: any = [];
 
     constructor(public actionSheetCtrl: ActionSheetController,
+                private myShareCtrl: MyShareController,
                 private app: App,
                 private eventProvider: EventProvider) {
 
@@ -47,7 +49,7 @@ export class MyEventComponent {
         }
     }
 
-    showMore() {
+    showMore(event) {
         let actionSheet = this.actionSheetCtrl.create({
             title: '更多',
             buttons: [
@@ -56,6 +58,18 @@ export class MyEventComponent {
                     role: 'destructive',
                     handler: () => {
                         console.log('Destructive clicked');
+                        let myShare = this.myShareCtrl.create({
+                            data: {
+                                 type: 'url',
+                                 title: event.owner.nickname + " 的打卡动态",
+                                 description: event.content,
+                                 image: event.attachs ? event.attachs[0].url : '',
+                                 thumb: event.attachs ? event.attachs[0].url : '',
+                                 url:"http://drip.growu.me"
+                            }
+                        })
+                        ;
+                        myShare.present();
                     }
                 }, {
                     text: '举报',

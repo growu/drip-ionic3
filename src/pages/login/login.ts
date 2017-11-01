@@ -16,7 +16,6 @@ export class LoginPage {
 
     public isWechatInstalled:boolean = false;
     public isQQInstalled: boolean = false;
-
     // public isWeiboInstalled:boolean = false;
 
     constructor(public navCtrl: NavController,

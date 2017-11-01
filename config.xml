@@ -114,7 +114,7 @@
     <plugin name="cordova-plugin-qqsdk" spec="^0.9.6">
         <variable name="QQ_APP_ID" value="1106192747" />
     </plugin>
-    <plugin name="jpush-phonegap-plugin" spec="^3.2.6">
+    <plugin name="jpush-phonegap-plugin" spec="^3.2.11">
         <variable name="APP_KEY" value="46becc0d96be0a46d601867f" />
     </plugin>
     <plugin name="cordova-plugin-ionic-webview" spec="^1.1.8" />
@@ -128,4 +128,5 @@
         <variable name="CAMERA_USAGE_DESCRIPTION" value=" " />
         <variable name="PHOTOLIBRARY_USAGE_DESCRIPTION" value=" " />
     </plugin>
+    <plugin name="cordova-plugin-x-socialsharing" spec="^5.2.1" />
 </widget>

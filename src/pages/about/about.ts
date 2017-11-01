@@ -39,15 +39,14 @@ export class AboutPage {
     }
 
 
-
     ionViewDidLoad() {
 
         if (this.platform.is('cordova')) {
 
-            chcp.getVersionInfo((err, data) =>{
-                this.webVersion = data.currentVersion;
-                this.appVersion = data.appVersion.replace('-','');
-                this.appVersion = this.appVersion.replace('.','');
+            chcp.getVersionInfo((err, data) => {
+                this.appVersion = data.appVersion;
+                this.webVersion = data.webVersion.replace('-', '');
+                this.webVersion = this.webVersion.replace('.', '');
             });
 
             chcp.isUpdateAvailableForInstallation((error, data) => {
@@ -94,7 +93,7 @@ export class AboutPage {
     }
 
     copyCallback() {
-        this.toastProvier.show("公众号已复制到剪贴板",'success');
+        this.toastProvier.show("公众号已复制到剪贴板", 'success');
     }
 
 }

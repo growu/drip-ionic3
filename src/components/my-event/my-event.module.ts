@@ -4,17 +4,19 @@ import {MyEventComponent} from './my-event';
 import {TimeAgoPipeModule} from '../../pipes/time-ago/time-ago.module';
 import {MomentModule} from 'angular2-moment';
 import {IonicImageViewerModule} from 'ionic-img-viewer';
+import {MyShareModule} from '../my-share/my-share.module';
 
 
 @NgModule({
     declarations: [
-        MyEventComponent,
+        MyEventComponent
     ],
     imports: [
         IonicModule,
         TimeAgoPipeModule,
         MomentModule,
-        IonicImageViewerModule
+        IonicImageViewerModule,
+        MyShareModule
     ],
     exports: [
         MyEventComponent

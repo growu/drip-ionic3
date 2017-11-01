@@ -1,0 +1,43 @@
+<ion-header>
+    <ion-toolbar>
+        <ion-title>
+            分享
+        </ion-title>
+        <ion-buttons start>
+            <button ion-button (click)="dismiss()">
+                <span ion-text color="primary" showWhen="ios">关闭</span>
+                <ion-icon name="md-close" showWhen="android, windows"></ion-icon>
+            </button>
+        </ion-buttons>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content class="card-background-page">
+
+    <ion-card>
+        <img [src]="shareData.image"/>
+        <ion-card-content text-center>
+            <ion-card-title>
+                行动胜于言语
+            </ion-card-title>
+            <p>
+                Action speak louder than words.
+            </p>
+
+            <p>坚持#每天跑步10公里#第10天</p>
+            <p>Jason.z</p>
+        </ion-card-content>
+    </ion-card>
+
+    <ion-list>
+        <ion-item>
+            <ion-thumbnail item-start>
+                <img src="img/thumbnail-totoro.png">
+            </ion-thumbnail>
+            <h2>水滴打卡</h2>
+            <p>#见证持之以恒的力量#</p>
+            <img src="assets/img/mp_qrcode.jpg">
+        </ion-item>
+    </ion-list>
+
+</ion-content>

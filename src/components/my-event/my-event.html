@@ -4,7 +4,7 @@
     <ion-avatar item-start>
       <img [src]="event.owner?.avatar_url || 'assets/img/default-avatar.jpg'">
     </ion-avatar>
-    <h2>{{event.owner?.nickname || '一颗小水滴'}} </h2>
+    <h2>{{event.owner?.nickname || '还没有昵称'}} </h2>
     <p>{{event.created_at | amLocale:"zh_cn" | amUtc | amTimeAgo }}</p>
   </ion-item>
 
@@ -32,7 +32,7 @@
       </button>
     </ion-col>
     <ion-col center text-center>
-      <button ion-button icon-left clear small (click)="showMore()">
+      <button ion-button icon-left clear small (click)="showMore(event)">
         <ion-icon name="ios-more-outline"></ion-icon>
         <div></div>
       </button>
