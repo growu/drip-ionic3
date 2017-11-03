@@ -1,81 +1,103 @@
 <ion-header>
 
-  <ion-navbar color="primary">
-    <ion-title>动态详情</ion-title>
-  </ion-navbar>
+    <ion-navbar color="primary">
+        <ion-title>动态详情</ion-title>
+
+        <ion-buttons end>
+            <button ion-button icon-only clear (click)="doShare()">
+                <ion-icon name="ios-share-outline"></ion-icon>
+            </button>
+        </ion-buttons>
+    </ion-navbar>
+
+
 
 </ion-header>
 
 
 <ion-content>
-  <ion-list>
-    <ion-card *ngIf="event" no-shadow>
-      <ion-item>
-        <ion-avatar item-start>
-          <img [src]="event.user.avatar_url || 'assets/img/default-avatar.jpg'">
-        </ion-avatar>
-        <h2>{{event.user.nickname}}</h2>
-        <p>{{event.created_at | amLocale:"zh_cn" | amUtc | amTimeAgo }}</p>
-        <my-follow-button [followStatus]="event.user.is_follow" [followUser]="event.user.id" item-end></my-follow-button>
-      </ion-item>
-      <div *ngIf="event.attachs.length>0" class="event-image">
-      <img [src]="attach.url"  *ngFor="let attach of event.attachs">
-      </div>
-      <ion-card-content>
-        <p [innerHtml]="event.content"></p>
-        <blockquote>完成 <a>{{event.goal.name}}</a> 打卡第{{event.checkin.total_days}}天</blockquote>
-      </ion-card-content>
+    <ion-list>
+        <ion-card *ngIf="event" no-shadow>
+            <ion-item>
+                <ion-avatar item-start>
+                    <img [src]="event.user.avatar_url || 'assets/img/default-avatar.jpg'">
+                </ion-avatar>
+                <h2>{{event.user.nickname}}</h2>
+                <p>{{event.created_at | amLocale:"zh_cn" | amUtc | amTimeAgo }}</p>
+                <my-follow-button [followStatus]="event.user.is_follow" [followUser]="event.user.id"
+                                  item-end></my-follow-button>
+            </ion-item>
+            <div *ngIf="event.attachs.length>0" class="event-image">
+                <img [src]="attach.url" *ngFor="let attach of event.attachs">
+            </div>
+            <ion-card-content>
+                <p [innerHtml]="event.content"></p>
+                <blockquote>完成 <a>{{event.goal.name}}</a> 打卡第{{event.checkin.total_days}}天</blockquote>
+            </ion-card-content>
 
-    </ion-card>
-  </ion-list>
+        </ion-card>
+    </ion-list>
 
-  <ion-list>
-    <ion-item class="likes-item" (click)="goEventLikePage()">
-      <p item-start>{{event?.likes.length}} 个点赞</p>
-      <ion-avatar  *ngFor="let like of event?.likes" >
-        <img [src]="like.user.avatar_url"/>
-      </ion-avatar>
-      <ion-icon name="ios-arrow-forward-outline" color="gray" item-end></ion-icon>
-    </ion-item>
-  </ion-list>
+    <ion-list>
+        <ion-item class="likes-item" (click)="goEventLikePage()">
+            <p item-start>{{event?.likes.length}} 个点赞</p>
+            <ion-avatar *ngFor="let like of event?.likes">
+                <img [src]="like.user.avatar_url || 'assets/img/default-avatar.jpg'"/>
+            </ion-avatar>
+            <ion-icon name="ios-arrow-forward-outline" color="gray" item-end></ion-icon>
+        </ion-item>
+    </ion-list>
 
-  <!--<ion-list>-->
+    <!--<ion-list>-->
     <!--<ion-list-header>-->
-      <!--全部评论 {{event?.comments.length}}-->
+    <!--全部评论 {{event?.comments.length}}-->
     <!--</ion-list-header>-->
     <!--<ion-card class="comment-card" *ngFor="let comment of event?.comments">-->
-      <!--<ion-item>-->
-        <!--<ion-avatar small item-start>-->
-          <!--<img [src]="comment.user.avatar_url">-->
-        <!--</ion-avatar>-->
-        <!--<h2>{{comment.user.nickname}}</h2>-->
-        <!--<p>{{comment.created_at | amLocale:"zh_cn" | amUtc | amTimeAgo }}</p>-->
-        <!--<ion-icon name="ios-redo-outline" item-end></ion-icon>-->
-        <!--<ion-icon name="ios-thumbs-up-outline" item-end> {{comment.like_count}}</ion-icon>-->
-      <!--</ion-item>-->
-      <!--<ion-card-content>-->
-        <!--<p>{{comment.content}}</p>-->
-      <!--</ion-card-content>-->
+    <!--<ion-item>-->
+    <!--<ion-avatar small item-start>-->
+    <!--<img [src]="comment.user.avatar_url">-->
+    <!--</ion-avatar>-->
+    <!--<h2>{{comment.user.nickname}}</h2>-->
+    <!--<p>{{comment.created_at | amLocale:"zh_cn" | amUtc | amTimeAgo }}</p>-->
+    <!--<ion-icon name="ios-redo-outline" item-end></ion-icon>-->
+    <!--<ion-icon name="ios-thumbs-up-outline" item-end> {{comment.like_count}}</ion-icon>-->
+    <!--</ion-item>-->
+    <!--<ion-card-content>-->
+    <!--<p>{{comment.content}}</p>-->
+    <!--</ion-card-content>-->
     <!--</ion-card>-->
-  <!--</ion-list>-->
+    <!--</ion-list>-->
 
 </ion-content>
 
 <ion-footer>
-    <ion-row>
-      <ion-col>
-        <ion-icon name="ios-thumbs-up">
-          806
-        </ion-icon>
-      </ion-col>
-      <ion-col>
-        <ion-icon name="ios-thumbs-up">
-          806
-      </ion-col>
-      <ion-col></ion-col>
-    </ion-row>
+    <ion-toolbar text-center class="action-bar">
+        <ion-row>
+            <ion-col>
+                <button ion-button clear icon-left>
+                    <ion-icon name="ios-thumbs-up-outline">
+                    </ion-icon>
+                    <span class="num">{{event?.like_count}}</span>
+                </button>
+            </ion-col>
+            <ion-col>
+                <button ion-button clear icon-left>
+                <ion-icon name="ios-chatboxes-outline">
+                </ion-icon>
+                <span class="num">{{event?.comment_count}}</span>
+                </button>
+            </ion-col>
+            <ion-col>
+                <button ion-button clear icon-left>
+                    <ion-icon name="ios-star-outline">
+                    </ion-icon>
+                    <span class="num">{{event?.favourite_count}}</span>
+                </button>
+            </ion-col>
+        </ion-row>
+    </ion-toolbar>
     <!--<ion-item>-->
-      <!--<ion-input type="text" item-start></ion-input>-->
-      <!--<button clear ion-button item-end>发布</button>-->
+    <!--<ion-input type="text" item-start></ion-input>-->
+    <!--<button clear ion-button item-end>发布</button>-->
     <!--</ion-item>-->
 </ion-footer>

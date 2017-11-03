@@ -1,10 +1,10 @@
 <div *ngIf="_eventSource">
 <ion-card *ngFor="let event of _eventSource">
-  <ion-item (click)="goUserHomePage(event.owner)">
+  <ion-item (click)="goUserHomePage(event.user)">
     <ion-avatar item-start>
-      <img [src]="event.owner?.avatar_url || 'assets/img/default-avatar.jpg'">
+      <img [src]="event.user?.avatar_url || 'assets/img/default-avatar.jpg'">
     </ion-avatar>
-    <h2>{{event.owner?.nickname || '还没有昵称'}} </h2>
+    <h2>{{event.user?.nickname || '还没有昵称'}} </h2>
     <p>{{event.created_at | amLocale:"zh_cn" | amUtc | amTimeAgo }}</p>
   </ion-item>
 

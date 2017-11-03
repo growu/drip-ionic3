@@ -61,9 +61,9 @@
         </ion-card-content>
         <ion-item class="event-footer">
           <ion-avatar item-start>
-            <img [src]="event.owner?.avatar_url|| 'assets/img/default-avatar.jpg'">
+            <img [src]="event.user?.avatar_url|| 'assets/img/default-avatar.jpg'">
           </ion-avatar>
-          <h2>{{event.owner?.nickname}}</h2>
+          <h2>{{event.user?.nickname}}</h2>
           <ion-note item-end><ion-icon name="thumbs-up"></ion-icon> {{event.like_count}}</ion-note>
         </ion-item>
       </ion-card>

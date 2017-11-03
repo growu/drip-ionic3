@@ -18,8 +18,8 @@ export class AboutPage {
     public isUpdate: boolean = false;
     public isInstall: boolean = false;
 
-    public appVersion: string = '1.0';
-    public webVersion: string = '20171027000000';
+    public appVersion: string = '1.0.0';
+    public webVersion: string = '20171103000000';
 
     constructor(public navCtrl: NavController,
                 public navParams: NavParams,
@@ -34,8 +34,6 @@ export class AboutPage {
         } else {
             this.qqQunUrl = 'http://shang.qq.com/wpa/qunwpa?idkey=ae5495ce139b42cc872fdd0da42fc3e6527731aa040ae569fa17ba6e17edd531';
         }
-
-        console.log(this.qqQunUrl);
     }
 
 

@@ -100,7 +100,7 @@ export class MyShareImageModal {
                 var img = new Image();
                 img.crossOrigin = 'anonymous';
                 img.src = canvas.toDataURL("image/png");
-                this.shareImage = encodeURIComponent(canvas.toDataURL("image/png"));
+                this.shareImage = canvas.toDataURL("image/png");
                 img.onload = () => {
                     img.onload = null;
                     img.style.width = w + "px";

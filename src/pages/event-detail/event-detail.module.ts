@@ -3,6 +3,7 @@ import {IonicPageModule} from 'ionic-angular';
 import {EventDetailPage} from './event-detail';
 import {MomentModule} from 'angular2-moment';
 import {MyFollowButtonComponentModule} from '../../components/my-follow-button/my-follow-button.module'
+import {MyShareModule} from '../../components/my-share/my-share.module';
 
 @NgModule({
     declarations: [
@@ -11,7 +12,8 @@ import {MyFollowButtonComponentModule} from '../../components/my-follow-button/m
     imports: [
         IonicPageModule.forChild(EventDetailPage),
         MomentModule,
-        MyFollowButtonComponentModule
+        MyFollowButtonComponentModule,
+        MyShareModule
     ],
 })
 export class EventDetailPageModule {

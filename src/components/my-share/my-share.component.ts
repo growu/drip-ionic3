@@ -101,6 +101,9 @@ export class MyShareComponent {
     }
 
     doWeiboShare() {
+
+        console.log(this.formatBase64(this._opts.data.image));
+
         if (window.hasOwnProperty('cordova')) {
             var args = {
                 url: this._opts.data.url,
@@ -108,6 +111,7 @@ export class MyShareComponent {
                 description:this._opts.data.description,
                 image: this._opts.data.image ? this.formatBase64(this._opts.data.image): 'http://drip.growu.me/img/icon.png'
             };
+
 
             if(this._opts.data.type == 'image') {
 

@@ -71,7 +71,7 @@ export class MyEventComponent {
                         let myShare = this.myShareCtrl.create({
                                 data: {
                                     type: 'url',
-                                    title: event.owner.nickname + " 的打卡动态",
+                                    title: event.user.nickname + " 的打卡动态",
                                     description: event.content,
                                     image: image,
                                     thumb: image,

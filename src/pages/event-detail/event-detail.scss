@@ -42,4 +42,21 @@ page-event-detail {
       font-size:2rem;
     }
   }
+
+  .action-bar {
+    .toolbar-background {
+      background-color: #fff;
+    }
+    ion-col {
+      padding:0;
+      .button {
+        color:#424242;
+        ion-icon {
+          font-size:2.5rem;
+        }
+      }
+
+    }
+  }
+
 }
