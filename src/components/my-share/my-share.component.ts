@@ -3,7 +3,7 @@ import {ModalController, NavParams, ViewController} from "ionic-angular";
 import {SocialSharing} from '@ionic-native/social-sharing';
 import {ToastProvider} from '../../providers/toast/toast';
 import {MyShareOptions} from "./my-share.options";
-
+import {MyShareImageModal} from "./my-share-image.modal";
 
 declare var Wechat;
 declare var QQSDK;
@@ -13,10 +13,10 @@ declare var WeiboSDK;
     selector: 'my-share',
     templateUrl: 'my-share.html'
 })
+
 export class MyShareComponent {
 
-    private _link: string = "http://drip.growu.me";
-    private _opts: MyShareOptions;
+    public _opts: MyShareOptions;
 
     constructor(private _viewCtrl: ViewController,
                 params: NavParams,
@@ -27,13 +27,13 @@ export class MyShareComponent {
     }
 
     doImageShare() {
-        let modal = this.modalCtrl.create(MyShareImagePage,this._opts);
+        this.dismiss('backdrop');
+        let modal = this.modalCtrl.create(MyShareImageModal,this._opts);
         modal.present();
     }
 
     doWechatShare(type) {
         if (window.hasOwnProperty('cordova')) {
-
             let message;
 
             if(this._opts.data.type == 'image') {
@@ -44,13 +44,16 @@ export class MyShareComponent {
                     mediaTagName: "TEST-TAG-001",
                     messageExt: "",
                     messageAction: "<action>dotalist</action>",
-                    media: this._opts.data.image
+                    media:{
+                        type: Wechat.Type.IMAGE,
+                        image:  this._opts.data.image
+                    }
                 }
             } else  if(this._opts.data.type == 'url') {
                 message = {
                     title: this._opts.data.title,
                     description: this._opts.data.description,
-                    thumb: this._opts.data.thumb,
+                    thumb: this._opts.data.thumb || 'http://drip.growu.me/img/icon.png',
                     media: {
                         type: Wechat.Type.WEBPAGE,
                         webpageUrl: this._opts.data.url
@@ -77,7 +80,7 @@ export class MyShareComponent {
                 scene: type == 'QQ' ? QQSDK.Scene.QQ : QQSDK.Scene.QQZone,
                 url: this._opts.data.url,
                 title:  this._opts.data.title,
-                image: this._opts.data.image,
+                image: this._opts.data.image ? this.formatBase64(this._opts.data.image): 'http://drip.growu.me/img/icon.png',
                 description: this._opts.data.description
             };
 
@@ -103,12 +106,12 @@ export class MyShareComponent {
                 url: this._opts.data.url,
                 title: this._opts.data.title,
                 description:this._opts.data.description,
-                image: this._opts.data.image
+                image: this._opts.data.image ? this.formatBase64(this._opts.data.image): 'http://drip.growu.me/img/icon.png'
             };
 
             if(this._opts.data.type == 'image') {
 
-                WeiboSDK.shareToWeibo(() => {
+                WeiboSDK.shareImageToWeibo(() => {
                     this._toastProvider.show("分享成功", 'success');
                 }, (err) => {
                     this._toastProvider.show(err, 'error');
@@ -116,7 +119,7 @@ export class MyShareComponent {
 
             } else if(this._opts.data.type == 'url') {
 
-                WeiboSDK.shareImageToWeibo(() => {
+                WeiboSDK.shareToWeibo(() => {
                     this._toastProvider.show("分享成功", 'success');
                 }, (err) => {
                     this._toastProvider.show(err, 'error');
@@ -136,31 +139,15 @@ export class MyShareComponent {
         });
     }
 
+    formatBase64(image:string) {
+        return  image.replace(/^data:image\/(png|jpg);base64,/, "");
+    }
+
     bgClick() {
         this.dismiss('backdrop');
     }
 
     dismiss(role: string): Promise<any> {
         return this._viewCtrl.dismiss(null, role, {});
-    }
-}
-
-@Component({
-    selector: 'my-share-image',
-    templateUrl: 'my-share-image.html'
-})
-export class MyShareImagePage {
-    public shareData: MyShareOptions;
-
-    constructor(
-        public params: NavParams,
-        public viewCtrl: ViewController
-    ) {
-        this.shareData = this.params.data;
-    }
-
-
-    dismiss() {
-        this.viewCtrl.dismiss();
     }
 }

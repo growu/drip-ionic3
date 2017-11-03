@@ -57,17 +57,28 @@ export class MyEventComponent {
                     text: '分享',
                     role: 'destructive',
                     handler: () => {
-                        console.log('Destructive clicked');
-                        let myShare = this.myShareCtrl.create({
-                            data: {
-                                 type: 'url',
-                                 title: event.owner.nickname + " 的打卡动态",
-                                 description: event.content,
-                                 image: event.attachs ? event.attachs[0].url : '',
-                                 thumb: event.attachs ? event.attachs[0].url : '',
-                                 url:"http://drip.growu.me"
+                        console.log(event.attachs);
+
+                        // let image = 'https://source.unsplash.com/random/400/300';
+                        let image = null;
+                        if (event.attachs.length > 0) {
+                            let attach = event.attachs[0];
+                            if (attach.url) {
+                                image = attach.url;
                             }
-                        })
+                        }
+
+                        let myShare = this.myShareCtrl.create({
+                                data: {
+                                    type: 'url',
+                                    title: event.owner.nickname + " 的打卡动态",
+                                    description: event.content,
+                                    image: image,
+                                    thumb: image,
+                                    url: "http://drip.growu.me"
+                                },
+                                extra:event
+                            })
                         ;
                         myShare.present();
                     }

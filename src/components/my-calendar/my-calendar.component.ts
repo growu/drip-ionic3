@@ -69,7 +69,6 @@ export class MyCalendarComponent {
         if (selectDay.toDateString() == this.currentDay.toDateString()) {
             return true;
         }
-
         return false;
     }
 

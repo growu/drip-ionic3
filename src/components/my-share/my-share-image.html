@@ -1,43 +1,71 @@
-<ion-header>
-    <ion-toolbar>
-        <ion-title>
-            分享
-        </ion-title>
-        <ion-buttons start>
-            <button ion-button (click)="dismiss()">
-                <span ion-text color="primary" showWhen="ios">关闭</span>
-                <ion-icon name="md-close" showWhen="android, windows"></ion-icon>
-            </button>
-        </ion-buttons>
-    </ion-toolbar>
-</ion-header>
+<!--<ion-header>-->
+    <!--<ion-toolbar color="light">-->
+        <!--<ion-title>-->
+            <!--分享-->
+        <!--</ion-title>-->
+        <!--<ion-buttons end>-->
+            <!--<button ion-button (click)="dismiss()">-->
+                <!--<span ion-text color="primary" showWhen="ios">关闭</span>-->
+                <!--<ion-icon name="md-close" showWhen="android, windows"></ion-icon>-->
+            <!--</button>-->
+        <!--</ion-buttons>-->
+    <!--</ion-toolbar>-->
+<!--</ion-header>-->
 
-<ion-content class="card-background-page">
+<ion-content>
+    <div class="close-btn">
+        <ion-icon name="close" (click)="dismiss()"></ion-icon>
+    </div>
+    <div id="share-content" *ngIf="!shareImage">
+        <ion-card>
+            <!--<div class="date" style="">
+                <span class="year">{{this.year}}</span>
+                <span class="month">{{this.month}}</span>
+                <span class="day">{{this.date}}<em>{{this.day}}</em></span>
+            </div>-->
 
-    <ion-card>
-        <img [src]="shareData.image"/>
-        <ion-card-content text-center>
-            <ion-card-title>
-                行动胜于言语
-            </ion-card-title>
-            <p>
-                Action speak louder than words.
-            </p>
+            <!--<img src="https://source.unsplash.com/random/400x300" crossOrigin="anonymous"/>-->
+            <div class="picture2">
+                <div class="date2">
+                    <div class="day">{{this.date}}</div>
+                    <div class="month">{{this.month}}</div>
+                </div>
+                <!--<img src="https://source.unsplash.com/random/400x300"/>-->
+                <img [src]="shareData.data.image" *ngIf="shareData.data.image"/>
+            </div>
+                <ion-card-content text-center>
+                <ion-card-title>
+                    <!--<img src="assets/img/default-avatar.jpg"> -->
+                    {{shareData.extra.owner?.nickname || '还没有昵称'}}
+                </ion-card-title>
+                <h2>坚持 <a>#{{shareData.extra.goal.name}}#</a>第{{shareData.extra.checkin?.total_days || 0}}天
+                </h2>
+                <br>
+                <p [innerHTML]="shareData.extra.content"></p>
+            </ion-card-content>
+        </ion-card>
 
-            <p>坚持#每天跑步10公里#第10天</p>
-            <p>Jason.z</p>
-        </ion-card-content>
-    </ion-card>
+        <ion-list margin-top id="share-logo">
+            <ion-item no-border no-lines>
+                <ion-thumbnail item-start>
+                    <img src="assets/icon/drip.png">
+                </ion-thumbnail>
+                <h2>水滴打卡</h2>
+                <p>#见证持之以恒的力量#</p>
+                <img item-end src="assets/img/mp_qrcode.jpg" style="width: 64px;height: 64px;">
+            </ion-item>
+        </ion-list>
+    </div>
 
-    <ion-list>
-        <ion-item>
-            <ion-thumbnail item-start>
-                <img src="img/thumbnail-totoro.png">
-            </ion-thumbnail>
-            <h2>水滴打卡</h2>
-            <p>#见证持之以恒的力量#</p>
-            <img src="assets/img/mp_qrcode.jpg">
-        </ion-item>
-    </ion-list>
+    <div id="share-image" *ngIf="shareImage">
+    </div>
+
+    <ion-row>
+        <ion-col col-2></ion-col>
+        <ion-col col-8>
+            <button ion-button block round (click)="doShare()">分享</button>
+        </ion-col>
+        <ion-col col-2></ion-col>
+    </ion-row>
 
 </ion-content>

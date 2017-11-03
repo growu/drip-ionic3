@@ -1,5 +1,6 @@
 export interface MyShareOptions {
     data?: MyShareData;
+    extra?:any
 }
 
 export interface MyShareData {

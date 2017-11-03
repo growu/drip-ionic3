@@ -1,14 +1,6 @@
-/**
- * @author：Jason.z
- * @email：ccnuzxg@163.com
- * @website：http://www.jason-z.com
- * @date：2017/9/11
- * @version 1.0
- */
-
-import { NgModule } from '@angular/core';
-import { IonicModule } from 'ionic-angular';
-import { MyCalendarComponent } from './my-calendar.component';
+import {NgModule} from '@angular/core';
+import {IonicModule} from 'ionic-angular';
+import {MyCalendarComponent} from './my-calendar.component';
 
 @NgModule({
     declarations: [
@@ -20,7 +12,7 @@ import { MyCalendarComponent } from './my-calendar.component';
     exports: [
         MyCalendarComponent
     ],
-    providers: [
-    ]
+    providers: []
 })
-export class MyCalendarComponentModule {}
+export class MyCalendarComponentModule {
+}
