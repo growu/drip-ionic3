@@ -20,9 +20,13 @@ my-event {
 
   .action-toolbar {
     color:#bdbdbd;
-    .icon {
-      //color:#bdbdbd;
-      font-weight:800;
+    ion-icon {
+      font-size: 1.8em;
+      font-weight:900;
+    }
+
+    ion-icon:not([color="primary"]) {
+      color: #999;
     }
   }
 
