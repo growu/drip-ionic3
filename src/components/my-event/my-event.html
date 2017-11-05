@@ -13,8 +13,10 @@
   </div>
 
   <ion-card-content (click)="goEventDetailPage(event.id)">
-    <p [innerHTML]="event.content"></p>
-    <blockquote>完成<a> {{event.goal.name}} </a>第 {{event.checkin?.total_days || 0}} 天</blockquote>
+    <p [innerHTML]="formatContent(event)"></p>
+    <p><a *ngIf="event.content.length>100 && !event?.is_full_content" (click)="showFull($event,event)">全文</a></p>
+    <p><a *ngIf="event?.is_full_content" (click)="showHide($event,event)">收起</a></p>
+    <blockquote>完成<a> #{{event.goal.name}}# </a>第{{event.checkin?.total_days || 0}}天</blockquote>
   </ion-card-content>
 
   <ion-row class="action-toolbar">

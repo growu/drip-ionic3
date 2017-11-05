@@ -1,88 +1,88 @@
-import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams} from 'ionic-angular';
-import { EventProvider } from '../../providers/event/event'
-import { UserProvider } from '../../providers/user/user'
+import {Component} from '@angular/core';
+import {IonicPage, NavController, NavParams} from 'ionic-angular';
+import {EventProvider} from '../../providers/event/event'
+import {UserProvider} from '../../providers/user/user'
 
 @IonicPage({
-  name:'page-event-like',
-  segment:'event/:id/like'
+    name: 'page-event-like',
+    segment: 'event/:id/like'
 })
 @Component({
-  selector: 'page-event-like',
-  templateUrl: 'event-like.html',
+    selector: 'page-event-like',
+    templateUrl: 'event-like.html',
 })
 export class EventLikePage {
-  public likes:any = [];
-  private perPage:number = 20;
+    public likes: any = [];
+    private perPage: number = 20;
 
 
-  constructor(public navCtrl: NavController,
-              public navParams: NavParams,
-              public eventProvider: EventProvider,
-              public userProvider: UserProvider) {
-  }
-
-  ionViewDidLoad() {
-    this.getEventLikes(1);
-  }
-
-  getEventLikes(page) {
-    var id = this.navParams.get("id");
-
-    this.eventProvider.getEventLikes(id,page,this.perPage).then((data)=>{
-
-      if(page == 1){
-        this.likes = data;
-      } else {
-        this.likes = this.likes.concat(data);
-      }
-
-    });
-  }
-
-  doRefresh(refresher) {
-
-    this.getEventLikes(1);
-
-    setTimeout(() => {
-      refresher.complete();
-    }, 2000);
-  }
-
-  doInfinite(infiniteScroll) {
-
-    var num = this.likes.length;
-
-    if (num > 0 && num % 20 == 0) {
-      var page = Math.floor(this.likes.length/20)+1;
-      this.getEventLikes(page);
+    constructor(public navCtrl: NavController,
+                public navParams: NavParams,
+                public eventProvider: EventProvider,
+                public userProvider: UserProvider) {
     }
 
-    setTimeout(() => {
-      infiniteScroll.complete();
-    }, 2000);
-  }
+    ionViewDidLoad() {
+        this.getEventLikes(1);
+    }
 
-  doFollow(like,$event) {
-    $event.stopPropagation();
+    getEventLikes(page) {
+        var id = this.navParams.get("id");
 
-    this.userProvider.follow(like.user.id).then((data)=>{
-      let index =  this.likes.indexOf(like);
-      this.likes[index].user.is_follow = true;
-    });
-  }
+        this.eventProvider.getEventLikes(id, page, this.perPage).then((data) => {
 
-  doUnFollow(like,$event) {
-    $event.stopPropagation();
+            if (page == 1) {
+                this.likes = data;
+            } else {
+                this.likes = this.likes.concat(data);
+            }
 
-    this.userProvider.unFollow(like.user.id).then((data)=>{
-      let index =  this.likes.indexOf(like);
-      this.likes[index].user.is_follow = false;
-    });
-  }
+        });
+    }
 
-  goUserHomePage(user) {
-    this.navCtrl.push('user-home',{'id':user.id});
-  }
+    doRefresh(refresher) {
+
+        this.getEventLikes(1);
+
+        setTimeout(() => {
+            refresher.complete();
+        }, 2000);
+    }
+
+    doInfinite(infiniteScroll) {
+
+        var num = this.likes.length;
+
+        if (num > 0 && num % 20 == 0) {
+            var page = Math.floor(this.likes.length / 20) + 1;
+            this.getEventLikes(page);
+        }
+
+        setTimeout(() => {
+            infiniteScroll.complete();
+        }, 2000);
+    }
+
+    doFollow(like, $event) {
+        $event.stopPropagation();
+
+        this.userProvider.follow(like.user.id).then((data) => {
+            let index = this.likes.indexOf(like);
+            this.likes[index].user.is_follow = true;
+        });
+    }
+
+    doUnFollow(like, $event) {
+        $event.stopPropagation();
+
+        this.userProvider.unFollow(like.user.id).then((data) => {
+            let index = this.likes.indexOf(like);
+            this.likes[index].user.is_follow = false;
+        });
+    }
+
+    goUserHomePage(user) {
+        this.navCtrl.push('user-home', {'id': user.id});
+    }
 
 }

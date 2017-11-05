@@ -1,7 +1,8 @@
-import {Component, Input} from '@angular/core';
+import {ChangeDetectorRef, Component, ElementRef, Input, Renderer2} from '@angular/core';
 import {ActionSheetController, App} from 'ionic-angular';
 import {EventProvider} from '../../providers/event/event'
 import {MyShareController} from "../my-share/my-share.controller";
+import {DomSanitizer} from "@angular/platform-browser";
 
 @Component({
     selector: 'my-event',
@@ -15,6 +16,10 @@ export class MyEventComponent {
     constructor(public actionSheetCtrl: ActionSheetController,
                 private myShareCtrl: MyShareController,
                 private app: App,
+                private elRef: ElementRef,
+                private cdRef: ChangeDetectorRef,
+                private renderer: Renderer2,
+                private sanitizer: DomSanitizer,
                 private eventProvider: EventProvider) {
 
     }
@@ -77,7 +82,7 @@ export class MyEventComponent {
                                     thumb: image,
                                     url: "http://drip.growu.me"
                                 },
-                                extra:event
+                                extra: event
                             })
                         ;
                         myShare.present();
@@ -105,5 +110,125 @@ export class MyEventComponent {
 
     goUserHomePage(user) {
         this.app.getRootNav().push('user-home', {id: user.id});
+    }
+
+    // goTopicPage(topic) {
+    //     alert(topic);
+    //     // this.app.getRootNav().push('user-home', {id: user.id});
+    // }
+
+    formatContent(event) {
+        var content = event.content;
+
+        // 替换网址
+        var linkPattern = /\b((http:\/\/|https:\/\/|ftp:\/\/|mailto:|news:)|www\.|ftp\.|[^ \,\;\:\!\)\(\""\'<>\f\n\r\t\v]+@)([^ \,\;\:\!\)\(\""\'<>\f\n\r\t\v]+)\b/gim;
+        content = content.replace(linkPattern, function ($0, $1) {
+            var match = $0;
+            return "<a href='" + match + "' target='_blank' onclick='event.stopPropagation();'  class='share-content-link' ><i class='ion-link'></i>网页链接</a>";
+        });
+
+        // // 替换话题
+        // var topicPattern = /\#([^\#|.]+)\#/g;
+        // content = content.replace(topicPattern, function ($0, $1) {
+        //     var match = $0;
+        //     var protocol = $1;
+        //     return '<a class="event-content-topic" data-topic="'+protocol+'">'+match+'</a>';
+        // });
+        //
+        // // 替换@
+        // var atPattern = /\@([^\@|.|<|,|:|：|^ ]+)/g;
+        // // var atPattern = /\@([^<,，：:\s@]+)/g;
+        //
+        // content = content.replace(atPattern, function ($0, $1) {
+        //     var match = $0;
+        //     var protocol = $1;
+        //     return "<a class='event-content-at' (click)='goUserHomePage("+protocol+")'>"+match+"</a>";
+        // });
+
+        // 切割content 长度
+        if (content.length > 100) {
+            if (event.is_full_content) {
+                return content;
+            } else {
+                return this.transform(this.substrWithTags(content, 0, 100));
+            }
+        }
+
+        return content;
+    }
+
+    substrWithTags(str, start, length) {
+        var countTags = 0;
+        var returnString = "";
+        var writeLetters = 0;
+        while (!((writeLetters >= length) && (countTags == 0))) {
+            var letter = str.charAt(start + writeLetters);
+            if (letter == "<") {
+                countTags++;
+            }
+            if (letter == ">") {
+                countTags--;
+            }
+            returnString += letter;
+            writeLetters++;
+        }
+        return returnString;
+    }
+
+    transform(content) {
+        return this.sanitizer.bypassSecurityTrustHtml(content);
+    }
+
+    ngAfterViewInit() {
+
+        // var eventTopicDom =  this.elRef.nativeElement.querySelector('a.event-content-topic');
+        //
+        // if(eventTopicDom) {
+        //     this.renderer.listen(eventTopicDom, 'click', (event) => {
+        //         event.preventDefault();
+        //         event.stopPropagation();
+        //         var topic = eventTopicDom.getAttribute('data-topic');
+        //         if(topic) {
+        //             this.goTopicPage(topic);
+        //         }
+        //     });
+        // }
+
+        // var eventAtDom =  this.elRef.nativeElement.querySelector('a.event-content-at');
+        //
+        // if(eventAtDom) {
+        //     this.renderer.listen(eventAtDom, 'click', (event) => {
+        //         event.preventDefault();
+        //         event.stopPropagation();
+        //         var user = eventTopicDom.getAttribute('data-user');
+        //         if(user) {
+        //             this.goUserHomePage(user);
+        //         }
+        //     });
+        // }
+
+        // var eventContentDom =  this.elRef.nativeElement.querySelector('a.event-content-full');
+        //
+        // eventContentDom.addEventListener('click',(evt)=>{
+        //     alert(1);
+        //     var event = eventContentDom.getAttribute('data-event');
+        //     this.showFull(evt,event);
+        // });
+
+        // this.elRef.nativeElement.querySelector('a.event-content-full').addEventListener('click', this.showFull.bind(this));
+    }
+
+    showFull($event, event) {
+        $event.preventDefault();
+        $event.stopPropagation();
+        let index = this._eventSource.indexOf(event);
+        (this._eventSource[index])["is_full_content"] = true;
+    }
+
+    showHide($event, event) {
+        $event.preventDefault();
+        $event.stopPropagation();
+        let index = this._eventSource.indexOf(event);
+        (this._eventSource[index])["is_full_content"] = false;
     }
 }
