@@ -99,6 +99,8 @@ export class GoalCreatePage {
                     this.navCtrl.push('goal-detail', {id: data.id});
                 });
             }
+        }).catch((err)=>{
+
         });
     }
 

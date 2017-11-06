@@ -20,12 +20,12 @@
   <ion-list>
     <ion-item>
       <ion-label>开始日期</ion-label>
-      <ion-datetime placeholder="今天"  (ionCancel)="onClearStartDate()" (ionChange)="onChangeDate()" displayFormat="YYYY-MM-DD" pickerFormat="YYYY MMM DD" cancelText="重置" doneText="保存" [min]="today" [max]="max" formControlName="start_date" [(ngModel)]="goal.start_date"></ion-datetime>
+      <ion-datetime placeholder="今天"  (ionCancel)="onClearStartDate()" (ionChange)="onChangeDate()" displayFormat="YYYY-MM-DD" pickerFormat="YYYY MM DD" cancelText="重置" doneText="保存" [min]="today" [max]="max" formControlName="start_date" [(ngModel)]="goal.start_date"></ion-datetime>
     </ion-item>
 
     <ion-item>
       <ion-label>结束日期</ion-label>
-      <ion-datetime #endDate placeholder="无" (ionCancel)="onClearEndDate()"  (ionChange)="onChangeDate()" displayFormat="YYYY-MM-DD" pickerFormat="YYYY MMM DD" [min]="goal.start_day" [max]="max" cancelText="清空" doneText="保存" formControlName="end_date" [(ngModel)]="goal.end_date"></ion-datetime>
+      <ion-datetime #endDate placeholder="无" (ionCancel)="onClearEndDate()"  (ionChange)="onChangeDate()" displayFormat="YYYY-MM-DD" pickerFormat="YYYY MM DD" [min]="goal.start_day" [max]="max" cancelText="清空" doneText="保存" formControlName="end_date" [(ngModel)]="goal.end_date"></ion-datetime>
     </ion-item>
 
   </ion-list>
