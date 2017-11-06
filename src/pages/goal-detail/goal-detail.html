@@ -1,7 +1,11 @@
-<ion-header>
+<ion-header no-border>
 
     <ion-navbar color="primary">
-        <ion-title>{{goal?.name}}</ion-title>
+        <ion-title (click)="showMore()">
+            {{goal?.name}}
+            <ion-icon name="md-arrow-dropdown" *ngIf="!isShowMore"></ion-icon>
+            <ion-icon name="md-arrow-dropup" *ngIf="isShowMore"></ion-icon>
+        </ion-title>
         <ion-buttons end>
         <button ion-button icon-only (click)="goEditPage(goal)">
             <ion-icon name="settings"></ion-icon>
@@ -12,6 +16,18 @@
 </ion-header>
 
 <ion-content class="page-goal-detail">
+
+    <ion-row text-center class="goal-info" *ngIf="isShowMore">
+        <ion-col>
+            <p>
+                <ion-badge *ngIf="goal.status==0"  color="dark">未开始</ion-badge>
+                <ion-badge *ngIf="goal.status==1" color="secondary">进行中</ion-badge>
+                <ion-badge *ngIf="goal.status==2" color="danger">已结束</ion-badge>
+            </p>
+            <p>开始于：{{goal.start_date}}，结束于：{{goal.end_date || '无'}}</p>
+            <p>{{goal.desc}}</p>
+        </ion-col>
+    </ion-row>
 
     <super-tabs scrollTabs tabsPlacement="bottom" [selectedTabIndex]="selectedTabIndex">
         <super-tab [root]="page1" [rootParams]="navParams" title="概况"></super-tab>

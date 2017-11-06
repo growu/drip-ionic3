@@ -17,8 +17,10 @@ export class GoalDetailPage {
   page2: any = "goal-detail-event";
   page3: any = "goal-detail-chart";
   selectedTabIndex: number = 0;
+  public isShowMore:boolean = false;
 
-  goal:any = {};
+
+    goal:any = {};
 
   constructor(public navCtrl: NavController,
               public navParams: NavParams,
@@ -41,6 +43,10 @@ export class GoalDetailPage {
 
   ionViewDidLoad() {
     this.getGoal();
+  }
+
+  showMore(){
+    this.isShowMore = !this.isShowMore;
   }
 
   openMenu($event) {
