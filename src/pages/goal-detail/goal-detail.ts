@@ -34,6 +34,8 @@ export class GoalDetailPage {
     let id = this.navParams.data.id;
     this.userProvider.getGoal(id).then((data)=>{
       this.goal = data;
+    }).catch((err)=>{
+
     });
   }
 
@@ -54,6 +56,10 @@ export class GoalDetailPage {
     popover.onDidDismiss((settingData) => {
 
     })
+  }
+
+  goEditPage() {
+    this.navCtrl.push('goal-edit',{id:this.goal.id,goal:this.goal})
   }
 
 }

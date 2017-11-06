@@ -35,6 +35,8 @@ export class GoalDetailSummaryPage {
         let id = this.navParams.get('id');
         this.userProvider.getGoal(id).then((data) => {
             this.goal = data;
+        }).catch((err)=>{
+
         });
     }
 

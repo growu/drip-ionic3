@@ -21,4 +21,9 @@ export class GoalProvider {
     return this.httpProivder.httpPostWithAuth("/goal/create",goal);
   }
 
+    updateGoal(id,param){
+        let body = JSON.stringify(param);
+        return this.httpProivder.httpPatchWithAuth("/user/goal/"+ id, body);
+    }
+
 }
