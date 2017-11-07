@@ -102,9 +102,11 @@
                                 </ion-card-content>
                                 <ion-row class="footer">
                                     <ion-col class="status">
-                                        <button *ngIf="goal.status==0" color="secondary" ion-button small outline>进行中
+                                        <button *ngIf="goal.status==0" color="gray" ion-button small outline>未开始
                                         </button>
-                                        <button *ngIf="goal.status==1" color="danger" ion-button small outline>已完成
+                                        <button *ngIf="goal.status==1" color="secondary" ion-button small outline>进行中
+                                        </button>
+                                        <button *ngIf="goal.status==2" color="danger" ion-button small outline>已完成
                                         </button>
                                     </ion-col>
                                     <ion-col class="time">
