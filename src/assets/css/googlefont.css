@@ -1,0 +1,6 @@
+@font-face {
+    font-family: 'Oswald';
+    font-style: normal;
+    font-weight: 400;
+    src: local('Oswald Regular'), local('Oswald-Regular'), url(../fonts/oswald.woff?t=1509473168) format('woff');
+}
