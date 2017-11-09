@@ -36,15 +36,19 @@ export class AboutPage {
         }
     }
 
-
     ionViewDidLoad() {
 
         if (this.platform.is('cordova')) {
 
             chcp.getVersionInfo((err, data) => {
-                this.appVersion = data.appVersion;
-                this.webVersion = data.webVersion.replace('-', '');
-                this.webVersion = this.webVersion.replace('.', '');
+
+                if(data.appVersion) {
+                    this.appVersion = data.appVersion;
+                }
+                if( data.currentWebVersion) {
+                    this.webVersion = data.currentWebVersion.replace(/-/g, '');
+                    this.webVersion = this.webVersion.replace(/\./g, '');
+                }
             });
 
             chcp.isUpdateAvailableForInstallation((error, data) => {
