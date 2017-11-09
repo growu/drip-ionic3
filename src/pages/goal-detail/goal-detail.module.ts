@@ -13,8 +13,8 @@ import { SuperTabsController } from "ionic2-super-tabs/dist/index";
   imports: [
     IonicPageModule.forChild(GoalDetailPage),
     RoundProgressModule,
-    SuperTabsModule
-    // MyCalendarComponentModule
+    SuperTabsModule,
+      // MyCalendarComponentModule
   ],
   exports: [
     GoalDetailPage

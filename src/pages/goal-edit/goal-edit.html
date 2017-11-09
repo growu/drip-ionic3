@@ -20,7 +20,7 @@
     <ion-list>
       <ion-item>
         <ion-label>开始日期</ion-label>
-        <ion-datetime placeholder="今天" disabled (ionCancel)="onClearStartDate()" (ionChange)="onChangeDate()" displayFormat="YYYY-MM-DD" pickerFormat="YYYY MM DD" cancelText="重置" doneText="保存" [min]="today" [max]="max" formControlName="start_date" [(ngModel)]="goal.start_date"></ion-datetime>
+        <ion-datetime placeholder="今天" disabled (ionCancel)="onClearStartDate()" (ionChange)="onChangeDate()" displayFormat="YYYY-MM-DD" pickerFormat="YYYY MM DD" cancelText="重置" doneText="保存" [min]="today" [max]="max"  formControlName="start_date"  [(ngModel)]="goal.start_date"></ion-datetime>
       </ion-item>
 
       <ion-item>

@@ -60,4 +60,8 @@ export class EventDetailPage {
         myShare.present();
     }
 
+    goUserHomePage(user) {
+        this.navCtrl.push('user-home', {'id': user.id});
+    }
+
 }
