@@ -33,7 +33,6 @@ export class GoalEditPage {
         this.goalEditForm = this.formBuilder.group({
             'name': ['', [Validators.required, Validators.maxLength(20)]],
             'desc': ['', [Validators.required, Validators.maxLength(255)]],
-            'start_date': ["", []],
             'end_date': ['', []],
             'is_public': [true, []],
             'remind_time': ['', []]
