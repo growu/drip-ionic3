@@ -59,7 +59,7 @@ import {MyShareModule} from '../components/my-share/my-share.module';
         EventProvider,
         CommentProvider,
         ToastProvider,
-        LoadingProvider
+        LoadingProvider,
     ]
 })
 export class AppModule {

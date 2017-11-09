@@ -79,7 +79,7 @@ export class AppProvider {
 }
 
 export function ImagePickerFactory() {
-    return (window.hasOwnProperty('cordova')) ? ImagePicker : ImagePickerMock;
+    return (window.hasOwnProperty('cordova')) ? new ImagePicker() : new ImagePickerMock();
 };
 
 export const ImagePickerProvider = {

@@ -374,7 +374,7 @@ export class UserProvider {
 
     updateGoal(id, body) {
         return this.httpProvider.httpPatchWithAuth("/user/goal/" + id, body);
-    }
+}
 
     getSetting() {
         return this.storage.get('setting');
@@ -417,6 +417,10 @@ export class UserProvider {
 
     getNewMessages() {
         return this.httpProvider.httpGetWithAuth("/user/messages/new", null);
+    }
+
+    feedback(body){
+        return this.httpProvider.httpPostWithAuth("/user/feedback", body);
     }
 
 }
