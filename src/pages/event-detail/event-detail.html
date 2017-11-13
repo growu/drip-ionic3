@@ -46,46 +46,52 @@
         </ion-item>
     </ion-list>
 
-    <!--<ion-list>-->
-    <!--<ion-list-header>-->
-    <!--全部评论 {{event?.comments.length}}-->
-    <!--</ion-list-header>-->
-    <!--<ion-card class="comment-card" *ngFor="let comment of event?.comments">-->
-    <!--<ion-item>-->
-    <!--<ion-avatar small item-start>-->
-    <!--<img [src]="comment.user.avatar_url">-->
-    <!--</ion-avatar>-->
-    <!--<h2>{{comment.user.nickname}}</h2>-->
-    <!--<p>{{comment.created_at | amLocale:"zh_cn" | amUtc | amTimeAgo }}</p>-->
-    <!--<ion-icon name="ios-redo-outline" item-end></ion-icon>-->
-    <!--<ion-icon name="ios-thumbs-up-outline" item-end> {{comment.like_count}}</ion-icon>-->
-    <!--</ion-item>-->
-    <!--<ion-card-content>-->
-    <!--<p>{{comment.content}}</p>-->
-    <!--</ion-card-content>-->
-    <!--</ion-card>-->
-    <!--</ion-list>-->
+    <ion-list>
+        <ion-list-header>
+            全部评论 {{event?.comments.length}}
+        </ion-list-header>
+        <ion-card class="comment-card" *ngFor="let comment of event?.comments">
+            <ion-item (click)="showCommentMenu(comment)">
+                <ion-avatar small item-start>
+                    <img [src]="comment.user.avatar_url">
+                </ion-avatar>
+                <h2>{{comment.user.nickname}}</h2>
+                <p>{{comment.created_at | amLocale:"zh_cn" | amUtc | amTimeAgo }}</p>
+                <ion-icon name="ios-redo-outline" item-end (click)="showReplyComment(comment,$event)"></ion-icon>
+                <ion-icon name="ios-thumbs-up-outline" item-end (click)="doLikeComment(comment,$event)"> {{comment.like_count}}</ion-icon>
+            </ion-item>
+            <ion-card-content>
+                <p>{{comment.content}}</p>
+                <blockquote *ngIf="comment.reply">
+                    <a> {{comment.reply.user.nickname}}</a>
+                    {{comment.reply.content}}
+                </blockquote>
+            </ion-card-content>
+        </ion-card>
+    </ion-list>
 
 </ion-content>
 
-<!--<ion-footer>
-    <ion-toolbar text-center class="action-bar">
+<ion-footer>
+    <ion-toolbar text-center class="action-bar" *ngIf="!isComment">
         <ion-row>
-            <ion-col>
+            <ion-col (click)="doLikeEvent()">
                 <button ion-button clear icon-left>
-                    <ion-icon name="ios-thumbs-up-outline">
+                    <ion-icon name="ios-thumbs-up-outline" *ngIf="!event?.is_like">
+                    </ion-icon>
+                    <ion-icon name="ios-thumbs-up" color="primary" *ngIf="event?.is_like">
                     </ion-icon>
                     <span class="num">{{event?.like_count}}</span>
                 </button>
             </ion-col>
-            <ion-col>
+            <ion-col (click)="showComment()">
                 <button ion-button clear icon-left>
                 <ion-icon name="ios-chatboxes-outline">
                 </ion-icon>
                 <span class="num">{{event?.comment_count}}</span>
                 </button>
             </ion-col>
-            <ion-col>
+            <ion-col (click)="doFavorite()">
                 <button ion-button clear icon-left>
                     <ion-icon name="ios-star-outline">
                     </ion-icon>
@@ -95,9 +101,11 @@
         </ion-row>
     </ion-toolbar>
 
-</ion-footer>-->
+    <ion-item *ngIf="isComment">
+        <ion-input type="text" (focusout)="hideComment()" clearInput #commentInput [(ngModel)]="content" [placeholder]="reply_comment?'回复'+reply_comment.user.nickname+': ':'积极的交流才能擦出火花.'"></ion-input>
+        <button clear ion-button item-end (click)="doComment()">发布</button>
+    </ion-item>
 
-<!--<ion-item>-->
-<!--<ion-input type="text" item-start></ion-input>-->
-<!--<button clear ion-button item-end>发布</button>-->
-<!--</ion-item>-->
+</ion-footer>
+
+

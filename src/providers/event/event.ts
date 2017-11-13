@@ -37,4 +37,9 @@ export class EventProvider {
     return this.httpProvider.httpGetWithAuth("/event/"+id+'/likes',params);
   }
 
+    comment(id,param){
+        let body = JSON.stringify(param);
+        return this.httpProvider.httpPostWithAuth("/event/"+id+"/comment",body);
+    }
+
 }

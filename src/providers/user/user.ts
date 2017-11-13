@@ -423,4 +423,18 @@ export class UserProvider {
         return this.httpProvider.httpPostWithAuth("/user/feedback", body);
     }
 
+    getUserFans(id,page,perPage) {
+        var params = new URLSearchParams();
+        params.set('page', page);
+        params.set('per_page', perPage);
+        return this.httpProvider.httpGetWithAuth("/user/"+id+"/fans", params);
+    }
+
+    getUserFollowings(id,page,perPage) {
+        var params = new URLSearchParams();
+        params.set('page', page);
+        params.set('per_page', perPage);
+        return this.httpProvider.httpGetWithAuth("/user/"+id+"/followings", params);
+    }
+
 }

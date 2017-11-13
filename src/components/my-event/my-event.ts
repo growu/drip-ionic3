@@ -34,7 +34,7 @@ export class MyEventComponent {
 
 
     doLike(event, $event) {
-        console.log($event);
+
         let index = this._eventSource.indexOf(event);
 
         if (event.is_like) {

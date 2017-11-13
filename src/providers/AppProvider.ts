@@ -10,6 +10,8 @@ import {ImagePicker} from '@ionic-native/image-picker';
 import {ImagePickerMock} from '@ionic-native-mocks/image-picker';
 import {AppRate} from '@ionic-native/app-rate';
 import {AppRateMock} from '@ionic-native-mocks/app-rate';
+import {KeyboardMock} from '@ionic-native-mocks/keyboard';
+import {Keyboard} from '@ionic-native/keyboard';
 
 export class AppProvider {
 
@@ -121,6 +123,16 @@ export function AppRateFactory():any {
 export const AppRateProvider = {
     provide: AppRate,
     useFactory: AppRateFactory
+};
+
+
+export function KeyboardFactory():any {
+    return (window.hasOwnProperty('cordova')) ? new Keyboard() : new KeyboardMock();
+}
+
+export const KeyboardProvider = {
+    provide: Keyboard,
+    useFactory: KeyboardFactory
 };
 
 

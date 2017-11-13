@@ -13,6 +13,7 @@ page-event-detail {
 
   .list-header {
     background-color: #fff!important;
+    border-bottom: 0;
   }
 
   .card-content {
@@ -56,6 +57,13 @@ page-event-detail {
         }
       }
 
+    }
+  }
+
+  #comment-input {
+    .text-input {
+      border:1px solid #9e9e9e;
+      padding:10px;
     }
   }
 
