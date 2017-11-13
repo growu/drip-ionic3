@@ -18,8 +18,8 @@ export class AboutPage {
     public isUpdate: boolean = false;
     public isInstall: boolean = false;
 
-    public appVersion: string = '1.1.0';
-    public webVersion: string = '20171109000000';
+    public appVersion: string = '1.1.1';
+    public webVersion: string = '20171113000000';
 
     constructor(public navCtrl: NavController,
                 public navParams: NavParams,
