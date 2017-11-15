@@ -351,6 +351,13 @@ export class UserProvider {
         });
     }
 
+    getEvents(id, page, per_page) {
+        let params: URLSearchParams = new URLSearchParams();
+        params.set('page', page);
+        params.set('per_page', per_page);
+        return this.httpProvider.httpGetWithAuth("/user/" + id + "/events", params);
+    }
+
     getGoalEvents(id, page, per_page) {
         let params: URLSearchParams = new URLSearchParams();
         params.set('page', page);

@@ -14,19 +14,25 @@
             <p>{{user.signature || ' '}}</p>
         </ion-col>
     </ion-row>
-    <ion-row class="follow-row">
-        <ion-col text-center>
+    <ion-row class="follow-row" no-border>
+        <ion-col text-center (click)="goUserFollowingPage(user?.id)">
             <strong ion-text class="num" color="dark">{{user.follow_count || '0'}}</strong>
             <br>
             <ion-note>关注</ion-note>
         </ion-col>
-        <ion-col text-center>
+        <ion-col text-center (click)="goUserFanPage(user?.id)">
             <strong ion-text class="num" color="dark">{{user.fans_count || '0' }}</strong>
             <br>
             <ion-note>粉丝</ion-note>
         </ion-col>
     </ion-row>
-    <ion-scroll scrollX="true" style="height: 100%">
+   <!-- <ion-scroll scrollX="true" style="height: 100%"> -->
 
-    </ion-scroll>
+        <super-tabs scrollTabs tabsPlacement="top" selectedTabIndex="0">
+            <super-tab [root]="page1" [rootParams]="navParams" title="动态"></super-tab>
+            <super-tab [root]="page2" [rootParams]="navParams" title="目标"></super-tab>
+            <super-tab [root]="page3" [rootParams]="navParams" title="相册"></super-tab>
+        </super-tabs>
+
+    <!-- </ion-scroll> -->
 </ion-content>

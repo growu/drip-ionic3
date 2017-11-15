@@ -10,12 +10,24 @@ page-user-home {
   }
 
   .follow-row {
-    background-color: #e0e0e0;
+    background-color: #488aff;
     .num {
+      font-family: Oswald;
       font-size: 1.8rem;
+      color:#fff;
     }
     p {
-      color:#999;
+      //color:#999;
+      color:#fff;
     }
+  }
+
+  .tab-buttons {
+    width:200px;
+  }
+
+  .tab-buttons-container {
+    width: 150px;
+    margin:0 auto;
   }
 }

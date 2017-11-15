@@ -160,7 +160,7 @@ export class EventDetailPage {
                     text: '回复',
                     role: 'destructive',
                     handler: () => {
-                        this.showReplyComment(comment,null)
+                        this.showReplyComment(comment,null);
                     }
                 },{
                     text: '举报',
@@ -189,7 +189,7 @@ export class EventDetailPage {
 
         setTimeout(() => {
             this.commentInput.setFocus();
-        },150);
+        },1000);
 
     }
 

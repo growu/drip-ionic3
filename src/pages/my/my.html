@@ -19,7 +19,7 @@
 </ion-header>
 
 <ion-content class="page-my">
-  <ion-list class="profile-list">
+  <ion-list class="profile-list" >
     <ion-item (click)="goUserHomePage()">
       <ion-thumbnail item-start>
       <img src="{{user.avatar_url || 'assets/img/default-avatar.jpg'}}">
@@ -31,7 +31,7 @@
       </ion-note>
     </ion-item>
   </ion-list>
-  <ion-row class="follow-row" margin-bottom>
+  <ion-row class="follow-row" margin-bottom (click)="goUserHomePage()">
     <ion-col text-center>
       <strong ion-text class="num" color="dark">{{user.follow_count || '0'}}</strong>
       <br>
