@@ -1,8 +1,18 @@
 
 <ion-content>
+  <ion-scroll scrollX="true" style="height: 100%">
 
-  <div text-center style="position: absolute;left: 0;right: 0;top: 40%;">
-    <p>暂时还没有相册</p>
+  <ion-row *ngIf="photos.length>0">
+    <ion-col col-4 *ngFor="let photo of photos">
+      <ion-card class="photo">
+        <img [src]="photo.url">
+      </ion-card>
+    </ion-col>
+  </ion-row>
+
+  <div text-center style="position: absolute;left: 0;right: 0;top: 40%;" *ngIf="photos.length == 0">
+    <p>暂时还没有图片</p>
   </div>
+  </ion-scroll>
 
 </ion-content>

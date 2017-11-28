@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import {UserProvider} from "../../providers/user/user";
 
 @IonicPage({
     name:'user-home-photos',
@@ -11,10 +12,22 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 })
 export class UserHomePhotosPage {
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+    public photos:any = [];
+    public userId:any = null;
+
+  constructor(public navCtrl: NavController,
+              public userProvider: UserProvider,
+              public navParams: NavParams) {
+      this.userId = this.navParams.get('id')
+
   }
 
   ionViewDidLoad() {
+      this.userProvider.getUserPhotos(this.userId).then((data) => {
+          this.photos = data;
+      }).catch((err)=>{
+
+      });
   }
 
 }
