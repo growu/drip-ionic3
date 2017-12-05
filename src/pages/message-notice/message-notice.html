@@ -7,6 +7,32 @@
 </ion-header>
 
 
-<ion-content padding>
+<ion-content>
+  <ion-refresher (ionRefresh)="doRefresh($event)">
+    <ion-refresher-content
+            pullingIcon="arrow-dropdown"
+            pullingText="下拉刷新"
+            refreshingSpinner="circles"
+            refreshingText="加载中...">
+    </ion-refresher-content>
+  </ion-refresher>
 
+  <ion-list>
+    <ion-card *ngFor="let message of messages">
+      <ion-card-header>
+        <h2>{{message.title}}</h2>
+        <p item-end>{{message.created_at | amLocale:"zh_cn" | amUtc | amTimeAgo }}</p>
+      </ion-card-header>
+      <ion-card-content>
+        <p [innerHTML]="message.content"></p>
+      </ion-card-content>
+    </ion-card>
+  </ion-list>
+
+  <ion-infinite-scroll (ionInfinite)="doInfinite($event)">
+    <ion-infinite-scroll-content
+            loadingSpinner="bubbles"
+            loadingText="加载更多">
+    </ion-infinite-scroll-content>
+  </ion-infinite-scroll>
 </ion-content>

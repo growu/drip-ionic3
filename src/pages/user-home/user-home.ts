@@ -14,6 +14,7 @@ import { SuperTabsController } from "ionic2-super-tabs/dist/index";
 export class UserHomePage {
 
     public user: any = {};
+    public _mode:any = 'more';
 
     page1: any = "user-home-events";
     page2: any = "user-home-goals";
@@ -47,4 +48,12 @@ export class UserHomePage {
         this.navCtrl.push("user-fan",{id:this.user.id,user:this.user});
     }
 
+    swipeEvent($event) {
+
+        if ($event.direction == 8) {
+            this._mode = 'less';
+        } else if ($event.direction == 16) {
+            this._mode = 'more';
+        }
+    }
 }

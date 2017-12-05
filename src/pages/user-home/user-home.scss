@@ -1,4 +1,20 @@
 page-user-home {
+
+  ion-title {
+   img {
+      margin-top:5px;
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      vertical-align:middle;
+    }
+
+    span {
+      line-height:32px;
+      margin-left:5px;
+    }
+  }
+
   .profile-row {
     background-color: color($colors, 'primary');
     color:#fff;

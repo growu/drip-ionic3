@@ -5,6 +5,7 @@ import {IonicApp, IonicErrorHandler, IonicModule} from 'ionic-angular';
 import {SplashScreen} from '@ionic-native/splash-screen';
 import {Device} from '@ionic-native/device';
 import {StatusBar} from '@ionic-native/status-bar';
+import {Keyboard} from '@ionic-native/keyboard';
 import {MyApp} from './app.component';
 import {IonicStorageModule} from '@ionic/storage';
 
@@ -34,6 +35,8 @@ import {MyShareModule} from '../components/my-share/my-share.module';
         IonicModule.forRoot(MyApp, {
             backButtonText: '',
             tabsHideOnSubPages: true,
+            scrollAssist:false,
+            autoFocusAssist:false,
             monthNames: ['一', '二', '三', '四', '五', '六', '七', '八', '九', '十', '十一', '十二'],
             monthShortNames: ['一月', '二月', '三月', '四月', '五月', '六月', '七月', '八月', '九月', '十月', '十一月', '十二月'],
         }),
@@ -48,6 +51,7 @@ import {MyShareModule} from '../components/my-share/my-share.module';
         StatusBar,
         SplashScreen,
         Device,
+        Keyboard,
         {provide: ErrorHandler, useClass: IonicErrorHandler},
         {
             provide: HAMMER_GESTURE_CONFIG,

@@ -4,6 +4,7 @@ import {StatusBar} from '@ionic-native/status-bar';
 import {SplashScreen} from '@ionic-native/splash-screen';
 import {UserProvider} from '../providers/user/user';
 import {Storage} from '@ionic/storage';
+import { Keyboard } from '@ionic-native/keyboard';
 
 declare var chcp;
 
@@ -18,10 +19,13 @@ export class MyApp {
                 statusBar: StatusBar,
                 splashScreen: SplashScreen,
                 storage: Storage,
-                public userProvider: UserProvider) {
+                private keyboard: Keyboard,
+    public userProvider: UserProvider) {
         platform.ready().then(() => {
             statusBar.styleDefault();
             splashScreen.hide();
+            this.keyboard.disableScroll(true);
+
             if (platform.is('cordova')) {
 
                 (<any>window).plugins.jPushPlugin.init();
@@ -99,8 +103,6 @@ export class MyApp {
                 };
                 appUpdate.initialize();
             }
-
-
         });
     }
 }

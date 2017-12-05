@@ -1,3 +1,9 @@
+Node version: v9.2.0
+
+Cordova version: 7.0.1
+
+Config.xml file: 
+
 <?xml version='1.0' encoding='utf-8'?>
 <widget id="me.growu.drip" version="1.1.1" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
     <name>水滴打卡</name>
@@ -132,3 +138,55 @@
     <plugin name="cordova-plugin-x-socialsharing" spec="^5.2.1" />
     <plugin name="cordova-plugin-ionic-webview" spec="^1.1.16" />
 </widget>
+
+
+Plugins: 
+
+com.synconset.imagepicker,cordova-hot-code-push-plugin,cordova-plugin-apprate,cordova-plugin-bugly-sdk,cordova-plugin-camera,cordova-plugin-compat,cordova-plugin-console,cordova-plugin-crop,cordova-plugin-datepicker,cordova-plugin-device,cordova-plugin-dialogs,cordova-plugin-file,cordova-plugin-file-transfer,cordova-plugin-globalization,cordova-plugin-inappbrowser,cordova-plugin-ionic-webview,cordova-plugin-jcore,cordova-plugin-qqsdk,cordova-plugin-splashscreen,cordova-plugin-statusbar,cordova-plugin-wechat,cordova-plugin-weibosdk,cordova-plugin-whitelist,cordova-plugin-x-socialsharing,cordova-sqlite-storage,es6-promise-plugin,jpush-phonegap-plugin
+
+Android platform:
+
+*************************************************************************
+The "android" command is deprecated.
+For manual SDK, AVD, and project management, please use Android Studio.
+For command-line tools, use tools/bin/sdkmanager and tools/bin/avdmanager
+*************************************************************************
+Running /Users/tuo3/Documents/adt/sdk/tools/bin/avdmanager list target
+
+Loading local repository...                                                     [=========                              ] 25% Loading local repository...       [=========                              ] 25% Fetch remote repository...        [=========                              ] 25% Fetch remote repository...        [=========                              ] 25% Fetch remote repository...        [=======================================] 100% Fetch remote repository...       Available Android targets:
+----------
+id: 1 or "android-19"
+     Name: Android API 19
+     Type: Platform
+     API level: 19
+     Revision: 4
+----------
+id: 2 or "android-20"
+     Name: Android API 20
+     Type: Platform
+     API level: 20
+     Revision: 2
+----------
+id: 3 or "android-22"
+     Name: Android API 22
+     Type: Platform
+     API level: 22
+     Revision: 2
+----------
+id: 4 or "android-23"
+     Name: Android API 23
+     Type: Platform
+     API level: 23
+     Revision: 3
+----------
+id: 5 or "android-25"
+     Name: Android API 25
+     Type: Platform
+     API level: 25
+     Revision: 3
+
+iOS platform:
+
+Xcode 9.1
+Build version 9B55
+

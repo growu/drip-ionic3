@@ -83,7 +83,7 @@ export class FeedbackPage {
             if (data) {
                 swal({
                     title: '感谢反馈',
-                    text: '你的反馈已经收到，我们将尽快确认，添加格吾君微信(growu001）,加入产品群实时交流。',
+                    text: '你的反馈已经收到，我们将尽快确认。你也可以添加客服微信(微信号：growu001）,加入产品群实时交流。',
                     type: 'success',
                     showConfirmButton: false,
                     width: '80%'

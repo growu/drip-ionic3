@@ -6,10 +6,12 @@ import {MyFollowButtonComponentModule} from '../../components/my-follow-button/m
 import {MyShareModule} from '../../components/my-share/my-share.module';
 import {IonicImageViewerModule} from "ionic-img-viewer";
 import {KeyboardProvider} from "../../providers/AppProvider";
+import {KeyboardAttachDirective} from "../../directives/keyboard-attach.directive";
 
 @NgModule({
     declarations: [
         EventDetailPage,
+        KeyboardAttachDirective
     ],
     imports: [
         IonicPageModule.forChild(EventDetailPage),

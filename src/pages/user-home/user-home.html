@@ -1,20 +1,24 @@
 <ion-header no-border>
 
     <ion-navbar color="primary">
-        <ion-title></ion-title>
+        <ion-title *ngIf="_mode==='more'"></ion-title>
+        <ion-title *ngIf="_mode==='less'">
+            <img src="{{user.avatar_url || 'assets/img/default-avatar.jpg'}}">
+            <span>{{user.nickname || '还没有昵称'}}</span>
+        </ion-title>
     </ion-navbar>
 
 </ion-header>
 
-<ion-content class="no-scroll">
-    <ion-row text-center class="profile-row">
+<ion-content class="no-scroll" (swipe)="swipeEvent($event)">
+    <ion-row text-center class="profile-row" *ngIf="_mode==='more'">
         <ion-col>
             <img src="{{user.avatar_url || 'assets/img/default-avatar.jpg'}}">
             <h2>{{user.nickname || '还没有昵称'}} <i class="iconfont icon-vip-copy" ion-text color="danger" *ngIf="user.is_vip" (click)="goVipPage()"></i></h2>
             <p>{{user.signature || ' '}}</p>
         </ion-col>
     </ion-row>
-    <ion-row class="follow-row" no-border>
+    <ion-row class="follow-row" no-border *ngIf="_mode==='more'">
         <ion-col text-center (click)="goUserFollowingPage(user?.id)">
             <strong ion-text class="num" color="dark">{{user.follow_count || '0'}}</strong>
             <br>

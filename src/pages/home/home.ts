@@ -75,7 +75,8 @@ export class HomePage {
         this.navCtrl.push('goal-detail', {'id': id, 'homePage': this});
     }
 
-    goGoalCheckinPage(id) {
+    goGoalCheckinPage(id,$event) {
+        $event.stopPropagation();
         this.navCtrl.push('goal-checkin', {'id': id, 'homePage': this});
     }
 

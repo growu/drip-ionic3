@@ -42,7 +42,7 @@
                             <ion-item-sliding>
                                 <ion-item (click)="goGoalDetailPage(goal.id,$event)">
                                     <ion-icon name="checkmark-circle" class="check-icon"
-                                              [class.active]="goal.is_checkin" item-start></ion-icon>
+                                              [class.active]="goal.is_checkin" item-start (click)="goGoalCheckinPage(goal.id,$event)"></ion-icon>
                                     <ion-label>
                                         <h2>{{goal.name}}</h2>
                                         <p>
@@ -98,7 +98,7 @@
                                 </ion-card-header>
                                 <ion-card-content text-center padding-top (click)="goGoalDetailPage(goal.id,$event)">
                                     <ion-icon name="checkmark-circle" class="check-icon"
-                                              [class.active]="goal.is_checkin"></ion-icon>
+                                              [class.active]="goal.is_checkin" (click)="goGoalCheckinPage(goal.id,$event)"></ion-icon>
                                 </ion-card-content>
                                 <ion-row class="footer">
                                     <ion-col class="status">

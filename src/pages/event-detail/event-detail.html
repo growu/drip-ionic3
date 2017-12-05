@@ -13,7 +13,7 @@
 </ion-header>
 
 
-<ion-content>
+<ion-content #eventContent>
     <ion-list>
         <ion-card *ngIf="event" no-shadow>
             <ion-item (click)="goUserHomePage(event.user)">
@@ -72,7 +72,7 @@
 
 </ion-content>
 
-<ion-footer>
+<ion-footer [keyboardAttach]="eventContent">
     <ion-toolbar text-center class="action-bar" *ngIf="!isComment">
         <ion-row>
             <ion-col (click)="doLikeEvent()">
@@ -101,10 +101,15 @@
         </ion-row>
     </ion-toolbar>
 
-    <ion-item *ngIf="isComment">
-        <ion-input type="text" (focusout)="hideComment()" clearInput #commentInput [(ngModel)]="content" [placeholder]="reply_comment?'回复'+reply_comment.user?.nickname||''+': ':'积极的交流才能擦出火花.'"></ion-input>
+    <ion-toolbar *ngIf="isComment">
+
+    <ion-item >
+        <ion-input type="text" (blur)="hideComment()" clearInput #commentInput [(ngModel)]="content" [placeholder]="reply_comment?'回复'+reply_comment.user?.nickname||''+': ':'据说评论别人可以变得更强？.'"></ion-input>
         <button clear ion-button item-end (click)="doComment()">发布</button>
     </ion-item>
+
+    </ion-toolbar>
+
 
 </ion-footer>
 

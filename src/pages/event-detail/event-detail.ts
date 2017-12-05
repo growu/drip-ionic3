@@ -1,4 +1,4 @@
-import {Component, ViewChild} from '@angular/core';
+import {Component, ElementRef, ViewChild} from '@angular/core';
 import {ActionSheetController, IonicPage, NavController, NavParams} from 'ionic-angular';
 import {EventProvider} from '../../providers/event/event'
 import {MyShareController} from '../../components/my-share/my-share.controller'
@@ -19,8 +19,9 @@ export class EventDetailPage {
     public isComment:boolean = false;
     public content:string;
     public reply_comment:any;
-    @ViewChild('commentInput') commentInput ;
 
+    @ViewChild('commentInput') commentInput ;
+    @ViewChild('eventContent') eventContent ;
 
     constructor(public navCtrl: NavController,
                 public navParams: NavParams,
@@ -101,7 +102,7 @@ export class EventDetailPage {
         this.eventProvider.comment(this.event.id,body).then((data) => {
             this.toastProvider.show("评论成功",'success');
             this.event.comments.unshift(data);
-            this.keyboard.close();
+            // this.keyboard.close();
         }).catch((err)=>{
 
         });
@@ -197,5 +198,4 @@ export class EventDetailPage {
         this.isComment = false;
         this.reply_comment = null;
     }
-
 }
