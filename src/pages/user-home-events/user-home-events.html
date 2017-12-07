@@ -1,14 +1,5 @@
 
-<ion-content >
-    <ion-scroll scrollX="true" style="height: 100%">
-    <ion-refresher (ionRefresh)="doRefresh($event)">
-        <ion-refresher-content
-                pullingIcon="arrow-dropdown"
-                pullingText="下拉刷新"
-                refreshingSpinner="circles"
-                refreshingText="加载中...">
-        </ion-refresher-content>
-    </ion-refresher>
+<ion-content>
 
     <my-event [eventSource]="events" *ngIf="events.length>0"></my-event>
 
@@ -22,5 +13,4 @@
                 loadingText="加载更多">
         </ion-infinite-scroll-content>
     </ion-infinite-scroll>
-    </ion-scroll>
 </ion-content>

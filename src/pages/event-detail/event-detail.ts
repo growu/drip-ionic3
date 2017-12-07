@@ -1,10 +1,11 @@
 import {Component, ElementRef, ViewChild} from '@angular/core';
-import {ActionSheetController, IonicPage, NavController, NavParams} from 'ionic-angular';
+import {ActionSheetController, IonicPage, NavController, NavParams, Platform} from 'ionic-angular';
 import {EventProvider} from '../../providers/event/event'
 import {MyShareController} from '../../components/my-share/my-share.controller'
 import {ToastProvider} from "../../providers/toast/toast";
-import {Keyboard} from "@ionic-native/keyboard";
 import {CommentProvider} from "../../providers/comment/comment";
+
+declare var Keyboard;
 
 @IonicPage({
     name: 'event-detail',
@@ -25,14 +26,20 @@ export class EventDetailPage {
 
     constructor(public navCtrl: NavController,
                 public navParams: NavParams,
+                private platform: Platform,
                 public eventProvider: EventProvider,
                 private toastProvider: ToastProvider,
-                private keyboard:Keyboard,
                 private commentProvider: CommentProvider,
                 public actionSheetCtrl: ActionSheetController,
                 private myShareCtrl: MyShareController) {
 
-        this.keyboard.onKeyboardHide().subscribe(() =>{
+        // this.keyboard.onKeyboardHide().subscribe(() =>{
+        //     this.content = null;
+        //     this.reply_comment = null;
+        //     this.isComment = false;
+        // });
+
+        window.addEventListener('keyboardDidHide', () => {
             this.content = null;
             this.reply_comment = null;
             this.isComment = false;
@@ -87,9 +94,13 @@ export class EventDetailPage {
     showComment(){
         this.isComment = true;
 
+        // if(this.platform.is('cordova')) {
+        //     Keyboard.show();
+        // }
+
         setTimeout(() => {
             this.commentInput.setFocus();
-        },150);
+        },1000);
     }
 
     doComment() {
@@ -102,6 +113,10 @@ export class EventDetailPage {
         this.eventProvider.comment(this.event.id,body).then((data) => {
             this.toastProvider.show("评论成功",'success');
             this.event.comments.unshift(data);
+
+            if(this.platform.is('cordova')) {
+                Keyboard.close();
+            }
             // this.keyboard.close();
         }).catch((err)=>{
 
@@ -150,7 +165,7 @@ export class EventDetailPage {
     }
 
     doFavorite() {
-        this.toastProvider.show("程序小哥正在加紧开发中...","success");
+        this.toastProvider.show("该功能正在开发中...","success");
     }
 
     showCommentMenu(comment) {
@@ -188,6 +203,10 @@ export class EventDetailPage {
         this.isComment = true;
         this.reply_comment = comment;
 
+        // if(this.platform.is('cordova')) {
+        //     Keyboard.show();
+        // }
+
         setTimeout(() => {
             this.commentInput.setFocus();
         },1000);
@@ -197,5 +216,6 @@ export class EventDetailPage {
     hideComment(){
         this.isComment = false;
         this.reply_comment = null;
+        this.content = null;
     }
 }

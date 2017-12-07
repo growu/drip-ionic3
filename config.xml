@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='utf-8'?>
-<widget id="me.growu.drip" version="1.1.1" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
+<widget id="me.growu.drip" version="1.2.0" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
     <name>水滴打卡</name>
     <description>一款习惯养成和目标管理工具</description>
     <author email="drip@growu.me" href="http://drip.growu.me/">格吾社区</author>
@@ -29,7 +29,7 @@
     <preference name="CordovaWebViewEngine" value="CDVWKWebViewEngine" />
     <preference name="KeyboardDisplayRequiresUserAction" value="false" />
     <preference name="KeyboardResize" value="true" />
-    <preference name="KeyboardResizeMode" value="native" />
+    <preference name="KeyboardResizeMode" value="ionic" />
     <platform name="android">
         <allow-intent href="market:*" />
         <icon density="ldpi" src="resources/android/icon/drawable-ldpi-icon.png" />
@@ -89,7 +89,7 @@
     <allow-navigation href="http://localhost:8080/*" />
     <chcp>
         <config-file url="http://drip.growu.me/www/chcp.json" />
-        <native-interface version="11" />
+        <native-interface version="12" />
     </chcp>
     <engine name="android" spec="^6.2.3" />
     <engine name="ios" spec="^4.4.0" />
@@ -98,7 +98,6 @@
     <plugin name="cordova-plugin-device" spec="^1.1.4" />
     <plugin name="cordova-plugin-splashscreen" spec="^4.0.3" />
     <plugin name="cordova-plugin-whitelist" spec="^1.3.1" />
-    <plugin name="cordova-plugin-apprate" spec="^1.3.0" />
     <plugin name="cordova-plugin-inappbrowser" spec="^1.7.1" />
     <plugin name="com.synconset.imagepicker" spec="~2.1.8">
         <variable name="PHOTO_LIBRARY_USAGE_DESCRIPTION" value=" " />
@@ -131,4 +130,5 @@
     </plugin>
     <plugin name="cordova-plugin-x-socialsharing" spec="^5.2.1" />
     <plugin name="cordova-plugin-ionic-webview" spec="^1.1.16" />
+    <plugin name="cordova-plugin-ionic-keyboard" spec="^2.0.4" />
 </widget>

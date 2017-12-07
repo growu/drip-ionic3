@@ -104,8 +104,8 @@
     <ion-toolbar *ngIf="isComment">
 
     <ion-item >
-        <ion-input type="text" (blur)="hideComment()" clearInput #commentInput [(ngModel)]="content" [placeholder]="reply_comment?'回复'+reply_comment.user?.nickname||''+': ':'据说评论别人可以变得更强？.'"></ion-input>
-        <button clear ion-button item-end (click)="doComment()">发布</button>
+        <ion-input type="text"  clearInput #commentInput [(ngModel)]="content" [placeholder]="reply_comment?'回复'+reply_comment.user?.nickname||''+': ':'据说评论别人可以变得更强？.'"></ion-input>
+        <button ion-button item-end (click)="doComment()">发布</button>
     </ion-item>
 
     </ion-toolbar>

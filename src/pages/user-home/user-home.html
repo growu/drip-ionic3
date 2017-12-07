@@ -1,8 +1,8 @@
 <ion-header no-border>
 
     <ion-navbar color="primary">
-        <ion-title *ngIf="_mode==='more'"></ion-title>
-        <ion-title *ngIf="_mode==='less'">
+        <ion-title *ngIf="mode == 'more'"></ion-title>
+        <ion-title *ngIf="mode == 'less'">
             <img src="{{user.avatar_url || 'assets/img/default-avatar.jpg'}}">
             <span>{{user.nickname || '还没有昵称'}}</span>
         </ion-title>
@@ -10,8 +10,8 @@
 
 </ion-header>
 
-<ion-content class="no-scroll" (swipe)="swipeEvent($event)">
-    <ion-row text-center class="profile-row" *ngIf="_mode==='more'">
+<ion-content id="content">
+    <ion-row text-center class="profile-row">
         <ion-col>
             <img src="{{user.avatar_url || 'assets/img/default-avatar.jpg'}}">
             <h2>{{user.nickname || '还没有昵称'}} <i class="iconfont icon-vip-copy" ion-text color="danger" *ngIf="user.is_vip" (click)="goVipPage()"></i></h2>
@@ -30,13 +30,9 @@
             <ion-note>粉丝</ion-note>
         </ion-col>
     </ion-row>
-   <!-- <ion-scroll scrollX="true" style="height: 100%"> -->
-
         <super-tabs scrollTabs tabsPlacement="top" selectedTabIndex="0">
             <super-tab [root]="page1" [rootParams]="navParams" title="动态"></super-tab>
             <super-tab [root]="page2" [rootParams]="navParams" title="目标"></super-tab>
             <super-tab [root]="page3" [rootParams]="navParams" title="相册"></super-tab>
         </super-tabs>
-
-    <!-- </ion-scroll> -->
 </ion-content>

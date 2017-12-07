@@ -31,7 +31,7 @@
     "@ionic-native-mocks/keyboard": "^2.0.6",
     "@ionic-native/app-rate": "4.4.2",
     "@ionic-native/camera": "4.4.2",
-    "@ionic-native/core": "^3.12.0",
+    "@ionic-native/core": "^4.4.2",
     "@ionic-native/crop": "4.4.2",
     "@ionic-native/date-picker": "4.4.2",
     "@ionic-native/device": "4.4.2",
@@ -45,7 +45,7 @@
     "@ionic-native/status-bar": "4.4.2",
     "@ionic/storage": "2.1.3",
     "ajv": "^5.3.0",
-    "angular-svg-round-progressbar": "^1.1.1",
+    "angular-svg-round-progressbar": "^1.2.1",
     "angular2-moment": "^1.7.0",
     "autoprefixer": "^7.1.4",
     "chart.js": "^2.7.1",
@@ -53,7 +53,6 @@
     "cordova-android": "^6.2.3",
     "cordova-hot-code-push-plugin": "^1.5.3",
     "cordova-ios": "^4.4.0",
-    "cordova-plugin-apprate": "^1.3.0",
     "cordova-plugin-bugly-sdk": "0.0.1",
     "cordova-plugin-camera": "^2.4.1",
     "cordova-plugin-compat": "^1.1.0",
@@ -61,11 +60,10 @@
     "cordova-plugin-crop": "^0.4.0",
     "cordova-plugin-datepicker": "^0.9.3",
     "cordova-plugin-device": "^1.1.4",
-    "cordova-plugin-dialogs": "^1.3.3",
     "cordova-plugin-file": "^4.3.3",
     "cordova-plugin-file-transfer": "^1.6.3",
-    "cordova-plugin-globalization": "^1.0.7",
     "cordova-plugin-inappbrowser": "^1.7.1",
+    "cordova-plugin-ionic-keyboard": "^2.0.4",
     "cordova-plugin-ionic-webview": "^1.1.16",
     "cordova-plugin-jcore": "^1.1.9",
     "cordova-plugin-qqsdk": "^0.9.6",
@@ -84,7 +82,7 @@
     "ion2-calendar": "2.1.4",
     "ionic-angular": "^3.9.2",
     "ionic-img-viewer": "2.9.0",
-    "ionic2-super-tabs": "4.1.5",
+    "ionic2-super-tabs": "^4.1.4",
     "ionicons": "3.0.0",
     "jpush-phonegap-plugin": "3.2.12",
     "moment": "2.19.3",
@@ -109,7 +107,6 @@
       "cordova-plugin-device": {},
       "cordova-plugin-splashscreen": {},
       "cordova-plugin-whitelist": {},
-      "cordova-plugin-apprate": {},
       "cordova-plugin-inappbrowser": {},
       "com.synconset.imagepicker": {
         "PHOTO_LIBRARY_USAGE_DESCRIPTION": " "
@@ -141,7 +138,8 @@
         "PHOTOLIBRARY_USAGE_DESCRIPTION": " "
       },
       "cordova-plugin-x-socialsharing": {},
-      "cordova-plugin-ionic-webview": {}
+      "cordova-plugin-ionic-webview": {},
+      "cordova-plugin-ionic-keyboard": {}
     },
     "platforms": [
       "android",

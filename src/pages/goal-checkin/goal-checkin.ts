@@ -3,6 +3,7 @@ import {App, NavController, NavParams, IonicPage} from "ionic-angular";
 import {FormBuilder, FormGroup} from '@angular/forms';
 import {UserProvider} from "../../providers/user/user";
 import {ToolProvider} from "../../providers/tool/tool";
+import * as moment from 'moment'
 
 @IonicPage({
     name: "goal-checkin",
@@ -16,6 +17,11 @@ export class GoalCheckinPage {
 
     private checkinForm: FormGroup;
     public attachs: any = [];
+    public goal;
+    public day;
+
+    public min: string = '';
+    public max: string = moment().format('YYYY-MM-DD');
 
     constructor(public navCtrl: NavController,
                 public navParams: NavParams,
@@ -26,11 +32,28 @@ export class GoalCheckinPage {
                 ) {
         this.checkinForm = this.formBuilder.group({
             'content': ['', []],
+            'day':['',[]]
         });
+
+        if (this.navParams.get('day')) {
+            this.day = this.navParams.get('day');
+        } else {
+            this.day = moment().format('YYYY-MM-DD');
+        }
     }
 
     ionViewDidLoad() {
+        let goal_id = this.navParams.get('id');
 
+        this.userProvider.getGoal(goal_id).then((data)=>{
+            this.goal = data;
+            this.min = data.start_date;
+            if(data.end_date) {
+                this.max = data.end_date;
+            }
+        }).catch((err)=> {
+
+        });
     }
 
     doCheckin($event) {
@@ -39,10 +62,6 @@ export class GoalCheckinPage {
         let goal_id = this.navParams.get('id');
 
         let body = this.checkinForm.value;
-
-        if (this.navParams.get('day')) {
-            body.day = this.navParams.get('day');
-        }
 
         body.attachs = this.attachs;
 

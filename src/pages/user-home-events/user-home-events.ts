@@ -1,5 +1,5 @@
-import {Component} from '@angular/core';
-import {App, IonicPage, NavController, NavParams} from 'ionic-angular';
+import {Component, ViewChild} from '@angular/core';
+import {App, IonicPage, NavController, NavParams,Content} from 'ionic-angular';
 import {UserProvider} from "../../providers/user/user";
 
 @IonicPage({
@@ -20,6 +20,9 @@ export class UserHomeEventsPage {
                 private userProvider: UserProvider) {
     }
 
+    ionViewDidLoad() {
+    }
+
     ionViewDidEnter() {
         this.getUserEvents(1);
     }
@@ -38,14 +41,14 @@ export class UserHomeEventsPage {
         });
     }
 
-    doRefresh(refresher) {
-
-        this.getUserEvents(1);
-
-        setTimeout(() => {
-            refresher.complete();
-        }, 2000);
-    }
+    // doRefresh(refresher) {
+    //
+    //     this.getUserEvents(1);
+    //
+    //     setTimeout(() => {
+    //         refresher.complete();
+    //     }, 2000);
+    // }
 
     doInfinite(infiniteScroll) {
 

@@ -12,7 +12,14 @@
 
         <ion-list>
             <ion-item>
-                <ion-textarea rows="5" formControlName="content" placeholder="记录一下"></ion-textarea>
+                <ion-label>打卡日期</ion-label>
+                <ion-datetime placeholder="今天" displayFormat="YYYY-MM-DD" pickerFormat="YYYY MM DD" cancelText="取消" doneText="保存" [min]="min" [max]="max" formControlName="day" [(ngModel)]="day"></ion-datetime>
+            </ion-item>
+        </ion-list>
+
+        <ion-list>
+            <ion-item>
+                <ion-textarea rows="5" formControlName="content" placeholder="记录你的打卡内容。"></ion-textarea>
             </ion-item>
             <ion-item no-border no-lines>
                 <ion-icon name="camera" large item-start (click)="choosePic($event)"></ion-icon>

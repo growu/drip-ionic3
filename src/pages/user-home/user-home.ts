@@ -1,7 +1,8 @@
-import {Component} from '@angular/core';
+import {Component, ViewChild,ChangeDetectorRef} from '@angular/core';
 import {IonicPage, NavController, NavParams, ToastController} from 'ionic-angular';
 import {UserProvider} from "./../../providers/user/user";
 import { SuperTabsController } from "ionic2-super-tabs/dist/index";
+import { Content} from 'ionic-angular'
 
 @IonicPage({
     name: 'user-home',
@@ -13,8 +14,10 @@ import { SuperTabsController } from "ionic2-super-tabs/dist/index";
 })
 export class UserHomePage {
 
+    @ViewChild(Content) content: Content;
+
     public user: any = {};
-    public _mode:any = 'more';
+    public mode:string = "more";
 
     page1: any = "user-home-events";
     page2: any = "user-home-goals";
@@ -23,6 +26,7 @@ export class UserHomePage {
     constructor(public navCtrl: NavController,
                 public navParams: NavParams,
                 private superTabsCtrl: SuperTabsController,
+                private ref: ChangeDetectorRef,
                 private userProvider: UserProvider) {
     }
 
@@ -48,12 +52,22 @@ export class UserHomePage {
         this.navCtrl.push("user-fan",{id:this.user.id,user:this.user});
     }
 
-    swipeEvent($event) {
+    ngAfterViewInit() {
+        this.content.ionScroll.subscribe((scroll)=>{
+            console.log('scrolling ', scroll);
 
-        if ($event.direction == 8) {
-            this._mode = 'less';
-        } else if ($event.direction == 16) {
-            this._mode = 'more';
-        }
+            if(scroll.scrollTop > 100) {
+                this.mode = "less";
+            } else {
+                this.mode = "more";
+            }
+
+            console.log(this.mode);
+
+            this.ref.detectChanges();
+
+        });
+
     }
+
 }
