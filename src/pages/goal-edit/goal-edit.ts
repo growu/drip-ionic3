@@ -1,11 +1,12 @@
 import {Component} from '@angular/core';
-import {IonicPage, NavController, NavParams} from 'ionic-angular';
+import {AlertController, IonicPage, NavController, NavParams} from 'ionic-angular';
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {GoalProvider} from "./../../providers/goal/goal";
 import {ToastProvider} from "./../../providers/toast/toast";
 import {LoadingProvider} from "./../../providers/loading/loading";
 import * as moment from 'moment'
 import swal from 'sweetalert2'
+import {UserProvider} from "../../providers/user/user";
 
 @IonicPage({
     name: 'goal-edit',
@@ -27,13 +28,15 @@ export class GoalEditPage {
     constructor(public navCtrl: NavController,
                 private formBuilder: FormBuilder,
                 private toastProvider: ToastProvider,
+                private userProvider: UserProvider,
+                private alertCtrl: AlertController,
                 private goalProvider: GoalProvider,
                 public navParams: NavParams) {
 
         this.goalEditForm = this.formBuilder.group({
             'name': [, [Validators.required, Validators.maxLength(20)]],
             'desc': ['', [Validators.required, Validators.maxLength(255)]],
-            'start_date':[{disabled:true}, []],
+            'start_date': [{disabled: true}, []],
             'end_date': ['', []],
             'is_public': [true, []],
             'remind_time': ['', []]
@@ -87,6 +90,35 @@ export class GoalEditPage {
                 this.goal.end_date = this.goal.start_date;
             }
         }
+    }
+
+    doDelGoal($event) {
+
+        $event.preventDefault();
+        $event.stopPropagation();
+
+        let confirm = this.alertCtrl.create({
+            title: '确认删除?',
+            message: '此项操作将会清空该目标下的所有数据，请谨慎操作！',
+            buttons: [
+                {
+                    text: '取消',
+                    handler: () => {
+                    }
+                },
+                {
+                    text: '确认',
+                    cssClass: 'my-alert-danger',
+                    handler: () => {
+                        this.userProvider.deleteGoal(this.goal.id).then((data) => {
+                            this.toastProvider.show("删除成功", 'success');
+                            this.navCtrl.push('home', {});
+                        });
+                    }
+                }
+            ]
+        });
+        confirm.present();
     }
 
 }
