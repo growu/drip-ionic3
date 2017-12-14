@@ -18,7 +18,7 @@
   </ion-refresher>
 
   <ion-list>
-    <ion-card *ngFor="let message of messages">
+    <ion-card *ngFor="let message of messages" (click)="goMessageDetail(message)">
       <ion-card-header>
         <h2>{{message.title}}</h2>
         <p item-end>{{message.created_at | amLocale:"zh_cn" | amUtc | amTimeAgo }}</p>

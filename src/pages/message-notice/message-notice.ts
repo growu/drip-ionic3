@@ -61,5 +61,9 @@ export class MessageNoticePage {
         }, 2000);
     }
 
+    goMessageDetail(message) {
+      this.navCtrl.push('message-detail',{id:message.id});
+    }
+
 
 }

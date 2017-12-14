@@ -423,6 +423,10 @@ export class UserProvider {
         return this.httpProvider.httpGetWithAuth("/user/messages/comment", params);
     }
 
+    getMessageDetail(id) {
+        return this.httpProvider.httpGetWithAuth("/message/"+id,null);
+    }
+
     getNoticeMessages(page, perPage) {
         var params = new URLSearchParams();
         params.set('page', page);
