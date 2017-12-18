@@ -34,35 +34,58 @@ export class ToolProvider {
                         text: '相册',
                         role: 'destructive',
                         handler: () => {
-                            var options = {
-                                maximumImagesCount: 1,
-                                title:"选择相册"
-                            };
+                            this.storage.get('user').then((user)=>{
+                                var options = {
+                                    maximumImagesCount:user.is_vip?9:1,
+                                    title:"选择相册"
+                                };
 
-                            this.imagePicker.getPictures(options).then((results) => {
-                                if (results && results.length > 0) {
-                                    this.crop.crop(results[0], {quality: 75})
-                                        .then(
-                                            newImage => {
-                                                this.uploadImage(newImage).then((ret) => {
+                                this.imagePicker.getPictures(options).then((results) => {
+                                    if (results && results.length > 0) {
+                                        if(user.is_vip) {
+
+                                            let promiseChain: Promise<any> = Promise.resolve();
+
+                                            results.forEach((newImage)=>{
+                                                promiseChain = this.uploadImage(newImage).then((ret) => {
                                                     resolve(ret);
                                                 }).catch((err) => {
                                                     reject(err);
                                                 });
-                                            },
-                                            (error) => {
-                                                reject(error);
-                                                this.toastProvider.show(error, 'error');
-                                            }
-                                        );
+                                            });
 
-                                } else {
-                                    reject("未选择图片");
-                                }
-                            }, (err) => {
-                                this.toastProvider.show(err, 'error');
-                                reject(err);
+                                            return  promiseChain;
+
+                                        } else {
+                                            this.crop.crop(results[0], {quality: 75})
+                                                .then(
+                                                    newImage => {
+                                                        this.uploadImage(newImage).then((ret) => {
+                                                            resolve(ret);
+                                                        }).catch((err) => {
+                                                            reject(err);
+                                                        });
+                                                    },
+                                                    (error) => {
+                                                        reject(error);
+                                                        this.toastProvider.show(error, 'error');
+                                                    }
+                                                );
+                                        }
+
+
+                                    } else {
+                                        reject("未选择图片");
+                                    }
+                                }, (err) => {
+                                    this.toastProvider.show(err, 'error');
+                                    reject(err);
+                                });
+                            }).catch((err)=>{
+
                             });
+
+
                         }
                     }, {
                         text: '相机',

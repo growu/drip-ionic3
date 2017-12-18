@@ -74,6 +74,13 @@
     height:1.5rem;
   }
 
+  ion-note {
+    font-size: 20px;
+    color:#488aff;
+    font-weight: 600;
+    font-family: "Oswald","Segoe UI", "Noto Sans", sans-serif;
+  }
+
 
   .events-list {
 
@@ -94,6 +101,8 @@
       border-top: 1px solid #9e9e9e;
       border-radius: 0;
     }
+
+
   }
 
   .events-card {

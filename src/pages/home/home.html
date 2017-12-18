@@ -57,15 +57,19 @@
                                         </p>
                                     </ion-label>
 
-                                    <ion-datetime item-end
-                                                  displayFormat="HH:mm"
-                                                  pickerFormat="HH mm"
-                                                  cancelText="清空"
-                                                  doneText="保存"
-                                                  [(ngModel)]="goal.remind_time"
-                                                  placeholder="{{goal.remind_time || '未设置' }}"
-                                                  (ionChange)="setRemindTime(goal,$event)">
-                                    </ion-datetime>
+                                    <ion-note item-end>
+                                        {{goal.total_days}} / {{goal.expect_days}}
+                                    </ion-note>
+
+                                    <!--<ion-datetime item-end-->
+                                                  <!--displayFormat="HH:mm"-->
+                                                  <!--pickerFormat="HH mm"-->
+                                                  <!--cancelText="清空"-->
+                                                  <!--doneText="保存"-->
+                                                  <!--[(ngModel)]="goal.remind_time"-->
+                                                  <!--placeholder="{{goal.remind_time || '未设置' }}"-->
+                                                  <!--(ionChange)="setRemindTime(goal,$event)">-->
+                                    <!--</ion-datetime>-->
 
                                 </ion-item>
                                 <ion-item-options>
@@ -109,17 +113,25 @@
                                         <button *ngIf="goal.status==2" color="danger" ion-button small outline>已完成
                                         </button>
                                     </ion-col>
+
                                     <ion-col class="time">
-                                        <ion-datetime item-end
-                                                      displayFormat="HH:mm"
-                                                      pickerFormat="HH mm"
-                                                      cancelText="清空"
-                                                      doneText="保存"
-                                                      [(ngModel)]="goal.remind_time"
-                                                      placeholder="{{goal.remind_time || '未设置' }}"
-                                                      (ionChange)="setRemindTime(goal,$event)">
-                                        </ion-datetime>
+                                        <ion-note>
+                                        {{goal.total_days}} / {{goal.expect_days}}
+                                        </ion-note>
                                     </ion-col>
+                                    <!--<ion-note item-end>{{goal.total_days}}</ion-note>-->
+
+                                    <!--<ion-col class="time">-->
+                                        <!--<ion-datetime item-end-->
+                                                      <!--displayFormat="HH:mm"-->
+                                                      <!--pickerFormat="HH mm"-->
+                                                      <!--cancelText="清空"-->
+                                                      <!--doneText="保存"-->
+                                                      <!--[(ngModel)]="goal.remind_time"-->
+                                                      <!--placeholder="{{goal.remind_time || '未设置' }}"-->
+                                                      <!--(ionChange)="setRemindTime(goal,$event)">-->
+                                        <!--</ion-datetime>-->
+                                    <!--</ion-col>-->
                                 </ion-row>
                             </ion-card>
                         </ion-col>
@@ -128,8 +140,8 @@
             </div>
 
             <div text-center style="position: absolute;left: 0;right: 0;top: 40%;" *ngIf="goals.length == 0">
-                <p>没有发现有任何安排</p>
-                <button ion-button (click)="goGoalAddPage()">计划一下？</button>
+                <p>还没有制定目标或计划</p>
+                <button ion-button (click)="goGoalAddPage()">立即制定</button>
             </div>
 
         </div>
