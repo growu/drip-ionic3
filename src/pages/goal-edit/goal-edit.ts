@@ -84,6 +84,10 @@ export class GoalEditPage {
         this.goal.end_date = null;
     }
 
+    onClearRemindTime() {
+        this.goal.remind_time = null;
+    }
+
     onChangeDate() {
         if (this.goal.end_date) {
             if (this.goal.end_date < this.goal.start_date) {
