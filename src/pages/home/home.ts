@@ -14,7 +14,7 @@ import {Storage} from '@ionic/storage';
     templateUrl: 'home.html'
 })
 export class HomePage {
-    public viewTitle: string = "今天";
+    public viewTitle: string = "所有目标";
     private currentDay: any = null;
     public setting: SettingModel = {
         viewMode: "list",
@@ -46,10 +46,14 @@ export class HomePage {
             this.user = data;
         });
 
+        if(this.setting.calendarMode) {
+            let today = moment().format("YYYY-MM-DD");
+            this.currentDay = today;
+            this.getGoals(today);
+        } else {
+            this.getGoals(null);
+        }
 
-        let today = moment().format("YYYY-MM-DD");
-        this.currentDay = today;
-        this.getGoals(today);
     }
 
     getGoals(date) {
@@ -63,8 +67,13 @@ export class HomePage {
     }
 
     onDaySelected(day) {
-        this.currentDay = moment(day).format("YYYY-MM-DD");
-        this.getGoals(moment(day).format("YYYY-MM-DD"));
+        if(day) {
+            this.currentDay = moment(day).format("YYYY-MM-DD");
+            this.getGoals(moment(day).format("YYYY-MM-DD"));
+        } else {
+            this.getGoals('');
+        }
+
     }
 
     goGoalAddPage() {
@@ -139,7 +148,11 @@ export class HomePage {
         popover.onDidDismiss((settingData) => {
             if (settingData) {
                 if (!settingData.calendarMode) {
-                    this.viewTitle = "今天";
+                    this.viewTitle = "所有目标";
+                    this.currentDay = null;
+                    this.getGoals('');
+                } else {
+                    this.getGoals(moment().format("YYYY-MM-DD"));
                 }
                 this.setting = settingData;
                 this.userProvider.updateSetting(this.setting);
