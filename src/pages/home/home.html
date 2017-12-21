@@ -6,7 +6,7 @@
             </button>
         </ion-buttons>
 
-        <ion-title>{{viewTitle}}</ion-title>
+            <ion-title>{{viewTitle}}</ion-title>
 
         <ion-buttons end>
             <button ion-button icon-only (click)="goGoalAddPage()">
@@ -37,8 +37,8 @@
                  *ngIf="setting?.calendarMode">
     </my-calendar>
 
-    <ion-scroll scrollX="true" style="height: 100%" #scrollElement id="scrollElement">
-        <div class="scroll-content" style="overflow: scroll;">
+    <ion-scroll scrollX="true" style="height: 100%" >
+        <div class="scroll-content" style="overflow: scroll;" #scrollContent >
             <div *ngIf="goals.length > 0">
                 <ion-list *ngIf="setting?.viewMode=='list'" class="events-list" margin-top [dragula]='"bag-one"' [dragulaModel]="goals">
                     <ng-template ngFor let-goal [ngForOf]="goals">
@@ -98,8 +98,6 @@
                     </ion-card>
                     </ng-template>
                 </ion-list>
-
-
 
                 <ion-list *ngIf="setting?.viewMode=='card'" class="events-card" [dragula]='"bag-one"' [dragulaModel]="goals">
                     <!--<ion-row >-->

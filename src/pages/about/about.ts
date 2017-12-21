@@ -42,9 +42,9 @@ export class AboutPage {
 
             chcp.getVersionInfo((err, data) => {
 
-                if(data.appVersion) {
-                    this.appVersion = data.appVersion;
-                }
+                // if(data.appVersion) {
+                //     this.appVersion = data.appVersion;
+                // }
                 if( data.currentWebVersion) {
                     this.webVersion = data.currentWebVersion.replace(/-/g, '');
                     this.webVersion = this.webVersion.replace(/\./g, '');

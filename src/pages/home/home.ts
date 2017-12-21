@@ -9,6 +9,8 @@ import {SettingModel} from '../../models/setting.model'
 import * as moment from 'moment'
 import {Storage} from '@ionic/storage';
 import {DragulaService} from "ng2-dragula";
+import * as autoScroll from 'dom-autoscroller';
+
 
 @IonicPage({
     name: 'home',
@@ -30,7 +32,7 @@ export class HomePage {
     public goals: any = [];
     public user: any = {};
 
-    @ViewChild('scrollElement') scrollElement;
+    @ViewChild('scrollContent') scrollContent:ElementRef;
     @ViewChild(Content) content: Content;
 
 
@@ -98,16 +100,26 @@ export class HomePage {
     }
 
     ngAfterViewInit() {
-
+        setTimeout(() => {
+            var scroll = autoScroll([
+                this.scrollContent.nativeElement
+                //this.autoscroll.nativeElement,
+                //this.autoscroll2.nativeElement
+            ],{
+                margin: 20,
+                maxSpeed: 5,
+                scrollWhenOutside: true,
+                autoScroll: function(){
+                    //Only scroll when the pointer is down.
+                    return this.down;
+                    //return true;
+                }
+            });
+        }, 3000);
     }
 
 
     ionViewDidEnter() {
-
-        this.scrollElement.addScrollEventListener(($event) =>
-        {
-            console.log('Event');
-        });
 
         this.userProvider.getSetting().then((settingData) => {
             if (settingData) {
