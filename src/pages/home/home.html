@@ -10,7 +10,11 @@
 
         <ion-buttons end>
             <button ion-button icon-only (click)="goGoalAddPage()">
-                <ion-icon name="md-add"></ion-icon>
+                <ion-icon name="md-add" *ngIf="!setting.enableSort"></ion-icon>
+            </button>
+
+            <button ion-button icon-only (click)="saveGoalsOrder()" *ngIf="setting.enableSort">
+                <ion-icon name="md-checkmark"></ion-icon>
             </button>
         </ion-buttons>
     </ion-toolbar>
@@ -33,14 +37,15 @@
                  *ngIf="setting?.calendarMode">
     </my-calendar>
 
-    <ion-scroll scrollX="true" style="height: 100%">
+    <ion-scroll scrollX="true" style="height: 100%" #scrollElement id="scrollElement">
         <div class="scroll-content" style="overflow: scroll;">
             <div *ngIf="goals.length > 0">
-                <ion-list *ngIf="setting?.viewMode=='list'" class="events-list" margin-top>
-                    <ion-card *ngFor="let goal of goals">
+                <ion-list *ngIf="setting?.viewMode=='list'" class="events-list" margin-top [dragula]='"bag-one"' [dragulaModel]="goals">
+                    <ng-template ngFor let-goal [ngForOf]="goals">
+                    <ion-card *ngIf="!(goal.status==2&&setting.hideExpireGoals)"  [ngClass]="{'no-drag':goal.status != 1}" >
                         <ion-card-content>
                             <ion-item-sliding>
-                                <ion-item (click)="goGoalDetailPage(goal.id,$event)">
+                                <ion-item (click)="goGoalDetailPage(goal.id,$event)" >
                                     <ion-icon name="checkmark-circle" class="check-icon"
                                               [class.active]="goal.is_checkin" item-start (click)="goGoalCheckinPage(goal.id,$event)"></ion-icon>
                                     <ion-label>
@@ -91,11 +96,15 @@
                         <!--</progress>-->
                         <!--</ion-row>-->
                     </ion-card>
+                    </ng-template>
                 </ion-list>
 
-                <ion-list *ngIf="setting?.viewMode=='card'" class="events-card">
-                    <ion-row>
-                        <ion-col *ngFor="let goal of goals" col-6>
+
+
+                <ion-list *ngIf="setting?.viewMode=='card'" class="events-card" [dragula]='"bag-one"' [dragulaModel]="goals">
+                    <!--<ion-row >-->
+                    <ng-template ngFor let-goal [ngForOf]="goals">
+                            <div  *ngIf="!(goal.status==2&&setting.hideExpireGoals)"  [ngClass]="{'no-drag':goal.status != 1}" class="card-col">
                             <ion-card>
                                 <ion-card-header text-center>
                                     {{goal.name}}
@@ -134,9 +143,11 @@
                                     <!--</ion-col>-->
                                 </ion-row>
                             </ion-card>
-                        </ion-col>
-                    </ion-row>
+                        </div>
+                        </ng-template>
+                <!--</ion-row>-->
                 </ion-list>
+
             </div>
 
             <div text-center style="position: absolute;left: 0;right: 0;top: 40%;" *ngIf="goals.length == 0">

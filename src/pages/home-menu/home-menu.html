@@ -18,12 +18,12 @@
             <ion-option value="card">卡片</ion-option>
         </ion-select>
     </ion-item>
-    <!--<ion-item>-->
-        <!--<ion-label>显示进度</ion-label>-->
-        <!--<ion-toggle [(ngModel)]="pepperoni"></ion-toggle>-->
-    <!--</ion-item>-->
-    <!--<ion-item>-->
-        <!--<ion-label>启用排序</ion-label>-->
-        <!--<ion-toggle [(ngModel)]="pepperoni"></ion-toggle>-->
-    <!--</ion-item>-->
+    <ion-item>
+        <ion-label>隐藏过期目标</ion-label>
+        <ion-toggle [(ngModel)]="setting.hideExpireGoals"></ion-toggle>
+    </ion-item>
+    <ion-item *ngIf="user.is_vip">
+        <ion-label>开启排序</ion-label>
+        <ion-toggle [(ngModel)]="setting.enableSort"></ion-toggle>
+    </ion-item>
 </ion-list>

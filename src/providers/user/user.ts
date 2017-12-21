@@ -399,7 +399,9 @@ export class UserProvider {
 
         var d = <SettingModel> {
             viewMode: "list",
-            calendarMode: ""
+            calendarMode: "",
+            hideExpireGoals:false,
+            enableSort:false
         };
 
         return d;

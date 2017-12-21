@@ -87,6 +87,7 @@
     "jpush-phonegap-plugin": "3.2.12",
     "moment": "2.19.3",
     "ng2-charts": "^1.6.0",
+    "ng2-dragula": "^1.5.0",
     "ngx-clipboard": "^9.0.0",
     "rxjs": "5.5.2",
     "sw-toolbox": "3.6.0",

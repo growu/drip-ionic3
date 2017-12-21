@@ -1,10 +1,14 @@
-import {Component, ViewChild} from '@angular/core';
-import {NavController, Tabs, IonicPage, PopoverController, AlertController, ToastController} from 'ionic-angular';
+import {Component, ElementRef, ViewChild} from '@angular/core';
+import {
+    NavController, Tabs, IonicPage, PopoverController, AlertController, ToastController,
+    Content, Scroll
+} from 'ionic-angular';
 import {UserProvider} from '../../providers/user/user'
 import {ToastProvider} from '../../providers/toast/toast'
 import {SettingModel} from '../../models/setting.model'
 import * as moment from 'moment'
 import {Storage} from '@ionic/storage';
+import {DragulaService} from "ng2-dragula";
 
 @IonicPage({
     name: 'home',
@@ -18,21 +22,92 @@ export class HomePage {
     private currentDay: any = null;
     public setting: SettingModel = {
         viewMode: "list",
-        calendarMode: ""
+        calendarMode: "",
+        enableSort:false,
+        hideExpireGoals:false
     };
     public remindTime;
     public goals: any = [];
     public user: any = {};
+
+    @ViewChild('scrollElement') scrollElement;
+    @ViewChild(Content) content: Content;
+
 
     constructor(public navCtrl: NavController,
                 private popoverCtrl: PopoverController,
                 private userProvider: UserProvider,
                 private alertCtrl: AlertController,
                 public storage: Storage,
+                private elementRef:ElementRef,
+                private dragulaService: DragulaService,
                 private toastProvider: ToastProvider) {
+
+        dragulaService.setOptions('bag-one', {
+            directions:"horizontal",
+            moves: (el, source, handle, sibling) => {
+                if(this.setting.enableSort) {
+                    return !el.classList.contains('no-drag');
+                } else {
+                    return false;
+                }
+            }
+        });
+
+        dragulaService.drag.subscribe((value) => {
+            console.log(`drag: ${value[0]}`);
+            this.onDrag(value.slice(1));
+        });
+        dragulaService.drop.subscribe((value) => {
+        console.log(`drop: ${value[0]}`);
+        this.onDrop(value.slice(1));
+        });
+        dragulaService.over.subscribe((value) => {
+        console.log(`over: ${value[0]}`);
+        this.onOver(value.slice(1));
+        });
+        dragulaService.out.subscribe((value) => {
+        console.log(`out: ${value[0]}`);
+        this.onOut(value.slice(1));
+        });
+
     }
 
+    private onDrag(args) {
+        let [e, el] = args;
+        // do something
+    }
+
+    private onDrop(args) {
+        let [e, el] = args;
+        // do something
+    }
+
+    private onOver(args) {
+        let [e, el, container] = args;
+        // do something
+    }
+
+    private onOut(args) {
+        let [e, el, container] = args;
+        // do something
+    }
+
+    ionViewDidLoad()
+    {
+    }
+
+    ngAfterViewInit() {
+
+    }
+
+
     ionViewDidEnter() {
+
+        this.scrollElement.addScrollEventListener(($event) =>
+        {
+            console.log('Event');
+        });
 
         this.userProvider.getSetting().then((settingData) => {
             if (settingData) {
@@ -53,7 +128,25 @@ export class HomePage {
         } else {
             this.getGoals(null);
         }
+    }
 
+    saveGoalsOrder() {
+        this.setting.enableSort = false;
+        this.goals.forEach((item,index)=>{
+            if(item.status == 1) {
+                if(item.order != index) {
+                    let param = {
+                        order:index,
+                    };
+
+                    let body = JSON.stringify(param);
+
+                    this.userProvider.updateGoal(item.id, body).then((data) => {
+
+                    }).catch((err)=>{});
+                }
+            }
+        });
     }
 
     getGoals(date) {
@@ -168,6 +261,8 @@ export class HomePage {
     //     refresher.complete();
     //   }, 2000);
     // }
-
+    ngOnDestroy() {
+        this.dragulaService.destroy('bag-one');
+    }
 
 }

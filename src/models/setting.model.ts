@@ -13,4 +13,6 @@
 export interface SettingModel {
     viewMode: string;
     calendarMode: string;
+    enableSort:boolean;
+    hideExpireGoals:boolean;
 }

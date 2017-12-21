@@ -2,6 +2,7 @@ import {NgModule} from '@angular/core';
 import {HomePage} from './home';
 import {IonicPageModule} from 'ionic-angular';
 import {MyCalendarComponentModule} from '../../components/my-calendar/my-calendar.module';
+import {DragulaModule,DragulaService} from 'ng2-dragula/ng2-dragula';
 
 @NgModule({
     declarations: [
@@ -9,7 +10,8 @@ import {MyCalendarComponentModule} from '../../components/my-calendar/my-calenda
     ],
     imports: [
         IonicPageModule.forChild(HomePage),
-        MyCalendarComponentModule
+        MyCalendarComponentModule,
+        DragulaModule
     ],
     entryComponents: []
 })
