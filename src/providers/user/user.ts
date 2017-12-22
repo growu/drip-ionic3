@@ -465,4 +465,11 @@ export class UserProvider {
         return this.httpProvider.httpGetWithAuth("/user/"+id+"/followings", params);
     }
 
+    getCoinLogs(page, per_page) {
+        let params: URLSearchParams = new URLSearchParams();
+        params.set('page', page);
+        params.set('per_page', per_page);
+        return this.httpProvider.httpGetWithAuth("/user/coin/logs", params);
+    }
+
 }

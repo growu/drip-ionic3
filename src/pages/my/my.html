@@ -50,12 +50,14 @@
   </ion-row>
 
   <ion-list>
-    <!--<ion-item>-->
-      <!--我的收藏-->
-      <!--<ion-note clear item-end>-->
-        <!--<ion-icon name="arrow-forward"></ion-icon>-->
-      <!--</ion-note>-->
-    <!--</ion-item>-->
+    <ion-item (click)="goWalletPage()">
+      <ion-icon name="ios-card" item-start></ion-icon>
+      我的钱包
+      <ion-note clear item-end>
+        <!--<strong ion-text class="num" color="danger"> {{user.coin || '54,323'}} </strong>-->
+        <ion-icon name="arrow-forward"></ion-icon>
+      </ion-note>
+    </ion-item>
     <!--<ion-item>-->
       <!--我的徽章-->
       <!--<ion-note clear item-end>-->

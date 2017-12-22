@@ -50,4 +50,8 @@ export class MyPage {
     goUserHomePage() {
         this.navCtrl.push("user-home", {'id': this.user.id});
     }
+
+    goWalletPage() {
+        this.navCtrl.push("wallet", {'user': this.user});
+    }
 }

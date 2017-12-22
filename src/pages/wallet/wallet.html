@@ -1,0 +1,107 @@
+
+<ion-header>
+
+  <ion-navbar color="primary">
+    <ion-title>我的水滴币</ion-title>
+    <ion-buttons end>
+      <button ion-button clear (click)="goCoinLogPage()">
+        明细
+      </button>
+    </ion-buttons>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content>
+  <div class="wallet-header">
+  <ion-row >
+    <ion-col></ion-col>
+    <ion-col text-center><span class="num" ion-text>{{user?.coin || 0}}</span>
+    </ion-col>
+    <ion-col></ion-col>
+
+  </ion-row>
+  　
+  <!--<ion-row text-center>-->
+    <!--<ion-col>-->
+      <!--<button ion-button  block color="danger">充值</button>-->
+    <!--</ion-col>-->
+    <!--<ion-col>-->
+      <!--<button ion-button  block color="secondary">兑换</button>-->
+    <!--</ion-col>-->
+  <!--</ion-row>-->
+  </div>
+
+  <ion-list>
+    <ion-item>
+      <ion-icon name="md-phone-portrait" item-start></ion-icon>
+      <!--<ion-avatar item-start>-->
+      <!--<img src="img/avatar-cher.png">-->
+      <!--</ion-avatar>-->
+      <h2>每日登录</h2>
+      <p>单次+10,上限+10</p>
+    </ion-item>
+  </ion-list>
+
+  <ion-list>
+    <ion-item>
+      <ion-icon name="md-checkmark" item-start></ion-icon>
+      <!--<ion-avatar item-start>-->
+      <!--<img src="img/avatar-cher.png">-->
+    <!--</ion-avatar>-->
+    <h2>每日打卡</h2>
+    <p>单次+1,上限+100（连续打卡有额外奖励）</p>
+      <button ion-button item-end (click)="goCheckinPage()">去打卡</button>
+    </ion-item>
+  </ion-list>
+
+  <ion-list>
+    <ion-item>
+      <ion-icon name="md-share" item-start></ion-icon>
+      <!--<ion-avatar item-start>-->
+      <!--<img src="img/avatar-cher.png">-->
+      <!--</ion-avatar>-->
+      <h2>每日分享</h2>
+      <p>单次+2，上限+10，分享动态目标均可</p>
+      <button ion-button item-end (click)="goSharePage()">去分享</button>
+    </ion-item>
+  </ion-list>
+
+  <ion-list>
+    <ion-item>
+      <ion-icon name="ios-thumbs-up" item-start></ion-icon>
+      <!--<ion-avatar item-start>-->
+      <!--<img src="img/avatar-cher.png">-->
+      <!--</ion-avatar>-->
+      <h2>每日点赞</h2>
+      <p>单次+2，上限+10</p>
+      <button ion-button item-end (click)="goSharePage()">去点赞</button>
+    </ion-item>
+  </ion-list>
+
+  <ion-list>
+    <ion-item (click)="goFeedbackPage()">
+      <ion-icon name="ios-bug" item-start></ion-icon>
+      <!--<ion-avatar item-start>-->
+      <!--<img src="img/avatar-cher.png">-->
+      <!--</ion-avatar>-->
+      <h2>意见反馈</h2>
+      <p>单次+10（有效反馈）,上限10</p>
+      <button ion-button item-end>去反馈</button>
+    </ion-item>
+  </ion-list>
+
+  <ion-list>
+    <ion-item>
+      <ion-icon name="md-contacts" item-start></ion-icon>
+      <!--<ion-avatar item-start>-->
+      <!--<img src="img/avatar-cher.png">-->
+      <!--</ion-avatar>-->
+      <h2>邀请朋友</h2>
+      <p>单次+200，无上限</p>
+      <!--<button ion-button item-end>去邀请</button>-->
+    </ion-item>
+  </ion-list>
+
+</ion-content>

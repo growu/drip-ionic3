@@ -1,0 +1,45 @@
+<!--
+  Generated template for the CoinLogPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+  <ion-navbar color="primary">
+    <ion-title>水滴币明细</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding-top>
+
+  <ion-refresher (ionRefresh)="doRefresh($event)">
+    <ion-refresher-content
+            pullingIcon="arrow-dropdown"
+            pullingText="下拉刷新"
+            refreshingSpinner="circles"
+            refreshingText="加载中...">
+    </ion-refresher-content>
+  </ion-refresher>
+
+
+  <ion-list>
+    <ion-item *ngFor="let log of logs">
+      <h2>{{log.name}}</h2>
+      <p>{{log.created_at}}</p>
+      <span item-end ion-text color="primary" class="num" *ngIf="log.change>=0">+{{log.change}}</span>
+      <span item-end ion-text color="danger" class="num" *ngIf="log.change<0">{{log.change}}</span>
+
+    </ion-item>
+  </ion-list>
+
+
+  <ion-infinite-scroll (ionInfinite)="doInfinite($event)">
+    <ion-infinite-scroll-content
+            loadingSpinner="bubbles"
+            loadingText="加载更多">
+    </ion-infinite-scroll-content>
+  </ion-infinite-scroll>
+</ion-content>
