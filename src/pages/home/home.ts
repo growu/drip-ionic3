@@ -244,6 +244,7 @@ export class HomePage {
             user: this.user,
         }, {
             showBackdrop: true,
+            cssClass:'my-popover'
         });
 
         popover.present({

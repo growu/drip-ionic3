@@ -4,6 +4,7 @@ import {FormBuilder, FormGroup} from '@angular/forms';
 import {UserProvider} from "../../providers/user/user";
 import {ToolProvider} from "../../providers/tool/tool";
 import * as moment from 'moment'
+import swal from "sweetalert2";
 
 @IonicPage({
     name: "goal-checkin",
@@ -66,9 +67,22 @@ export class GoalCheckinPage {
         body.attachs = this.attachs;
 
         this.userProvider.checkinGoal(goal_id, body).then(data => {
-            if (data) {
-                this.navCtrl.pop();
+            if(data) {
+                swal({
+                    title: '打卡成功',
+                    html: '单次打卡奖励：+'+data.single_add_coin+'水滴币<br>连续打卡奖励：+'+data.series_add_coin+'水滴币',
+                    type: 'success',
+                    // timer: 2000,
+                    showConfirmButton: true,
+                    width: '80%',
+                    // padding: 0
+                }).then(() => {
+                }, dismiss => {
+                    this.navCtrl.pop();
+                });
+
             }
+
         });
     }
 

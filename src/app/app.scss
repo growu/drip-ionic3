@@ -69,3 +69,26 @@
   top: 10px;
   right: 35%;
 }
+
+.my-popover {
+  .popover-content {
+    width: 250px;
+  }
+}
+
+.icon-vip-copy {
+  font-size: 20px!important;
+}
+
+.segment-md .segment-button {
+  color: color($colors, gray) !important;
+}
+.segment-md .segment-button.segment-activated {
+  color: color($colors, primary) !important;
+  font-weight: bold;
+  .bolder-sm{
+    border: 5px solid color($colors, primary);
+    width: 20px;
+    margin: 0 auto;
+  }
+}

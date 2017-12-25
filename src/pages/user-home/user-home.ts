@@ -31,8 +31,6 @@ export class UserHomePage {
     }
 
     ionViewDidLoad() {
-        console.log(this.navParams.get('id'));
-
         this.userProvider.getUser(this.navParams.get('id')).then((data) => {
             if (data) {
                 this.user = data;

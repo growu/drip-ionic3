@@ -13,8 +13,9 @@
 <ion-content id="content">
     <ion-row text-center class="profile-row">
         <ion-col>
-            <img src="{{user.avatar_url || 'assets/img/default-avatar.jpg'}}">
-            <h2>{{user.nickname || '还没有昵称'}} <i class="iconfont icon-vip-copy" ion-text color="danger" *ngIf="user.is_vip" (click)="goVipPage()"></i></h2>
+            <img src="{{user.avatar_url || 'assets/img/default-avatar.jpg'}}" imageViewer>
+            <h2><span ion-text [color]="user.is_vip?'danger':'dark'">{{user.nickname || '还没有昵称'}}</span>
+<i class="iconfont icon-vip-copy" ion-text color="danger" *ngIf="user.is_vip" (click)="goVipPage()"></i></h2>
             <p>{{user.signature || ' '}}</p>
         </ion-col>
     </ion-row>

@@ -7,10 +7,68 @@
 </ion-header>
 
 <ion-content padding>
-    <p>「水滴会员」是一项面向高级用户开放的服务计划，开通会员后你将体验到一些更高级的功能.</p>
-    <p> 由于功能还不稳定，我们暂未开放支付渠道，只邀请了少量用户进行封闭测试。</p>
-    <p> 如果你感兴趣，请关注微信公众号 格吾社区（微信号：growuu）,发送暗号"水滴打卡内测"，即有机会免费体验这一功能。再次感谢大家的支持！</p>
-    <div text-center>
-        <img src="assets/img/mp_qrcode.jpg">
-    </div>
+
+    <ion-slides>
+        <ion-slide>
+            <h1>&nbsp;日历/周历视图</h1>
+            <br />
+            会员可以在目标列表的右上角菜单里选择自己的目标视图模式。<br />
+            <br />
+            <img src="http://file.growu.me/1513932612512_vip-10.png" style="height:415px; width:320px" /><br />
+            <br />
+            周历模式<br />
+            <br />
+            <img src="http://file.growu.me/1513932653462_vip-11.png" style="height:445px; width:320px" /><br />
+            <br />
+            日历模式<br />
+            <br />
+            <br />
+            <img src="http://file.growu.me/1513932663733_vip-12.png" style="height:388px; width:320px" /><br />
+            <br />
+            小提示：
+            <ol>
+                <li>日历视图开启后，向上👆或者向下👇滑动 日历，进行周历和月历模式的快速切换；</li>
+                <li>日历视图开启后，默认显示的是当天的计划列表，可以单击日期选择查看某一天的计划安排；</li>
+                <li>日历视图开启后，向左👈或向右👉滑动，可以切换到上一周（月）和下一周（月）。</li>
+            </ol>
+            <br />
+            如果想关闭此功能，直接在菜单栏选择&ldquo;不显示&rdquo;即可。
+        </ion-slide>
+        <ion-slide>
+            <h1>自定义排序</h1>
+            <br />
+            会员可以对目标的顺序进行自定义排序，<br />
+            <br />
+            具体入口：目标列表-菜单-自定义排序<br />
+            <br />
+            <img src="http://file.growu.me/1513934542374_QQ20171222-171507@2x.png" style="height:308px; width:320px" /><br />
+            <br />
+            开启排序后，就可以拖拽目标进行自定义排序了。<br />
+            <br />
+            <img src="http://file.growu.me/1513935208490_QQ20171222-171554@2x.png" style="height:310px; width:320px" /><br />
+            <br />
+            <br />
+            <img src="http://file.growu.me/1513935220674_QQ20171222-171626@2x.png" style="height:350px; width:320px" /><br />
+            <br />
+            <span style="color:#e74c3c"><span style="background-color:#ffffff">注意：排序完成后，请注意一定要点击右上角的&ldquo;☑️&rdquo;按钮保存排序，否则不生效。</span></span><br />
+            <br />
+            <span style="background-color:#ffffff"><span style="color:null">目标排序只针对&ldquo;进行中&rdquo;的目标，目标排序的总体规则仍然按照 未开始-&gt;进行中-&gt;已结束 由上往下显示。</span></span>
+        </ion-slide>
+    </ion-slides>
+
 </ion-content>
+
+<ion-footer>
+    <ion-list>
+        <ion-item>
+            <ion-thumbnail item-start>
+                <img src="{{user?.avatar_url || 'assets/img/default-avatar.jpg'}}">
+            </ion-thumbnail >
+            <h2>{{user?.nickname || '还没有昵称'}} <i class="iconfont icon-vip-copy" ion-text [color]="user?.is_vip?'danger':'gray'"></i></h2>
+            <p *ngIf="user?.is_vip">{{user.vip_end_date}}到期</p>
+            <p *ngIf="!user?.is_vip">未开通</p>
+            <button ion-button item-end *ngIf="user?.is_vip" (click)="showBuyPage()">去续期</button>
+            <button ion-button item-end *ngIf="!user?.is_vip" (click)="showBuyPage()">去开通</button>
+        </ion-item>
+    </ion-list>
+</ion-footer>

@@ -9,7 +9,8 @@ declare var Keyboard;
 
 @IonicPage({
     name: 'event-detail',
-    segment: 'event/:id/detail'
+    segment: 'event/:id/detail',
+    defaultHistory:['event']
 })
 @Component({
     selector: 'page-event-detail',

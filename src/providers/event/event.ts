@@ -7,8 +7,7 @@ import { URLSearchParams } from '@angular/http';
 @Injectable()
 export class EventProvider {
 
-  constructor(public http: Http,
-              public httpProvider: HttpProvider) {
+  constructor( public httpProvider: HttpProvider) {
   }
 
   like(id){

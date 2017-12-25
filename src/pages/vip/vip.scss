@@ -1,3 +1,9 @@
 page-vip {
+  ion-slides { height: initial; }
 
+  ion-footer {
+    ion-list {
+      margin-bottom: 0px!important;
+    }
+  }
 }

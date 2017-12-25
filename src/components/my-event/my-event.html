@@ -4,7 +4,7 @@
     <ion-avatar item-start>
       <img [src]="event.user?.avatar_url || 'assets/img/default-avatar.jpg'">
     </ion-avatar>
-    <h2>{{event.user?.nickname || '还没有昵称'}} </h2>
+    <h2 ion-text [color]="event.user.is_vip?'danger':'dark'">{{event.user?.nickname || '还没有昵称'}} </h2>
     <p>{{event.created_at | amLocale:"zh_cn" | amUtc | amTimeAgo }}</p>
   </ion-item>
 
