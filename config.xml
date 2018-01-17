@@ -91,44 +91,21 @@
         <config-file url="http://drip.growu.me/www/chcp.json" />
         <native-interface version="12" />
     </chcp>
-    <engine name="android" spec="^6.2.3" />
-    <engine name="ios" spec="^4.4.0" />
-    <plugin name="cordova-plugin-datepicker" spec="^0.9.3" />
-    <plugin name="cordova-plugin-console" spec="^1.0.5" />
-    <plugin name="cordova-plugin-device" spec="^1.1.4" />
-    <plugin name="cordova-plugin-splashscreen" spec="^4.0.3" />
-    <plugin name="cordova-plugin-whitelist" spec="^1.3.1" />
-    <plugin name="cordova-plugin-inappbrowser" spec="^1.7.1" />
-    <plugin name="com.synconset.imagepicker" spec="~2.1.8">
-        <variable name="PHOTO_LIBRARY_USAGE_DESCRIPTION" value=" " />
-    </plugin>
-    <plugin name="cordova-plugin-file-transfer" spec="^1.6.3" />
+    <engine name="android" spec="~7.0.0" />
+    <plugin name="cordova-plugin-camera" spec="^4.0.1" />
+    <plugin name="cordova-plugin-file-transfer" spec="^1.7.0" />
+    <plugin name="cordova-plugin-device" spec="^2.0.1" />
+    <plugin name="cordova-plugin-statusbar" spec="^2.4.1" />
     <plugin name="cordova-plugin-crop" spec="^0.4.0" />
-    <plugin name="cordova-plugin-file" spec="^4.3.3" />
-    <plugin name="cordova-sqlite-storage" spec="^2.0.4" />
-    <plugin name="cordova-plugin-wechat" spec="^2.0.0">
+    <plugin name="cordova-plugin-whitelist" spec="^1.3.3" />
+    <plugin name="cordova-plugin-x-socialsharing" spec="^5.2.1" />
+    <plugin name="cordova-plugin-inappbrowser" spec="^2.0.1" />
+    <plugin name="cordova-hot-code-push-plugin" spec="^1.5.3" />
+    <plugin name="cordova-plugin-ionic-keyboard" spec="^2.0.5" />
+    <plugin name="cordova-plugin-apprate" spec="^1.3.0" />
+    <plugin name="cordova-plugin-ionic-webview" spec="^1.1.16" />
+    <plugin name="cordova-plugin-wechat" spec="^2.1.0">
         <variable name="WECHATAPPID" value="wxac31b5ac3e65915a" />
     </plugin>
-    <plugin name="cordova-plugin-weibosdk" spec="^0.6.0">
-        <variable name="WEIBO_APP_ID" value="3987556016" />
-    </plugin>
-    <plugin name="cordova-plugin-qqsdk" spec="^0.9.6">
-        <variable name="QQ_APP_ID" value="1106192747" />
-    </plugin>
-    <plugin name="jpush-phonegap-plugin" spec="3.2.12">
-        <variable name="APP_KEY" value="46becc0d96be0a46d601867f" />
-    </plugin>
-    <plugin name="cordova-plugin-statusbar" spec="^2.2.3" />
-    <plugin name="cordova-hot-code-push-plugin" spec="^1.5.3" />
-    <plugin name="cordova-plugin-bugly-sdk" spec="0.0.1">
-        <variable name="ANDROID_APPID" value="a3f4bd261d" />
-        <variable name="IOS_APPID" value="986c38f567" />
-    </plugin>
-    <plugin name="cordova-plugin-camera" spec="^2.4.1">
-        <variable name="CAMERA_USAGE_DESCRIPTION" value=" " />
-        <variable name="PHOTOLIBRARY_USAGE_DESCRIPTION" value=" " />
-    </plugin>
-    <plugin name="cordova-plugin-x-socialsharing" spec="^5.2.1" />
-    <plugin name="cordova-plugin-ionic-webview" spec="^1.1.16" />
-    <plugin name="cordova-plugin-ionic-keyboard" spec="^2.0.4" />
+    <plugin name="cordova-plugin-compat" spec="^1.2.0" />
 </widget>

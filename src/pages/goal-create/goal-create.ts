@@ -95,6 +95,7 @@ export class GoalCreatePage {
                     showConfirmButton: false,
                     width: '80%'
                 }).then(() => {
+                    this.navCtrl.push('goal-detail', {id: data.id});
                 }, dismiss => {
                     this.navCtrl.push('goal-detail', {id: data.id});
                 });
