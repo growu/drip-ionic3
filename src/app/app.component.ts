@@ -1,10 +1,13 @@
-import {Component} from '@angular/core';
-import {Platform} from 'ionic-angular';
+import {Component, ViewChild} from '@angular/core';
+import {Nav, Platform} from 'ionic-angular';
 import {StatusBar} from '@ionic-native/status-bar';
 import {SplashScreen} from '@ionic-native/splash-screen';
 import {UserProvider} from '../providers/user/user';
 import {Storage} from '@ionic/storage';
 import { Keyboard } from '@ionic-native/keyboard';
+import { Deeplinks } from '@ionic-native/deeplinks';
+import { JPush } from '@jiguang-ionic/jpush';
+
 
 declare var chcp;
 
@@ -14,10 +17,13 @@ declare var chcp;
 
 export class MyApp {
     rootPage: any = 'welcome';
+    @ViewChild(Nav) nav:Nav;
 
     constructor(platform: Platform,
                 statusBar: StatusBar,
                 splashScreen: SplashScreen,
+                jpush: JPush,
+                private deeplinks:Deeplinks,
                 storage: Storage,
                 private keyboard: Keyboard,
     public userProvider: UserProvider) {
@@ -28,15 +34,38 @@ export class MyApp {
 
             if (platform.is('cordova')) {
 
-                (<any>window).plugins.jPushPlugin.init();
+                jpush.init();
+                jpush.setDebugMode(true);
+                jpush.setApplicationIconBadgeNumber(0);
 
-                if (!platform.is('android')) {
-                    (<any>window).plugins.jPushPlugin.setDebugModeFromIos(true);
-                    (<any>window).plugins.jPushPlugin.setApplicationIconBadgeNumber(0);
-                } else {
-                    (<any>window).plugins.jPushPlugin.setDebugMode(true);
-                    (<any>window).plugins.jPushPlugin.setStatisticsOpen(true);
-                }
+                document.addEventListener("jpush.openNotification", (event: any) => {
+                    var page;
+                    var params;
+
+                    if(platform.is('Android')) {
+                        page = event["extras"]["page"];
+                        params = event["extras"]["params"];
+                    } else {
+                        page = event["page"];
+                        params = event["params"];
+                    }
+
+                    if(page) {
+                        this.nav.push(page,params);
+                    }
+
+                }, false);
+
+
+                // this.deeplinks.routeWithNavController(this.nav, {
+                //     '/about': "about",
+                //     '/goal/:id/checkin': "goal-checkin",
+                // }).subscribe((match) => {
+                //     console.log('Successfully routed', match);
+                // }, (nomatch) => {
+                //     console.warn('Unmatched Route', nomatch);
+                // });
+
 
                 var appUpdate = {
                     // Application Constructor

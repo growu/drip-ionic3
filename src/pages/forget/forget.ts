@@ -110,6 +110,7 @@ export class ForgetPage {
                     width: '80%',
                     padding: 0
                 }).then(() => {
+                    this.navCtrl.push('login-default');
                 }, dismiss => {
                     this.navCtrl.push('login-default');
                 });

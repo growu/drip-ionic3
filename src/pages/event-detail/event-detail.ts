@@ -1,5 +1,5 @@
 import {Component, ElementRef, ViewChild} from '@angular/core';
-import {ActionSheetController, IonicPage, NavController, NavParams, Platform} from 'ionic-angular';
+import {ActionSheetController, App, IonicPage, NavController, NavParams, Platform} from 'ionic-angular';
 import {EventProvider} from '../../providers/event/event'
 import {MyShareController} from '../../components/my-share/my-share.controller'
 import {ToastProvider} from "../../providers/toast/toast";
@@ -28,6 +28,7 @@ export class EventDetailPage {
     constructor(public navCtrl: NavController,
                 public navParams: NavParams,
                 private platform: Platform,
+                private app: App,
                 public eventProvider: EventProvider,
                 private toastProvider: ToastProvider,
                 private commentProvider: CommentProvider,

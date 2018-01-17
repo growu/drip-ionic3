@@ -6,6 +6,7 @@ import {Device} from '@ionic-native/device';
 import {HttpProvider} from '../http/http';
 import {URLSearchParams} from '@angular/http';
 import {Platform} from "ionic-angular";
+import { JPush } from '@jiguang-ionic/jpush';
 
 declare var Wechat;
 declare var WeiboSDK;
@@ -17,6 +18,7 @@ export class UserProvider {
     constructor(public httpProvider: HttpProvider,
                 private storage: Storage,
                 private device: Device,
+                public jpush: JPush,
                 private platform: Platform) {
 
     }
@@ -41,8 +43,8 @@ export class UserProvider {
     getDevice(): Promise<any> {
         return new Promise((resolve, reject) => {
             if (this.platform.is('cordova')) {
-                (<any>window).plugins.jPushPlugin.getRegistrationID((data) => {
-                    console.log("获取极光推送ID" + data);
+                    this.jpush.getRegistrationID().then((id) => {
+                    console.log("获取极光推送ID" + id);
                     let device = {
                         cordova: this.device.cordova,
                         model: this.device.model,
@@ -52,7 +54,7 @@ export class UserProvider {
                         manufacturer: this.device.manufacturer,
                         isVirtual: this.device.isVirtual,
                         serial: this.device.serial,
-                        push_id: data
+                        push_id: id
                     };
                     resolve(device);
                 });

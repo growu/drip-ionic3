@@ -1,7 +1,7 @@
 import {Component, ElementRef, ViewChild} from '@angular/core';
 import {
     NavController, Tabs, IonicPage, PopoverController, AlertController, ToastController,
-    Content, Scroll
+    Content, Scroll, Platform
 } from 'ionic-angular';
 import {UserProvider} from '../../providers/user/user'
 import {ToastProvider} from '../../providers/toast/toast'
@@ -10,7 +10,7 @@ import * as moment from 'moment'
 import {Storage} from '@ionic/storage';
 import {DragulaService} from "ng2-dragula";
 import * as autoScroll from 'dom-autoscroller';
-
+import { NativeStorage } from '@ionic-native/native-storage';
 
 @IonicPage({
     name: 'home',
@@ -41,6 +41,8 @@ export class HomePage {
                 private userProvider: UserProvider,
                 private alertCtrl: AlertController,
                 public storage: Storage,
+                private platform: Platform,
+                private nativeStorage: NativeStorage,
                 private elementRef:ElementRef,
                 private dragulaService: DragulaService,
                 private toastProvider: ToastProvider) {
@@ -164,6 +166,33 @@ export class HomePage {
     getGoals(date) {
         this.userProvider.getGoals(date).then((data) => {
             this.goals = data;
+            if(this.platform.is('cordova')) {
+                alert(1);
+                if (!date) {
+                    let totalNum = data.length;
+                    let toBeNum = 0;
+                    let hasDoneNum = 0;
+
+                    data.forEach((item, index) => {
+                        if (item.is_checkin) {
+                            hasDoneNum++;
+                        } else {
+                            toBeNum++;
+                        }
+                    });
+
+                    this.nativeStorage.setItem('todayExtension', {
+                        toBeNum: toBeNum,
+                        hasDoneNum: hasDoneNum,
+                        totalNum: totalNum
+                    })
+                        .then(
+                            () => console.log('Stored item!'),
+                            error => console.error('Error storing item', error)
+                        );
+
+                }
+            }
         });
     }
 

@@ -67,6 +67,7 @@ export class LoginPage {
             showConfirmButton: false,
             width: '60%'
         }).then(() => {
+            this.navCtrl.push('main');
         }, dismiss => {
             this.navCtrl.push('main');
         });
