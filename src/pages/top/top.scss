@@ -1,0 +1,34 @@
+page-top{
+
+  .my-avatar {
+    img {
+      width:64px;
+      height:64px;
+      border-radius: 50%;
+      margin:0 auto;
+    }
+  }
+  .medal0{
+      color: #c2b51e;
+    }
+  .medal1{
+    color: #C0C0C0;
+  }
+  .medal2{
+    color: #c28c5f;
+  }
+
+  .no {
+    min-width: 24px;
+    font-size: 1.8rem;
+    color:#488aff;
+    text-align: center;
+  }
+
+  .count{
+    color:#488aff;
+    font-size:2.5rem;
+    font-weight:500;
+    font-family: "Oswald","Segoe UI", "Noto Sans", sans-serif;
+  }
+}

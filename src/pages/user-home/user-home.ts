@@ -51,6 +51,24 @@ export class UserHomePage {
     }
 
     ngAfterViewInit() {
+<<<<<<< HEAD
+=======
+
+<<<<<<< Updated upstream
+        console.log(this.navCtrl.getActiveChildNavs()[0]);
+
+        if(this.navCtrl.getActiveChildNavs().length>0){
+            this.navCtrl.getActiveChildNavs()[0].select(1);
+        }
+=======
+        // console.log(this.navCtrl.getActiveChildNavs()[0]);
+        //
+        // if(this.navCtrl.getActiveChildNavs().length>0){
+        //     this.navCtrl.getActiveChildNavs()[0].select(1);
+        // }
+>>>>>>> Stashed changes
+
+>>>>>>> master
         this.content.ionScroll.subscribe((scroll)=>{
             console.log('scrolling ', scroll);
 

@@ -41,8 +41,14 @@ export class UserProvider {
     getDevice(): Promise<any> {
         return new Promise((resolve, reject) => {
             if (this.platform.is('cordova')) {
+<<<<<<< HEAD
                 (<any>window).plugins.jPushPlugin.getRegistrationID((data) => {
                     console.log("获取极光推送ID" + data);
+=======
+<<<<<<< Updated upstream
+                    this.jpush.getRegistrationID().then((id) => {
+                    console.log("获取极光推送ID" + id);
+>>>>>>> master
                     let device = {
                         cordova: this.device.cordova,
                         model: this.device.model,
@@ -56,6 +62,30 @@ export class UserProvider {
                     };
                     resolve(device);
                 });
+=======
+                let device = {
+                    cordova: this.device.cordova,
+                    model: this.device.model,
+                    platform: this.device.platform,
+                    uuid: this.device.uuid,
+                    version: this.device.version,
+                    manufacturer: this.device.manufacturer,
+                    isVirtual: this.device.isVirtual,
+                    serial: this.device.serial,
+                    push_id:null
+                };
+
+                    this.jpush.getRegistrationID().then((id) => {
+                        console.log("获取极光推送ID:" + id);
+                        device.push_id = id;
+                        resolve(device);
+                    },
+                    (err)=>{
+                            console.log("获取极光推送错误");
+                            console.log(err);
+                            resolve(device);
+                    });
+>>>>>>> Stashed changes
             } else {
                 resolve(null);
             }
@@ -98,6 +128,28 @@ export class UserProvider {
         });
     }
 
+    doWechatBind(): Promise<any> {
+
+        return new Promise((resolve, reject) => {
+
+            if (this.platform.is('cordova')) {
+
+                var scope = "snsapi_userinfo",
+                    state = "_" + (+new Date());
+
+                Wechat.auth(scope, state, response => {
+                    this.bind('wechat',response).then((res)=>{
+                        resolve(res);
+                    }).catch((err)=>{
+                        reject(err);
+                    });
+                });
+            } else {
+                reject("非cordova平台");
+            }
+        });
+    }
+
     doQQLogin(): Promise<any> {
         return new Promise((resolve, reject) => {
             if (this.platform.is('cordova')) {
@@ -108,6 +160,29 @@ export class UserProvider {
 
                 QQSDK.ssoLogin(result => {
                     this.doThirdLogin(result,'qq').then((res)=>{
+                        resolve(res);
+                    }).catch((err)=>{
+                        reject(err);
+                    });
+                }, err => {
+                    reject(err);
+                }, args);
+            } else {
+                reject("非cordova平台");
+            }
+        });
+    }
+
+    doQQBind(): Promise<any> {
+        return new Promise((resolve, reject) => {
+            if (this.platform.is('cordova')) {
+
+                var args = {
+                    client: QQSDK.ClientType.QQ
+                };
+
+                QQSDK.ssoLogin(result => {
+                    this.bind('qq',result).then((res)=>{
                         resolve(res);
                     }).catch((err)=>{
                         reject(err);
@@ -144,77 +219,18 @@ export class UserProvider {
         });
     }
 
-    doWechatBind(): Promise<any> {
-        return new Promise((resolve, reject) => {
-            if (this.platform.is('cordova')) {
-                var scope = "snsapi_userinfo",
-                    state = "_" + (+new Date());
-
-                Wechat.auth(scope, state, response => {
-                    response.provider = 'wechat';
-                    response.device = this.device;
-
-                    this.httpProvider.httpPostWithAuth('/user/bind', response).then((data) => {
-                        console.log(data);
-                        resolve(data);
-                    }).catch((err) => {
-                        console.log(err);
-                        reject(err);
-                    });
-                }, reason => {
-                    reject(reason);
-                });
-            } else {
-                reject("非cordova平台");
-            }
-        });
-    }
-
-    doQQBind(): Promise<any> {
-
-        return new Promise((resolve, reject) => {
-            if (this.platform.is('cordova')) {
-
-                var args = {
-                    client: QQSDK.ClientType.QQ
-                };
-
-                QQSDK.ssoLogin(result => {
-
-                    result.provider = 'qq';
-                    result.device = this.device;
-
-                    this.httpProvider.httpPostWithAuth('/user/bind', result).then((data) => {
-                        console.log(data);
-                        resolve(data);
-                    }).catch((err) => {
-                        console.log(err);
-                        reject(err);
-                    });
-                }, err => {
-                    reject(err);
-                }, args);
-            } else {
-                reject("非cordova平台");
-            }
-
-        });
-    }
-
     doWeiboBind(): Promise<any> {
 
         return new Promise((resolve, reject) => {
             if (this.platform.is('cordova')) {
                 WeiboSDK.ssoLogin(result => {
 
-                    result.provider = 'qq';
-                    result.device = this.device;
+                    result.provider = 'weibo';
+                    result.device = this.getDevice();
 
-                    this.httpProvider.httpPostWithAuth('/user/bind', result).then((data) => {
-                        console.log(data);
-                        resolve(data);
-                    }).catch((err) => {
-                        console.log(err);
+                    this.bind('weibo',result).then((res)=>{
+                        resolve(res);
+                    }).catch((err)=>{
                         reject(err);
                     });
                 }, err => {
@@ -225,7 +241,6 @@ export class UserProvider {
             }
         });
     }
-
 
     checkWechatInstalled(): Promise<any> {
         return new Promise<any>((resolve, reject) => {
@@ -297,6 +312,16 @@ export class UserProvider {
 
     follow(id) {
         return this.httpProvider.httpPutWithAuth("/user/follow/" + id, null).then(value => {
+            return value;
+        }).catch(e => {
+            console.log(e)
+        });
+    }
+
+    bind(provider,param) {
+        let body = JSON.stringify(param);
+
+        return this.httpProvider.httpPostWithAuth("/user/bind/" + provider, body).then(value => {
             return value;
         }).catch(e => {
             console.log(e)
@@ -411,6 +436,10 @@ export class UserProvider {
         this.storage.set('setting', data);
     }
 
+    updateLocalUser(user) {
+        this.storage.set('user', user);
+    }
+
     getFanMessages(page, perPage) {
         var params = new URLSearchParams();
         params.set('page', page);
@@ -470,6 +499,14 @@ export class UserProvider {
         params.set('page', page);
         params.set('per_page', per_page);
         return this.httpProvider.httpGetWithAuth("/user/coin/logs", params);
+    }
+
+    buyVip(body) {
+        return this.httpProvider.httpPostWithAuth("/vip/buy", body).then(value => {
+            return value;
+        }).catch(e => {
+            console.log(e)
+        });
     }
 
 }

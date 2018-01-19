@@ -8,6 +8,16 @@ import {StatusBar} from '@ionic-native/status-bar';
 import {Keyboard} from '@ionic-native/keyboard';
 import {MyApp} from './app.component';
 import {IonicStorageModule} from '@ionic/storage';
+<<<<<<< HEAD
+=======
+import {Deeplinks} from '@ionic-native/deeplinks';
+import { JPush } from '@jiguang-ionic/jpush';
+import { NativeStorage } from '@ionic-native/native-storage';
+<<<<<<< Updated upstream
+=======
+import { NativeAudio } from '@ionic-native/native-audio';
+>>>>>>> Stashed changes
+>>>>>>> master
 
 import {MyHammerConfig} from '../components/MyHammerConfig'
 import {HAMMER_GESTURE_CONFIG} from '@angular/platform-browser';
@@ -20,6 +30,7 @@ import {ToastProvider} from '../providers/toast/toast';
 import {LoadingProvider} from '../providers/loading/loading';
 import {IonicImageViewerModule} from 'ionic-img-viewer';
 import {MyShareModule} from '../components/my-share/my-share.module';
+import { TopProvider } from '../providers/top/top';
 
 @NgModule({
     declarations: [
@@ -52,6 +63,16 @@ import {MyShareModule} from '../components/my-share/my-share.module';
         SplashScreen,
         Device,
         Keyboard,
+<<<<<<< HEAD
+=======
+        Deeplinks,
+        JPush,
+        NativeStorage,
+<<<<<<< Updated upstream
+=======
+        NativeAudio,
+>>>>>>> Stashed changes
+>>>>>>> master
         {provide: ErrorHandler, useClass: IonicErrorHandler},
         {
             provide: HAMMER_GESTURE_CONFIG,
@@ -64,6 +85,7 @@ import {MyShareModule} from '../components/my-share/my-share.module';
         CommentProvider,
         ToastProvider,
         LoadingProvider,
+        TopProvider,
     ]
 })
 export class AppModule {

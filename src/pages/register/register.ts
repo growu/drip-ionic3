@@ -41,6 +41,7 @@ export class RegisterPage {
 
     sendCode($event) {
         $event.preventDefault();
+
         if (!this.registerForm.controls.account.valid || this.registerForm.controls.account.errors) {
             this.toastProvider.show('请输入正确的手机号码或邮箱', 'error')
             return;

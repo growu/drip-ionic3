@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='utf-8'?>
-<widget id="me.growu.drip" version="1.2.0" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
+<widget id="me.growu.drip" version="1.3.0" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
     <name>水滴打卡</name>
     <description>一款习惯养成和目标管理工具</description>
     <author email="drip@growu.me" href="http://drip.growu.me/">格吾社区</author>
@@ -91,6 +91,7 @@
         <config-file url="http://drip.growu.me/www/chcp.json" />
         <native-interface version="12" />
     </chcp>
+<<<<<<< HEAD
     <engine name="android" spec="^6.2.3" />
     <engine name="ios" spec="^4.4.0" />
     <plugin name="cordova-plugin-datepicker" spec="^0.9.3" />
@@ -103,32 +104,83 @@
         <variable name="PHOTO_LIBRARY_USAGE_DESCRIPTION" value=" " />
     </plugin>
     <plugin name="cordova-plugin-file-transfer" spec="^1.6.3" />
+=======
+<<<<<<< Updated upstream
+    <engine name="android" spec="~7.0.0" />
+    <plugin name="cordova-plugin-camera" spec="^4.0.1" />
+    <plugin name="cordova-plugin-file-transfer" spec="^1.7.0" />
+    <plugin name="cordova-plugin-device" spec="^2.0.1" />
+    <plugin name="cordova-plugin-statusbar" spec="^2.4.1" />
+>>>>>>> master
     <plugin name="cordova-plugin-crop" spec="^0.4.0" />
     <plugin name="cordova-plugin-file" spec="^4.3.3" />
     <plugin name="cordova-sqlite-storage" spec="^2.0.4" />
     <plugin name="cordova-plugin-wechat" spec="^2.0.0">
         <variable name="WECHATAPPID" value="wxac31b5ac3e65915a" />
     </plugin>
+<<<<<<< HEAD
     <plugin name="cordova-plugin-weibosdk" spec="^0.6.0">
         <variable name="WEIBO_APP_ID" value="3987556016" />
+=======
+    <plugin name="cordova-plugin-compat" spec="^1.2.0" />
+=======
+    <plugin name="cordova-plugin-datepicker" spec="^0.9.3" />
+    <plugin name="cordova-plugin-console" spec="^1.0.5" />
+    <plugin name="com.synconset.imagepicker" spec="~2.1.8">
+        <variable name="PHOTO_LIBRARY_USAGE_DESCRIPTION" value=" " />
+    </plugin>
+    <plugin name="cordova-plugin-crop" spec="^0.4.0" />
+    <plugin name="cordova-plugin-wechat" spec="^2.0.0">
+        <variable name="WECHATAPPID" value="wxac31b5ac3e65915a" />
+>>>>>>> master
     </plugin>
     <plugin name="cordova-plugin-qqsdk" spec="^0.9.6">
         <variable name="QQ_APP_ID" value="1106192747" />
     </plugin>
+<<<<<<< HEAD
     <plugin name="jpush-phonegap-plugin" spec="3.2.12">
         <variable name="APP_KEY" value="46becc0d96be0a46d601867f" />
     </plugin>
+=======
+>>>>>>> master
     <plugin name="cordova-plugin-statusbar" spec="^2.2.3" />
     <plugin name="cordova-hot-code-push-plugin" spec="^1.5.3" />
     <plugin name="cordova-plugin-bugly-sdk" spec="0.0.1">
         <variable name="ANDROID_APPID" value="a3f4bd261d" />
         <variable name="IOS_APPID" value="986c38f567" />
     </plugin>
+<<<<<<< HEAD
+=======
+    <plugin name="cordova-plugin-x-socialsharing" spec="^5.2.1" />
+    <plugin name="cordova-plugin-ionic-webview" spec="^1.1.16" />
+    <plugin name="cordova-plugin-ionic-keyboard" spec="^2.0.4" />
+    <plugin name="jpush-phonegap-plugin" spec="^3.2.13">
+        <variable name="APP_KEY" value="46becc0d96be0a46d601867f" />
+    </plugin>
+    <plugin name="cordova-plugin-nativestorage" spec="^2.2.2" />
+    <plugin name="cordova-sqlite-storage" spec="^2.1.4" />
+    <plugin name="cordova-plugin-splashscreen" spec="^4.1.0" />
+    <plugin name="cordova-plugin-inappbrowser" spec="^1.7.2" />
+    <plugin name="cordova-plugin-weibosdk" spec="^0.6.1">
+        <variable name="WEIBO_APP_ID" value="3987556016" />
+    </plugin>
+    <plugin name="cordova-plugin-device" spec="^1.1.7" />
+>>>>>>> master
     <plugin name="cordova-plugin-camera" spec="^2.4.1">
         <variable name="CAMERA_USAGE_DESCRIPTION" value=" " />
         <variable name="PHOTOLIBRARY_USAGE_DESCRIPTION" value=" " />
     </plugin>
+<<<<<<< HEAD
     <plugin name="cordova-plugin-x-socialsharing" spec="^5.2.1" />
     <plugin name="cordova-plugin-ionic-webview" spec="^1.1.16" />
     <plugin name="cordova-plugin-ionic-keyboard" spec="^2.0.4" />
+=======
+    <plugin name="cordova-plugin-file-transfer" spec="^1.7.0" />
+    <plugin name="cordova-plugin-file" spec="^4.3.3" />
+    <allow-navigation href="http://192.168.2.211:8100" />
+    <plugin name="cordova-plugin-nativeaudio" spec="^3.0.9" />
+    <engine name="android" spec="^7.0.0" />
+    <engine name="ios" spec="^4.5.4" />
+>>>>>>> Stashed changes
+>>>>>>> master
 </widget>

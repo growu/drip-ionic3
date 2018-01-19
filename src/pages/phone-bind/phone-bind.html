@@ -1,0 +1,46 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-title>
+      绑定手机号
+    </ion-title>
+    <ion-buttons start>
+      <button ion-button (click)="dismiss()">
+        <span ion-text color="light" showWhen="ios">取消</span>
+        <ion-icon name="md-close" showWhen="android, windows"></ion-icon>
+      </button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content padding>
+  <ion-list>
+    <form [formGroup]="phoneBindForm" (ngSubmit)="doBind()">
+
+      <ion-list no-lines>
+        <ion-item >
+          <ion-label>
+            <ion-icon name="md-phone-portrait" color="light"></ion-icon>
+          </ion-label>
+          <ion-input type="text" placeholder="手机号" clearInput formControlName="account"></ion-input>
+        </ion-item>
+
+        <ion-item>
+          <ion-label>
+            <ion-icon name="ios-color-filter" color="light"></ion-icon>
+          </ion-label>
+          <ion-input type="text" placeholder="验证码" clearInput formControlName="code"></ion-input>
+
+          <button ion-button clear item-right (click)="sendCode($event)" #sendBtn [disabled]="isTimerStart">
+            {{timerText}}
+          </button>
+
+        </ion-item>
+
+      </ion-list>
+
+      <ion-row padding>
+        <button block round ion-button>绑定</button>
+      </ion-row>
+    </form>
+  </ion-list>
+</ion-content>

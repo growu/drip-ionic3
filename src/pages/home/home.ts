@@ -10,7 +10,16 @@ import * as moment from 'moment'
 import {Storage} from '@ionic/storage';
 import {DragulaService} from "ng2-dragula";
 import * as autoScroll from 'dom-autoscroller';
+<<<<<<< HEAD
 
+=======
+import { NativeStorage } from '@ionic-native/native-storage';
+<<<<<<< Updated upstream
+=======
+import { Events } from 'ionic-angular';
+
+>>>>>>> Stashed changes
+>>>>>>> master
 
 @IonicPage({
     name: 'home',
@@ -42,6 +51,7 @@ export class HomePage {
                 private alertCtrl: AlertController,
                 public storage: Storage,
                 private elementRef:ElementRef,
+                public events: Events,
                 private dragulaService: DragulaService,
                 private toastProvider: ToastProvider) {
 
@@ -73,6 +83,17 @@ export class HomePage {
         this.onOut(value.slice(1));
         });
 
+        events.subscribe('goals:update', () => {
+            console.log("goals:update");
+            if(this.setting.calendarMode) {
+                let today = moment().format("YYYY-MM-DD");
+                this.currentDay = today;
+                this.getGoals(today);
+            } else {
+                this.getGoals(null);
+            }
+        });
+
     }
 
     private onDrag(args) {
@@ -97,6 +118,26 @@ export class HomePage {
 
     ionViewDidLoad()
     {
+
+        this.userProvider.getSetting().then((settingData) => {
+            if (settingData) {
+                this.setting = settingData;
+            } else {
+                this.setting = this.userProvider.getDefaultSetting();
+            }
+        });
+
+        this.storage.get('user').then((data) => {
+            this.user = data;
+        });
+
+        if(this.setting.calendarMode) {
+            let today = moment().format("YYYY-MM-DD");
+            this.currentDay = today;
+            this.getGoals(today);
+        } else {
+            this.getGoals(null);
+        }
     }
 
     ngAfterViewInit() {
@@ -119,28 +160,6 @@ export class HomePage {
     }
 
 
-    ionViewDidEnter() {
-
-        this.userProvider.getSetting().then((settingData) => {
-            if (settingData) {
-                this.setting = settingData;
-            } else {
-                this.setting = this.userProvider.getDefaultSetting();
-            }
-        });
-
-        this.storage.get('user').then((data) => {
-            this.user = data;
-        });
-
-        if(this.setting.calendarMode) {
-            let today = moment().format("YYYY-MM-DD");
-            this.currentDay = today;
-            this.getGoals(today);
-        } else {
-            this.getGoals(null);
-        }
-    }
 
     saveGoalsOrder() {
         this.setting.enableSort = false;
@@ -164,6 +183,39 @@ export class HomePage {
     getGoals(date) {
         this.userProvider.getGoals(date).then((data) => {
             this.goals = data;
+<<<<<<< HEAD
+=======
+            if(this.platform.is('cordova')) {
+<<<<<<< Updated upstream
+                alert(1);
+=======
+>>>>>>> Stashed changes
+                if (!date) {
+                    let totalNum = data.length;
+                    let toBeNum = 0;
+                    let hasDoneNum = 0;
+
+                    data.forEach((item, index) => {
+                        if (item.is_checkin) {
+                            hasDoneNum++;
+                        } else {
+                            toBeNum++;
+                        }
+                    });
+
+                    this.nativeStorage.setItem('todayExtension', {
+                        toBeNum: toBeNum,
+                        hasDoneNum: hasDoneNum,
+                        totalNum: totalNum
+                    })
+                        .then(
+                            () => console.log('Stored item!'),
+                            error => console.error('Error storing item', error)
+                        );
+
+                }
+            }
+>>>>>>> master
         });
     }
 

@@ -7,6 +7,7 @@ import {LoadingProvider} from "./../../providers/loading/loading";
 import * as moment from 'moment'
 import swal from 'sweetalert2'
 import {UserProvider} from "../../providers/user/user";
+import { Events } from 'ionic-angular';
 
 @IonicPage({
     name: 'goal-edit',
@@ -31,6 +32,7 @@ export class GoalEditPage {
                 private userProvider: UserProvider,
                 private alertCtrl: AlertController,
                 private goalProvider: GoalProvider,
+                public events: Events,
                 public navParams: NavParams) {
 
         this.goalEditForm = this.formBuilder.group({
@@ -67,6 +69,14 @@ export class GoalEditPage {
                     showConfirmButton: false,
                     width: '80%'
                 }).then(() => {
+<<<<<<< HEAD
+=======
+<<<<<<< Updated upstream
+=======
+                    this.events.publish('goals:update', {});
+>>>>>>> Stashed changes
+                    this.navCtrl.pop();
+>>>>>>> master
                 }, dismiss => {
                     this.navCtrl.pop();
                 });
