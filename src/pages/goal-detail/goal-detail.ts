@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import {Events, IonicPage, NavController, NavParams, PopoverController} from 'ionic-angular';
+import {IonicPage, NavController, NavParams, PopoverController} from 'ionic-angular';
 import { SuperTabsController } from "ionic2-super-tabs/dist/index";
 import { UserProvider } from '../../providers/user/user'
 
@@ -24,15 +24,9 @@ export class GoalDetailPage {
 
   constructor(public navCtrl: NavController,
               public navParams: NavParams,
-              private events: Events,
               private userProvider: UserProvider,
               private superTabsCtrl: SuperTabsController,
               private popoverCtrl: PopoverController) {
-
-      events.subscribe('goals:update', () => {
-          // user and time are the same arguments passed in `events.publish(user, time)`
-          this.getGoal();
-      });
   }
 
   getGoal() {

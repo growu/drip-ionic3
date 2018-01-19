@@ -1,11 +1,7 @@
 import {Component} from '@angular/core';
-import {
-    IonicPage, NavController, NavParams, ActionSheetController, App, ModalController,
-    ViewController
-} from 'ionic-angular';
+import {IonicPage, NavController, NavParams, ActionSheetController, App} from 'ionic-angular';
 import {Storage} from '@ionic/storage';
 import {UserProvider} from "./../../providers/user/user";
-import {ToastProvider} from "../../providers/toast/toast";
 
 @IonicPage({
     name: "account"
@@ -23,9 +19,7 @@ export class AccountPage {
 
     constructor(public navCtrl: NavController,
                 public navParams: NavParams,
-                public modalCtrl: ModalController,
                 private userProvider: UserProvider,
-                private toastProvider:ToastProvider,
                 private app: App,
                 public actionSheetCtrl: ActionSheetController,
                 private storage: Storage) {
@@ -49,66 +43,9 @@ export class AccountPage {
         });
     }
 
+    showBindMenu(provider) {
 
-    doBindPhone() {
-        if(this.user.phone) return;
-        let modal = this.modalCtrl.create('phone-bind');
-        modal.present();
-    }
-
-    doBindEmail() {
-        if(this.user.email) return;
-        let modal = this.modalCtrl.create('email-bind');
-        modal.present();
-    }
-
-    doBindWechat() {
-        if(this.user.wechat.nickname) return;
-
-        this.userProvider.doWechatBind().then((ret)=>{
-            if(ret) {
-                this.storage.set('user',ret);
-                this.user = ret;
-                this.toastProvider.show("绑定成功",'success');
-            }
-        }).catch((err)=>{
-
-        });
-    }
-
-    doBindQQ() {
-
-        if(this.user.qq.nickname) return;
-
-        this.userProvider.doQQBind().then((ret)=>{
-            if(ret) {
-                this.storage.set('user',ret);
-                this.user = ret;
-                this.toastProvider.show("绑定成功",'success');
-            }
-        }).catch((err)=>{
-
-        });
-    }
-
-    doBindWeibo() {
-
-        if(this.user.weibo.nickname) return;
-
-        this.userProvider.doWeiboBind().then((ret)=>{
-            if(ret) {
-                this.storage.set('user',ret);
-                this.user = ret;
-                this.toastProvider.show("绑定成功",'success');
-            }
-        }).catch((err)=>{
-
-        });
-    }
-
-
-
-        showBindMenu(provider) {
+        return;
 
         // console.log(this.user[provider].nickname);
         //

@@ -2,7 +2,6 @@ import {Component} from '@angular/core';
 import {App, NavController, NavParams, IonicPage} from "ionic-angular";
 import {UserProvider} from '../../providers/user/user'
 import {ToastProvider} from "../../providers/toast/toast";
-import { NativeAudio } from '@ionic-native/native-audio';
 
 @IonicPage({
     name: "goal-detail-summary",
@@ -20,21 +19,13 @@ export class GoalDetailSummaryPage {
 
     constructor(public navCtrl: NavController,
                 private app: App,
-                private nativeAudio: NativeAudio,
                 public navParams: NavParams,
                 private toastProvider:ToastProvider,
                 private userProvider: UserProvider) {
         console.log(navParams);
 
         this.rootNavCtrl = navParams.get('rootNavCtrl');
-
-        this.nativeAudio.preloadSimple('uniqueId1', 'assets/audio/water.mp3').then(()=>{
-            console.log("audio load succ");
-        }, (err)=>{
-            console.log("audio load err");
-            console.log(err);
-        });
-
+        console.log(this.rootNavCtrl);
     }
 
     ionViewDidEnter() {
@@ -63,12 +54,7 @@ export class GoalDetailSummaryPage {
             return;
         }
 
-        this.nativeAudio.play('uniqueId1', () => {
-            console.log('uniqueId1 is done playing');
-        });
-
         this.app.getRootNav().push('goal-checkin', {'id': this.navParams.data.id});
-
     }
 
     getGoalWeek() {
