@@ -1,10 +1,43 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+<ion-header no-border>
 
-</body>
-</html>
+    <ion-navbar color="primary">
+        <ion-title>排行榜</ion-title>
+
+    </ion-navbar>
+</ion-header>
+
+<ion-content>
+
+   　<ion-list>
+        <ion-card padding>
+            <ion-row text-center>
+                <ion-col>
+                    <p>我的排名</p>
+                    <p class="count">{{ret?.rank || '--'}}</p>
+                </ion-col>
+                <ion-col text-center class="my-avatar">
+                    <img [src]="user?.avatar_url || 'assets/img/default-avatar.jpg'">
+                </ion-col>
+                <ion-col>
+                    <p>我的打卡</p>
+                    <p class="count">{{ret?.count || '--'}}</p>
+                </ion-col>
+            </ion-row>
+        </ion-card>
+    </ion-list>
+
+    <ion-list no-lines>
+
+        <ion-item *ngFor="let user of users;let i = index">
+            <ion-icon *ngIf="i<=2" item-start name="md-medal" [ngClass]="'medal'+i"></ion-icon>
+            <ion-note *ngIf="i>2" item-start class="no"> {{i+1}}</ion-note>
+            <ion-avatar item-start >
+                <img [src]="user.avatar_url || 'assets/img/default-avatar.jpg'">
+            </ion-avatar>
+            <h2>{{user.nickname|| '低调人士'}}</h2>
+            <ion-note item-end class="count">{{user.checkin_count}}</ion-note>
+            <!--<ion-icon item-end name="heart-outline"></ion-icon>-->
+        </ion-item>
+    </ion-list>
+
+</ion-content>

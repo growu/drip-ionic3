@@ -14,17 +14,17 @@
 
 <ion-content class="page-account">
     <ion-list>
-        <ion-item (click)="showBindMenu('phone')">
+        <ion-item (click)="doBindPhone()">
             手机号
             <ion-note clear item-end>
-                {{user?.phone || '未设置'}}
+                {{user?.phone || '未绑定'}}
                 <ion-icon name="arrow-forward"></ion-icon>
             </ion-note>
         </ion-item>
-        <ion-item (click)="showBindMenu('email')">
+        <ion-item (click)="doBindEmail()">
             电子邮箱
             <ion-note clear item-end>
-                {{user?.email || '未设置'}}
+                {{user?.email || '未绑定'}}
                 <ion-icon name="arrow-forward"></ion-icon>
             </ion-note>
         </ion-item>
@@ -34,21 +34,21 @@
         <ion-list-header>
             第三方账号
         </ion-list-header>
-        <ion-item (click)="showBindMenu('wechat')">
+        <ion-item (click)="doBindWechat()">
             微信
             <ion-note clear item-end>
                 {{ user.wechat?.nickname || '未绑定'}}
                 <ion-icon name="arrow-forward"></ion-icon>
             </ion-note>
         </ion-item>
-        <ion-item (click)="showBindMenu('weibo')">
+        <ion-item (click)="doBindWeibo()">
             微博
             <ion-note clear item-end>
-                {{ user.weibo?.weibo|| '未绑定'}}
+                {{ user.weibo?.nickname || '未绑定'}}
                 <ion-icon name="arrow-forward"></ion-icon>
             </ion-note>
         </ion-item>
-        <ion-item (click)="showBindMenu('qq')">
+        <ion-item (click)="doBindQQ()">
             QQ
             <ion-note clear item-end>
                 {{ user.qq?.nickname || '未绑定'}}

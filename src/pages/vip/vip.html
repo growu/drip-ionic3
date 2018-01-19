@@ -67,8 +67,7 @@
             <h2>{{user?.nickname || '还没有昵称'}} <i class="iconfont icon-vip-copy" ion-text [color]="user?.is_vip?'danger':'gray'"></i></h2>
             <p *ngIf="user?.is_vip">{{user.vip_end_date}}到期</p>
             <p *ngIf="!user?.is_vip">未开通</p>
-            <button ion-button item-end *ngIf="user?.is_vip" (click)="showBuyPage()">去续期</button>
-            <button ion-button item-end *ngIf="!user?.is_vip" (click)="showBuyPage()">去开通</button>
+            <button ion-button item-end  (click)="showBuyPage()">兑换</button>
         </ion-item>
     </ion-list>
 </ion-footer>

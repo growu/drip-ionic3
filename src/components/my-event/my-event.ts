@@ -111,7 +111,11 @@ export class MyEventComponent {
     }
 
     goUserHomePage(user) {
+<<<<<<< Updated upstream
         // this.app.getRootNavs()[0].push('user-home', {id: user.id});
+=======
+        // this.navCtrl.push('user-home', {id: user.id});
+>>>>>>> Stashed changes
     }
 
     // goTopicPage(topic) {

@@ -1,10 +1,11 @@
 import {Component} from '@angular/core';
-import {App, NavController, NavParams, IonicPage} from "ionic-angular";
+import {App, NavController, NavParams, IonicPage, Events} from "ionic-angular";
 import {FormBuilder, FormGroup} from '@angular/forms';
 import {UserProvider} from "../../providers/user/user";
 import {ToolProvider} from "../../providers/tool/tool";
 import * as moment from 'moment'
 import swal from "sweetalert2";
+
 
 @IonicPage({
     name: "goal-checkin",
@@ -27,6 +28,7 @@ export class GoalCheckinPage {
     constructor(public navCtrl: NavController,
                 public navParams: NavParams,
                 public app: App,
+                private events: Events,
                 private formBuilder: FormBuilder,
                 private  userProvider: UserProvider,
                 private toolProvider: ToolProvider,
@@ -77,6 +79,10 @@ export class GoalCheckinPage {
                     width: '80%',
                     // padding: 0
                 }).then(() => {
+<<<<<<< Updated upstream
+=======
+                    this.events.publish('goals:update', {});
+>>>>>>> Stashed changes
                     this.navCtrl.pop();
                 }, dismiss => {
                     this.navCtrl.pop();
