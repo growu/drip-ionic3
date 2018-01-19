@@ -11,10 +11,7 @@ import {IonicStorageModule} from '@ionic/storage';
 import {Deeplinks} from '@ionic-native/deeplinks';
 import { JPush } from '@jiguang-ionic/jpush';
 import { NativeStorage } from '@ionic-native/native-storage';
-<<<<<<< Updated upstream
-=======
 import { NativeAudio } from '@ionic-native/native-audio';
->>>>>>> Stashed changes
 
 import {MyHammerConfig} from '../components/MyHammerConfig'
 import {HAMMER_GESTURE_CONFIG} from '@angular/platform-browser';
@@ -63,10 +60,7 @@ import { TopProvider } from '../providers/top/top';
         Deeplinks,
         JPush,
         NativeStorage,
-<<<<<<< Updated upstream
-=======
         NativeAudio,
->>>>>>> Stashed changes
         {provide: ErrorHandler, useClass: IonicErrorHandler},
         {
             provide: HAMMER_GESTURE_CONFIG,

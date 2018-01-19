@@ -16,16 +16,16 @@ import {ToastProvider} from "../../providers/toast/toast";
 })
 export class AccountPage {
     public user: any = {
-        wechat:null,
-        qq:null,
-        weibo:null
+        wechat: null,
+        qq: null,
+        weibo: null
     };
 
     constructor(public navCtrl: NavController,
                 public navParams: NavParams,
                 public modalCtrl: ModalController,
                 private userProvider: UserProvider,
-                private toastProvider:ToastProvider,
+                private toastProvider: ToastProvider,
                 private app: App,
                 public actionSheetCtrl: ActionSheetController,
                 private storage: Storage) {
@@ -44,71 +44,69 @@ export class AccountPage {
     doLogout() {
         this.storage.clear().then((data) => {
             // this.navCtrl.push('login');
-            this.app.getRootNav().push('login',{});
+            this.app.getRootNav().push('login', {});
 
         });
     }
 
 
     doBindPhone() {
-        if(this.user.phone) return;
+        if (this.user.phone) return;
         let modal = this.modalCtrl.create('phone-bind');
         modal.present();
     }
 
     doBindEmail() {
-        if(this.user.email) return;
+        if (this.user.email) return;
         let modal = this.modalCtrl.create('email-bind');
         modal.present();
     }
 
     doBindWechat() {
-        if(this.user.wechat.nickname) return;
+        if (this.user.wechat.nickname) return;
 
-        this.userProvider.doWechatBind().then((ret)=>{
-            if(ret) {
-                this.storage.set('user',ret);
+        this.userProvider.doWechatBind().then((ret) => {
+            if (ret) {
+                this.storage.set('user', ret);
                 this.user = ret;
-                this.toastProvider.show("绑定成功",'success');
+                this.toastProvider.show("绑定成功", 'success');
             }
-        }).catch((err)=>{
-
+        }).catch((err) => {
         });
     }
 
     doBindQQ() {
 
-        if(this.user.qq.nickname) return;
+        if (this.user.qq.nickname) return;
 
-        this.userProvider.doQQBind().then((ret)=>{
-            if(ret) {
-                this.storage.set('user',ret);
+        this.userProvider.doQQBind().then((ret) => {
+            if (ret) {
+                this.storage.set('user', ret);
                 this.user = ret;
-                this.toastProvider.show("绑定成功",'success');
+                this.toastProvider.show("绑定成功", 'success');
             }
-        }).catch((err)=>{
+        }).catch((err) => {
 
         });
     }
 
     doBindWeibo() {
 
-        if(this.user.weibo.nickname) return;
+        if (this.user.weibo.nickname) return;
 
-        this.userProvider.doWeiboBind().then((ret)=>{
-            if(ret) {
-                this.storage.set('user',ret);
+        this.userProvider.doWeiboBind().then((ret) => {
+            if (ret) {
+                this.storage.set('user', ret);
                 this.user = ret;
-                this.toastProvider.show("绑定成功",'success');
+                this.toastProvider.show("绑定成功", 'success');
             }
-        }).catch((err)=>{
+        }).catch((err) => {
 
         });
     }
 
 
-
-        showBindMenu(provider) {
+    showBindMenu(provider) {
 
         // console.log(this.user[provider].nickname);
         //

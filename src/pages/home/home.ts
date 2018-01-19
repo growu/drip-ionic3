@@ -11,12 +11,7 @@ import {Storage} from '@ionic/storage';
 import {DragulaService} from "ng2-dragula";
 import * as autoScroll from 'dom-autoscroller';
 import { NativeStorage } from '@ionic-native/native-storage';
-<<<<<<< Updated upstream
-=======
 import { Events } from 'ionic-angular';
-
->>>>>>> Stashed changes
-
 @IonicPage({
     name: 'home',
     segment: 'home'
@@ -182,10 +177,6 @@ export class HomePage {
         this.userProvider.getGoals(date).then((data) => {
             this.goals = data;
             if(this.platform.is('cordova')) {
-<<<<<<< Updated upstream
-                alert(1);
-=======
->>>>>>> Stashed changes
                 if (!date) {
                     let totalNum = data.length;
                     let toBeNum = 0;

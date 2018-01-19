@@ -43,23 +43,7 @@ export class UserProvider {
     getDevice(): Promise<any> {
         return new Promise((resolve, reject) => {
             if (this.platform.is('cordova')) {
-<<<<<<< Updated upstream
-                    this.jpush.getRegistrationID().then((id) => {
-                    console.log("获取极光推送ID" + id);
-                    let device = {
-                        cordova: this.device.cordova,
-                        model: this.device.model,
-                        platform: this.device.platform,
-                        uuid: this.device.uuid,
-                        version: this.device.version,
-                        manufacturer: this.device.manufacturer,
-                        isVirtual: this.device.isVirtual,
-                        serial: this.device.serial,
-                        push_id: id
-                    };
-                    resolve(device);
-                });
-=======
+
                 let device = {
                     cordova: this.device.cordova,
                     model: this.device.model,
@@ -82,7 +66,6 @@ export class UserProvider {
                             console.log(err);
                             resolve(device);
                     });
->>>>>>> Stashed changes
             } else {
                 resolve(null);
             }

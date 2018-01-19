@@ -69,10 +69,7 @@ export class GoalEditPage {
                     showConfirmButton: false,
                     width: '80%'
                 }).then(() => {
-<<<<<<< Updated upstream
-=======
                     this.events.publish('goals:update', {});
->>>>>>> Stashed changes
                     this.navCtrl.pop();
                 }, dismiss => {
                     this.navCtrl.pop();

@@ -4,43 +4,25 @@
 
 # 如何使用
 
-## 安装CLI
 
 ```bash
-$ sudo npm install -g ionic cordova
-```
-## 浏览器调试
-
-```bash
-$ ionic serve
-```
-
-## 设备调试
-
-```bash
-npm install -g ios-sim
+npm install
 ```
 
 ```bash
-npm install -g ios-deploy
+ionic cordova platform add ios
 ```
 
 ```bash
-ionic cordova add platform ios
+ionic cordova platform add android
 ```
 
-```bash
-ionic cordova add platform android
-```
+# 注意事项
 
-```bash
-ionic cordova run android
-```
+由于ionic2-super-tabs插件的问题
 
-# 热更新
-
-本APP内置了[cordova-hot-code-plugin](https://github.com/nordnet/cordova-hot-code-push)插件。
-如果你要使用该功能，请参考其他文档修改对应配置。
+需要手动复制文件https://raw.githubusercontent.com/zyra/ionic2-super-tabs/master/src/components/super-tabs.scss
+到*node_modules/ionic2-super-tabs/dist/components*下
 
 # ionic v1
 
@@ -53,8 +35,6 @@ ionic v1版本的源码可以参考[drip-ionic](https://github.com/growu/drip-io
 # 下载体验
 
  AppStore:[已上架](https://itunes.apple.com/cn/app/id1255579223)
-
- GooglePlay: 暂未上架
 
  国内安卓各大市场，搜索"水滴打卡"即可。
 
