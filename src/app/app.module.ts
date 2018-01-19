@@ -8,9 +8,6 @@ import {StatusBar} from '@ionic-native/status-bar';
 import {Keyboard} from '@ionic-native/keyboard';
 import {MyApp} from './app.component';
 import {IonicStorageModule} from '@ionic/storage';
-import {Deeplinks} from '@ionic-native/deeplinks';
-import { JPush } from '@jiguang-ionic/jpush';
-import { NativeStorage } from '@ionic-native/native-storage';
 
 import {MyHammerConfig} from '../components/MyHammerConfig'
 import {HAMMER_GESTURE_CONFIG} from '@angular/platform-browser';
@@ -55,9 +52,6 @@ import {MyShareModule} from '../components/my-share/my-share.module';
         SplashScreen,
         Device,
         Keyboard,
-        Deeplinks,
-        JPush,
-        NativeStorage,
         {provide: ErrorHandler, useClass: IonicErrorHandler},
         {
             provide: HAMMER_GESTURE_CONFIG,

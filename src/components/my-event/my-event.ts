@@ -1,5 +1,5 @@
 import {ChangeDetectorRef, Component, ElementRef, Input, Renderer2} from '@angular/core';
-import {ActionSheetController, App, NavController, NavParams} from 'ionic-angular';
+import {ActionSheetController, App, NavController} from 'ionic-angular';
 import {EventProvider} from '../../providers/event/event'
 import {MyShareController} from "../my-share/my-share.controller";
 import {DomSanitizer} from "@angular/platform-browser";
@@ -16,7 +16,6 @@ export class MyEventComponent {
     constructor(public actionSheetCtrl: ActionSheetController,
                 private myShareCtrl: MyShareController,
                 private navCtrl: NavController,
-                private navParams:NavParams,
                 private app: App,
                 private elRef: ElementRef,
                 private cdRef: ChangeDetectorRef,
@@ -111,7 +110,7 @@ export class MyEventComponent {
     }
 
     goUserHomePage(user) {
-        // this.app.getRootNavs()[0].push('user-home', {id: user.id});
+        this.navCtrl.push('user-home', {id: user.id});
     }
 
     // goTopicPage(topic) {

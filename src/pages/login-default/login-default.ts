@@ -61,7 +61,6 @@ export class LoginDefaultPage {
                     width: '80%',
                     padding: 0
                 }).then(() => {
-                    this.navCtrl.push('main');
                 }, dismiss => {
                     this.navCtrl.push('main');
                 });

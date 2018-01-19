@@ -5,7 +5,6 @@ import { SuperTabsController } from "ionic2-super-tabs/dist/index";
 import { Content} from 'ionic-angular'
 
 @IonicPage({
-    priority: 'high',
     name: 'user-home',
     segment: 'user/:id/home'
 })
@@ -52,13 +51,6 @@ export class UserHomePage {
     }
 
     ngAfterViewInit() {
-
-        console.log(this.navCtrl.getActiveChildNavs()[0]);
-
-        if(this.navCtrl.getActiveChildNavs().length>0){
-            this.navCtrl.getActiveChildNavs()[0].select(1);
-        }
-
         this.content.ionScroll.subscribe((scroll)=>{
             console.log('scrolling ', scroll);
 

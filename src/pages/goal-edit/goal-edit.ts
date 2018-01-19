@@ -67,7 +67,6 @@ export class GoalEditPage {
                     showConfirmButton: false,
                     width: '80%'
                 }).then(() => {
-                    this.navCtrl.pop();
                 }, dismiss => {
                     this.navCtrl.pop();
                 });

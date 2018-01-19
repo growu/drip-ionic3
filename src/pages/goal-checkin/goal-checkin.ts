@@ -77,7 +77,6 @@ export class GoalCheckinPage {
                     width: '80%',
                     // padding: 0
                 }).then(() => {
-                    this.navCtrl.pop();
                 }, dismiss => {
                     this.navCtrl.pop();
                 });

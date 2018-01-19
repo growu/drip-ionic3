@@ -77,20 +77,20 @@ export class MyShareImageModal {
             var w = source.scrollWidth;
             var h = source.scrollHeight;
 
-            // var canvasDom = document.createElement("canvas");
-            // canvasDom.width = w * 2;
-            // canvasDom.height = h * 2;
-            // canvasDom.style.width = w + "px";
-            // canvasDom.style.height = h + "px";
-            // var context = canvasDom.getContext("2d");
-            // // 然后将画布缩放，将图像放大两倍画到画布上
-            // context.scale(2, 2);
+            var canvasDom = document.createElement("canvas");
+            canvasDom.width = w * 2;
+            canvasDom.height = h * 2;
+            canvasDom.style.width = w + "px";
+            canvasDom.style.height = h + "px";
+            var context = canvasDom.getContext("2d");
+            // 然后将画布缩放，将图像放大两倍画到画布上
+            context.scale(2, 2);
 
             const options = {
                 background: "white",
-                //canvas: canvasDom,
-                // height: w,
-                // width: h,
+                canvas: canvasDom,
+                height: w,
+                width: h,
                 logging: true,
                 //useCORS:true,
                 proxy: 'http://drip.growu.me/uploads/images/html2canvasproxy.php',
@@ -101,7 +101,6 @@ export class MyShareImageModal {
                 img.crossOrigin = 'anonymous';
                 img.src = canvas.toDataURL("image/png");
                 this.shareImage = canvas.toDataURL("image/png");
-                console.log(canvas);
                 img.onload = () => {
                     img.onload = null;
                     img.style.width = w + "px";
@@ -124,7 +123,7 @@ export class MyShareImageModal {
 
                 };
                 img.onerror = (err) => {
-                    this.toastProvider.show("图片生成错误:"+err,'error');                    img.onerror = null;
+                    img.onerror = null;
                 };
 
             }, (err) => {

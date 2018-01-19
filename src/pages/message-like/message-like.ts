@@ -63,10 +63,5 @@ export class MessageLikePage {
     this.navCtrl.push("event-detail",{'id':id});
   }
 
-    goUserHomePage(user) {
-        this.navCtrl.push("user-home",{'id':user.id});
-    }c
-
-
 
 }

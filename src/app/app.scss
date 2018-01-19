@@ -81,16 +81,14 @@
 }
 
 .segment-md .segment-button {
-  color: color($colors, dark) !important;
-  height:42px;
-  line-height: 40px;
+  color: color($colors, gray) !important;
 }
 .segment-md .segment-button.segment-activated {
   color: color($colors, primary) !important;
   font-weight: bold;
   .bolder-sm{
-    border: 2px solid color($colors, primary);
-    width: 25px;
+    border: 5px solid color($colors, primary);
+    width: 20px;
     margin: 0 auto;
   }
 }

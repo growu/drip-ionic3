@@ -101,7 +101,7 @@ export class MyShareComponent {
     }
 
     doWeiboShare() {
-
+        
         if (window.hasOwnProperty('cordova')) {
             var args = {
                 url: this._opts.data.url,
