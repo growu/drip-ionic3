@@ -8,11 +8,11 @@ export class TopProvider {
   constructor(private httpProvider: HttpProvider) {
   }
 
-    getTopUsers(page, perPage) {
+    getTopUsers(mode,page, perPage) {
         var params = new URLSearchParams();
         params.set('page', page);
         params.set('per_page', perPage);
-        return this.httpProvider.httpGetWithAuth("/top/all", params);
+        return this.httpProvider.httpGetWithAuth("/top/"+mode, params);
     }
 
 }

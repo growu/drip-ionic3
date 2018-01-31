@@ -48,6 +48,9 @@ export class HomePage {
                 private dragulaService: DragulaService,
                 private toastProvider: ToastProvider) {
 
+        const bag: any = this.dragulaService.find('bag-one');
+        if (bag !== undefined ) this.dragulaService.destroy('bag-one');
+
         dragulaService.setOptions('bag-one', {
             directions:"horizontal",
             moves: (el, source, handle, sibling) => {
@@ -59,22 +62,22 @@ export class HomePage {
             }
         });
 
-        dragulaService.drag.subscribe((value) => {
-            console.log(`drag: ${value[0]}`);
-            this.onDrag(value.slice(1));
-        });
-        dragulaService.drop.subscribe((value) => {
-        console.log(`drop: ${value[0]}`);
-        this.onDrop(value.slice(1));
-        });
-        dragulaService.over.subscribe((value) => {
-        console.log(`over: ${value[0]}`);
-        this.onOver(value.slice(1));
-        });
-        dragulaService.out.subscribe((value) => {
-        console.log(`out: ${value[0]}`);
-        this.onOut(value.slice(1));
-        });
+        // dragulaService.drag.subscribe((value) => {
+        //     console.log(`drag: ${value[0]}`);
+        //     this.onDrag(value.slice(1));
+        // });
+        // dragulaService.drop.subscribe((value) => {
+        // console.log(`drop: ${value[0]}`);
+        // this.onDrop(value.slice(1));
+        // });
+        // dragulaService.over.subscribe((value) => {
+        // console.log(`over: ${value[0]}`);
+        // this.onOver(value.slice(1));
+        // });
+        // dragulaService.out.subscribe((value) => {
+        // console.log(`out: ${value[0]}`);
+        // this.onOut(value.slice(1));
+        // });
 
         events.subscribe('goals:update', () => {
             console.log("goals:update");
@@ -89,25 +92,25 @@ export class HomePage {
 
     }
 
-    private onDrag(args) {
-        let [e, el] = args;
-        // do something
-    }
-
-    private onDrop(args) {
-        let [e, el] = args;
-        // do something
-    }
-
-    private onOver(args) {
-        let [e, el, container] = args;
-        // do something
-    }
-
-    private onOut(args) {
-        let [e, el, container] = args;
-        // do something
-    }
+    // private onDrag(args) {
+    //     let [e, el] = args;
+    //     // do something
+    // }
+    //
+    // private onDrop(args) {
+    //     let [e, el] = args;
+    //     // do something
+    // }
+    //
+    // private onOver(args) {
+    //     let [e, el, container] = args;
+    //     // do something
+    // }
+    //
+    // private onOut(args) {
+    //     let [e, el, container] = args;
+    //     // do something
+    // }
 
     ionViewDidLoad()
     {
@@ -312,6 +315,10 @@ export class HomePage {
     //     refresher.complete();
     //   }, 2000);
     // }
+    // ngOnDestroy() {
+    //     this.dragulaService.destroy('bag-one');
+    // }
+
     ngOnDestroy() {
         this.dragulaService.destroy('bag-one');
     }

@@ -1,6 +1,7 @@
 import {Component} from '@angular/core';
 import {IonicPage, NavController, NavParams} from 'ionic-angular';
 import {Storage} from '@ionic/storage';
+import {UserProvider} from "../../providers/user/user";
 
 @IonicPage({
     name: 'my',
@@ -16,20 +17,25 @@ export class MyPage {
 
     constructor(public navCtrl: NavController,
                 public navParams: NavParams,
+                private userProvider: UserProvider,
                 private storage: Storage) {
     }
 
     ionViewDidLoad() {
-        this.storage.get('user').then((data) => {
-            if(data) {
-                this.user = data;
-            }
-        });
+
 
         this.storage.get('messages').then((data) => {
-            if(data) {
+            if (data) {
                 this.messageCount = data.total_count;
             }
+        });
+    }
+
+    ionViewDidEnter() {
+        this.userProvider.getUserInfo().then((data) => {
+            this.user = data;
+        }).catch(err => {
+
         });
     }
 

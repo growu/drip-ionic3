@@ -18,8 +18,11 @@ export class TopPage {
 
     private perPage:number = 20;
     public user;
+    public mode:string = 'week';
 
-    constructor(private topProvider: TopProvider,private storage:Storage) {
+    constructor(private topProvider: TopProvider,
+                private navCtrl: NavController,
+                private storage:Storage) {
         this.getTopUsers(1);
 
         this.storage.get('user').then((data) => {
@@ -30,10 +33,18 @@ export class TopPage {
     }
 
     getTopUsers(page) {
-        this.topProvider.getTopUsers(page,this.perPage).then((res)=>{
+        this.topProvider.getTopUsers(this.mode,page,this.perPage).then((res)=>{
             this.ret = res;
             this.users = res.users;
         }).catch((err)=>{
         });
+    }
+
+    changeMode() {
+        this.getTopUsers(1);
+    }
+
+    goUserHomePage(user){
+        this.navCtrl.push('user-home',{id:user.id});
     }
 }

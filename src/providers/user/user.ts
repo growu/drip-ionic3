@@ -274,6 +274,10 @@ export class UserProvider {
         return this.httpProvider.httpGetWithAuth("/user/" + id, null);
     }
 
+    getUserInfo() {
+        return this.httpProvider.httpGetWithAuth("/user/info", null);
+    }
+
     updateUser(id, body) {
         return this.httpProvider.httpPatchWithAuth("/user/" + id, body);
     }

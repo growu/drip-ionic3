@@ -6,7 +6,25 @@
     </ion-navbar>
 </ion-header>
 
-<ion-content>
+<ion-content padding>
+
+    <ion-row>
+    <ion-segment color="primary" [(ngModel)]="mode" (ionChange)="changeMode()">
+        <ion-segment-button value="week">
+            周
+        </ion-segment-button>
+        <ion-segment-button value="month">
+            月
+        </ion-segment-button>
+        <ion-segment-button value="year">
+            年
+        </ion-segment-button>
+        <ion-segment-button value="all">
+            总
+        </ion-segment-button>
+    </ion-segment>
+
+    </ion-row>
 
    　<ion-list>
         <ion-card padding>
@@ -28,14 +46,14 @@
 
     <ion-list no-lines>
 
-        <ion-item *ngFor="let user of users;let i = index">
+        <ion-item *ngFor="let user of users;let i = index" (click)="goUserHomePage(user)">
             <ion-icon *ngIf="i<=2" item-start name="md-medal" [ngClass]="'medal'+i"></ion-icon>
-            <ion-note *ngIf="i>2" item-start class="no"> {{i+1}}</ion-note>
+            <ion-note *ngIf="i>2" item-start class="no">{{i+1}}</ion-note>
             <ion-avatar item-start >
                 <img [src]="user.avatar_url || 'assets/img/default-avatar.jpg'">
             </ion-avatar>
             <h2>{{user.nickname|| '低调人士'}}</h2>
-            <ion-note item-end class="count">{{user.checkin_count}}</ion-note>
+                <ion-note item-end class="count">{{user.checkin_count}}</ion-note>
             <!--<ion-icon item-end name="heart-outline"></ion-icon>-->
         </ion-item>
     </ion-list>

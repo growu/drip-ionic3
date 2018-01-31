@@ -31,32 +31,32 @@ export class ToolProvider {
                 title: '选择图片',
                 buttons: [
                     {
-                        text: '相册',
+                        text: '从相册选择',
                         role: 'destructive',
                         handler: () => {
                             this.storage.get('user').then((user)=>{
                                 var options = {
-                                    maximumImagesCount:user.is_vip?9:1,
+                                    maximumImagesCount:1,
                                     title:"选择相册"
                                 };
 
                                 this.imagePicker.getPictures(options).then((results) => {
                                     if (results && results.length > 0) {
-                                        if(user.is_vip) {
-
-                                            let promiseChain: Promise<any> = Promise.resolve();
-
-                                            results.forEach((newImage)=>{
-                                                promiseChain = this.uploadImage(newImage).then((ret) => {
-                                                    resolve(ret);
-                                                }).catch((err) => {
-                                                    reject(err);
-                                                });
-                                            });
-
-                                            return  promiseChain;
-
-                                        } else {
+                                        // if(user.is_vip) {
+                                        //
+                                        //     let promiseChain: Promise<any> = Promise.resolve();
+                                        //
+                                        //     results.forEach((newImage)=>{
+                                        //         promiseChain = this.uploadImage(newImage).then((ret) => {
+                                        //             resolve(ret);
+                                        //         }).catch((err) => {
+                                        //             reject(err);
+                                        //         });
+                                        //     });
+                                        //
+                                        //     return  promiseChain;
+                                        //
+                                        // } else {
                                             this.crop.crop(results[0], {quality: 75})
                                                 .then(
                                                     newImage => {
@@ -71,9 +71,7 @@ export class ToolProvider {
                                                         this.toastProvider.show(error, 'error');
                                                     }
                                                 );
-                                        }
-
-
+                                        // }
                                     } else {
                                         reject("未选择图片");
                                     }
@@ -88,10 +86,10 @@ export class ToolProvider {
 
                         }
                     }, {
-                        text: '相机',
+                        text: '拍照上传',
                         handler: () => {
                             const options: CameraOptions = {
-                                quality: 100,
+                                quality: 75,
                                 destinationType: this.camera.DestinationType.FILE_URI,
                                 encodingType: this.camera.EncodingType.JPEG,
                                 mediaType: this.camera.MediaType.PICTURE,
@@ -99,15 +97,16 @@ export class ToolProvider {
                             }
 
                             this.camera.getPicture(options).then((imageData) => {
-                                this.uploadImage(imageData).then((ret) => {
-                                    resolve(ret);
-                                }).catch((err) => {
+                                    this.uploadImage(imageData).then((ret) => {
+                                        resolve(ret);
+                                    }).catch((err) => {
+                                        reject(err);
+                                    });
+                                },
+                                (err) => {
+                                    this.toastProvider.show(err, 'error');
                                     reject(err);
-                                })
-                            }, (err) => {
-                                this.toastProvider.show(err, 'error');
-                                reject(err);
-                            });
+                                });
                         }
                     }, {
                         text: '取消',
