@@ -93,6 +93,7 @@
     "ionicons": "3.0.0",
     "jpush-phonegap-plugin": "^3.2.13",
     "moment": "^2.20.1",
+    "ng-dynamic-component": "^2.0.3",
     "ng2-charts": "^1.6.0",
     "ng2-dragula": "^1.5.0",
     "ngx-clipboard": "^9.1.2",

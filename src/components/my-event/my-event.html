@@ -12,8 +12,9 @@
     <img [src]="attach.url" *ngFor="let attach of event.attachs" imageViewer>
   </div>
 
-  <ion-card-content (click)="goEventDetailPage(event.id)">
-    <p [innerHTML]="formatContent(event)"></p>
+  <ion-card-content>
+    <!--<my-event-content [content]="formatContent(event)"></my-event-content>-->
+    <ng-template [innerHTML]="formatContent(event)" (click)="goEventDetailPage(event.id,$event)"></ng-template>
     <p><a *ngIf="event.content&&event.content.length>100 && !event?.is_full_content" (click)="showFull($event,event)">全文</a></p>
     <p><a *ngIf="event?.is_full_content" (click)="showHide($event,event)">收起</a></p>
     <blockquote>完成<a> #{{event.goal.name}}# </a>第{{event.checkin?.total_days || 0}}天</blockquote>
