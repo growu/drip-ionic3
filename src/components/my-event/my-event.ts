@@ -1,84 +1,46 @@
-import {
-    ApplicationRef,
-    ChangeDetectorRef, Component, ComponentRef, ElementRef, Injector, Input, NgModule, ReflectiveInjector, Renderer2,
-    ViewChild,
-    ViewContainerRef
-} from '@angular/core';
+import {ApplicationRef, Component, ElementRef, Injector, Input, Renderer2} from '@angular/core';
 import {ActionSheetController, App, NavController, NavParams} from 'ionic-angular';
 import {EventProvider} from '../../providers/event/event'
 import {MyShareController} from "../my-share/my-share.controller";
 import {DomSanitizer} from "@angular/platform-browser";
-// import { ComponentFactoryResolver } from '@angular/core';
-// import { MyInterLinkComponent } from '../my-inter-link/my-inter-link';
-// import { InterLinkDirective } from '../../directives/inter-link.directive';
 import {InAppBrowser} from '@ionic-native/in-app-browser';
 
 
 @Component({
     selector: 'my-event',
     templateUrl: 'my-event.html',
-    // entryComponents:[MyInterLinkComponent]
 })
-
-// @NgModule({
-//     imports: [
-//         DynamicModule.withComponents([MyInterLinkComponent])
-//     ]
-// })
 
 export class MyEventComponent {
 
     @Input() _eventSource: any = [];
-    // component: ComponentRef<MyInterLinkComponent>;
-    // @ViewChild(InterLinkDirective) interLink: InterLinkDirective;
-
     @Input() inputs: any;
 
     constructor(public actionSheetCtrl: ActionSheetController,
                 private myShareCtrl: MyShareController,
-                private navCtrl: NavController,
-                private navParams: NavParams,
                 private app: App,
                 private iab: InAppBrowser,
                 private sanitizer: DomSanitizer,
-                // private componentFactoryResolver: ComponentFactoryResolver,
-                private injector: Injector,
-                // private viewContainerRef:ViewContainerRef,
-                private appRef: ApplicationRef,
+                private elRef: ElementRef,
                 private eventProvider: EventProvider) {
-
-        // this.component = this.componentFactoryResolver
-        //     .resolveComponentFactory(MyInterLinkComponent)
-        //     .create(this.injector);
-        // appRef.attachView(this.component.hostView);
-
     }
 
     ionViewDidLoad() {
 
     }
 
-    loadComponent() {
-        // this.component = this.componentFactoryResolver
-        //     .resolveComponentFactory(MyInterLinkComponent)
-        //     .create(this.injector);
-        // (<MyInterLinkComponent>this.component.instance).content = "home";
-
-        //     let componentFactory = this.componentFactoryResolver.resolveComponentFactory(MyInterLinkComponent);
-        // let viewContainerRef = this.interLink.viewContainerRef;
-        // viewContainerRef.clear();
-        //
-        // let componentRef = viewContainerRef.createComponent(componentFactory);
-        // (<MyInterLinkComponent>componentRef.instance).page = '';
-    }
-
     @Input()
     set eventSource(value: any) {
-        this._eventSource = value;
+        if(value.length>0) {
+            value.forEach((item,index)=>{
+                item.content = this.formatContent(item);
+                this._eventSource.push(item);
+            });
+        }
+        // this._eventSource = value;
     }
 
-
-    doLike(event, $event) {
+    doLike(event) {
 
         let index = this._eventSource.indexOf(event);
 
@@ -149,10 +111,12 @@ export class MyEventComponent {
         actionSheet.present();
     }
 
-    goEventDetailPage(id, e) {
-        e = e || window.event; //兼容IE8
-        let target = e.target || e.srcElement;  //判断目标事件
-        console.log(e);
+    goEventDetailPage($event,id) {
+        $event.preventDefault();
+        $event.stopPropagation();
+        // e = e || window.event; //兼容IE8
+        let target = $event.target || $event.srcElement;  //判断目标事件
+        console.log($event);
         console.log(target.className.indexOf('event-content-topic'));
 
         if (target.className.indexOf('event-content-topic') != -1) {
@@ -187,19 +151,10 @@ export class MyEventComponent {
         content = content.replace(topicPattern, function ($0, $1) {
             var match = $0;
             var protocol = $1;
-            // let inputs = {
-            //     page: 'topic',
-            //     params: {
-            //         name: match
-            //     }
-            // };
-            // return '<ng-container *ngComponentOutlet="MyInterLinkComponent"></ng-container>';
-            // return '<ng-template inter-link></ng-template>';
-            // return '<ndc-dynamic [ndcDynamicComponent]="MyInterLinkComponent"  [ndcDynamicInputs]="'+inputs+'"></ndc-dynamic>';
             var str = '<a data-name="' + protocol + '"  class="event-content-topic" >' + match + '</a>';
             return str;
         });
-        //
+
         // // 替换@
         // var atPattern = /\@([^\@|.|<|,|:|：|^ ]+)/g;
         // // var atPattern = /\@([^<,，：:\s@]+)/g;
@@ -247,14 +202,10 @@ export class MyEventComponent {
     }
 
     ngAfterViewInit() {
-        // this.loadComponent();
+
     }
 
     ngOnDestroy() {
-        // if(this.component) {
-        //     this.appRef.detachView(this.component.hostView);
-        //     this.component.destroy();
-        // }
     }
 
     goUserHomePage() {
