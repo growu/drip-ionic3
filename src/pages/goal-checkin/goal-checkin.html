@@ -10,20 +10,27 @@
 
     <form>
         <ion-list>
-            <ion-iteåm>
+            <ion-item>
                 <ion-label>打卡日期</ion-label>
                 <ion-datetime placeholder="今天" displayFormat="YYYY-MM-DD" pickerFormat="YYYY MM DD" cancelText="取消"
                               doneText="保存" [min]="min" [max]="max" [(ngModel)]="day" name="day"></ion-datetime>
-            </ion-iteåm>
+            </ion-item>
         </ion-list>
 
         <ion-list *ngIf="user.is_vip && goal.items.length>0">
-            <ion-item *ngFor="let item of goal.items">
-                <ion-label fixed>{{item.name}}</ion-label>
-                <ion-input text-right maxlength="20" name="item[]" [(ngModel)]="item.value"
-                           value="{{item.expect}}"></ion-input>
-                <ion-note item-end>{{item.unit}}</ion-note>
-            </ion-item>
+            <ion-item-sliding *ngFor="let item of goal.items">
+                <ion-item >
+                    <ion-label fixed>{{item.name}}</ion-label>
+                    <ion-input text-right maxlength="20" name="item[]" [(ngModel)]="item.value"
+                               value="{{item.expect}}"></ion-input>
+                    <ion-note item-end>{{item.unit}}</ion-note>
+                </ion-item>
+                <ion-item-options side="right">
+                    <button ion-button color="danger" (click)="deleteItem(item,$event)">
+                        删除
+                    </button>
+                </ion-item-options>
+            </ion-item-sliding>
         </ion-list>
 
         <ion-list>

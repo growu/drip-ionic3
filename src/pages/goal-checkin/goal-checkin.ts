@@ -107,4 +107,12 @@ export class GoalCheckinPage {
         this.attachs = [];
     }
 
+    deleteItem(item,$event) {
+        let index = this.goal.items.indexOf(item);
+        console.log(index);
+        if(index >= 0) {
+            this.goal.items.splice(index,1);
+        }
+    }
+
 }
