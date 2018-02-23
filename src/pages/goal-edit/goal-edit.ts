@@ -1,13 +1,13 @@
 import {Component} from '@angular/core';
-import {AlertController, IonicPage, NavController, NavParams} from 'ionic-angular';
+import {AlertController, IonicPage, ModalController, NavController, NavParams} from 'ionic-angular';
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {GoalProvider} from "./../../providers/goal/goal";
 import {ToastProvider} from "./../../providers/toast/toast";
-import {LoadingProvider} from "./../../providers/loading/loading";
 import * as moment from 'moment'
 import swal from 'sweetalert2'
 import {UserProvider} from "../../providers/user/user";
-import { Events } from 'ionic-angular';
+import {Events} from 'ionic-angular';
+import {Storage} from '@ionic/storage';
 
 @IonicPage({
     name: 'goal-edit',
@@ -18,13 +18,16 @@ import { Events } from 'ionic-angular';
     templateUrl: 'goal-edit.html',
 })
 export class GoalEditPage {
-    public goal: any;
+    public goal: any = {
+        name: '',
+        desc: '',
+        items: []
+    };
     public min: string = moment().format('YYYY-MM-DD');
     public max: string = '2038-12-31';
-
+    public user: any = {};
 
     private goalEditForm: FormGroup;
-
 
     constructor(public navCtrl: NavController,
                 private formBuilder: FormBuilder,
@@ -32,22 +35,53 @@ export class GoalEditPage {
                 private userProvider: UserProvider,
                 private alertCtrl: AlertController,
                 private goalProvider: GoalProvider,
+                private modalCtrl: ModalController,
                 public events: Events,
+                private storage: Storage,
                 public navParams: NavParams) {
 
         this.goalEditForm = this.formBuilder.group({
-            'name': [, [Validators.required, Validators.maxLength(20)]],
+            'name': ['', [Validators.required, Validators.maxLength(20)]],
             'desc': ['', [Validators.required, Validators.maxLength(255)]],
             'start_date': [{disabled: true}, []],
             'end_date': ['', []],
             'is_public': [true, []],
-            'remind_time': ['', []]
+            'remind_time': ['', []],
+            'items': [[], []],
         });
-
-        this.goal = this.navParams.get('goal');
     }
 
     ionViewDidLoad() {
+
+        let id = this.navParams.get('id');
+        this.userProvider.getGoal(id).then((data) => {
+            this.goal = data;
+        }).catch((err) => {});
+
+        this.storage.get('user').then((data) => {
+            this.user = data;
+        });
+    }
+
+    deleteGoalItem(item, $event) {
+        $event.preventDefault()
+        $event.stopPropagation();
+
+        let index = this.goal.items.indexOf(item);
+
+        if (index != -1) {
+            this.goal.items.splice(index, 1);
+        }
+    }
+
+    editGoalItem(item, $event) {
+        $event.preventDefault()
+        $event.stopPropagation();
+        this.goGoalItemCreatePage(item);
+    }
+
+    createGoalItem() {
+        this.goGoalItemCreatePage(null);
     }
 
     doUpdateGoal() {
@@ -58,6 +92,8 @@ export class GoalEditPage {
                 return;
             }
         }
+
+        this.goalEditForm.value.items = this.goal.items;
 
         this.goalProvider.updateGoal(this.goal.id, this.goalEditForm.value).then(data => {
             if (data) {
@@ -104,7 +140,6 @@ export class GoalEditPage {
 
         $event.preventDefault();
         $event.stopPropagation();
-
         let confirm = this.alertCtrl.create({
             title: '确认删除?',
             message: '此项操作将会清空该目标下的所有数据，请谨慎操作！',
@@ -128,5 +163,28 @@ export class GoalEditPage {
         });
         confirm.present();
     }
+
+
+    goGoalItemCreatePage(item) {
+        let index = this.goal.items.indexOf(item);
+        console.log(index);
+
+        let modal = this.modalCtrl.create("goal-item-create", {item: item, index: index});
+        modal.present();
+
+        modal.onDidDismiss((data) => {
+            console.log(data);
+            if (data) {
+                console.log(data.index);
+                if (data.index >= 0) {
+                    (this.goal.items)[index] = data.item;
+                } else {
+                    this.goal.items.push(data.item);
+                }
+            }
+
+        })
+    }
+
 
 }

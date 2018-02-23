@@ -1,5 +1,5 @@
 import {Component} from '@angular/core';
-import {IonicPage, NavController, NavParams} from 'ionic-angular';
+import {Events, IonicPage, NavController, NavParams} from 'ionic-angular';
 import {Storage} from '@ionic/storage';
 import {UserProvider} from "../../providers/user/user";
 
@@ -17,25 +17,35 @@ export class MyPage {
 
     constructor(public navCtrl: NavController,
                 public navParams: NavParams,
+                private events: Events,
                 private userProvider: UserProvider,
                 private storage: Storage) {
-    }
 
-    ionViewDidLoad() {
-
-
-        this.storage.get('messages').then((data) => {
-            if (data) {
-                this.messageCount = data.total_count;
-            }
+        events.subscribe('messages:update', () => {
+            console.log("messages:update");
+            this.getMessageCount();
         });
     }
 
+    ionViewDidLoad() {
+    }
+
     ionViewDidEnter() {
+
+        this.getMessageCount();
+
         this.userProvider.getUserInfo().then((data) => {
             this.user = data;
         }).catch(err => {
 
+        });
+    }
+
+    getMessageCount() {
+        this.storage.get('messages').then((data) => {
+            if (data) {
+                this.messageCount = data.total_count;
+            }
         });
     }
 

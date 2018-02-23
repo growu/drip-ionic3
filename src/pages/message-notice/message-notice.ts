@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NavController, NavParams, IonicPage } from "ionic-angular";
+import {NavController, NavParams, IonicPage, Events} from "ionic-angular";
 import {CommentProvider} from "../../providers/comment/comment";
 import {UserProvider} from "../../providers/user/user";
 
@@ -18,12 +18,14 @@ export class MessageNoticePage {
 
   constructor(public navCtrl: NavController,
               public navParams: NavParams,
+              private events: Events,
               private userProvider: UserProvider
              ) {
   }
 
   ionViewDidLoad() {
-    this.getNoticeMessages(1);
+      this.events.publish('messages:update', {});
+      this.getNoticeMessages(1);
   }
 
     getNoticeMessages(page) {

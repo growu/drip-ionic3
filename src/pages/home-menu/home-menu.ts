@@ -13,7 +13,7 @@ export class HomeMenuPage {
 
     public setting: SettingModel;
     public user: any = {
-        is_vip: 0
+        is_vip: false
     };
 
     constructor(public navCtrl: NavController,

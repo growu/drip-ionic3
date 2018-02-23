@@ -4,7 +4,10 @@
     <ion-avatar item-start>
       <img [src]="event.user?.avatar_url || 'assets/img/default-avatar.jpg'">
     </ion-avatar>
-    <h2 ion-text [color]="event.user.is_vip?'danger':'dark'">{{event.user?.nickname || '还没有昵称'}} </h2>
+    <h2 >
+      <span ion-text [color]="event.user?.is_vip?'danger':'dark'">{{event.user?.nickname || '还没有昵称'}}</span>
+      <ion-badge color="yellow" *ngIf="event.user?.is_vip">pro</ion-badge>
+    </h2>
     <p>{{event.created_at | amLocale:"zh_cn" | amUtc | amTimeAgo }}</p>
   </ion-item>
 
@@ -16,7 +19,12 @@
     <div [innerHTML]="event.content"></div>
     <p><a *ngIf="event.content&&event.content.length>100 && !event?.is_full_content" (click)="showFull($event,event)">全文</a></p>
     <p><a *ngIf="event?.is_full_content" (click)="showHide($event,event)">收起</a></p>
-    <blockquote>完成<a> #{{event.goal.name}}# </a>第{{event.checkin?.total_days || 0}}天</blockquote>
+    <blockquote>
+      <p>完成<a> #{{event.goal.name}}# </a>第{{event.checkin?.total_days || 0}}天</p>
+      <p *ngFor="let item of event.items">
+        <ion-icon name="list" color="dark"></ion-icon> {{item.name+item.value+item.unit}}
+      </p>
+    </blockquote>
   </ion-card-content>
 
   <ion-row class="action-toolbar">

@@ -1,5 +1,5 @@
 import {Component} from '@angular/core';
-import {IonicPage, NavController, NavParams} from 'ionic-angular';
+import {Events, IonicPage, NavController, NavParams} from 'ionic-angular';
 import {UserProvider} from '../../providers/user/user'
 
 @IonicPage({
@@ -17,10 +17,12 @@ export class MessageFanPage {
 
     constructor(public navCtrl: NavController,
                 public navParams: NavParams,
+                private events: Events,
                 private userProvider: UserProvider) {
     }
 
     ionViewDidLoad() {
+        this.events.publish('messages:update', {});
         this.getFanMessages(1);
     }
 

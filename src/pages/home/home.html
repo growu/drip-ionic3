@@ -77,7 +77,15 @@
                                     <!--</ion-datetime>-->
 
                                 </ion-item>
-                                <ion-item-options>
+                                <ion-item-options side="left">
+                                    <button ion-button   icon-only>
+                                        <ion-icon name="arrow-up"></ion-icon>
+                                    </button>
+                                    <button ion-button color="light" icon-only>
+                                        <ion-icon name="arrow-down"></ion-icon>
+                                    </button>
+                                </ion-item-options>
+                                <ion-item-options side="right">
                                     <button ion-button color="primary" (click)="goGoalCheckinPage(goal.id)">
                                         打卡
                                     </button>

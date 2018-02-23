@@ -1,0 +1,45 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-title>添加项目</ion-title>
+    <ion-buttons start>
+      <button ion-button (click)="dismiss()">
+        <span ion-text color="primary" showWhen="ios">取消</span>
+        <ion-icon name="md-close" showWhen="android, windows"></ion-icon>
+      </button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-list>
+    <ion-item>
+      <ion-label fixed>名称</ion-label>
+
+      <ion-input  text-right [(ngModel)]="item.name" maxlength="20"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label fixed>单位</ion-label>
+
+      <ion-input text-right placeholder="" [(ngModel)]="item.unit" maxlength="20"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label fixed>预设值</ion-label>
+      <ion-input text-right placeholder="" [(ngModel)]="item.expect" maxlength="20"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label>统计方式</ion-label>
+      <ion-select [(ngModel)]="item.type">
+        <ion-option value="1">累计统计</ion-option>
+        <ion-option value="2">状态统计</ion-option>
+      </ion-select>
+    </ion-item>
+  </ion-list>
+
+    <div padding>
+      <button ion-button block type="button" (click)="doSaveGoalItem()">提交</button>
+    </div>
+
+
+</ion-content>

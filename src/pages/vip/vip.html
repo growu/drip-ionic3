@@ -1,7 +1,7 @@
 <ion-header>
 
     <ion-navbar color="primary">
-        <ion-title>水滴会员</ion-title>
+        <ion-title>水滴PRO</ion-title>
     </ion-navbar>
 
 </ion-header>
@@ -12,7 +12,7 @@
         <ion-slide>
             <h1>&nbsp;日历/周历视图</h1>
             <br />
-            会员可以在目标列表的右上角菜单里选择自己的目标视图模式。<br />
+            PRO用户可以在目标列表的右上角菜单里选择自己的目标视图模式。<br />
             <br />
             <img src="http://file.growu.me/1513932612512_vip-10.png" style="height:415px; width:320px" /><br />
             <br />
@@ -26,9 +26,9 @@
             <img src="http://file.growu.me/1513932663733_vip-12.png" style="height:388px; width:320px" /><br />
             <br />
             小提示：
-            <ol>
-                <li>日历视图开启后，向上👆或者向下👇滑动 日历，进行周历和月历模式的快速切换；</li>
-                <li>日历视图开启后，默认显示的是当天的计划列表，可以单击日期选择查看某一天的计划安排；</li>
+            <ol style="text-align: left;">
+                <li style="margin-bottom: 10px;">日历视图开启后，向上👆或者向下👇滑动 日历，进行周历和月历模式的快速切换；</li>
+                <li style="margin-bottom: 10px;"    >日历视图开启后，默认显示的是当天的计划列表，可以单击日期选择查看某一天的计划安排；</li>
                 <li>日历视图开启后，向左👈或向右👉滑动，可以切换到上一周（月）和下一周（月）。</li>
             </ol>
             <br />
@@ -37,7 +37,7 @@
         <ion-slide>
             <h1>自定义排序</h1>
             <br />
-            会员可以对目标的顺序进行自定义排序，<br />
+            PRO用户可以对目标的顺序进行自定义排序，<br />
             <br />
             具体入口：目标列表-菜单-自定义排序<br />
             <br />
@@ -64,7 +64,11 @@
             <ion-thumbnail item-start>
                 <img src="{{user?.avatar_url || 'assets/img/default-avatar.jpg'}}">
             </ion-thumbnail >
-            <h2>{{user?.nickname || '还没有昵称'}} <i class="iconfont icon-vip-copy" ion-text [color]="user?.is_vip?'danger':'gray'"></i></h2>
+            <h2>
+                {{user?.nickname || '还没有昵称'}}
+                <ion-badge [color]="user?.is_vip?'danger':'gray'">pro</ion-badge>
+                <!--<i class="iconfont icon-vip-copy" ion-text [color]="user?.is_vip?'danger':'gray'"></i>-->
+            </h2>
             <p *ngIf="user?.is_vip">{{user.vip_end_date}}到期</p>
             <p *ngIf="!user?.is_vip">未开通</p>
             <button ion-button item-end  (click)="showBuyPage()">兑换</button>

@@ -1,5 +1,5 @@
 import {Component, ViewChild} from '@angular/core';
-import {IonicPage, NavController, NavParams, ToastController, DateTime} from 'ionic-angular';
+import {IonicPage, NavController, NavParams, ToastController, DateTime, Events} from 'ionic-angular';
 import {Validators, FormBuilder, FormGroup} from '@angular/forms';
 import {GoalProvider} from "./../../providers/goal/goal";
 import {ToastProvider} from "./../../providers/toast/toast";
@@ -36,6 +36,7 @@ export class GoalCreatePage {
                 private formBuilder: FormBuilder,
                 private toastProvider: ToastProvider,
                 private loadingProvider: LoadingProvider,
+                private events: Events,
                 private goalProvider: GoalProvider) {
 
         this.goalCreateForm = this.formBuilder.group({
@@ -86,7 +87,6 @@ export class GoalCreatePage {
 
         this.goalProvider.createGoal(this.goalCreateForm.value).then(data => {
             if (data) {
-
                 swal({
                     title: '创建成功',
                     text: '开始第一次打卡吧',
@@ -95,6 +95,7 @@ export class GoalCreatePage {
                     showConfirmButton: false,
                     width: '80%'
                 }).then(() => {
+                    this.events.publish('goals:update', {});
                     this.navCtrl.push('goal-detail', {id: data.id});
                 }, dismiss => {
                     this.navCtrl.push('goal-detail', {id: data.id});

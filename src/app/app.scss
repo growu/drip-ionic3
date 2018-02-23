@@ -82,8 +82,8 @@
 
 .segment-md .segment-button {
   color: color($colors, dark) !important;
-  height:42px;
-  line-height: 40px;
+  height:34px;
+  line-height: 28px;
 }
 .segment-md .segment-button.segment-activated {
   color: color($colors, primary) !important;
@@ -93,4 +93,12 @@
     width: 25px;
     margin: 0 auto;
   }
+}
+
+.badge-ios-yellow,.badge-md-yellow {
+  color:#312929;
+}
+
+.gray-content {
+  background-color: #dedede!important;
 }

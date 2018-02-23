@@ -6,7 +6,6 @@ import {UserProvider} from "../../providers/user/user";
 import {AccountValidator} from "../../validators/account";
 import {Storage} from '@ionic/storage';
 
-
 @IonicPage()
 @Component({
   selector: 'page-email-bind',

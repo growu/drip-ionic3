@@ -1,5 +1,5 @@
 import {Component} from '@angular/core';
-import {NavController, NavParams, IonicPage} from "ionic-angular";
+import {NavController, NavParams, IonicPage, Events} from "ionic-angular";
 import {UserProvider} from '../../providers/user/user'
 import {CommentProvider} from '../../providers/comment/comment'
 
@@ -26,10 +26,12 @@ export class MessageCommentPage {
     constructor(public navCtrl: NavController,
                 public navParams: NavParams,
                 private userProvider: UserProvider,
+                private events: Events,
                 private commentProvider: CommentProvider) {
     }
 
     ionViewDidLoad() {
+        this.events.publish('messages:update', {});
         this.getCommentMessages(1);
     }
 

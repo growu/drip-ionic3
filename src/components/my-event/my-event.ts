@@ -173,9 +173,7 @@ export class MyEventComponent {
                 return this.transform(this.substrWithTags(content, 0, 100));
             }
         }
-
         // return content;
-
         return this.transform(content);
     }
 

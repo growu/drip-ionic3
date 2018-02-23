@@ -1,11 +1,11 @@
 <ion-header no-border>
-  <ion-toolbar md="md">
+  <ion-toolbar mode="ios">
     <!--<ion-buttons start>-->
       <!--<button ion-button icon-only>-->
         <!--<ion-icon name="person-add"></ion-icon>-->
       <!--</button>-->
     <!--</ion-buttons>-->
-    <ion-segment color="light" [(ngModel)]="mode" (ionChange)="changeMode()" mode="md">
+    <ion-segment mode="md" color="light" [(ngModel)]="mode" (ionChange)="changeMode()">
       <ion-segment-button value="hot">
         精选
         <div class="bolder-sm"></div>

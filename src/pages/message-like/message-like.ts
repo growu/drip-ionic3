@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NavController, NavParams, IonicPage } from "ionic-angular";
+import {NavController, NavParams, IonicPage, Events} from "ionic-angular";
 import { UserProvider } from '../../providers/user/user'
 
 @IonicPage({
@@ -17,11 +17,13 @@ export class MessageLikePage {
 
   constructor(public navCtrl: NavController,
               public navParams: NavParams,
+              private events:Events,
               private userProvider: UserProvider) {
   }
 
   ionViewDidLoad() {
-    this.getLikeMessages(1);
+      this.events.publish('messages:update', {});
+      this.getLikeMessages(1);
   }
 
   getLikeMessages(page) {

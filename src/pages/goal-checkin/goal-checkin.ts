@@ -5,7 +5,7 @@ import {UserProvider} from "../../providers/user/user";
 import {ToolProvider} from "../../providers/tool/tool";
 import * as moment from 'moment'
 import swal from "sweetalert2";
-
+import {Storage} from '@ionic/storage';
 
 @IonicPage({
     name: "goal-checkin",
@@ -19,9 +19,12 @@ export class GoalCheckinPage {
 
     private checkinForm: FormGroup;
     public attachs: any = [];
-    public goal;
+    public goal = {
+        items: []
+    };
+    public user: any = {};
     public day;
-
+    public content;
     public min: string = '';
     public max: string = moment().format('YYYY-MM-DD');
 
@@ -29,14 +32,9 @@ export class GoalCheckinPage {
                 public navParams: NavParams,
                 public app: App,
                 private events: Events,
-                private formBuilder: FormBuilder,
                 private  userProvider: UserProvider,
-                private toolProvider: ToolProvider,
-                ) {
-        this.checkinForm = this.formBuilder.group({
-            'content': ['', []],
-            'day':['',[]]
-        });
+                private storage: Storage,
+                private toolProvider: ToolProvider,) {
 
         if (this.navParams.get('day')) {
             this.day = this.navParams.get('day');
@@ -47,15 +45,18 @@ export class GoalCheckinPage {
 
     ionViewDidLoad() {
         let goal_id = this.navParams.get('id');
-
-        this.userProvider.getGoal(goal_id).then((data)=>{
+        this.userProvider.getGoal(goal_id).then((data) => {
             this.goal = data;
             this.min = data.start_date;
-            if(data.end_date) {
+            if (data.end_date) {
                 this.max = data.end_date;
             }
-        }).catch((err)=> {
+        }).catch((err) => {
 
+        });
+
+        this.storage.get('user').then((data) => {
+            this.user = data;
         });
     }
 
@@ -64,15 +65,18 @@ export class GoalCheckinPage {
 
         let goal_id = this.navParams.get('id');
 
-        let body = this.checkinForm.value;
+        let params = {
+            day: this.day,
+            content: this.content,
+            items: this.goal.items,
+            attachs: this.attachs
+        }
 
-        body.attachs = this.attachs;
-
-        this.userProvider.checkinGoal(goal_id, body).then(data => {
-            if(data) {
+        this.userProvider.checkinGoal(goal_id, params).then(data => {
+            if (data) {
                 swal({
                     title: '打卡成功',
-                    html: '单次打卡奖励：+'+data.single_add_coin+'水滴币<br>连续打卡奖励：+'+data.series_add_coin+'水滴币',
+                    html: '单次打卡奖励：+' + data.single_add_coin + '水滴币<br>连续打卡奖励：+' + data.series_add_coin + '水滴币',
                     type: 'success',
                     // timer: 2000,
                     showConfirmButton: true,
@@ -91,11 +95,11 @@ export class GoalCheckinPage {
     }
 
     choosePic($event) {
-       this.toolProvider.choosePic($event).then((ret)=>{
-           this.attachs[0] = ret;
-       }).catch((err)=>{
+        this.toolProvider.choosePic($event).then((ret) => {
+            this.attachs[0] = ret;
+        }).catch((err) => {
 
-       });
+        });
     }
 
     removeAttach($event) {

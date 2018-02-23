@@ -6,20 +6,29 @@
 
 </ion-header>
 
-<ion-content>
+<ion-content class="gray-content">
 
-    <form [formGroup]="checkinForm" (ngSubmit)="doCheckin($event)">
-
+    <form>
         <ion-list>
-            <ion-item>
+            <ion-iteåm>
                 <ion-label>打卡日期</ion-label>
-                <ion-datetime placeholder="今天" displayFormat="YYYY-MM-DD" pickerFormat="YYYY MM DD" cancelText="取消" doneText="保存" [min]="min" [max]="max" formControlName="day" [(ngModel)]="day"></ion-datetime>
+                <ion-datetime placeholder="今天" displayFormat="YYYY-MM-DD" pickerFormat="YYYY MM DD" cancelText="取消"
+                              doneText="保存" [min]="min" [max]="max" [(ngModel)]="day" name="day"></ion-datetime>
+            </ion-iteåm>
+        </ion-list>
+
+        <ion-list *ngIf="user.is_vip && goal.items.length>0">
+            <ion-item *ngFor="let item of goal.items">
+                <ion-label fixed>{{item.name}}</ion-label>
+                <ion-input text-right maxlength="20" name="item[]" [(ngModel)]="item.value"
+                           value="{{item.expect}}"></ion-input>
+                <ion-note item-end>{{item.unit}}</ion-note>
             </ion-item>
         </ion-list>
 
         <ion-list>
             <ion-item>
-                <ion-textarea rows="5" formControlName="content" placeholder="记录你的打卡内容。"></ion-textarea>
+                <ion-textarea rows="5" placeholder="记录你的打卡内容。" [(ngModel)]="content" name="content"></ion-textarea>
             </ion-item>
             <ion-item no-border no-lines>
                 <ion-icon name="camera" large item-start (click)="choosePic($event)"></ion-icon>
@@ -37,7 +46,7 @@
             </ion-col>
         </ion-row>
         <ion-row padding>
-            <button block ion-button type="submit">提交</button>
+            <button block ion-button type="button" (click)="doCheckin($event)">提交</button>
         </ion-row>
     </form>
 </ion-content>
