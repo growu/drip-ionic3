@@ -24,6 +24,18 @@ ionic cordova platform add android
 需要手动复制文件https://raw.githubusercontent.com/zyra/ionic2-super-tabs/master/src/components/super-tabs.scss
 到*node_modules/ionic2-super-tabs/dist/components*下
 
+由于app-scripts3.19.2版本在AOT环境下编译会报错[ISSUES](https://github.com/ionic-team/ionic-cli/issues/2889)
+
+需要修改 node_modules/@ionic/app-scripts/dist/logger/logger-typescript.js的29行
+
+原来：
+
+```if (tsDiagnostic.file) {```
+
+修改为：
+
+```if (tsDiagnostic.file && tsDiagnostic.file.getText) {```
+
 # ionic v1
 
 ionic v1版本的源码可以参考[drip-ionic](https://github.com/growu/drip-ionic)
