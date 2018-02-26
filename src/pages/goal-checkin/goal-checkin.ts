@@ -10,14 +10,13 @@ import {Storage} from '@ionic/storage';
 @IonicPage({
     name: "goal-checkin",
     segment: "goal/:id/checkin",
+    defaultHistory:['home']
 })
 @Component({
     selector: 'page-goal-checkin',
     templateUrl: 'goal-checkin.html',
 })
 export class GoalCheckinPage {
-
-    private checkinForm: FormGroup;
     public attachs: any = [];
     public goal = {
         items: []
