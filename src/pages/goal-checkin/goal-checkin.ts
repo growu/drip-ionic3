@@ -48,9 +48,6 @@ export class GoalCheckinPage {
         this.userProvider.getGoal(goal_id).then((data) => {
             this.goal = data;
             this.min = data.start_date;
-            if (data.end_date) {
-                this.max = data.end_date;
-            }
         }).catch((err) => {
 
         });
