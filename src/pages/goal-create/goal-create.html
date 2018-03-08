@@ -3,7 +3,6 @@
     <ion-navbar color="primary">
         <ion-title>创建目标</ion-title>
     </ion-navbar>
-
 </ion-header>
 
 <ion-content class="page-goal-create" padding-top>
@@ -19,42 +18,41 @@
 
         <ion-list>
             <ion-item>
+                <ion-label>日期范围</ion-label>
+                <ion-select formControlName="date_type" [(ngModel)]="goal.date_type" interface="popover"
+                            (ionChange)="onDateTypeChnage($event)">
+                    <ion-option value="1">长期目标</ion-option>
+                    <ion-option value="2">短期目标</ion-option>
+                </ion-select>
+            </ion-item>
+            <ion-item *ngIf="goal.date_type==2">
                 <ion-label>开始日期</ion-label>
-                <ion-datetime placeholder="今天" (ionCancel)="onClearStartDate()" (ionChange)="onChangeDate()"
-                              displayFormat="YYYY-MM-DD" pickerFormat="YYYY MM DD" cancelText="重置" doneText="保存"
-                              [min]="today" [max]="max" formControlName="start_date"
+                <ion-datetime placeholder="今天" (ionChange)="onDateChange()"
+                              displayFormat="YYYY-MM-DD" pickerFormat="YYYY MM DD" cancelText="取消" doneText="保存"
+                              [min]="min" [max]="max" formControlName="start_date"
                               [(ngModel)]="goal.start_date"></ion-datetime>
             </ion-item>
-
-            <ion-item>
+            <ion-item *ngIf="goal.date_type==2">
                 <ion-label>结束日期</ion-label>
-                <ion-datetime #endDate placeholder="无" (ionCancel)="onClearEndDate()" (ionChange)="onChangeDate()"
-                              displayFormat="YYYY-MM-DD" pickerFormat="YYYY MM DD" [min]="goal.start_day" [max]="max"
-                              cancelText="清空" doneText="保存" formControlName="end_date"
+                <ion-datetime #endDate placeholder="无" (ionChange)="onDateChange()"
+                              displayFormat="YYYY-MM-DD" pickerFormat="YYYY MM DD" [min]="goal.start_date" [max]="max"
+                              cancelText="取消" doneText="保存" formControlName="end_date"
                               [(ngModel)]="goal.end_date"></ion-datetime>
             </ion-item>
-
         </ion-list>
 
-        <!--<ion-list>-->
-        <!--<ion-item>-->
-        <!--<ion-label>打卡频率</ion-label>-->
-        <!--</ion-item>-->
-        <!--<ion-item>-->
-        <!--<my-week-selector (onWeekChanged)="onWeekChanged($event)"></my-week-selector>-->
-        <!--</ion-item>-->
-        <!--</ion-list>-->
+        <ion-list>
+            <ion-item>
+                <ion-label>目标天数</ion-label>
+                <ion-input type="number" text-right formControlName="days" min="0" max="9999"
+                           [(ngModel)]="goal.days" (blur)="checkDays()"></ion-input>
+            </ion-item>
+        </ion-list>
 
         <ion-list>
             <ion-item>
                 <ion-label>是否公开</ion-label>
                 <ion-toggle checked="false" formControlName="is_public"></ion-toggle>
-            </ion-item>
-            <ion-item>
-                <ion-label>提醒时间</ion-label>
-                <ion-datetime placeholder="无" displayFormat="HH:mm" pickerFormat="HH:mm"
-                              (ionCancel)="onClearRemindTime()" formControlName="remind_time" cancelText="清空"
-                              doneText="保存" [(ngModel)]="goal.remind_time"></ion-datetime>
             </ion-item>
         </ion-list>
 
@@ -63,4 +61,5 @@
         </div>
 
     </form>
+
 </ion-content>

@@ -61,7 +61,6 @@ export class RegisterPage {
 
     timerTracker() {
         setTimeout(() => {
-            console.log(this.timerRemainSeconds);
             if (this.timerRemainSeconds > 0) {
                 this.timerRemainSeconds--;
                 this.timerText = this.timerRemainSeconds + "s后再次发送";
@@ -119,7 +118,7 @@ export class RegisterPage {
                     showConfirmButton: false,
                     width: '80%'
                 }).then(() => {
-
+                    this.navCtrl.push('main');
                 }, dismiss => {
                     this.navCtrl.push('main');
                 });

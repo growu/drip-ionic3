@@ -12,6 +12,7 @@
     "ionic:serve": "ionic-app-scripts serve"
   },
   "dependencies": {
+    "@angular/animations": "5.2.6",
     "@angular/cli": "^1.5.2",
     "@angular/common": "5.1.2",
     "@angular/compiler": "5.1.2",
@@ -89,6 +90,7 @@
     "ion2-calendar": "2.1.4",
     "ionic-angular": "^3.9.2",
     "ionic-img-viewer": "2.9.0",
+    "ionic-tooltips": "^2.0.1",
     "ionic2-super-tabs": "^4.1.5",
     "ionicons": "3.0.0",
     "jpush-phonegap-plugin": "^3.2.13",

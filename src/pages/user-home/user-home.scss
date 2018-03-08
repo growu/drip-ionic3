@@ -1,10 +1,29 @@
 page-user-home {
 
   #content {
-    background-color: #488aff!important;
+    //background-color: #488aff!important;
+  }
+
+  #content {
+    background-image: url("http://pic3.16pic.com/00/47/09/16pic_4709087_b.jpg");
+    background-repeat: no-repeat;
+    background-color:transparent!important;
+    //background-size: cover;
+    //background-position-x: 50%;
+    //background-position-y: 50%;
+    .scroll-content{
+      border:0;
+    }
+  }
+
+  .bar-buttons,
+  .back-button,
+  .toolbar-title {
+    color: #fff;
   }
 
   ion-title {
+    text-align: center;
    img {
       margin-top:5px;
       width: 32px;
@@ -19,8 +38,37 @@ page-user-home {
     }
   }
 
+
+  .icon-with-bg,.icon-with-bg2{
+    position: relative;
+  }
+
+  .icon-with-bg::after{
+    position: absolute;
+    content: '';
+    background: #fff;
+    z-index: -1;
+    top: 3px;
+    left: 3px;
+    width: 10px;
+    height: 10px;
+  }
+
+  .icon-with-bg2::after{
+    position: absolute;
+    content: '';
+    background: #fff;
+    z-index: -1;
+    top: 5px;
+    left: 3px;
+    width: 11px;
+    height: 8px;
+  }
+
+
   .profile-row {
-    background-color: color($colors, 'primary');
+    //background-image: url("http://img.hb.aicdn.com/54573345540979c5c2f84fba0c0a36e56bd27e2de249-cDsrfs_fw658");
+    //background-color: color($colors, 'primary');
     color:#fff;
     img {
       width: 64px;
@@ -30,7 +78,7 @@ page-user-home {
   }
 
   .follow-row {
-    background-color: #488aff;
+    //background-color: #488aff;
     .num {
       font-family: Oswald;
       font-size: 1.8rem;

@@ -355,8 +355,6 @@ export class UserProvider {
     deleteGoal(id) {
         return this.httpProvider.httpDeleteWithAuth("/user/goal/" + id).then(value => {
             return value;
-        }).catch(e => {
-            console.log(e)
         });
     }
 

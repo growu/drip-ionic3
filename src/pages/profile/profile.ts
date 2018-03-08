@@ -49,7 +49,7 @@ export class ProfilePage {
 
     onChangeAvatar($event) {
         this.toolProvider.choosePic($event).then((ret)=>{
-            this.updateUser('user_avatar', ret.url);
+            this.updateUser('avatar_url', ret.url);
         }).catch((err)=>{
 
         });

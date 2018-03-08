@@ -1,14 +1,21 @@
 <div *ngIf="_eventSource">
 <ion-card *ngFor="let event of _eventSource">
   <ion-item (click)="goUserHomePage(event.user)">
-    <ion-avatar item-start>
+    <ion-avatar item-start style="position: relative;">
       <img [src]="event.user?.avatar_url || 'assets/img/default-avatar.jpg'">
+      <i class="iconfont icon-renzheng2 icon-with-bg" *ngIf="event.user.verified_type == 1" ion-text color="yellow" style="position: absolute;right:-2px;bottom:-2px;padding:1px;background-color:#fff;border-radius: 50%;
+    font-size: 12px;"></i>
+      <i class="iconfont icon-renzheng2 icon-with-bg" *ngIf="event.user.verified_type == 2" ion-text color="primary" style="position: absolute;right:-2px;bottom:-2px;padding:1px;background-color:#fff;border-radius: 50%;
+    font-size: 12px;"></i>
+      <i class="iconfont icon-iconfontshenqingdaren icon-with-bg" *ngIf="event.user.verified_type == 3" ion-text color="danger" style="position: absolute;right:-2px;bottom:-2px;padding:1px;background-color:#fff;border-radius:50%;
+    font-size: 14px;"></i>
     </ion-avatar>
     <h2 >
       <span ion-text [color]="event.user?.is_vip?'danger':'dark'">{{event.user?.nickname || '还没有昵称'}}</span>
-      <ion-badge color="yellow" *ngIf="event.user?.is_vip">pro</ion-badge>
+      <i class="iconfont icon-professional-hexagon" *ngIf="event.user?.is_vip" ion-text style="color:#ffa502;font-size: 18px!important;"></i>
     </h2>
     <p>{{event.created_at | amLocale:"zh_cn" | amUtc | amTimeAgo }}</p>
+    <ion-icon name="bookmark" color="secondary" *ngIf="event.is_hot" style="position:absolute;top:-2px;right:5px;font-size: 20px;"></ion-icon>
   </ion-item>
 
   <div class="event-image">

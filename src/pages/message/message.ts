@@ -27,7 +27,9 @@ export class MessagePage {
 
     ionViewDidLoad() {
         this.storage.get('messages').then((data) => {
-            this.messages = data;
+            if(data) {
+                this.messages = data;
+            }
         });
     }
 

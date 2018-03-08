@@ -1,90 +1,167 @@
 <ion-header>
-
-  <ion-navbar color="primary">
-    <ion-title>目标编辑</ion-title>
-  </ion-navbar>
-
+    <ion-navbar color="primary">
+        <ion-title>目标设置</ion-title>
+    </ion-navbar>
 </ion-header>
 
-<ion-content padding-top>
-  <form [formGroup]="goalEditForm" (ngSubmit)="doUpdateGoal()">
-    <ion-list>
-      <ion-item>
-        <ion-input placeholder="目标名称" formControlName="name" maxlength="20" [(ngModel)]="goal.name"></ion-input>
-      </ion-item>
-      <ion-item>
-        <ion-textarea placeholder="描述你的目标" formControlName="desc" maxlength="255"  [(ngModel)]="goal.desc"></ion-textarea>
-      </ion-item>
-    </ion-list>
-
-    <ion-list>
-      <ion-item>
-        <ion-label>开始日期</ion-label>
-        <ion-datetime placeholder="今天" disabled (ionCancel)="onClearStartDate()" (ionChange)="onChangeDate()" displayFormat="YYYY-MM-DD" pickerFormat="YYYY MM DD" cancelText="重置" doneText="保存" [min]="today" [max]="max"  formControlName="start_date"  [(ngModel)]="goal.start_date"></ion-datetime>
-      </ion-item>
-
-      <ion-item>
-        <ion-label>结束日期</ion-label>
-        <ion-datetime #endDate placeholder="无" (ionCancel)="onClearEndDate()"  (ionChange)="onChangeDate()" displayFormat="YYYY-MM-DD" pickerFormat="YYYY MM DD" [min]="goal.start_day" [max]="max" cancelText="清空" doneText="保存" formControlName="end_date" [(ngModel)]="goal.end_date"></ion-datetime>
-      </ion-item>
-
-    </ion-list>
-
-    <!--<ion-list>-->
-    <!--<ion-item>-->
-    <!--<ion-label>打卡频率</ion-label>-->
-    <!--</ion-item>-->
-    <!--<ion-item>-->
-    <!--<my-week-selector (onWeekChanged)="onWeekChanged($event)"></my-week-selector>-->
-    <!--</ion-item>-->
-    <!--</ion-list>-->
-
-    <ion-list>
-      <ion-item>
-        <ion-label>是否公开</ion-label>
-        <ion-toggle checked="false" formControlName="is_public" [(ngModel)]="goal.is_public"></ion-toggle>
-      </ion-item>
-      <ion-item>
-        <ion-label>提醒时间</ion-label>
-        <ion-datetime placeholder="无" displayFormat="HH:mm" pickerFormat="HH:mm" (ionCancel)="onClearRemindTime()" formControlName="remind_time" cancelText="清空" doneText="保存" [(ngModel)]="goal.remind_time"></ion-datetime>
-      </ion-item>
-    </ion-list>
-
-    <ion-list>
-      <ion-item>
-        统计项目 <ion-badge color="yellow" *ngIf="!user.is_vip">pro</ion-badge>
-        <ion-icon item-end name="add-circle" *ngIf="user.is_vip" (click)="createGoalItem()"></ion-icon>
-        <ion-icon item-end name="add-circle" color="light" *ngIf="!user.is_vip"></ion-icon>
-
-      </ion-item>
-      <ng-container *ngIf="user.is_vip && goal.items.length>0">
-        <ion-item-sliding *ngFor="let item of goal.items">
-          <ion-item>
-            <ion-label>{{item.name}}</ion-label>
-            <ion-note item-end>{{item.expect}} {{item.unit}}</ion-note>
-          </ion-item>
-          <ion-item-options side="right">
-            <button ion-button color="primary" (click)="editGoalItem(item,$event)">
-              编辑
-            </button>
-            <button ion-button color="danger" (click)="deleteGoalItem(item,$event)">
-              删除
-            </button>
-          </ion-item-options>
-        </ion-item-sliding>
-      </ng-container>
-    </ion-list>
-    <ion-row padding-left *ngIf="user.is_vip">
-      <em>  小提示：右侧滑动项目，可对项目进行编辑或者删除</em>
-    </ion-row>
+<ion-content>
 
     <div padding>
-      <button ion-button block type="submit">提交</button>
-      <button ion-button block color="danger" (click)="doDelGoal($event)">删除</button>
+        <ion-segment [(ngModel)]="settingModel">
+            <ion-segment-button value="basic">
+                基本设置
+            </ion-segment-button>
+            <ion-segment-button value="advance">
+                高级设置
+            </ion-segment-button>
+        </ion-segment>
     </div>
 
-  </form>
+    <form [formGroup]="goalEditForm" (ngSubmit)="doUpdateGoal()">
 
+        <div *ngIf="settingModel == 'basic'">
+            <ion-list>
+                <ion-item>
+                    <ion-input placeholder="目标名称" formControlName="name" maxlength="20"
+                               [(ngModel)]="goal.name"></ion-input>
+                </ion-item>
+                <ion-item>
+                    <ion-textarea placeholder="描述你的目标" formControlName="desc" maxlength="255"
+                                  [(ngModel)]="goal.desc"></ion-textarea>
+                </ion-item>
+            </ion-list>
+            <ion-list>
+                <ion-item>
+                    <ion-label>日期范围</ion-label>
+                    <ion-select formControlName="date_type" [(ngModel)]="goal.date_type" interface="popover" (ionChange)="onDateTypeChnage($event)">
+                        <ion-option value="1">长期目标</ion-option>
+                        <ion-option value="2">短期目标</ion-option>
+                    </ion-select>
+                </ion-item>
+                <ion-item *ngIf="goal.date_type == 2">
+                    <ion-label>开始日期</ion-label>
+                    <ion-datetime placeholder="今天" (ionChange)="onDateChange()" displayFormat="YYYY-MM-DD" pickerFormat="YYYY MM DD"
+                                  cancelText="取消" doneText="保存" [max]="max" formControlName="start_date"
+                                  [(ngModel)]="goal.start_date"></ion-datetime>
+                </ion-item>
+                <ion-item *ngIf="goal.date_type == 2">
+                    <ion-label>结束日期</ion-label>
+                    <ion-datetime #endDate placeholder="无"  (ionChange)="onDateChange()"
+                                  displayFormat="YYYY-MM-DD" pickerFormat="YYYY MM DD" [min]="goal.start_date>min?goal.start_date:min"
+                                  [max]="max" cancelText="取消" doneText="保存" formControlName="end_date"
+                                  [(ngModel)]="goal.end_date"></ion-datetime>
+                </ion-item>
+            </ion-list>
+            <ion-list>
+                <ion-item>
+                    <ion-label>目标天数</ion-label>
+                    <ion-input type="number" text-right formControlName="expect_days" maxlength="20"
+                               [(ngModel)]="goal.expect_days" (blur)="checkDays()"></ion-input>
+                </ion-item>
+            </ion-list>
+            <ion-list>
+                <ion-item>
+                    <ion-label>是否公开</ion-label>
+                    <ion-toggle checked="false" formControlName="is_public"></ion-toggle>
+                </ion-item>
+            </ion-list>
+        </div>
 
+        <div *ngIf="settingModel == 'advance'">
+                <ion-list>
+                    <ion-item>
+                        <ion-label>打卡模式</ion-label>
+                        <ion-select [(ngModel)]="goal.checkin_model" formControlName="checkin_model" interface="popover">
+                            <ion-option value="1">极简模式</ion-option>
+                            <ion-option value="2">高级模式</ion-option>
+                        </ion-select>
+                    </ion-item>
+                </ion-list>
+
+                <ion-list>
+                    <ion-item>
+                        <ion-label>打卡周期</ion-label>
+                    </ion-item>
+                    <ion-item>
+                        <my-week-selector (onWeekChanged)="onWeekChanged($event)" [weeks]="goal.weeks" ></my-week-selector>
+                    </ion-item>
+                </ion-list>
+
+                <ion-list>
+                    <ion-item>
+                        <ion-label>打卡时间</ion-label>
+                        <ion-select [(ngModel)]="goal.time_type" formControlName="time_type" interface="popover" (ionChange)="onTimeTypeChnage($event)">
+                            <ion-option value="1">任意时间</ion-option>
+                            <ion-option value="2">指定时间</ion-option>
+                        </ion-select>
+                    </ion-item>
+
+                    <ion-item *ngIf="goal.time_type==2">
+                        <ion-label>开始时间</ion-label>
+                        <ion-datetime placeholder="无" displayFormat="HH:mm" pickerFormat="HH:mm"
+                                      formControlName="start_time" doneText="保存"                                      (ionChange)="onTimeChange()"
+                                      (ionChange)="onTimeChange()"
+                                      [(ngModel)]="goal.start_time"></ion-datetime>
+                    </ion-item>
+
+                    <ion-item *ngIf="goal.time_type==2">
+                        <ion-label>结束时间</ion-label>
+                        <ion-datetime placeholder="无" displayFormat="HH:mm" pickerFormat="HH:mm"
+                                      formControlName="end_time" doneText="保存"
+                                      (ionChange)="onTimeChange()"
+                                      [(ngModel)]="goal.end_time"></ion-datetime>
+                    </ion-item>
+                </ion-list>
+
+                <ion-list>
+                    <ion-item>
+                        <ion-label>开启提醒</ion-label>
+                        <ion-toggle checked="false" formControlName="is_remind" [(ngModel)]="goal.is_remind"></ion-toggle>
+                    </ion-item>
+                    <ion-item *ngIf="goal.is_remind">
+                        <ion-label>提醒时间</ion-label>
+                        <ion-datetime placeholder="无" displayFormat="HH:mm" pickerFormat="HH:mm"
+                                      (ionCancel)="onClearRemindTime()" formControlName="remind_time" cancelText="清空"
+                                      doneText="保存" [(ngModel)]="goal.remind_time"></ion-datetime>
+                    </ion-item>
+                </ion-list>
+
+                <ion-list>
+                    <ion-item>
+                        统计项目
+                        <ion-badge color="yellow" *ngIf="!user.is_vip">pro</ion-badge>
+                        <ion-icon item-end name="add-circle" *ngIf="user.is_vip" (click)="createGoalItem()"></ion-icon>
+                        <ion-icon item-end name="add-circle" color="light" *ngIf="!user.is_vip"></ion-icon>
+
+                    </ion-item>
+                    <ng-container *ngIf="user.is_vip && goal.items.length>0">
+                        <ion-item-sliding *ngFor="let item of goal.items">
+                            <ion-item>
+                                <ion-label>{{item.name}}</ion-label>
+                                <ion-note item-end>{{item.expect}} {{item.unit}}</ion-note>
+                            </ion-item>
+                            <ion-item-options side="right">
+                                <button ion-button color="primary" (click)="editGoalItem(item,$event)">
+                                    编辑
+                                </button>
+                                <button ion-button color="danger" (click)="deleteGoalItem(item,$event)">
+                                    删除
+                                </button>
+                            </ion-item-options>
+                        </ion-item-sliding>
+                    </ng-container>
+                </ion-list>
+
+                <ion-row padding-left *ngIf="user.is_vip">
+                    <em> 小提示：右侧滑动项目，可对项目进行编辑或者删除</em>
+                </ion-row>
+        </div>
+
+        <div padding>
+            <button ion-button block type="submit">保存设置</button>
+            <button ion-button block color="danger" (click)="doDelGoal($event)">删除目标</button>
+        </div>
+
+    </form>
 </ion-content>
 

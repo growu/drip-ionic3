@@ -10,14 +10,17 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 })
 export class GoalDetailMenuPage {
 
+  private goal:any;
+
   constructor(public navCtrl: NavController, public navParams: NavParams) {
+    this.goal = this.navParams.get('goal');
   }
 
   ionViewDidLoad() {
   }
 
   goGoalSettingPage() {
-    this.navCtrl.push('goal-setting',{id:1});
+    this.navCtrl.push('goal-edit',{id:this.goal.id});
   }
 
 }

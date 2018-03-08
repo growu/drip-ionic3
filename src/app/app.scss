@@ -99,6 +99,22 @@
   color:#312929;
 }
 
+.badge-ios-orange,.badge-md-orange {
+  color:#fff;
+}
+
 .gray-content {
   background-color: #dedede!important;
+}
+
+.text-md-orange,.text-ios-orange {
+  //color:#fff;
+}
+
+.icon-font {
+  width: 1.5em;
+  height: 1.5em;
+  vertical-align: -0.5em;
+  fill: currentColor;
+  overflow: hidden;
 }

@@ -41,6 +41,7 @@ export class EventPage {
         });
     }
 
+    // 进入动态详情页
     goEventDetailPage(event) {
         this.navCtrl.push('event-detail', {'id': event.id});
     }

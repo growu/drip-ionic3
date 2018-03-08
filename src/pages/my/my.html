@@ -26,8 +26,10 @@
       </ion-thumbnail >
       <h2>
         <span ion-text>{{user.nickname || '还没有昵称'}}</span>
+        <i class="iconfont icon-professional-hexagon" ion-text [color]="user.is_vip?'orange':'gray'" (click)="goVipPage($event)"></i>
+
         <!--<i class="iconfont icon-vip-copy" ion-text [color]="user.is_vip?'danger':'gray'" (click)="goVipPage($event)"></i>-->
-        <ion-badge [color]="user.is_vip?'yellow':'gray'" (click)="goVipPage($event)">pro</ion-badge>
+        <!--<ion-badge [color]="user.is_vip?'yellow':'gray'" (click)="goVipPage($event)">pro</ion-badge>-->
       </h2>
       <p>{{user.signature || ' '}}</p>
       <ion-note item-end>

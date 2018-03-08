@@ -1,8 +1,10 @@
 import {Component} from '@angular/core';
-import {App, NavController, NavParams, IonicPage} from "ionic-angular";
+import {App, NavController, NavParams, IonicPage, Events} from "ionic-angular";
 import {UserProvider} from '../../providers/user/user'
 import {ToastProvider} from "../../providers/toast/toast";
 import { NativeAudio } from '@ionic-native/native-audio';
+import * as moment from 'moment'
+import swal from "sweetalert2";
 
 @IonicPage({
     name: "goal-detail-summary",
@@ -22,6 +24,7 @@ export class GoalDetailSummaryPage {
                 private app: App,
                 private nativeAudio: NativeAudio,
                 public navParams: NavParams,
+                private events:Events,
                 private toastProvider:ToastProvider,
                 private userProvider: UserProvider) {
         console.log(navParams);
@@ -63,11 +66,40 @@ export class GoalDetailSummaryPage {
             return;
         }
 
-        this.nativeAudio.play('uniqueId1', () => {
-            console.log('uniqueId1 is done playing');
-        });
+        // this.nativeAudio.play('uniqueId1', () => {
+        //     console.log('uniqueId1 is done playing');
+        // });
 
-        this.app.getRootNav().push('goal-checkin', {'id': this.navParams.data.id});
+        if(this.goal.checkin_model == 1) {
+
+            let params = {
+                day: moment().format('YYYY-MM-DD'),
+                content: null,
+                items: [],
+                attachs: []
+            }
+
+            this.userProvider.checkinGoal(this.goal.id, params).then(data => {
+                if (data) {
+                    swal({
+                        title: '打卡成功',
+                        html: '单次打卡奖励：+' + data.single_add_coin + '水滴币<br>连续打卡奖励：+' + data.series_add_coin + '水滴币',
+                        type: 'success',
+                        // timer: 2000,
+                        showConfirmButton: true,
+                        width: '80%',
+                        // padding: 0
+                    }).then(() => {
+                        this.events.publish('goals:update', {});
+                    }, dismiss => {
+                    });
+
+                }
+
+            });
+        } else {
+            this.app.getRootNav().push('goal-checkin', {'id': this.navParams.data.id});
+        }
 
     }
 

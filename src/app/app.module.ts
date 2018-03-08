@@ -9,9 +9,10 @@ import {Keyboard} from '@ionic-native/keyboard';
 import {MyApp} from './app.component';
 import {IonicStorageModule} from '@ionic/storage';
 import {Deeplinks} from '@ionic-native/deeplinks';
-import { JPush } from '@jiguang-ionic/jpush';
-import { NativeStorage } from '@ionic-native/native-storage';
-import { NativeAudio } from '@ionic-native/native-audio';
+import {JPush} from '@jiguang-ionic/jpush';
+import {NativeStorage} from '@ionic-native/native-storage';
+import {NativeAudio} from '@ionic-native/native-audio';
+import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 
 import {MyHammerConfig} from '../components/MyHammerConfig'
 import {HAMMER_GESTURE_CONFIG} from '@angular/platform-browser';
@@ -24,8 +25,8 @@ import {ToastProvider} from '../providers/toast/toast';
 import {LoadingProvider} from '../providers/loading/loading';
 import {IonicImageViewerModule} from 'ionic-img-viewer';
 import {MyShareModule} from '../components/my-share/my-share.module';
-import { TopProvider } from '../providers/top/top';
-import { TopicProvider } from '../providers/topic/topic';
+import {TopProvider} from '../providers/top/top';
+import {TopicProvider} from '../providers/topic/topic';
 
 @NgModule({
     declarations: [
@@ -41,13 +42,14 @@ import { TopicProvider } from '../providers/topic/topic';
         IonicModule.forRoot(MyApp, {
             backButtonText: '',
             tabsHideOnSubPages: true,
-            scrollAssist:false,
-            autoFocusAssist:false,
+            scrollAssist: false,
+            autoFocusAssist: false,
             monthNames: ['一', '二', '三', '四', '五', '六', '七', '八', '九', '十', '十一', '十二'],
             monthShortNames: ['一月', '二月', '三月', '四月', '五月', '六月', '七月', '八月', '九月', '十月', '十一月', '十二月'],
         }),
         IonicImageViewerModule,
-        MyShareModule
+        MyShareModule,
+        BrowserAnimationsModule
     ],
     bootstrap: [IonicApp],
     entryComponents: [
@@ -75,7 +77,7 @@ import { TopicProvider } from '../providers/topic/topic';
         ToastProvider,
         LoadingProvider,
         TopProvider,
-    TopicProvider,
+        TopicProvider,
     ]
 })
 export class AppModule {

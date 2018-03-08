@@ -21,8 +21,7 @@
             <ion-item-sliding *ngFor="let item of goal.items">
                 <ion-item >
                     <ion-label fixed>{{item.name}}</ion-label>
-                    <ion-input text-right maxlength="20" name="item[]" [(ngModel)]="item.value"
-                               value="{{item.expect}}"></ion-input>
+                    <ion-input text-right maxlength="20" name="item[]" [(ngModel)]="item.expect"></ion-input>
                     <ion-note item-end>{{item.unit}}</ion-note>
                 </ion-item>
                 <ion-item-options side="right">

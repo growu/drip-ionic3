@@ -18,8 +18,8 @@ export class AboutPage {
     public isUpdate: boolean = false;
     public isInstall: boolean = false;
 
-    public appVersion: string = '1.3.5';
-    public webVersion: string = '20180223000000';
+    public appVersion: string = '1.4.0';
+    public webVersion: string = '20180308000000';
 
     constructor(public navCtrl: NavController,
                 public navParams: NavParams,
@@ -45,7 +45,7 @@ export class AboutPage {
                 // if(data.appVersion) {
                 //     this.appVersion = data.appVersion;
                 // }
-                if( data.currentWebVersion) {
+                if (data.currentWebVersion) {
                     this.webVersion = data.currentWebVersion.replace(/-/g, '');
                     this.webVersion = this.webVersion.replace(/\./g, '');
                 }

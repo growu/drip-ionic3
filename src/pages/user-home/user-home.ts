@@ -39,6 +39,10 @@ export class UserHomePage {
         });
     }
 
+    doRefresh() {
+
+    }
+
     goVipPage() {
         this.navCtrl.push("vip");
     }

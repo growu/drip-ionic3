@@ -58,7 +58,7 @@ export class LoginDefaultPage {
                     type: 'success',
                     timer: 2000,
                     showConfirmButton: false,
-                    width: '80%',
+                    // width: '80%',
                     padding: 0
                 }).then(() => {
                     this.navCtrl.push('main');

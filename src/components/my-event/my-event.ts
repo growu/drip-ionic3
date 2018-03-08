@@ -31,8 +31,8 @@ export class MyEventComponent {
 
     @Input()
     set eventSource(value: any) {
-        if(value.length>0) {
-            value.forEach((item,index)=>{
+        if (value.length > 0) {
+            value.forEach((item, index) => {
                 item.content = this.formatContent(item);
                 this._eventSource.push(item);
             });
@@ -111,7 +111,7 @@ export class MyEventComponent {
         actionSheet.present();
     }
 
-    goEventDetailPage($event,id) {
+    goEventDetailPage($event, id) {
         $event.preventDefault();
         $event.stopPropagation();
         // e = e || window.event; //兼容IE8

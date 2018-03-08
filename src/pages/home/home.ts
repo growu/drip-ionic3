@@ -10,8 +10,10 @@ import * as moment from 'moment'
 import {Storage} from '@ionic/storage';
 import {DragulaService} from "ng2-dragula";
 import * as autoScroll from 'dom-autoscroller';
-import { NativeStorage } from '@ionic-native/native-storage';
-import { Events } from 'ionic-angular';
+import {NativeStorage} from '@ionic-native/native-storage';
+import {Events} from 'ionic-angular';
+import swal from "sweetalert2";
+
 @IonicPage({
     name: 'home',
     segment: 'home'
@@ -25,14 +27,14 @@ export class HomePage {
     public setting: SettingModel = {
         viewMode: "list",
         calendarMode: "",
-        enableSort:false,
-        hideExpireGoals:false
+        enableSort: false,
+        hideExpireGoals: false
     };
     public remindTime;
     public goals: any = [];
     public user: any = {};
 
-    @ViewChild('scrollContent') scrollContent:ElementRef;
+    @ViewChild('scrollContent') scrollContent: ElementRef;
     @ViewChild(Content) content: Content;
 
 
@@ -43,18 +45,18 @@ export class HomePage {
                 public storage: Storage,
                 private platform: Platform,
                 private nativeStorage: NativeStorage,
-                private elementRef:ElementRef,
+                private elementRef: ElementRef,
                 public events: Events,
                 private dragulaService: DragulaService,
                 private toastProvider: ToastProvider) {
 
         const bag: any = this.dragulaService.find('bag-one');
-        if (bag !== undefined ) this.dragulaService.destroy('bag-one');
+        if (bag !== undefined) this.dragulaService.destroy('bag-one');
 
         dragulaService.setOptions('bag-one', {
-            directions:"horizontal",
+            directions: "horizontal",
             moves: (el, source, handle, sibling) => {
-                if(this.setting.enableSort) {
+                if (this.setting.enableSort) {
                     return !el.classList.contains('no-drag');
                 } else {
                     return false;
@@ -81,7 +83,7 @@ export class HomePage {
 
         events.subscribe('goals:update', () => {
             console.log("goals:update");
-            if(this.setting.calendarMode) {
+            if (this.setting.calendarMode) {
                 let today = moment().format("YYYY-MM-DD");
                 this.currentDay = today;
                 this.getGoals(today);
@@ -112,8 +114,7 @@ export class HomePage {
     //     // do something
     // }
 
-    ionViewDidLoad()
-    {
+    ionViewDidLoad() {
 
         this.userProvider.getSetting().then((settingData) => {
             if (settingData) {
@@ -127,7 +128,7 @@ export class HomePage {
             this.user = data;
         });
 
-        if(this.setting.calendarMode) {
+        if (this.setting.calendarMode) {
             let today = moment().format("YYYY-MM-DD");
             this.currentDay = today;
             this.getGoals(today);
@@ -142,11 +143,11 @@ export class HomePage {
                 this.scrollContent.nativeElement
                 //this.autoscroll.nativeElement,
                 //this.autoscroll2.nativeElement
-            ],{
+            ], {
                 margin: 20,
                 maxSpeed: 5,
                 scrollWhenOutside: true,
-                autoScroll: function(){
+                autoScroll: function () {
                     //Only scroll when the pointer is down.
                     return this.down;
                     //return true;
@@ -155,22 +156,21 @@ export class HomePage {
         }, 3000);
     }
 
-
-
     saveGoalsOrder() {
         this.setting.enableSort = false;
-        this.goals.forEach((item,index)=>{
-            if(item.status == 1) {
-                if(item.order != index) {
+        this.goals.forEach((item, index) => {
+            if (item.status == 1) {
+                if (item.order != index) {
                     let param = {
-                        order:index,
+                        order: index,
                     };
 
                     let body = JSON.stringify(param);
 
                     this.userProvider.updateGoal(item.id, body).then((data) => {
 
-                    }).catch((err)=>{});
+                    }).catch((err) => {
+                    });
                 }
             }
         });
@@ -179,7 +179,7 @@ export class HomePage {
     getGoals(date) {
         this.userProvider.getGoals(date).then((data) => {
             this.goals = data;
-            if(this.platform.is('cordova')) {
+            if (this.platform.is('cordova')) {
                 if (!date) {
                     let totalNum = data.length;
                     let toBeNum = 0;
@@ -213,24 +213,73 @@ export class HomePage {
     }
 
     onDaySelected(day) {
-        if(day) {
+        if (day) {
             this.currentDay = moment(day).format("YYYY-MM-DD");
             this.getGoals(moment(day).format("YYYY-MM-DD"));
         } else {
             this.getGoals('');
         }
-
     }
 
     goGoalAddPage() {
         this.navCtrl.push('goal-create', {});
+
+        // var inputOptions = new Promise((resolve) => {
+        //     setTimeout(() => {
+        //         resolve({
+        //             '1': '个人目标',
+        //             '2': '小组目标(TEAM用户)'
+        //         })
+        //     }, 500)
+        // })
+        //
+        // swal({
+        //     title: '选择目标类型',
+        //     input: 'radio',
+        //     confirmButtonText: '确定',
+        //     inputOptions: inputOptions,
+        //     inputValue:1,
+        //     inputValidator: (value) => {
+        //         return !value && '请选择目标类型'
+        //     }
+        // }).then((result) => {
+        //     if (result.value) {
+        //         this.navCtrl.push('goal-create', {});
+        //     }
+        // })
+
+        // let alert = this.alertCtrl.create();
+        // alert.setTitle('请选择目标类型');
+        //
+        // alert.addInput({
+        //     type: 'radio',
+        //     label: '个人目标',
+        //     value: 'blue',
+        //     checked: true
+        // });
+        //
+        // alert.addInput({
+        //     type: 'radio',
+        //     label: '小组目标(限team用户使用)',
+        //     value: 'blue',
+        //     disabled:true
+        // });
+        //
+        // alert.addButton('取消');
+        // alert.addButton({
+        //     text: '确定',
+        //     handler: data => {
+        //         this.navCtrl.push('goal-create', {});
+        //     }
+        // });
+        // alert.present();
     }
 
     goGoalDetailPage(id) {
         this.navCtrl.push('goal-detail', {'id': id, 'homePage': this});
     }
 
-    goGoalCheckinPage(id,$event) {
+    goGoalCheckinPage(id, $event) {
         $event.stopPropagation();
         this.navCtrl.push('goal-checkin', {'id': id, 'homePage': this});
     }
@@ -253,6 +302,8 @@ export class HomePage {
                             this.toastProvider.show("删除成功", 'success');
                             var index = this.goals.indexOf(goal);
                             this.goals.splice(index, 1);
+                        }, () => {
+                        }).catch((err) => {
                         });
                     }
                 }
@@ -285,7 +336,7 @@ export class HomePage {
             user: this.user,
         }, {
             showBackdrop: true,
-            cssClass:'my-popover'
+            cssClass: 'my-popover'
         });
 
         popover.present({

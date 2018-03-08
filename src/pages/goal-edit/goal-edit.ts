@@ -21,11 +21,20 @@ export class GoalEditPage {
     public goal: any = {
         name: '',
         desc: '',
-        items: []
+        items: [],
+        weeks: [],
+        date_type: 1,
+        time_type:1,
+        start_time:'00:00',
+        end_time:'23:59',
+        checkin_model:2,
+        is_remind:false
     };
+    public weeks:Array<number> = [];
     public min: string = moment().format('YYYY-MM-DD');
-    public max: string = '2038-12-31';
+    public max: string = moment().add(10, 'years').format('YYYY-MM-DD');
     public user: any = {};
+    public settingModel: string = 'basic';
 
     private goalEditForm: FormGroup;
 
@@ -43,9 +52,16 @@ export class GoalEditPage {
         this.goalEditForm = this.formBuilder.group({
             'name': ['', [Validators.required, Validators.maxLength(20)]],
             'desc': ['', [Validators.required, Validators.maxLength(255)]],
-            'start_date': [{disabled: true}, []],
+            'date_type': ['', []],
+            'start_date': ['', []],
             'end_date': ['', []],
+            'checkin_model':['',[]],
+            'time_type': ['', []],
+            'start_time': ['', []],
+            'end_time': ['', []],
+            'expect_days': ['', []],
             'is_public': [true, []],
+            'is_remind': [false, []],
             'remind_time': ['', []],
             'items': [[], []],
         });
@@ -56,11 +72,82 @@ export class GoalEditPage {
         let id = this.navParams.get('id');
         this.userProvider.getGoal(id).then((data) => {
             this.goal = data;
-        }).catch((err) => {});
+            this.weeks = this.goal.weeks;
+        }).catch((err) => {
+        });
 
         this.storage.get('user').then((data) => {
             this.user = data;
         });
+    }
+
+    // 日期修改监听
+    onDateChange() {
+        if (this.goal.end_date < this.goal.start_date) {
+            this.goal.end_date = this.goal.start_date;
+        }
+
+        if (this.goal.expect_days == 0 || this.goal.expect_days > this.getDays()) {
+            this.goal.expect_days = this.getDays();
+        }
+    }
+
+    // 日期类型切换监听
+    onDateTypeChnage($event) {
+
+        if ($event == 2) {
+            this.goal.start_date = this.min;
+            this.goal.end_date = moment().add(20, 'days').format('YYYY-MM-DD');
+            this.goal.expect_days = 21;
+        }
+    }
+
+    // 时间类型切换监听
+    onTimeTypeChnage($event) {
+        if ($event == 2) {
+            this.goal.start_time = '00:00';
+            this.goal.end_time = '23:59';
+        }
+    }
+
+    // 获取日期范围天数
+    getDays() {
+        var a = moment(this.goal.start_date);
+        var b = moment(this.goal.end_date);
+        return b.diff(a, 'days') + 1;
+    }
+
+    // 目标天数修改监听
+    checkDays() {
+        if(this.goal.days<0) {
+            this.toastProvider.show('目标天数须大于0', 'error');
+            return false;
+        }
+
+        if(this.goal.days>9999) {
+            this.toastProvider.show('目标天数须小于9999', 'error');
+            return false;
+        }
+
+        if (this.goal.date_type == 2) {
+            if (this.goal.days > this.getDays()) {
+                this.toastProvider.show('目标天数大于日期范围', 'error');
+                return false;
+            }
+        }
+        return true
+    }
+
+    // 目标时间修改监听
+    onTimeChange() {
+        if (this.goal.end_time < this.goal.start_time) {
+            this.goal.end_time = this.goal.start_time;
+        }
+    }
+
+    // 星期切换监听
+    onWeekChanged($event) {
+        this.weeks = $event;
     }
 
     deleteGoalItem(item, $event) {
@@ -93,7 +180,10 @@ export class GoalEditPage {
             }
         }
 
+        if (!this.checkDays()) return;
+
         this.goalEditForm.value.items = this.goal.items;
+        this.goalEditForm.value.weeks = this.weeks;
 
         this.goalProvider.updateGoal(this.goal.id, this.goalEditForm.value).then(data => {
             if (data) {
@@ -116,28 +206,12 @@ export class GoalEditPage {
         });
     }
 
-    onClearStartDate() {
-        this.goal.start_date = this.min;
-    }
-
-    onClearEndDate() {
-        this.goal.end_date = null;
-    }
-
     onClearRemindTime() {
         this.goal.remind_time = null;
     }
 
-    onChangeDate() {
-        if (this.goal.end_date) {
-            if (this.goal.end_date < this.goal.start_date) {
-                this.goal.end_date = this.goal.start_date;
-            }
-        }
-    }
 
     doDelGoal($event) {
-
         $event.preventDefault();
         $event.stopPropagation();
         let confirm = this.alertCtrl.create({
