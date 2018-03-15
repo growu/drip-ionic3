@@ -56,7 +56,7 @@
                 <ion-item>
                     <ion-label>目标天数</ion-label>
                     <ion-input type="number" text-right formControlName="expect_days" maxlength="20"
-                               [(ngModel)]="goal.expect_days" (blur)="checkDays()"></ion-input>
+                               [(ngModel)]="goal.expect_days" (ionBlur)="checkDays()"></ion-input>
                 </ion-item>
             </ion-list>
             <ion-list>
