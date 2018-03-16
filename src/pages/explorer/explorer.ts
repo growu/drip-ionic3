@@ -1,6 +1,6 @@
 
 import { Component,ViewChild} from '@angular/core';
-import { IonicPage, NavController,Tabs } from 'ionic-angular';
+import { IonicPage, NavController,Tabs,AlertController} from 'ionic-angular';
 
 @IonicPage({
     'name':'explore'
@@ -10,12 +10,21 @@ import { IonicPage, NavController,Tabs } from 'ionic-angular';
 })
 export class ExplorerPage {
 
-    constructor(private navCtrl:NavController) {
+    constructor(private navCtrl:NavController,public alertCtrl: AlertController) {
 
     }
 
     goTopPage() {
         this.navCtrl.push('top');
+    }
+
+    goQunPage() {
+        let alert = this.alertCtrl.create({
+            title: '加入方法',
+            subTitle: '1、截图保存图片到相册，2、图片发送到微信内，3长按图片识别二维码',
+            buttons: ['确定']
+        });
+        alert.present();
     }
 
 }

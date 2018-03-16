@@ -84,6 +84,8 @@
         <splash height="1024" src="resources/ios/splash/Default-Portrait~ipad.png" width="768" />
         <splash height="960" src="resources/ios/splash/Default@2x~iphone.png" width="640" />
         <splash height="480" src="resources/ios/splash/Default~iphone.png" width="320" />
+        <icon height="1024" src="resources/ios/icon/icon-1024.png" width="1024" />
+        <splash height="2732" src="resources/ios/splash/Default@2x~universal~anyany.png" width="2732" />
     </platform>
     <allow-navigation href="*" />
     <allow-navigation href="http://localhost:8080/*" />
@@ -108,7 +110,6 @@
         <variable name="PHOTOLIBRARY_USAGE_DESCRIPTION" value=" " />
     </plugin>
     <plugin name="cordova-plugin-file-transfer" spec="^1.7.0" />
-    <plugin name="cordova-plugin-file" spec="^4.3.3" />
     <plugin name="cordova-plugin-whitelist" spec="^1.3.3" />
     <plugin name="cordova-plugin-nativeaudio" spec="^3.0.9" />
     <plugin name="cordova-plugin-datepicker" spec="^0.9.3" />
@@ -125,13 +126,14 @@
     </plugin>
     <plugin name="cordova-plugin-statusbar" spec="^2.4.1" />
     <plugin name="cordova-hot-code-push-plugin" spec="^1.5.3" />
-    <plugin name="cordova-plugin-bugly-sdk" spec="0.0.1">
-        <variable name="ANDROID_APPID" value="a3f4bd261d" />
-        <variable name="IOS_APPID" value="986c38f567" />
-    </plugin>
     <plugin name="cordova-plugin-x-socialsharing" spec="^5.2.1" />
     <plugin name="cordova-plugin-ionic-webview" spec="^1.1.16" />
     <plugin name="cordova-plugin-ionic-keyboard" spec="^2.0.5" />
     <engine name="android" spec="~6.1.2" />
     <engine name="ios" spec="~4.3.1" />
+    <plugin name="cordova-plugin-file" spec="~4.3.3" />
+    <plugin name="cordova-plugin-bugly-sdk" spec="~0.0.4">
+        <variable name="ANDROID_APPID" value="a3f4bd261d" />
+        <variable name="IOS_APPID" value="986c38f567" />
+    </plugin>
 </widget>

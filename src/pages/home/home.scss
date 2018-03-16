@@ -75,10 +75,14 @@
   }
 
   ion-note {
+    text-align: center;
     font-size: 20px;
     color:#488aff;
     font-weight: 600;
     font-family: "Oswald","Segoe UI", "Noto Sans", sans-serif;
+    p{
+      font-size: 1.1rem;
+    }
   }
 
 

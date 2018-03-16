@@ -37,8 +37,8 @@
       </ion-note>
     </ion-item>
   </ion-list>
-  <ion-row class="follow-row" margin-bottom (click)="goUserHomePage()">
-    <ion-col text-center>
+  <ion-row class="follow-row" margin-bottom >
+    <ion-col text-center (click)="goUserFollowingPage()">
       <strong ion-text class="num" color="dark">{{user.follow_count || '0'}}</strong>
       <br>
       <ion-note>关注</ion-note>
@@ -57,19 +57,21 @@
 
   <ion-list>
     <ion-item (click)="goWalletPage()">
-      <ion-icon name="logo-usd" item-start></ion-icon>
-      我的财富
+      <ion-icon name="water" item-start></ion-icon>
+      水滴币
       <ion-note clear item-end>
-        <!--<strong ion-text class="num" color="danger"> {{user.coin || '54,323'}} </strong>-->
+        <ion-note ion-text class="num"> {{user.coin || '0'}} </ion-note>
+        <ion-icon name="arrow-forward" color="dark"></ion-icon>
+      </ion-note>
+    </ion-item>
+    <ion-item>
+      <ion-icon name="ribbon" item-start></ion-icon>
+      徽章
+      <ion-note clear item-end>
+        <ion-note ion-text class="num"> 0 </ion-note>
         <ion-icon name="arrow-forward"></ion-icon>
       </ion-note>
     </ion-item>
-    <!--<ion-item>-->
-      <!--我的徽章-->
-      <!--<ion-note clear item-end>-->
-        <!--<ion-icon name="arrow-forward"></ion-icon>-->
-      <!--</ion-note>-->
-    <!--</ion-item>-->
   </ion-list>
 
 </ion-content>

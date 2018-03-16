@@ -70,4 +70,12 @@ export class MyPage {
     goWalletPage() {
         this.navCtrl.push("wallet", {'user': this.user});
     }
+
+    goUserFollowingPage() {
+        this.navCtrl.push("user-following",{id:this.user.id,user:this.user});
+    }
+
+    goUserFanPage() {
+        this.navCtrl.push("user-fan",{id:this.user.id,user:this.user});
+    }
 }

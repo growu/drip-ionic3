@@ -31,7 +31,7 @@ export class WelcomePage {
 
                 setTimeout(() => {
                     this.navCtrl.push('main');
-                }, 2000);
+                }, 1000);
 
             } else {
                 this.navCtrl.push('login');

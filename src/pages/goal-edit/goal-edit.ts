@@ -24,13 +24,14 @@ export class GoalEditPage {
         items: [],
         weeks: [],
         date_type: 1,
-        time_type:1,
-        start_time:'00:00',
-        end_time:'23:59',
-        checkin_model:2,
-        is_remind:false
+        time_type: 1,
+        start_time: '00:00',
+        end_time: '23:59',
+        checkin_model: 2,
+        max_daily_count: 1,
+        is_remind: false
     };
-    public weeks:Array<number> = [];
+    public weeks: Array<number> = [];
     public min: string = moment().format('YYYY-MM-DD');
     public max: string = moment().add(10, 'years').format('YYYY-MM-DD');
     public user: any = {};
@@ -55,7 +56,8 @@ export class GoalEditPage {
             'date_type': ['', []],
             'start_date': ['', []],
             'end_date': ['', []],
-            'checkin_model':['',[]],
+            'checkin_model': ['', []],
+            'max_daily_count': ['', []],
             'time_type': ['', []],
             'start_time': ['', []],
             'end_time': ['', []],
@@ -117,14 +119,24 @@ export class GoalEditPage {
         return b.diff(a, 'days') + 1;
     }
 
+    // 每日打卡最大次数
+    checkDailyCount() {
+        if (this.goal.max_daily_count > 10) {
+            this.toastProvider.show('每日打卡次数不得超过10次', 'error');
+            this.goal.max_daily_count = 10;
+            return false;
+        }
+        return true;
+    }
+
     // 目标天数修改监听
     checkDays() {
-        if(this.goal.days<0) {
+        if (this.goal.days < 0) {
             this.toastProvider.show('目标天数须大于0', 'error');
             return false;
         }
 
-        if(this.goal.days>9999) {
+        if (this.goal.days > 9999) {
             this.toastProvider.show('目标天数须小于9999', 'error');
             return false;
         }
@@ -181,6 +193,7 @@ export class GoalEditPage {
         }
 
         if (!this.checkDays()) return;
+        if (!this.checkDailyCount()) return;
 
         this.goalEditForm.value.items = this.goal.items;
         this.goalEditForm.value.weeks = this.weeks;

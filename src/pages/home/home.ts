@@ -82,7 +82,6 @@ export class HomePage {
         // });
 
         events.subscribe('goals:update', () => {
-            console.log("goals:update");
             if (this.setting.calendarMode) {
                 let today = moment().format("YYYY-MM-DD");
                 this.currentDay = today;
@@ -179,32 +178,32 @@ export class HomePage {
     getGoals(date) {
         this.userProvider.getGoals(date).then((data) => {
             this.goals = data;
-            if (this.platform.is('cordova')) {
-                if (!date) {
-                    let totalNum = data.length;
-                    let toBeNum = 0;
-                    let hasDoneNum = 0;
-
-                    data.forEach((item, index) => {
-                        if (item.is_checkin) {
-                            hasDoneNum++;
-                        } else {
-                            toBeNum++;
-                        }
-                    });
-
-                    this.nativeStorage.setItem('todayExtension', {
-                        toBeNum: toBeNum,
-                        hasDoneNum: hasDoneNum,
-                        totalNum: totalNum
-                    })
-                        .then(
-                            () => console.log('Stored item!'),
-                            error => console.error('Error storing item', error)
-                        );
-
-                }
-            }
+            // if (this.platform.is('cordova')) {
+            //     if (!date) {
+            //         let totalNum = data.length;
+            //         let toBeNum = 0;
+            //         let hasDoneNum = 0;
+            //
+            //         data.forEach((item, index) => {
+            //             if (item.is_checkin) {
+            //                 hasDoneNum++;
+            //             } else {
+            //                 toBeNum++;
+            //             }
+            //         });
+            //
+            //         this.nativeStorage.setItem('todayExtension', {
+            //             toBeNum: toBeNum,
+            //             hasDoneNum: hasDoneNum,
+            //             totalNum: totalNum
+            //         })
+            //             .then(
+            //                 () => console.log('Stored item!'),
+            //                 error => console.error('Error storing item', error)
+            //             );
+            //
+            //     }
+            // }
         });
     }
 
@@ -312,24 +311,7 @@ export class HomePage {
         confirm.present();
     }
 
-    setRemindTime(goal, $event) {
-        console.log($event);
-
-        let param = {
-            remind_time: goal.remind_time,
-            is_push: 1
-        };
-
-        let body = JSON.stringify(param);
-
-        this.userProvider.updateGoal(goal.id, body).then((data) => {
-            if (data) {
-                this.toastProvider.show('设置成功', 'success');
-                this.getGoals(this.currentDay);
-            }
-        });
-    }
-
+    //打开首页菜单
     openMenu($event) {
         let popover = this.popoverCtrl.create('home-menu', {
             setting: this.setting,

@@ -22,15 +22,10 @@
                 <i class="iconfont icon-professional-hexagon icon-with-bg2"  *ngIf="user.is_vip" ion-text style="color:#ffa502;font-size: 18px!important;"></i>
                 <i class="iconfont icon-nv icon-with-bg" *ngIf="user.sex==2" ion-text style="color:#eb89e5;"></i>
                 <i class="iconfont icon-nan icon-with-bg" *ngIf="user.sex==1"  ion-text style="color:#3ea8e5;"></i>
-                <!--<ion-badge color="orange" *ngIf="user.is_vip">PRO</ion-badge>-->
             </h2>
             <p *ngIf="user.verified_type == 0">{{user.signature || ' '}}</p>
             <p *ngIf="user.verified_type > 0">
                 <i class="iconfont icon-renzheng2 icon-with-bg"  ion-text color="primary"></i>
-
-                <!--<svg class="icon-font" aria-hidden="true">-->
-                    <!--<use xlink:href="#icon-renzheng2"></use>-->
-                <!--</svg> -->
                 水滴认证： {{user.verified_reason}}
             </p>
 

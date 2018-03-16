@@ -44,8 +44,8 @@
     <ion-item (click)="goPage('message-notice')">
       <ion-icon name="ios-notifications" item-start></ion-icon>
       通知
-      <ion-badge color="danger" *ngIf="messages.notice_count>0">{{messages.notice_count}}</ion-badge>
       <ion-note clear item-end>
+        <ion-badge color="danger" *ngIf="messages.notice_count>0">{{messages.notice_count}}</ion-badge>
         <ion-icon name="arrow-forward"></ion-icon>
       </ion-note>
     </ion-item>
