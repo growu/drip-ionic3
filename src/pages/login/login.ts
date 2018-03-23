@@ -3,6 +3,7 @@ import {NavController, IonicPage} from 'ionic-angular';
 import {UserProvider} from "./../../providers/user/user";
 import {Storage} from '@ionic/storage';
 import swal from 'sweetalert2'
+import {ToastProvider} from "../../providers/toast/toast";
 
 @IonicPage({
     name: 'login'
@@ -20,6 +21,7 @@ export class LoginPage {
 
     constructor(public navCtrl: NavController,
                 private userProvider: UserProvider,
+                private toastProvider: ToastProvider,
                 private storage: Storage) {
 
     }
@@ -59,18 +61,20 @@ export class LoginPage {
         this.storage.set('token', response.token);
         this.storage.set('user', response.user);
 
-        swal({
-            title: '登录成功',
-            // text: '欢迎回来',
-            type: 'success',
-            timer: 2000,
-            showConfirmButton: false,
-            width: '60%'
-        }).then(() => {
-            this.navCtrl.push('main');
-        }, dismiss => {
-            this.navCtrl.push('main');
-        });
+        this.toastProvider.show("登录成功",'success');
+        this.navCtrl.push('main');
+        // swal({
+        //     title: '登录成功',
+        //     // text: '欢迎回来',
+        //     type: 'success',
+        //     timer: 2000,
+        //     showConfirmButton: false,
+        //     width: '60%'
+        // }).then(() => {
+        //     this.navCtrl.push('main');
+        // }, dismiss => {
+        //     this.navCtrl.push('main');
+        // });
     }
 
     ionViewDidLoad() {

@@ -1,49 +1,62 @@
 <ion-content>
-  <ion-card>
+  <!--<ion-card>-->
 
   <ion-calendar [(ngModel)]="dateRangeObj"
                 [options]="calendarOptions"
                 [format]="'YYYY-MM-DD'"
                 (onChange)="onChange($event)">
   </ion-calendar>
-  </ion-card>
+  <!--</ion-card>-->
   <!--<my-year-calendar></my-year-calendar>-->
 
-  <ion-card *ngIf="(event|json) == '{}'">
-    <ion-card-header text-center>
-      <span ion-text text-left>{{selectDay}}</span>
-      <!--<span float-right ion-text text-right>第5天</span>-->
-    </ion-card-header>
-    <ion-card-content text-center padding-top>
-      <p>未查询到打卡记录,<a (click)="goGoalCheckinPage()">补打卡</a>
-      </p>
-      <!--<button ion-button  outline>补打卡</button>-->
-    </ion-card-content>
+  <!--<ion-card *ngIf="(event|json) == '{}'">-->
+    <!--<ion-card-header text-center>-->
+      <!--<span ion-text text-left>{{selectDay}}</span>-->
+      <!--&lt;!&ndash;<span float-right ion-text text-right>第5天</span>&ndash;&gt;-->
+    <!--</ion-card-header>-->
+    <!--<ion-card-content text-center padding-top>-->
+      <!--<p>未查询到打卡记录,<a (click)="goGoalCheckinPage()">补打卡</a>-->
+      <!--</p>-->
+      <!--&lt;!&ndash;<button ion-button  outline>补打卡</button>&ndash;&gt;-->
+    <!--</ion-card-content>-->
+    <!--&lt;!&ndash;<ion-row>&ndash;&gt;-->
+    <!--&lt;!&ndash;<ion-item>&ndash;&gt;-->
+    <!--&lt;!&ndash;<button ion-button item-end outline>补打卡</button>&ndash;&gt;-->
+    <!--&lt;!&ndash;</ion-item>&ndash;&gt;-->
+    <!--&lt;!&ndash;</ion-row>&ndash;&gt;-->
+  <!--</ion-card>-->
+
+
+  <ion-item-group margin-top>
+  <ion-item-divider color="light">
+    {{checkins.length}} 次打卡
+    <button ion-button small item-end (click)="goGoalCheckinPage()">补打卡</button>
+  </ion-item-divider>
+  <ion-item *ngFor="let checkin of checkins">
+    <h2>{{checkin.created_at | slice:11:19}}</h2>
+    <p>{{checkin.content}}</p>
+    <button ion-button clear item-end (click)="goEventDetailPage(checkin.event_id)" *ngIf="checkin.event_id">详情</button>
+  </ion-item>
+  </ion-item-group>
+
+  <!--<ion-card *ngIf="(event|json) != '{}'">-->
+    <!--<ion-card-header>-->
+      <!--<span ion-text text-left>{{selectDay}}</span>-->
+      <!--<span float-right ion-text text-right>第{{event.checkin?.total_days}}天</span>-->
+    <!--</ion-card-header>-->
+
+    <!--<img [src]="event.attachs[0]?.url" *ngIf="event.attachs">-->
+
+    <!--<ion-card-content>-->
+      <!--<p>{{event.content}}-->
+      <!--</p>-->
+    <!--</ion-card-content>-->
     <!--<ion-row>-->
-    <!--<ion-item>-->
-    <!--<button ion-button item-end outline>补打卡</button>-->
-    <!--</ion-item>-->
+      <!--<ion-item>-->
+        <!--<button ion-button item-end outline (click)="goEventDetailPage(event.id)">查看详情</button>-->
+      <!--</ion-item>-->
     <!--</ion-row>-->
-  </ion-card>
-
-  <ion-card *ngIf="(event|json) != '{}'">
-    <ion-card-header>
-      <span ion-text text-left>{{selectDay}}</span>
-      <span float-right ion-text text-right>第{{event.checkin?.total_days}}天</span>
-    </ion-card-header>
-
-    <img [src]="event.attachs[0]?.url" *ngIf="event.attachs">
-
-    <ion-card-content>
-      <p>{{event.content}}
-      </p>
-    </ion-card-content>
-    <ion-row>
-      <ion-item>
-        <button ion-button item-end outline (click)="goEventDetailPage(event.id)">查看详情</button>
-      </ion-item>
-    </ion-row>
-  </ion-card>
+  <!--</ion-card>-->
 
 
 </ion-content>

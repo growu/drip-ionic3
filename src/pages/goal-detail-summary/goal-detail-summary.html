@@ -1,31 +1,36 @@
 <ion-content padding class="page-goal-detail-summary">
   <div class="row" style="margin:10px auto;" (click)="goCheckinPage()">
-    <div class="progress-wrapper">
-      <div class="progress ng-cloak">
-        <ion-icon name="checkmark" style="font-size: 120px;font-weight: 900;" [color]="goal?.is_today_checkin?'primary':'gray'"></ion-icon>
-      </div>
-      <round-progress
-              [current]="goal?.total_days"
-              [max]="goal?.expect_days || 99999"
-              [color]="'#488aff'"
-              [background]="'#eaeaea'"
-              [radius]="80"
-              [stroke]="15"
-              [semicircle]="false"
-              [rounded]="true"
-              [clockwise]="false"
-              [responsive]="false"
-              [duration]="800"
-              [animation]="'easeInOutQuart'"
-              [animationDelay]="0"
-      ></round-progress>
+    <!--<div class="progress-wrapper">-->
+      <!--<div class="progress ng-cloak">-->
+        <!--<ion-icon name="checkmark" style="font-size: 120px;font-weight: 900;" [color]="goal?.is_today_checkin?'primary':'gray'"></ion-icon>-->
+      <!--</div>-->
+      <!--<round-progress-->
+              <!--[current]="goal?.total_days"-->
+              <!--[max]="goal?.expect_days || 99999"-->
+              <!--[color]="'#488aff'"-->
+              <!--[background]="'#eaeaea'"-->
+              <!--[radius]="80"-->
+              <!--[stroke]="15"-->
+              <!--[semicircle]="false"-->
+              <!--[rounded]="true"-->
+              <!--[clockwise]="false"-->
+              <!--[responsive]="false"-->
+              <!--[duration]="800"-->
+              <!--[animation]="'easeInOutQuart'"-->
+              <!--[animationDelay]="0"-->
+      <!--&gt;</round-progress>-->
+    <!--</div>-->
+
+    <div class="checkmark-circle">
+      <div  [class]="goal.is_today_checkin?'background active':'background'"></div>
+      <div class="checkmark draw"></div>
     </div>
   </div>
 
   <ion-row>
     <ion-col text-center>
       <ion-card>
-      <strong ion-text class="num" color="primary">{{goal?.expect_days>0?goal?.expect_days:999}}</strong>
+      <strong ion-text class="num" color="primary">{{goal?.expect_days>0?goal?.expect_days:'--'}}</strong>
       <br>目标天数
       </ion-card>
     </ion-col>

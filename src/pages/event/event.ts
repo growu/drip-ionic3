@@ -13,7 +13,7 @@ import {EventProvider} from '../../providers/event/event'
 export class EventPage {
     public mode: string = "hot";
     public events: any = [];
-    private perPage: number = 20;
+    private perPage: number = 10;
 
     constructor(public navCtrl: NavController,
                 public navParams: NavParams,

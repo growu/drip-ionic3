@@ -1,51 +1,4 @@
-my-share {
-  top:0;
-  position: absolute;
-  display: block;
-  width: 100%;
-  left: 0;
-  height: 100%;
-  z-index: 10002;
-
-  .my-share-wrapper {
-    right: 0;
-    bottom: 270px;
-    margin: auto;
-    -webkit-transform: translate3d(0,100%,0);
-    transform: translate3d(0,100%,0);
-    z-index: 10;
-    max-width: 500px;
-    position: absolute;
-    display: block;
-    width: 100%;
-    left: 0;
-
-    .my-share-container {
-      padding-top: 2rem;
-      background: #fafafa;
-
-      .box {
-        text-align: center;
-        .icon {
-          font-size: 4rem;
-          width: 1em;
-          height: 1em;
-          vertical-align: -0.15em;
-          fill: currentColor;
-          overflow: hidden;
-        }
-      }
-
-      .cancle-row {
-        border-top:1px solid #ccc;
-      }
-
-    }
-  }
-}
-
-
-my-share-image {
+page-goal-checkin-succ {
   ion-content {
     background-color: #f4f4f4!important;
 
@@ -89,7 +42,7 @@ my-share-image {
       background-color: #8e8ee0;
       overflow: hidden;
       position:relative;
-
+      
       .date2 {
         font: 87.5%/1.5em "Oswald", sans-serif;
         position:absolute;

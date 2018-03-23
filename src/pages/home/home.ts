@@ -278,11 +278,13 @@ export class HomePage {
         this.navCtrl.push('goal-detail', {'id': id, 'homePage': this});
     }
 
-    goGoalCheckinPage(id, $event) {
+    // 目标打卡
+    doCheckin(goal, $event) {
         $event.stopPropagation();
-        this.navCtrl.push('goal-checkin', {'id': id, 'homePage': this});
+        this.userProvider.goCheckinPage(goal);
     }
 
+    // 删除目标
     deleteGoal(goal) {
         let confirm = this.alertCtrl.create({
             title: '确认删除?',

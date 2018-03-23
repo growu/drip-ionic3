@@ -27,11 +27,11 @@ export class MyShareComponent {
     }
 
     doImageShare() {
-        this._toastProvider.show("此功能有bug，暂时关闭，具体开放时间另行公告","warnning");
-        return;
-        // this.dismiss('backdrop');
-        // let modal = this.modalCtrl.create(MyShareImageModal,this._opts);
-        // modal.present();
+        // this._toastProvider.show("此功能有bug，暂时关闭，具体开放时间另行公告","warnning");
+        // return;
+        this.dismiss('backdrop');
+        let modal = this.modalCtrl.create(MyShareImageModal,this._opts);
+        modal.present();
     }
 
     doWechatShare(type) {

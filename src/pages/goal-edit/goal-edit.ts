@@ -54,8 +54,8 @@ export class GoalEditPage {
             'name': ['', [Validators.required, Validators.maxLength(20)]],
             'desc': ['', [Validators.required, Validators.maxLength(255)]],
             'date_type': ['', []],
-            'start_date': ['', []],
-            'end_date': ['', []],
+            'start_date': [null, []],
+            'end_date': [null, []],
             'checkin_model': ['', []],
             'max_daily_count': ['', []],
             'time_type': ['', []],
@@ -200,19 +200,23 @@ export class GoalEditPage {
 
         this.goalProvider.updateGoal(this.goal.id, this.goalEditForm.value).then(data => {
             if (data) {
-                swal({
-                    title: '修改成功',
-                    text: '',
-                    type: 'success',
-                    timer: 2000,
-                    showConfirmButton: false,
-                    width: '80%'
-                }).then(() => {
-                    this.events.publish('goals:update', {});
-                    this.navCtrl.pop();
-                }, dismiss => {
-                    this.navCtrl.pop();
-                });
+                this.toastProvider.show("修改成功",'success');
+                this.events.publish('goals:update', {});
+                this.navCtrl.pop();
+
+                // swal({
+                //     title: '修改成功',
+                //     text: '',
+                //     type: 'success',
+                //     timer: 2000,
+                //     showConfirmButton: false,
+                //     width: '80%'
+                // }).then(() => {
+                //     this.events.publish('goals:update', {});
+                //     this.navCtrl.pop();
+                // }, dismiss => {
+                //     this.navCtrl.pop();
+                // });
             }
         }).catch((err) => {
 
@@ -222,35 +226,6 @@ export class GoalEditPage {
     onClearRemindTime() {
         this.goal.remind_time = null;
     }
-
-
-    doDelGoal($event) {
-        $event.preventDefault();
-        $event.stopPropagation();
-        let confirm = this.alertCtrl.create({
-            title: '确认删除?',
-            message: '此项操作将会清空该目标下的所有数据，请谨慎操作！',
-            buttons: [
-                {
-                    text: '取消',
-                    handler: () => {
-                    }
-                },
-                {
-                    text: '确认',
-                    cssClass: 'my-alert-danger',
-                    handler: () => {
-                        this.userProvider.deleteGoal(this.goal.id).then((data) => {
-                            this.toastProvider.show("删除成功", 'success');
-                            this.navCtrl.push('home', {});
-                        });
-                    }
-                }
-            ]
-        });
-        confirm.present();
-    }
-
 
     goGoalItemCreatePage(item) {
         let index = this.goal.items.indexOf(item);

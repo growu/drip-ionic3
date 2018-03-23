@@ -17,6 +17,7 @@ export class GoalDetailCalendarPage {
 
     event: any = {};
     selectDay: any;
+    checkins:any = [];
 
     calendarOptions: CalendarComponentOptions = {
     };
@@ -63,12 +64,7 @@ export class GoalDetailCalendarPage {
 
     getGoalDay() {
         this.userProvider.getGoalDay(this.navParams.get('id'), this.selectDay).then((data) => {
-            if (Object.keys(data).length === 0) {
-                this.event = {};
-            } else {
-                this.event = data;
-            }
-            console.log(!this.event);
+            this.checkins = data;
         });
     }
 
@@ -82,8 +78,8 @@ export class GoalDetailCalendarPage {
     }
 
     goGoalCheckinPage() {
-        let id = this.navParams.get('id');
-        this.app.getRootNav().push('goal-checkin', {id: id, day: this.selectDay});
+        let goal = this.navParams.get('goal');
+        this.userProvider.goCheckinPage(goal,{'day':this.selectDay});
     }
 
 }

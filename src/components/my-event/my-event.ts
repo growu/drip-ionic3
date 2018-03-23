@@ -138,9 +138,14 @@ export class MyEventComponent {
 
     formatContent(event) {
         var content = event.content;
+        console.log(typeof content);
 
+        if(typeof content != 'string') {
+            return content;
+        }
         // 替换网址
         var linkPattern = /\b((http:\/\/|https:\/\/|ftp:\/\/|mailto:|news:)|www\.|ftp\.|[^ \,\;\:\!\)\(\""\'<>\f\n\r\t\v]+@)([^ \,\;\:\!\)\(\""\'<>\f\n\r\t\v]+)\b/gim;
+
         content = content.replace(linkPattern, function ($0, $1) {
             var match = $0;
             return '<a data-url="' + match + '" class="event-content-link"><i class="ion-link"></i>网页链接</a> ';

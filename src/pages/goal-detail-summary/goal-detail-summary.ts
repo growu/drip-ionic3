@@ -31,11 +31,17 @@ export class GoalDetailSummaryPage {
 
         this.rootNavCtrl = navParams.get('rootNavCtrl');
 
-        this.nativeAudio.preloadSimple('uniqueId1', 'assets/audio/water.mp3').then(()=>{
-            console.log("audio load succ");
-        }, (err)=>{
-            console.log("audio load err");
-            console.log(err);
+        // this.nativeAudio.preloadSimple('uniqueId1', 'assets/audio/water.mp3').then(()=>{
+        //     console.log("audio load succ");
+        // }, (err)=>{
+        //     console.log("audio load err");
+        //     console.log(err);
+        // });
+
+        // 监听目标状态改变
+        events.subscribe('goals:update', () => {
+            this.getGoal();
+            this.getGoalWeek();
         });
 
     }
@@ -55,54 +61,10 @@ export class GoalDetailSummaryPage {
     }
 
     goCheckinPage() {
-
-        if(this.goal.status == 0) {
-            this.toastProvider.show("目标还未开始","error");
-            return;
-        }
-
-        if(this.goal.status == 2) {
-            this.toastProvider.show("目标已结束","error");
-            return;
-        }
-
-        // this.nativeAudio.play('uniqueId1', () => {
-        //     console.log('uniqueId1 is done playing');
-        // });
-
-        if(this.goal.checkin_model == 1) {
-
-            let params = {
-                day: moment().format('YYYY-MM-DD'),
-                content: null,
-                items: [],
-                attachs: []
-            }
-
-            this.userProvider.checkinGoal(this.goal.id, params).then(data => {
-                if (data) {
-                    swal({
-                        title: '打卡成功',
-                        html: '单次打卡奖励：+' + data.single_add_coin + '水滴币<br>连续打卡奖励：+' + data.series_add_coin + '水滴币',
-                        type: 'success',
-                        // timer: 2000,
-                        showConfirmButton: true,
-                        width: '80%',
-                        // padding: 0
-                    }).then(() => {
-                        this.events.publish('goals:update', {});
-                    }, dismiss => {
-                    });
-
-                }
-
-            });
-        } else {
-            this.app.getRootNav().push('goal-checkin', {'id': this.navParams.data.id});
-        }
-
+      this.userProvider.goCheckinPage(this.goal);
     }
 
+    // 获取目标周打卡
     getGoalWeek() {
         let id = this.navParams.get('id');
         this.userProvider.getGoalWeek(id).then((data) => {
@@ -110,7 +72,8 @@ export class GoalDetailSummaryPage {
         });
     }
 
+    // 进入目标日历
     goGoalCalendarPage() {
-        this.navCtrl.push('goal-calendar', {id: this.navParams.get('id')});
+        this.navCtrl.push('goal-calendar', {id: this.navParams.get('id'),goal:this.goal});
     }
 }

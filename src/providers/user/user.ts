@@ -5,8 +5,11 @@ import {Storage} from '@ionic/storage';
 import {Device} from '@ionic-native/device';
 import {HttpProvider} from '../http/http';
 import {URLSearchParams} from '@angular/http';
-import {Platform} from "ionic-angular";
-import { JPush } from '@jiguang-ionic/jpush';
+import {App, Events, ModalController, Platform} from "ionic-angular";
+import {JPush} from '@jiguang-ionic/jpush';
+import {ToastProvider} from "../../providers/toast/toast";
+import * as moment from 'moment'
+import swal from "sweetalert2";
 
 declare var Wechat;
 declare var WeiboSDK;
@@ -19,6 +22,10 @@ export class UserProvider {
                 private storage: Storage,
                 private device: Device,
                 public jpush: JPush,
+                private app: App,
+                private events: Events,
+                private modalCtrl: ModalController,
+                private toastProvider: ToastProvider,
                 private platform: Platform) {
 
     }
@@ -53,18 +60,18 @@ export class UserProvider {
                     manufacturer: this.device.manufacturer,
                     isVirtual: this.device.isVirtual,
                     serial: this.device.serial,
-                    push_id:null
+                    push_id: null
                 };
 
-                    this.jpush.getRegistrationID().then((id) => {
+                this.jpush.getRegistrationID().then((id) => {
                         console.log("获取极光推送ID:" + id);
                         device.push_id = id;
                         resolve(device);
                     },
-                    (err)=>{
-                            console.log("获取极光推送错误");
-                            console.log(err);
-                            resolve(device);
+                    (err) => {
+                        console.log("获取极光推送错误");
+                        console.log(err);
+                        resolve(device);
                     });
             } else {
                 resolve(null);
@@ -72,7 +79,7 @@ export class UserProvider {
         });
     }
 
-    doThirdLogin(data,provider):Promise<any> {
+    doThirdLogin(data, provider): Promise<any> {
         return new Promise((resolve, reject) => {
             this.getDevice().then((device) => {
                 data.device = device;
@@ -96,9 +103,9 @@ export class UserProvider {
                     state = "_" + (+new Date());
 
                 Wechat.auth(scope, state, response => {
-                    this.doThirdLogin(response,'wechat').then((res)=>{
+                    this.doThirdLogin(response, 'wechat').then((res) => {
                         resolve(res);
-                    }).catch((err)=>{
+                    }).catch((err) => {
                         reject(err);
                     });
                 });
@@ -118,9 +125,9 @@ export class UserProvider {
                     state = "_" + (+new Date());
 
                 Wechat.auth(scope, state, response => {
-                    this.bind('wechat',response).then((res)=>{
+                    this.bind('wechat', response).then((res) => {
                         resolve(res);
-                    }).catch((err)=>{
+                    }).catch((err) => {
                         reject(err);
                     });
                 });
@@ -139,9 +146,9 @@ export class UserProvider {
                 };
 
                 QQSDK.ssoLogin(result => {
-                    this.doThirdLogin(result,'qq').then((res)=>{
+                    this.doThirdLogin(result, 'qq').then((res) => {
                         resolve(res);
-                    }).catch((err)=>{
+                    }).catch((err) => {
                         reject(err);
                     });
                 }, err => {
@@ -162,9 +169,9 @@ export class UserProvider {
                 };
 
                 QQSDK.ssoLogin(result => {
-                    this.bind('qq',result).then((res)=>{
+                    this.bind('qq', result).then((res) => {
                         resolve(res);
-                    }).catch((err)=>{
+                    }).catch((err) => {
                         reject(err);
                     });
                 }, err => {
@@ -185,9 +192,9 @@ export class UserProvider {
                     result.provider = 'weibo';
                     result.device = this.getDevice();
 
-                    this.doThirdLogin(result,'weibo').then((res)=>{
+                    this.doThirdLogin(result, 'weibo').then((res) => {
                         resolve(res);
-                    }).catch((err)=>{
+                    }).catch((err) => {
                         reject(err);
                     });
                 }, err => {
@@ -208,9 +215,9 @@ export class UserProvider {
                     result.provider = 'weibo';
                     result.device = this.getDevice();
 
-                    this.bind('weibo',result).then((res)=>{
+                    this.bind('weibo', result).then((res) => {
                         resolve(res);
-                    }).catch((err)=>{
+                    }).catch((err) => {
                         reject(err);
                     });
                 }, err => {
@@ -302,7 +309,7 @@ export class UserProvider {
         });
     }
 
-    bind(provider,param) {
+    bind(provider, param) {
         let body = JSON.stringify(param);
 
         return this.httpProvider.httpPostWithAuth("/user/bind/" + provider, body).then(value => {
@@ -331,11 +338,11 @@ export class UserProvider {
     }
 
     getUserGoals(userId) {
-        return this.httpProvider.httpGetWithAuth("/user/"+ userId + "/goals", null);
+        return this.httpProvider.httpGetWithAuth("/user/" + userId + "/goals", null);
     }
 
     getUserPhotos(userId) {
-        return this.httpProvider.httpGetWithAuth("/user/"+ userId + "/photos", null);
+        return this.httpProvider.httpGetWithAuth("/user/" + userId + "/photos", null);
     }
 
     getGoalDay(id, day) {
@@ -358,11 +365,79 @@ export class UserProvider {
         });
     }
 
-    checkinGoal(id, body) {
-        return this.httpProvider.httpPostWithAuth("/user/goal/" + id + "/checkin", body).then(value => {
-            return value;
+    goCheckinPage(goal, params = {}) {
+
+        console.log(goal);
+
+        if (goal.status == 0) {
+            this.toastProvider.show("目标还未开始", "error");
+            return;
+        }
+
+        if (goal.status == 2) {
+            this.toastProvider.show("目标已结束", "error");
+            return;
+        }
+
+        if (goal.checkin_model == 1) {
+
+            let body = {
+                day: moment().format('YYYY-MM-DD'),
+                content: null,
+                items: [],
+                attachs: []
+            }
+
+            this.checkinGoal(goal.id, body).then(data => {
+                if (data) {
+                    this.events.publish('goals:update', {});
+
+                    body['total_days'] = data.total_days;
+
+                    this.storage.get('user').then(data => {
+                        let params2 = {
+                            'goal': goal,
+                            'checkin': body,
+                            'user': data
+                        };
+
+                        let modal = this.modalCtrl.create('goal-checkin-succ', {'data': body});
+
+                        modal.onDidDismiss(data => {
+                        });
+
+                        modal.present();
+                    });
+
+
+                    // swal({
+                    //     title: '打卡成功',
+                    //     html: '单次打卡奖励：+' + data.single_add_coin + '水滴币<br>连续打卡奖励：+' + data.series_add_coin + '水滴币',
+                    //     type: 'success',
+                    //     // timer: 2000,
+                    //     showConfirmButton: true,
+                    //     width: '80%',
+                    //     // padding: 0
+                    // }).then(() => {
+                    //     this.events.publish('goals:update', {});
+                    // }, dismiss => {
+                    //     this.events.publish('goals:update', {});
+                    // });
+                }
+            }).catch(e => {
+                console.log(e)
+            });
+        } else {
+            params["id"] = goal.id;
+            this.app.getRootNav().push('goal-checkin', params);
+        }
+    }
+
+    checkinGoal(goal, params) {
+        return this.httpProvider.httpPostWithAuth("/user/goal/" + goal.id + "/checkin", params).then(data => {
+            return data;
         }).catch(e => {
-            console.log(e)
+            console.log(e);
         });
     }
 
@@ -396,7 +471,7 @@ export class UserProvider {
 
     updateGoal(id, body) {
         return this.httpProvider.httpPatchWithAuth("/user/goal/" + id, body);
-}
+    }
 
     getSetting() {
         return this.storage.get('setting');
@@ -407,8 +482,8 @@ export class UserProvider {
         var d = <SettingModel> {
             viewMode: "list",
             calendarMode: "",
-            hideExpireGoals:false,
-            enableSort:false
+            hideExpireGoals: false,
+            enableSort: false
         };
 
         return d;
@@ -437,7 +512,7 @@ export class UserProvider {
     }
 
     getMessageDetail(id) {
-        return this.httpProvider.httpGetWithAuth("/message/"+id,null);
+        return this.httpProvider.httpGetWithAuth("/message/" + id, null);
     }
 
     getNoticeMessages(page, perPage) {
@@ -458,22 +533,22 @@ export class UserProvider {
         return this.httpProvider.httpGetWithAuth("/user/messages/new", null);
     }
 
-    feedback(body){
+    feedback(body) {
         return this.httpProvider.httpPostWithAuth("/user/feedback", body);
     }
 
-    getUserFans(id,page,perPage) {
+    getUserFans(id, page, perPage) {
         var params = new URLSearchParams();
         params.set('page', page);
         params.set('per_page', perPage);
-        return this.httpProvider.httpGetWithAuth("/user/"+id+"/fans", params);
+        return this.httpProvider.httpGetWithAuth("/user/" + id + "/fans", params);
     }
 
-    getUserFollowings(id,page,perPage) {
+    getUserFollowings(id, page, perPage) {
         var params = new URLSearchParams();
         params.set('page', page);
         params.set('per_page', perPage);
-        return this.httpProvider.httpGetWithAuth("/user/"+id+"/followings", params);
+        return this.httpProvider.httpGetWithAuth("/user/" + id + "/followings", params);
     }
 
     getCoinLogs(page, per_page) {

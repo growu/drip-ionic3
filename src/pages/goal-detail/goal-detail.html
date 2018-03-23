@@ -24,8 +24,11 @@
                 <ion-badge *ngIf="goal.status==1" color="secondary">进行中</ion-badge>
                 <ion-badge *ngIf="goal.status==2" color="danger">已结束</ion-badge>
             </p>
-            <p *ngIf="goal.date_type == 2">开始于：{{goal.start_date}}，结束于：{{goal.end_date}}</p>
-            <p *ngIf="goal.date_type == 1">长期目标</p>
+            <p *ngIf="goal.date_type == 2">日期范围：从{{goal.start_date}}至{{goal.end_date}}</p>
+            <p *ngIf="goal.date_type == 1">日期范围：长期</p>
+            <p *ngIf="goal?.weeks&&goal?.weeks.length>0">打卡频率：
+                <span *ngFor="let w of goal.weeks">周{{weeks[w]}} </span>
+            </p>
             <p>{{goal.desc}}</p>
         </ion-col>
     </ion-row>

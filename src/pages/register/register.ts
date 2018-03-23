@@ -110,18 +110,21 @@ export class RegisterPage {
             if (data) {
                 this.storage.set('token', data.token);
                 this.storage.set('user', data.user);
-                swal({
-                    title: '注册成功',
-                    // text: '欢迎回来',
-                    type: 'success',
-                    timer: 2000,
-                    showConfirmButton: false,
-                    width: '80%'
-                }).then(() => {
-                    this.navCtrl.push('main');
-                }, dismiss => {
-                    this.navCtrl.push('main');
-                });
+
+                this.toastProvider.show("注册成功",'success');
+                this.navCtrl.push('main');
+                // swal({
+                //     title: '注册成功',
+                //     // text: '欢迎回来',
+                //     type: 'success',
+                //     timer: 2000,
+                //     showConfirmButton: false,
+                //     width: '80%'
+                // }).then(() => {
+                //     this.navCtrl.push('main');
+                // }, dismiss => {
+                //     this.navCtrl.push('main');
+                // });
             }
         }).catch((err) => {
 

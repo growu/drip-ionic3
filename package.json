@@ -100,7 +100,7 @@
     "ngx-clipboard": "^9.1.2",
     "rxjs": "5.5.6",
     "sw-toolbox": "3.6.0",
-    "sweetalert2": "^7.3.1",
+    "sweetalert2": "^7.17.0",
     "zone.js": "^0.8.19"
   },
   "devDependencies": {

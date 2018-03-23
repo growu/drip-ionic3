@@ -1,7 +1,14 @@
+
 <ion-header>
     <ion-navbar color="primary">
-        <ion-title>目标设置</ion-title>
+        <ion-title>编辑目标</ion-title>
+        <ion-buttons end>
+            <button ion-button icon-only clear type="submit" (click)="doUpdateGoal()">
+                <ion-icon name="md-checkmark"></ion-icon>
+            </button>
+        </ion-buttons>
     </ion-navbar>
+
 </ion-header>
 
 <ion-content>
@@ -9,7 +16,7 @@
     <div padding>
         <ion-segment [(ngModel)]="settingModel">
             <ion-segment-button value="basic">
-                基本设置
+                基本信息
             </ion-segment-button>
             <ion-segment-button value="advance">
                 高级设置
@@ -168,10 +175,9 @@
         </div>
 
         <div padding>
-            <button ion-button block type="submit">保存设置</button>
-            <button ion-button block color="danger" (click)="doDelGoal($event)">删除目标</button>
+            <!--<button ion-button block color="danger" (click)="doDelGoal($event)">删除目标</button>-->
         </div>
-
     </form>
+
 </ion-content>
 

@@ -8,7 +8,7 @@ import {IonicImageViewerModule} from "ionic-img-viewer";
 
 @NgModule({
     declarations: [
-        GoalCheckinPage,
+        GoalCheckinPage
     ],
     imports: [
         IonicPageModule.forChild(GoalCheckinPage),

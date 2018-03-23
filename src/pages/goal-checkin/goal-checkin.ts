@@ -1,5 +1,5 @@
 import {Component} from '@angular/core';
-import {App, NavController, NavParams, IonicPage, Events} from "ionic-angular";
+import {App, NavController, NavParams, IonicPage, Events, ModalController} from "ionic-angular";
 import {FormBuilder, FormGroup} from '@angular/forms';
 import {UserProvider} from "../../providers/user/user";
 import {ToolProvider} from "../../providers/tool/tool";
@@ -33,6 +33,7 @@ export class GoalCheckinPage {
                 private events: Events,
                 private  userProvider: UserProvider,
                 private storage: Storage,
+                private modalCtrl: ModalController,
                 private toolProvider: ToolProvider,) {
 
         if (this.navParams.get('day')) {
@@ -59,31 +60,37 @@ export class GoalCheckinPage {
     doCheckin($event) {
         $event.preventDefault();
 
-        let goal_id = this.navParams.get('id');
-
         let params = {
             day: this.day,
             content: this.content,
             items: this.goal.items,
-            attachs: this.attachs
-        }
+            attachs: this.attachs,
+        };
 
-        this.userProvider.checkinGoal(goal_id, params).then(data => {
+        this.userProvider.checkinGoal(this.goal, params).then(data => {
             if (data) {
-                swal({
-                    title: '打卡成功',
-                    html: '单次打卡奖励：+' + data.single_add_coin + '水滴币<br>连续打卡奖励：+' + data.series_add_coin + '水滴币',
-                    type: 'success',
-                    // timer: 2000,
-                    showConfirmButton: true,
-                    width: '80%',
-                    // padding: 0
-                }).then(() => {
-                    this.events.publish('goals:update', {});
-                    this.navCtrl.pop();
-                }, dismiss => {
+                this.events.publish('goals:update', {});
+
+                params['total_days'] = data.total_days;
+                if(this.attachs.length>0) {
+                    params['image'] = this.attachs[0];
+                } else {
+                    params['image'] = 'https://source.unsplash.com/random/400x300';
+                }
+
+                let body = {
+                    'goal':this.goal,
+                    'checkin':params,
+                    'user':this.user
+                };
+
+                let modal = this.modalCtrl.create('goal-checkin-succ',{'data':body});
+
+                modal.onDidDismiss(data => {
                     this.navCtrl.pop();
                 });
+
+                modal.present();
 
             }
 

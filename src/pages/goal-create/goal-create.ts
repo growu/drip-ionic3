@@ -119,19 +119,24 @@ export class GoalCreatePage {
 
         this.goalProvider.createGoal(this.goalCreateForm.value).then(data => {
             if (data) {
-                swal({
-                    title: '创建成功',
-                    text: '开始打卡吧!',
-                    type: 'success',
-                    timer: 2000,
-                    showConfirmButton: false,
-                    width: '80%'
-                }).then(() => {
-                    this.events.publish('goals:update', {});
-                    this.navCtrl.push('goal-detail', {id: data.id});
-                }, dismiss => {
-                    this.navCtrl.push('goal-detail', {id: data.id});
-                });
+
+                this.toastProvider.show("目标创建成功",'success');
+                this.events.publish('goals:update', {});
+                this.navCtrl.push('goal-detail', {id: data.id});
+
+                // swal({
+                //     title: '创建成功',
+                //     text: '开始打卡吧!',
+                //     type: 'success',
+                //     timer: 2000,
+                //     showConfirmButton: false,
+                //     width: '80%'
+                // }).then(() => {
+                //     this.events.publish('goals:update', {});
+                //     this.navCtrl.push('goal-detail', {id: data.id});
+                // }, dismiss => {
+                //     this.navCtrl.push('goal-detail', {id: data.id});
+                // });
             }
         }).catch((err) => {
 

@@ -63,21 +63,20 @@
                                     </ion-label>
 
                                     <ion-note item-end>
-                                        <span text-center>{{goal.total_days}}天</span>
-                                        <p>已坚持天数</p>
+                                        <span text-center>{{goal.total_days}} / {{goal.expect_days>0?goal.expect_days:'--'}} </span>
                                     </ion-note>
 
                                 </ion-item>
-                                <ion-item-options side="left">
-                                    <button ion-button   icon-only>
-                                        <ion-icon name="arrow-up"></ion-icon>
-                                    </button>
-                                    <button ion-button color="light" icon-only>
-                                        <ion-icon name="arrow-down"></ion-icon>
-                                    </button>
-                                </ion-item-options>
+                                <!--<ion-item-options side="left">-->
+                                    <!--<button ion-button   icon-only>-->
+                                        <!--<ion-icon name="arrow-up"></ion-icon>-->
+                                    <!--</button>-->
+                                    <!--<button ion-button color="light" icon-only>-->
+                                        <!--<ion-icon name="arrow-down"></ion-icon>-->
+                                    <!--</button>-->
+                                <!--</ion-item-options>-->
                                 <ion-item-options side="right">
-                                    <button ion-button color="primary" (click)="goGoalCheckinPage(goal.id,$event)">
+                                    <button ion-button color="primary" (click)="doCheckin(goal,$event)">
                                         打卡
                                     </button>
                                     <button ion-button color="danger" (click)="deleteGoal(goal)">

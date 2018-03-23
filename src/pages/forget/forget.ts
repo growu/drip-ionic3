@@ -101,19 +101,21 @@ export class ForgetPage {
 
         this.userProvider.find(this.forgetForm.value).then(response => {
             if(response) {
-                swal({
-                    title: '密码修改成功',
-                    // text: '欢迎回来',
-                    type: 'success',
-                    timer: 2000,
-                    showConfirmButton: false,
-                    width: '80%',
-                    padding: 0
-                }).then(() => {
-                    this.navCtrl.push('login-default');
-                }, dismiss => {
-                    this.navCtrl.push('login-default');
-                });
+                this.toastProvider.show("密码修改成功",'success');
+                this.navCtrl.push('login-default');
+                // swal({
+                //     title: '密码修改成功',
+                //     // text: '欢迎回来',
+                //     type: 'success',
+                //     timer: 2000,
+                //     showConfirmButton: false,
+                //     width: '80%',
+                //     padding: 0
+                // }).then(() => {
+                //     this.navCtrl.push('login-default');
+                // }, dismiss => {
+                //     this.navCtrl.push('login-default');
+                // });
             }
 
         }).catch((err)=>{

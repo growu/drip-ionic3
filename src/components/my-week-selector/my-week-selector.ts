@@ -15,11 +15,6 @@ export class MyWeekSelectorComponent {
 
     public days: MyWeekSelectorWeek[] = [
         {
-            name: "日",
-            value: 0,
-            isSelected: true
-        },
-        {
             name: "一",
             value: 1,
             isSelected: true
@@ -48,6 +43,11 @@ export class MyWeekSelectorComponent {
             name: "六",
             value: 6,
             isSelected: true
+        },
+        {
+            name: "日",
+            value: 0,
+            isSelected: true
         }
     ];
 
@@ -55,7 +55,7 @@ export class MyWeekSelectorComponent {
     @Output() onWeekChanged = new EventEmitter();
 
     constructor() {
-
+        console.log(this.days);
     }
 
     @Input()

@@ -32,6 +32,8 @@
                 </div>
                 <!--<img src="https://source.unsplash.com/random/400x300"/>-->
                 <img [src]="shareData.data.image" *ngIf="shareData.data.image"/>
+                <img src="https://source.unsplash.com/random/400x300" *ngIf="!shareData.data.image"/>
+
             </div>
                 <ion-card-content text-center>
                 <ion-card-title>
