@@ -76,6 +76,10 @@ export class GoalCheckinSuccPage {
             proxy: 'http://drip.growu.me/uploads/images/html2canvasproxy.php',
         };
 
+        setTimeout(() => {
+            loading.dismiss();
+        }, 5000);
+
         html2canvas(source, options).then((canvas) => {
             var img = new Image();
             img.crossOrigin = 'anonymous';

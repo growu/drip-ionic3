@@ -3,14 +3,14 @@ import {IonicPage, NavController, NavParams} from 'ionic-angular';
 import {UserProvider} from '../../providers/user/user';
 
 @IonicPage({
-    name: 'user-fan',
-    segment: '/user/:id/fan'
+    name: 'user-follower',
+    segment: '/user/:id/follower'
 })
 @Component({
     selector: 'page-user-fan',
-    templateUrl: 'user-fan.html',
+    templateUrl: 'user-follower.html',
 })
-export class UserFanPage {
+export class UserFollowerPage {
     public user: any;
     public users: any = [];
     private perPage: number = 20;
@@ -21,14 +21,14 @@ export class UserFanPage {
     }
 
     ionViewDidLoad() {
-        this.getUserFans(1);
+        this.getUserFollwers(1);
         this.user = this.navParams.get("user");
     }
 
-    getUserFans(page) {
+    getUserFollwers(page) {
         var id = this.navParams.get("id");
 
-        this.userProvider.getUserFans(id, page, this.perPage).then((data) => {
+        this.userProvider.getUserFollwers(id, page, this.perPage).then((data) => {
 
             if (page == 1) {
                 this.users = data;
@@ -41,8 +41,7 @@ export class UserFanPage {
 
     doRefresh(refresher) {
 
-        this.getUserFans(1);
-
+        this.getUserFollwers(1);
         setTimeout(() => {
             refresher.complete();
         }, 2000);
@@ -54,7 +53,7 @@ export class UserFanPage {
 
         if (num > 0 && num % 20 == 0) {
             var page = Math.floor(this.users.length / 20) + 1;
-            this.getUserFans(page);
+            this.getUserFollwers(page);
         }
 
         setTimeout(() => {
@@ -73,7 +72,6 @@ export class UserFanPage {
 
     doUnFollow(user, $event) {
         $event.stopPropagation();
-
         this.userProvider.unFollow(user.id).then((data) => {
             let index = this.users.indexOf(user);
             this.users[index].user.is_follow = false;

@@ -3,9 +3,9 @@
     <ion-navbar color="primary">
         <ion-title>动态详情</ion-title>
 
-        <ion-buttons end>
-            <button ion-button icon-only clear (click)="doShare()">
-                <ion-icon name="ios-share-outline"></ion-icon>
+        <ion-buttons end *ngIf="user?.id == event?.user.id">
+            <button ion-button icon-only clear (click)="showMenu()">
+                <ion-icon name="more"></ion-icon>
             </button>
         </ion-buttons>
     </ion-navbar>
@@ -32,6 +32,10 @@
                 <p [innerHtml]="event.content"></p>
                 <blockquote>完成 <a>{{event.goal.name}}</a> 打卡第{{event.checkin.total_days}}天</blockquote>
             </ion-card-content>
+
+            <p *ngFor="let item of event.items">
+                <ion-icon name="list" color="dark"></ion-icon> {{item.name+item.value+item.unit}}
+            </p>
 
         </ion-card>
     </ion-list>
@@ -91,11 +95,11 @@
                 <span class="num">{{event?.comment_count}}</span>
                 </button>
             </ion-col>
-            <ion-col (click)="doFavorite()">
+            <ion-col (click)="doShare()">
                 <button ion-button clear icon-left>
-                    <ion-icon name="ios-star-outline">
+                    <ion-icon name="md-share">
                     </ion-icon>
-                    <span class="num">{{event?.favourite_count}}</span>
+                    <!--<span class="num">{{event?.favourite_count}}</span>-->
                 </button>
             </ion-col>
         </ion-row>

@@ -126,6 +126,11 @@ export class GoalEditPage {
             this.goal.max_daily_count = 10;
             return false;
         }
+        if (this.goal.max_daily_count < 1) {
+            this.toastProvider.show('每日打卡次数不得低于1次', 'error');
+            this.goal.max_daily_count = 1;
+            return false;
+        }
         return true;
     }
 

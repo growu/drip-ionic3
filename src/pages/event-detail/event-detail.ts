@@ -4,6 +4,7 @@ import {EventProvider} from '../../providers/event/event'
 import {MyShareController} from '../../components/my-share/my-share.controller'
 import {ToastProvider} from "../../providers/toast/toast";
 import {CommentProvider} from "../../providers/comment/comment";
+import {Storage} from '@ionic/storage';
 
 declare var Keyboard;
 
@@ -21,6 +22,7 @@ export class EventDetailPage {
     public isComment:boolean = false;
     public content:string;
     public reply_comment:any;
+    public user;
 
     @ViewChild('commentInput') commentInput ;
     @ViewChild('eventContent') eventContent ;
@@ -28,7 +30,7 @@ export class EventDetailPage {
     constructor(public navCtrl: NavController,
                 public navParams: NavParams,
                 private platform: Platform,
-                private app: App,
+                private storage: Storage,
                 public eventProvider: EventProvider,
                 private toastProvider: ToastProvider,
                 private commentProvider: CommentProvider,
@@ -45,6 +47,10 @@ export class EventDetailPage {
             this.content = null;
             this.reply_comment = null;
             this.isComment = false;
+        });
+
+        this.storage.get('user').then(data=>{
+           this.user = data;
         });
 
     }
@@ -219,5 +225,45 @@ export class EventDetailPage {
         this.isComment = false;
         this.reply_comment = null;
         this.content = null;
+    }
+
+    // 显示菜单
+    showMenu() {
+        let actionSheet = this.actionSheetCtrl.create({
+            title: '我的动态',
+            buttons: [
+                {
+                    text: '转为私密',
+                    handler: () => {
+                       this.eventProvider.updateEvent(this.event,{'is_public':0}).then(data=>{
+                            if(data) {
+                                this.toastProvider.show("操作成功","success");
+                            }
+                       }).catch(err=>{});
+                    }
+                },
+                {
+                    text: '删除',
+                    role: 'destructive',
+                    handler: () => {
+                        this.eventProvider.deleteEvent(this.event).then(data=>{
+                            if(data) {
+                                this.toastProvider.show("删除成功","success");
+                                this.navCtrl.pop();
+                            }
+                        }).catch(err=>{})
+                    }
+                },
+                {
+                    text: '取消',
+                    role: 'cancel',
+                    handler: () => {
+                    }
+                }
+            ]
+        });
+
+        actionSheet.present();
+
     }
 }

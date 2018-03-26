@@ -71,11 +71,13 @@ export class MyPage {
         this.navCtrl.push("wallet", {'user': this.user});
     }
 
+    // 跳转到用户关注列表
     goUserFollowingPage() {
         this.navCtrl.push("user-following",{id:this.user.id,user:this.user});
     }
 
-    goUserFanPage() {
-        this.navCtrl.push("user-fan",{id:this.user.id,user:this.user});
+    // 跳转到用户粉丝列表
+    goUserFollowerPage() {
+        this.navCtrl.push("user-follower",{id:this.user.id,user:this.user});
     }
 }

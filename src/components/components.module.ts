@@ -1,8 +1,9 @@
 import { NgModule } from '@angular/core';
+import { MyUserAvatarComponent } from './my-user-avatar/my-user-avatar';
 @NgModule({
-	declarations: [],
+	declarations: [MyUserAvatarComponent],
 	imports: [],
-	exports: [
+	exports: [MyUserAvatarComponent
     ]
 })
 export class ComponentsModule {}

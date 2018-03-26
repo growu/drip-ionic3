@@ -43,7 +43,7 @@
       <br>
       <ion-note>关注</ion-note>
     </ion-col>
-    <ion-col text-center>
+    <ion-col text-center (click)="goUserFollowerPage()">
       <strong ion-text class="num" color="dark">{{user.fans_count || '0'}}</strong>
       <br>
       <ion-note>粉丝</ion-note>
