@@ -1,5 +1,5 @@
 import {Component} from '@angular/core';
-import {AlertController, IonicPage, ModalController, NavController, NavParams} from 'ionic-angular';
+import {AlertController, IonicPage, ModalController, NavController, NavParams, ViewController} from 'ionic-angular';
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {GoalProvider} from "./../../providers/goal/goal";
 import {ToastProvider} from "./../../providers/toast/toast";
@@ -44,6 +44,7 @@ export class GoalEditPage {
                 private toastProvider: ToastProvider,
                 private userProvider: UserProvider,
                 private alertCtrl: AlertController,
+                private viewCtrl: ViewController,
                 private goalProvider: GoalProvider,
                 private modalCtrl: ModalController,
                 public events: Events,
@@ -69,9 +70,16 @@ export class GoalEditPage {
         });
     }
 
+    ionViewWillEnter() {
+        if(this.navParams.get("disableBack")) {
+            this.viewCtrl.showBackButton(false);
+        }
+    }
+
     ionViewDidLoad() {
 
         let id = this.navParams.get('id');
+
         this.userProvider.getGoal(id).then((data) => {
             this.goal = data;
             this.weeks = this.goal.weeks;

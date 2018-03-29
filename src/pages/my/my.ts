@@ -64,7 +64,7 @@ export class MyPage {
     }
 
     goUserHomePage() {
-        this.navCtrl.push("user-home", {'id': this.user.id});
+        this.navCtrl.push("user-home", {'id': this.user.id,'rootNavCtrl':this.navCtrl});
     }
 
     goWalletPage() {

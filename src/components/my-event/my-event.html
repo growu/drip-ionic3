@@ -1,15 +1,16 @@
 <div *ngIf="_eventSource">
 <ion-card *ngFor="let event of _eventSource">
   <ion-item (click)="goUserHomePage(event.user)">
-    <ion-avatar item-start style="position: relative;">
-      <img [src]="event.user?.avatar_url || 'assets/img/default-avatar.jpg'">
-      <i class="iconfont icon-renzheng2 icon-with-bg" *ngIf="event.user.verified_type == 1" ion-text color="yellow" style="position: absolute;right:-2px;bottom:-2px;padding:1px;background-color:#fff;border-radius: 50%;
-    font-size: 12px;"></i>
-      <i class="iconfont icon-renzheng2 icon-with-bg" *ngIf="event.user.verified_type == 2" ion-text color="primary" style="position: absolute;right:-2px;bottom:-2px;padding:1px;background-color:#fff;border-radius: 50%;
-    font-size: 12px;"></i>
-      <i class="iconfont icon-iconfontshenqingdaren icon-with-bg" *ngIf="event.user.verified_type == 3" ion-text color="danger" style="position: absolute;right:-2px;bottom:-2px;padding:1px;background-color:#fff;border-radius:50%;
-    font-size: 14px;"></i>
-    </ion-avatar>
+    <!--<ion-avatar item-start style="position: relative;">-->
+      <!--<img [src]="event.user?.avatar_url || 'assets/img/default-avatar.jpg'">-->
+      <!--<i class="iconfont icon-renzheng2 icon-with-bg" *ngIf="event.user.verified_type == 1" ion-text color="yellow" style="position: absolute;right:-2px;bottom:-2px;padding:1px;background-color:#fff;border-radius: 50%;-->
+    <!--font-size: 12px;"></i>-->
+      <!--<i class="iconfont icon-renzheng2 icon-with-bg" *ngIf="event.user.verified_type == 2" ion-text color="primary" style="position: absolute;right:-2px;bottom:-2px;padding:1px;background-color:#fff;border-radius: 50%;-->
+    <!--font-size: 12px;"></i>-->
+      <!--<i class="iconfont icon-iconfontshenqingdaren icon-with-bg" *ngIf="event.user.verified_type == 3" ion-text color="danger" style="position: absolute;right:-2px;bottom:-2px;padding:1px;background-color:#fff;border-radius:50%;-->
+    <!--font-size: 14px;"></i>-->
+    <!--</ion-avatar>-->
+    <my-user-avatar item-start [user]="event.user"></my-user-avatar>
     <h2 >
       <span ion-text [color]="event.user?.is_vip?'danger':'dark'">{{event.user?.nickname || '还没有昵称'}}</span>
       <i class="iconfont icon-professional-hexagon" *ngIf="event.user?.is_vip" ion-text style="color:#ffa502;font-size: 18px!important;"></i>
@@ -27,7 +28,7 @@
     <p><a *ngIf="event.content&&event.content.length>100 && !event?.is_full_content" (click)="showFull($event,event)">全文</a></p>
     <p><a *ngIf="event?.is_full_content" (click)="showHide($event,event)">收起</a></p>
     <blockquote>
-      <p>完成<a> #{{event.goal.name}}# </a>第{{event.checkin?.total_days || 0}}天</p>
+      <p>完成<a (click)="goGoalHomePage(event.goal.id)"> #{{event.goal.name}}# </a>第{{event.checkin?.total_days || 0}}天</p>
       <p *ngFor="let item of event.items">
         <ion-icon name="list" color="dark"></ion-icon> {{item.name+item.value+item.unit}}
       </p>

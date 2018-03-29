@@ -22,6 +22,7 @@ export class MyEventComponent {
                 private iab: InAppBrowser,
                 private sanitizer: DomSanitizer,
                 private elRef: ElementRef,
+                private navCtrl: NavController,
                 private eventProvider: EventProvider) {
     }
 
@@ -140,7 +141,7 @@ export class MyEventComponent {
         var content = event.content;
         console.log(typeof content);
 
-        if(typeof content != 'string') {
+        if (typeof content != 'string') {
             return content;
         }
         // 替换网址
@@ -226,5 +227,11 @@ export class MyEventComponent {
         $event.stopPropagation();
         let index = this._eventSource.indexOf(event);
         (this._eventSource[index])["is_full_content"] = false;
+    }
+
+    goGoalHomePage($event, id) {
+        $event.preventDefault();
+        $event.stopPropagation();
+        this.navCtrl.push('goal-home', {id: id});
     }
 }

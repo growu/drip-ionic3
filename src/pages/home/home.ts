@@ -1,7 +1,7 @@
 import {Component, ElementRef, ViewChild} from '@angular/core';
 import {
     NavController, Tabs, IonicPage, PopoverController, AlertController, ToastController,
-    Content, Scroll, Platform
+    Content, Scroll, Platform, App
 } from 'ionic-angular';
 import {UserProvider} from '../../providers/user/user'
 import {ToastProvider} from '../../providers/toast/toast'
@@ -43,6 +43,7 @@ export class HomePage {
                 private userProvider: UserProvider,
                 private alertCtrl: AlertController,
                 public storage: Storage,
+                private app: App,
                 private platform: Platform,
                 private nativeStorage: NativeStorage,
                 private elementRef: ElementRef,
@@ -221,7 +222,9 @@ export class HomePage {
     }
 
     goGoalAddPage() {
-        this.navCtrl.push('goal-create', {});
+        console.log(this.navCtrl);
+        this.navCtrl.push('goal-home', {'id':9,'rootNavCtrl':this.navCtrl});
+        // this.navCtrl.push('goal-create', {});
 
         // var inputOptions = new Promise((resolve) => {
         //     setTimeout(() => {

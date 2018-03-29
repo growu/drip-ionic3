@@ -6,6 +6,7 @@ import {MomentModule} from 'angular2-moment';
 import {IonicImageViewerModule} from 'ionic-img-viewer';
 import {MyShareModule} from '../my-share/my-share.module';
 import {InAppBrowser} from '@ionic-native/in-app-browser';
+import {MyUserAvatarModule} from '../my-user-avatar/my-user-avatar.module';
 
 @NgModule({
     declarations: [
@@ -16,7 +17,8 @@ import {InAppBrowser} from '@ionic-native/in-app-browser';
         TimeAgoPipeModule,
         MomentModule,
         IonicImageViewerModule,
-        MyShareModule
+        MyShareModule,
+        MyUserAvatarModule
     ],
     exports: [
         MyEventComponent

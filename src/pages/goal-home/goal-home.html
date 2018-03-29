@@ -1,0 +1,31 @@
+<ion-header>
+
+  <ion-navbar color="primary">
+    <ion-title>目标主页</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content class="gray-content">
+
+  <ion-list >
+    <ion-item padding-top padding-bottom>
+      <h2>{{goal?.name}}</h2>
+      <p>{{goal?.follow_nums || 0}}人参与 | {{goal?.checkin_count || 0}}次打卡</p>
+    </ion-item>
+  </ion-list>
+
+  <super-tabs scrollTabs tabsPlacement="top" selectedTabIndex="0">
+    <super-tab [root]="page1" [rootParams]="navParams" title="动态"></super-tab>
+    <super-tab [root]="page2" [rootParams]="navParams" title="排行"></super-tab>
+  </super-tabs>
+
+</ion-content>
+
+<ion-footer>
+  <ion-toolbar color="danger">
+    <ion-title *ngIf="!goal.is_follow" (click)="doFollowGoal()">制定目标</ion-title>
+    <ion-title *ngIf="goal.is_follow" (click)="goGoalDetailPage()">我的目标</ion-title>
+  </ion-toolbar>
+</ion-footer>

@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import {App, IonicPage, NavController, NavParams} from 'ionic-angular';
 import {UserProvider} from "../../providers/user/user";
 
 @IonicPage({
@@ -17,6 +17,7 @@ export class UserHomeGoalsPage {
 
   constructor(public navCtrl: NavController,
               public userProvider: UserProvider,
+              private app: App,
               public navParams: NavParams) {
     this.userId = this.navParams.get('id')
 
@@ -31,8 +32,9 @@ export class UserHomeGoalsPage {
       });
   }
 
-  goGoalHomePage() {
-      this.navCtrl.push("goal-home");
+  goGoalHomePage(id) {
+      // this.navParams.get('rootNavCtrl').pop();
+      this.navParams.get('rootNavCtrl').push('goal-home', {'id':id,'rootNavCtrl':this.navParams.get('rootNavCtrl')});
   }
 
 }
