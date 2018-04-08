@@ -54,12 +54,12 @@ export class GoalEditPage {
         this.goalEditForm = this.formBuilder.group({
             'name': ['', [Validators.required, Validators.maxLength(20)]],
             'desc': ['', [Validators.required, Validators.maxLength(255)]],
-            'date_type': ['', []],
+            'date_type': [1, []],
             'start_date': [null, []],
             'end_date': [null, []],
-            'checkin_model': ['', []],
-            'max_daily_count': ['', []],
-            'time_type': ['', []],
+            'checkin_model': [2, []],
+            'max_daily_count': [1, []],
+            'time_type': [1, []],
             'start_time': ['', []],
             'end_time': ['', []],
             'expect_days': ['', []],
@@ -89,6 +89,15 @@ export class GoalEditPage {
         this.storage.get('user').then((data) => {
             this.user = data;
         });
+    }
+
+    // 获取提醒个数
+    getRemindcount() {
+        if(this.goal.remind_time) {
+            var arr = this.goal.remind_time.split(",");
+            console.log(arr);
+            return arr.length;
+        }
     }
 
     // 日期修改监听
@@ -210,6 +219,9 @@ export class GoalEditPage {
 
         this.goalEditForm.value.items = this.goal.items;
         this.goalEditForm.value.weeks = this.weeks;
+        this.goalEditForm.value.remind_time = this.goal.remind_time;
+        this.goalEditForm.value.remind_sound = this.goal.remind_sound;
+        this.goalEditForm.value.remind_vibration = this.goal.remind_vibration;
 
         this.goalProvider.updateGoal(this.goal.id, this.goalEditForm.value).then(data => {
             if (data) {
@@ -236,9 +248,9 @@ export class GoalEditPage {
         });
     }
 
-    onClearRemindTime() {
-        this.goal.remind_time = null;
-    }
+    // onClearRemindTime() {
+    //     this.goal.remind_time = null;
+    // }
 
     goGoalItemCreatePage(item) {
         let index = this.goal.items.indexOf(item);
@@ -257,9 +269,24 @@ export class GoalEditPage {
                     this.goal.items.push(data.item);
                 }
             }
-
         })
     }
+
+    // 打开提醒设置
+    openRemindPage() {
+        let modal = this.modalCtrl.create("goal-edit-remind", {goal: this.goal});
+        modal.present();
+
+        modal.onDidDismiss((data) => {
+            console.log(data);
+            if (data) {
+                this.goal.remind_time = data.remind_time;
+                this.goal.remind_sound = data.remind_sound;
+                this.goal.remind_vibration = data.remind_vibration;
+            }
+        })
+    }
+
 
 
 }

@@ -12,6 +12,9 @@ import {Deeplinks} from '@ionic-native/deeplinks';
 import {JPush} from '@jiguang-ionic/jpush';
 import {NativeStorage} from '@ionic-native/native-storage';
 import {NativeAudio} from '@ionic-native/native-audio';
+import {BackgroundMode} from '@ionic-native/background-mode';
+import {Vibration} from '@ionic-native/vibration';
+
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 
 import {MyHammerConfig} from '../components/MyHammerConfig'
@@ -64,6 +67,8 @@ import {TopicProvider} from '../providers/topic/topic';
         JPush,
         NativeStorage,
         NativeAudio,
+        BackgroundMode,
+        Vibration,
         {provide: ErrorHandler, useClass: IonicErrorHandler},
         {
             provide: HAMMER_GESTURE_CONFIG,

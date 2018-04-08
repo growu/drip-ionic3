@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='utf-8'?>
-<widget id="me.growu.drip" version="1.4.0" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
+<widget id="me.growu.drip" version="1.5.0" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
     <name>水滴打卡</name>
     <description>一款习惯养成和目标管理工具</description>
     <author email="drip@growu.me" href="http://drip.growu.me/">格吾社区</author>
@@ -90,7 +90,7 @@
     <allow-navigation href="*" />
     <allow-navigation href="http://localhost:8080/*" />
     <chcp>
-        <config-file url="http://drip.growu.me/www/chcp.json" />
+        <config-file url="http://file.growu.me/www/chcp.json" />
         <native-interface version="12" />
     </chcp>
     <allow-navigation href="http://192.168.2.211:8100" />
@@ -136,4 +136,24 @@
         <variable name="ANDROID_APPID" value="a3f4bd261d" />
         <variable name="IOS_APPID" value="986c38f567" />
     </plugin>
+    <plugin name="ionic-plugin-deeplinks" spec="~1.0.15">
+        <variable name="URL_SCHEME" value="drip" />
+        <variable name="DEEPLINK_SCHEME" value="https" />
+        <variable name="DEEPLINK_HOST" value="drip.growu.me" />
+        <variable name="ANDROID_PATH_PREFIX" value="/" />
+        <variable name="ANDROID_2_PATH_PREFIX" value="/" />
+        <variable name="ANDROID_3_PATH_PREFIX" value="/" />
+        <variable name="ANDROID_4_PATH_PREFIX" value="/" />
+        <variable name="ANDROID_5_PATH_PREFIX" value="/" />
+        <variable name="DEEPLINK_2_SCHEME" value=" " />
+        <variable name="DEEPLINK_2_HOST" value=" " />
+        <variable name="DEEPLINK_3_SCHEME" value=" " />
+        <variable name="DEEPLINK_3_HOST" value=" " />
+        <variable name="DEEPLINK_4_SCHEME" value=" " />
+        <variable name="DEEPLINK_4_HOST" value=" " />
+        <variable name="DEEPLINK_5_SCHEME" value=" " />
+        <variable name="DEEPLINK_5_HOST" value=" " />
+    </plugin>
+    <plugin name="cordova-plugin-background-mode" spec="~0.7.2" />
+    <plugin name="cordova-plugin-vibration" spec="~3.0.1" />
 </widget>

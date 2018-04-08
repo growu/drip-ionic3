@@ -1,0 +1,30 @@
+
+<ion-header>
+
+  <ion-navbar color="primary">
+    <ion-buttons start>
+      <button ion-button icon-only clear  (click)="close()">
+        <ion-icon name="arrow-back"></ion-icon>
+      </button>
+    </ion-buttons>
+    <ion-title>选择铃声</ion-title>
+    <ion-buttons end>
+      <button ion-button icon-only clear type="submit" (click)="save()">
+        <ion-icon name="checkmark"></ion-icon>
+      </button>
+    </ion-buttons>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content>
+  <ion-list radio-group [(ngModel)]="sound">
+    <ion-item *ngFor="let sound of sounds" >
+      <ion-label>{{sound.name}}
+        <ion-badge color="yellow" *ngIf="sound.is_vip">pro</ion-badge>
+      </ion-label>
+      <ion-radio value="{{sound.value}}" (ionSelect)="playSound(sound)"></ion-radio>
+    </ion-item>
+  </ion-list>
+</ion-content>

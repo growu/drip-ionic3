@@ -1,0 +1,57 @@
+<ion-header>
+    <ion-navbar color="primary">
+        <ion-buttons start>
+            <button ion-button icon-only clear type="submit" (click)="close()">
+                <ion-icon name="arrow-back"></ion-icon>
+            </button>
+        </ion-buttons>
+        <ion-title>添加提醒</ion-title>
+        <ion-buttons end>
+            <button ion-button icon-only clear type="submit" (click)="save()">
+                <ion-icon name="checkmark"></ion-icon>
+            </button>
+        </ion-buttons>
+    </ion-navbar>
+</ion-header>
+
+
+<ion-content class="gray-content">
+
+    <ion-list *ngIf="reminds.length>0">
+        <ion-item-sliding *ngFor="let remind of reminds; let i = index">
+            <ion-item>
+                <ion-label>提醒{{i+1}}</ion-label>
+                <ion-note item-end>{{remind}}</ion-note>
+            </ion-item>
+            <ion-item-options side="right">
+                <button ion-button color="danger" (click)="deleteRemind(remind)">
+                    删除
+                </button>
+            </ion-item-options>
+        </ion-item-sliding>
+    </ion-list>
+
+    <ion-list>
+        <ion-item>
+            <ion-label>添加提醒</ion-label>
+            <ion-datetime displayFormat="HH:mm" pickerFormat="HH:mm" (ionChange)="onTimeSet()"
+                          doneText="保存" cancelText="取消" [(ngModel)]="remind_time"></ion-datetime>
+            <ion-icon item-end name="add"></ion-icon>
+
+        </ion-item>
+    </ion-list>
+    <ion-list>
+        <ion-item (click)="openSoundPage()">
+            <ion-label>提醒铃声</ion-label>
+            <ion-note item-end>{{sound.name}}</ion-note>
+            <ion-icon item-end name="arrow-forward"></ion-icon>
+        </ion-item>
+    </ion-list>
+
+    <ion-list>
+        <ion-item>
+            <ion-label>是否震动</ion-label>
+            <ion-toggle checked="false"  [(ngModel)]="vibration"></ion-toggle>
+        </ion-item>
+    </ion-list>
+</ion-content>

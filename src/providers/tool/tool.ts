@@ -57,20 +57,20 @@ export class ToolProvider {
                                         //     return  promiseChain;
                                         //
                                         // } else {
-                                            this.crop.crop(results[0], {quality: 75})
-                                                .then(
-                                                    newImage => {
-                                                        this.uploadImage(newImage).then((ret) => {
+                                        //     this.crop.crop(results[0], {quality: 75})
+                                        //         .then(
+                                        //             newImage => {
+                                                        this.uploadImage(results[0]).then((ret) => {
                                                             resolve(ret);
                                                         }).catch((err) => {
                                                             reject(err);
                                                         });
-                                                    },
-                                                    (error) => {
-                                                        reject(error);
-                                                        this.toastProvider.show(error, 'error');
-                                                    }
-                                                );
+                                                //     },
+                                                //     (error) => {
+                                                //         reject(error);
+                                                //         this.toastProvider.show(error, 'error');
+                                                //     }
+                                                // );
                                         // }
                                     } else {
                                         reject("未选择图片");
