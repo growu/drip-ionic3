@@ -88,7 +88,7 @@ export class MyEventComponent {
                                     description: event.content,
                                     image: image,
                                     thumb: image,
-                                    url: "http://drip.growu.me"
+                                    url: "https://drip.growu.me/event/"+event.id
                                 },
                                 extra: event
                             })

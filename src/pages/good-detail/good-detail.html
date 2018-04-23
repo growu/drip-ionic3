@@ -1,0 +1,23 @@
+<ion-header>
+
+  <ion-navbar color="primary">
+    <ion-title>{{good?.name}}</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content>
+  <ion-slides pager style="height: 250px;">
+    <ion-slide >
+      <img [src]="good?.image">
+    </ion-slide>
+  </ion-slides>
+  <p>{{good?.desc}}</p>
+</ion-content>
+
+<ion-footer>
+  <ion-toolbar>
+    <button ion-button block (click)="doExchange()">立即兑换</button>
+  </ion-toolbar>
+</ion-footer>

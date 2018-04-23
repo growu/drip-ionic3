@@ -30,6 +30,7 @@ import {IonicImageViewerModule} from 'ionic-img-viewer';
 import {MyShareModule} from '../components/my-share/my-share.module';
 import {TopProvider} from '../providers/top/top';
 import {TopicProvider} from '../providers/topic/topic';
+import { MallProvider } from '../providers/mall/mall';
 
 @NgModule({
     declarations: [
@@ -83,6 +84,7 @@ import {TopicProvider} from '../providers/topic/topic';
         LoadingProvider,
         TopProvider,
         TopicProvider,
+    MallProvider,
     ]
 })
 export class AppModule {

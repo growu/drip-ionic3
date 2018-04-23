@@ -1,0 +1,40 @@
+page-pay {
+  //ion-button {
+  //  padding: 20px;
+  //  height: 68px;
+  //}
+
+  .recharge-card {
+    margin: 10px auto!important;
+  }
+
+  .card {
+    margin:0;
+  }
+
+  .card-header {
+    font-size:1.3rem;
+    padding:6px;
+    color: #2196f3;
+  }
+
+  .card-content {
+    font-size:1rem;
+    color:#8d8d8d;
+  }
+
+  .isActive {
+    ion-card {
+      background-color:#2196f3!important;
+    }
+
+    .card-header {
+      color: #fff!important;
+    }
+
+    .card-content {
+      color:#fff!important;
+    }
+  }
+
+}

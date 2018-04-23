@@ -1,0 +1,29 @@
+
+<ion-header>
+
+  <ion-navbar color="primary">
+    <ion-title>兑换商城</ion-title>
+    <ion-buttons end>
+      <button ion-button clear (click)="goExchangePage()">
+        记录
+      </button>
+    </ion-buttons>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content>
+    <div class="row">
+      <div class="col" *ngFor="let good of goods" (click)="goGoodDetailPage(good)">
+        <ion-card>
+          <img src="{{good.image}}"/>
+          <ion-card-content>
+            <p>
+              <span class="price">{{good.price}}</span> 水滴币
+            </p>
+          </ion-card-content>
+        </ion-card>
+      </div>
+    </div>
+</ion-content>

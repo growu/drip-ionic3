@@ -8,6 +8,9 @@ import {ToastProvider} from "../toast/toast";
 import {ImagePicker} from "@ionic-native/image-picker";
 import {Storage} from '@ionic/storage';
 import {Crop} from "@ionic-native/crop";
+import {HttpProvider} from "../http/http";
+import {URLSearchParams} from '@angular/http';
+import {Device} from '@ionic-native/device';
 
 @Injectable()
 export class ToolProvider {
@@ -18,7 +21,9 @@ export class ToolProvider {
                 private transfer: FileTransfer,
                 private toastProvider: ToastProvider,
                 private storage: Storage,
+                private httpProvider: HttpProvider,
                 private crop: Crop,
+                private device: Device,
                 private loadingCtrl: LoadingController,
                 public camera: Camera,) {
     }
@@ -158,6 +163,15 @@ export class ToolProvider {
             });
         });
 
+    }
+
+    checkUpdate(appVersion,webVersion)
+    {
+        let params: URLSearchParams = new URLSearchParams();
+        params.set('app_version', appVersion);
+        params.set('web_version', webVersion);
+        params.set('platform', this.device.platform);
+        return this.httpProvider.httpGetWithAuth("/update/check", params);
     }
 }
 

@@ -222,9 +222,9 @@ export class HomePage {
     }
 
     goGoalAddPage() {
-        console.log(this.navCtrl);
-        this.navCtrl.push('goal-home', {'id':9,'rootNavCtrl':this.navCtrl});
-        // this.navCtrl.push('goal-create', {});
+        // console.log(this.navCtrl);
+        // this.navCtrl.push('goal-home', {'id':9,'rootNavCtrl':this.navCtrl});
+        this.navCtrl.push('goal-create', {});
 
         // var inputOptions = new Promise((resolve) => {
         //     setTimeout(() => {

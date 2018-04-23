@@ -1,0 +1,20 @@
+<ion-header>
+
+  <ion-navbar color="primary">
+    <ion-title>兑换记录</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content>
+
+  <ion-list>
+    <ion-item *ngFor="let log of logs">
+      <h2>{{log.good_name}}</h2>
+      <p>{{log.created_at}}</p>
+      <span item-end ion-text color="primary" class="num" *ngIf="log.change>=0">+{{log.change}}</span>
+      <span item-end ion-text color="danger" class="num" *ngIf="log.change<0">{{log.change}}</span>
+    </ion-item>
+  </ion-list>
+</ion-content>
