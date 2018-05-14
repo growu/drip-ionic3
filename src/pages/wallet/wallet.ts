@@ -44,7 +44,7 @@ export class WalletPage {
                 params.set('web_version', data.webVersion);
                 params.set('platform', this.device.platform);
 
-                this.httpProvider.httpGetWithAuth("update/audit/", params).then((data)=>{
+                this.httpProvider.httpGetWithAuth("/update/audit/", params).then((data)=>{
                     this.isAudit = data.is_audit;
                 });
 

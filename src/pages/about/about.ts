@@ -42,7 +42,33 @@ export class AboutPage {
 
     ionViewDidLoad() {
 
-        if (this.platform.is('cordova')) {
+        // this.toolProvider.checkUpdate('1.6.0','12313').then((res) => {
+        //     if (res.type == 0) {
+        //
+        //         console.log(111);
+        //         let confirm = this.alertCtrl.create({
+        //             title: '发现新版本，是否更新?',
+        //             message: res.message,
+        //             buttons: [
+        //                 {
+        //                     text: '取消',
+        //                     handler: () => {
+        //                         alert(res.type);
+        //                     }
+        //                 },
+        //                 {
+        //                     text: '确认',
+        //                     handler: () => {
+        //
+        //                     }
+        //                 }]
+        //         });
+        //         confirm.present();
+        //     }
+        //     }).catch((err)=>{
+        //     });
+
+            if (this.platform.is('cordova')) {
 
             chcp.getVersionInfo((err, data) => {
 
@@ -58,7 +84,7 @@ export class AboutPage {
 
                 //请求服务器版本
                 this.toolProvider.checkUpdate(data.appVersion, this.webVersion).then((res) => {
-                    if (res) {
+                    if (res.type > 0) {
                         let confirm = this.alertCtrl.create({
                             title: '发现新版本，是否更新?',
                             message: data.message,
@@ -72,7 +98,6 @@ export class AboutPage {
                                 {
                                     text: '确认',
                                     handler: () => {
-                                        alert(res.type);
                                         if (res.type == 1) {
                                             let loading = this.loadingCtrl.create({
                                                 content: '正在下载和安装更新包，安装结束后会自动重启APP...'
@@ -82,7 +107,7 @@ export class AboutPage {
 
                                             setTimeout(() => {
                                                 loading.dismiss();
-                                            }, 5000);
+                                            }, 10000);
 
                                             chcp.isUpdateAvailableForInstallation((error, data) => {
                                                 if (error) {
@@ -94,6 +119,18 @@ export class AboutPage {
                                                             return;
                                                         }
                                                         console.log('更新已加载');
+
+                                                        console.log('当前版本: ' + data.currentVersion);
+                                                        console.log('最新版本: ' + data.readyToInstallVersion);
+
+                                                        chcp.installUpdate((error) => {
+                                                            if (error) {
+                                                                console.log('安装更新失败: ' + error.code);
+                                                                console.log(error.description);
+                                                            } else {
+                                                                console.log('更新已安装!');
+                                                            }
+                                                        },);
                                                     });
                                                     return;
                                                 }

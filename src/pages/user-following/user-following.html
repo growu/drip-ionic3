@@ -2,6 +2,12 @@
 
   <ion-navbar color="primary">
     <ion-title>{{user?.nickname+' 的关注' || '关注列表' }} </ion-title>
+
+    <ion-buttons end>
+      <button ion-button icon-only (click)="goUserSearchPage()">
+        <ion-icon name="person-add"></ion-icon>
+      </button>
+    </ion-buttons>
   </ion-navbar>
 
 </ion-header>

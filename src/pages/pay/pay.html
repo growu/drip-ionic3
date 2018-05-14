@@ -8,7 +8,7 @@
 <ion-content padding-top>
 
   <div class="row" text-center>
-    <div class="col-4 recharge-card" [class.isActive]="recharge?.isSelected" *ngFor="let recharge of recharges" (click)="onClickRecharge(recharge)">
+    <div class="col-6 recharge-card" [class.isActive]="recharge?.isSelected" *ngFor="let recharge of recharges" (click)="onClickRecharge(recharge)">
         <ion-card>
           <ion-card-header>
             {{recharge.name}}

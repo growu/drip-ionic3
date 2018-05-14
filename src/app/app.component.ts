@@ -37,7 +37,7 @@ export class MyApp {
             splashScreen.hide();
             this.keyboard.disableScroll(true);
             this.backgroundMode.enable();
-            this.backgroundMode.overrideBackButton();
+            // this.backgroundMode.overrideBackButton();
 
             if (platform.is('cordova')) {
 
@@ -130,6 +130,12 @@ export class MyApp {
                 // };
                 // appUpdate.initialize();
             }
+
+            platform.registerBackButtonAction(() => {
+                if(this.nav.canGoBack()){
+                    this.nav.pop();
+                }
+            });
         });
     }
 

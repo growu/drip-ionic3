@@ -86,4 +86,8 @@ export class UserFollowingPage {
         this.navCtrl.push('user-home', {'id': user.id});
     }
 
+    goUserSearchPage(user) {
+        this.navCtrl.push('user-search');
+    }
+
 }

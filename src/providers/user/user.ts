@@ -289,6 +289,12 @@ export class UserProvider {
         return this.httpProvider.httpPatchWithAuth("/user/" + id, body);
     }
 
+    searchUser(text) {
+        let params: URLSearchParams = new URLSearchParams();
+        params.set('text', text);
+        return this.httpProvider.httpGetWithAuth("/user/search", params);
+    }
+
     getCode(account, type) {
         let param = {
             account: account,
