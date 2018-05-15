@@ -58,13 +58,13 @@ ionic v1版本的源码可以参考[drip-ionic](https://github.com/growu/drip-io
 
 新浪微博：[格吾社区](http://weibo.com/growu)
 
+微信号：格吾君 (growu001)
+
 # 问题反馈
 
 有任何使用上遇到的BUG或者优化建议，都可以提交[Issues](https://github.com/growu/drip-ionic3/issues),也可以加入我们的产品交流群反馈。
 
-QQ群：7852084
-
-微信群：添加格吾君微信（微信号：growu001）,发送暗号"水滴打卡"
+IONIC技术交流群：783459080
 
 # License
 
