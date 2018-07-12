@@ -1,0 +1,26 @@
+page-goal-manage {
+
+  .num {
+    font-size: 30px;
+    font-family: "Oswald","Segoe UI", "Noto Sans", sans-serif;
+  }
+
+  .grid2 {
+    font-size:1.5rem;
+
+    ion-icon {
+      font-size:3rem;
+    }
+
+    ion-col{
+      border: 1px solid #ddd;
+
+      p {
+        margin-top:0.5rem;
+        margin-bottom: 0.5rem;
+      }
+    }
+  }
+
+
+}

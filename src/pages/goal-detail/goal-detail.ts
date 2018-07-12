@@ -55,6 +55,7 @@ export class GoalDetailPage {
 
     ionViewDidLoad() {
         this.getGoal();
+        console.log(this.goal.type);
     }
 
     showMore() {
@@ -120,6 +121,11 @@ export class GoalDetailPage {
 
     goEditPage() {
         this.navCtrl.push('goal-edit', {id: this.goal.id, goal: this.goal})
+    }
+
+    // 进入目标管理页面
+    goGoalManagePage() {
+        this.navCtrl.push('goal-manage', {id: this.goal.id, goal: this.goal})
     }
 
 }

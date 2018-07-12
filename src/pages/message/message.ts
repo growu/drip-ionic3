@@ -2,6 +2,7 @@ import {Component} from '@angular/core';
 import {IonicPage, NavController, NavParams} from 'ionic-angular';
 import {UserProvider} from '../../providers/user/user';
 import {Storage} from '@ionic/storage';
+import {HttpProvider} from "../../providers/http/http";
 
 @IonicPage({
     name: 'message',
@@ -19,9 +20,12 @@ export class MessagePage {
         comment_count:0
     };
 
+    public articles = [];
+
     constructor(public navCtrl: NavController,
                 public navParams: NavParams,
                 public storage: Storage,
+                public httpProvider: HttpProvider,
                 public userProvider: UserProvider) {
     }
 
@@ -31,10 +35,24 @@ export class MessagePage {
                 this.messages = data;
             }
         });
+
+
+        this.httpProvider.httpGetWithAuth('/article/top',null).then(
+            (data)=>{
+                this.articles = data;
+            }
+        )
     }
 
     goPage(page) {
         this.navCtrl.push(page, {});
     }
+
+
+    goArticleDetail() {
+        this.navCtrl.push('article-detail', {"id":8});
+    }
+
+
 
 }

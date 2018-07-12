@@ -1,0 +1,49 @@
+<ion-header>
+
+  <ion-navbar color="primary">
+    <ion-title>成员管理</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content>
+
+  <div padding>
+    <ion-segment [(ngModel)]="is_audit" (ionChange)="segmentChanged($event)">
+      <ion-segment-button value="1">
+        参与中
+      </ion-segment-button>
+      <ion-segment-button value="0">
+        待审核
+      </ion-segment-button>
+    </ion-segment>
+  </div>
+
+  <div [ngSwitch]="is_audit">
+    <ion-list *ngSwitchCase="1">
+      <ion-item *ngFor="let user of users">
+        <ion-avatar item-start>
+          <img [src]="user.avatar_url">
+        </ion-avatar>
+        <h2>{{user.nickname}}</h2>
+        <h3>累计打卡：{{user.total_days}}次</h3>
+        <p>最近打卡：{{user.last_checkin_at}}</p>
+      </ion-item>
+    </ion-list>
+
+    <ion-list *ngSwitchCase="0">
+      <ion-item *ngFor="let user of users">
+        <ion-avatar item-start>
+          <img [src]="user.avatar_url">
+        </ion-avatar>
+        <h2>{{user.nickname}}</h2>
+
+        <div item-end>
+        <button ion-button outline small (click)="doAgree(user)">同意</button>
+        <button ion-button color="danger" outline  small (click)="doRefuse(user)">拒绝</button>
+        </div>
+      </ion-item>
+    </ion-list>
+  </div>
+</ion-content>

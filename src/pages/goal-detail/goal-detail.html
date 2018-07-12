@@ -39,6 +39,10 @@
         <super-tab [root]="page3" [rootParams]="navParams" title="统计"></super-tab>
     </super-tabs>
 
+    <ion-fab right bottom (click)="goGoalManagePage()" *ngIf="goal.type == 2">
+        <button ion-fab color="danger">管理</button>
+    </ion-fab>
+
 </ion-content>
 
 

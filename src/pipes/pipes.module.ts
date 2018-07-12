@@ -1,8 +1,8 @@
 import { NgModule } from '@angular/core';
-import { KeepHtmlPipe } from './keep-html/keep-html';
+import { GetColorPipe } from './get-color/get-color';
 @NgModule({
-	declarations: [KeepHtmlPipe],
+	declarations: [GetColorPipe],
 	imports: [],
-	exports: [KeepHtmlPipe]
+	exports: [GetColorPipe]
 })
 export class PipesModule {}

@@ -1,6 +1,5 @@
 // http://ionicframework.com/docs/v2/theming/
 
-
 // App Global Sass
 // --------------------------------------------------
 // Put style rules here that you want to apply globally. These
@@ -15,16 +14,15 @@
 // for the .md, .ios, or .wp mode classes. The mode class is
 // automatically applied to the <body> element in the app.
 
-
 .my-toast {
   text-align: center;
-  top:33px;
+  top: 33px;
   .toast-message {
-    padding:3px;
+    padding: 3px;
   }
   .toast-wrapper {
-    left:0;
-    right:0;
+    left: 0;
+    right: 0;
     border-radius: 0;
   }
 }
@@ -48,18 +46,18 @@
 }
 
 .my-alert-danger {
-  background-color: white!important;
-  color: red!important;
-  button{
-    color: red!important;
+  background-color: white !important;
+  color: red !important;
+  button {
+    color: red !important;
   }
 }
 
-.no-scroll>.scroll-content{
+.no-scroll > .scroll-content {
   overflow: hidden;
 }
 
-.red-point:after{
+.red-point:after {
   position: absolute;
   content: ' ';
   height: 6px;
@@ -77,37 +75,37 @@
 }
 
 .icon-vip-copy {
-  font-size: 20px!important;
+  font-size: 20px !important;
 }
 
-.segment-md .segment-button {
-  color: color($colors, dark) !important;
-  height:34px;
-  line-height: 28px;
-}
-.segment-md .segment-button.segment-activated {
-  color: color($colors, primary) !important;
-  font-weight: bold;
-  .bolder-sm{
-    border: 2px solid color($colors, primary);
-    width: 25px;
-    margin: 0 auto;
-  }
+//.segment-md .segment-button {
+//  color: color($colors, dark) !important;
+//  height:34px;
+//  line-height: 28px;
+//}
+//.segment-md .segment-button.segment-activated {
+//  color: color($colors, primary) !important;
+//  font-weight: bold;
+//  .bolder-sm{
+//    border: 2px solid color($colors, primary);
+//    width: 25px;
+//    margin: 0 auto;
+//  }
+//}
+
+.badge-ios-yellow, .badge-md-yellow {
+  color: #312929;
 }
 
-.badge-ios-yellow,.badge-md-yellow {
-  color:#312929;
-}
-
-.badge-ios-orange,.badge-md-orange {
-  color:#fff;
+.badge-ios-orange, .badge-md-orange {
+  color: #fff;
 }
 
 .gray-content {
-  background-color: #dedede!important;
+  background-color: #dedede !important;
 }
 
-.text-md-orange,.text-ios-orange {
+.text-md-orange, .text-ios-orange {
   //color:#fff;
 }
 
@@ -118,3 +116,94 @@
   fill: currentColor;
   overflow: hidden;
 }
+
+
+.toolbar-background {
+  background-color: #fff;
+}
+.bar-button {
+  color: map-get($colors, gray);
+}
+
+
+ion-header ion-icon.back-button-icon.icon {
+
+}
+
+.list-header {
+  border-bottom: 0 !important;
+}
+
+.gray-list {
+  .card {
+    background-color: #e4e4e4;
+
+    .item {
+      background-color: #e4e4e4;
+    }
+
+    .card-header {
+      padding: 9px;
+      background-color: #e4e4e4;
+      border-radius: 6px;
+    }
+  }
+
+  ion-item-sliding {
+    background-color: #e4e4e4;
+  }
+
+  .item {
+    border:0!important;
+    -webkit-box-shadow:none!important;
+    box-shadow: none!important;
+
+    .label,h2 {
+      font-size: 1.8rem;
+      font-weight: 600;
+    }
+
+    .note {
+      font-size: 1.4rem;
+      font-weight: 600;
+      color: #4a4a4a;
+    }
+
+    .icon {
+      color: #9E9E9E;
+    }
+
+    .text-input {
+      height: 42px;
+      border: 0;
+      background-color: #e4e4e4;
+      border-radius: 6px;
+    }
+
+    textarea.text-input{
+      height: auto!important;
+    }
+
+
+    p{
+      margin-top: 10px;
+      font-weight: 500;
+    }
+
+  }
+
+  .item-inner {
+    border:0!important;
+    -webkit-box-shadow:none!important;
+    box-shadow: none!important;
+  }
+
+  .no-margin-top {
+    margin-top: 0;
+  }
+
+  .no-margin-bottom {
+    margin-bottom: 0;
+  }
+}
+

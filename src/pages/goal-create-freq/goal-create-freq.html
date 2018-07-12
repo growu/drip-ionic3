@@ -1,0 +1,69 @@
+<ion-header no-border>
+
+  <ion-navbar color="white">
+    <ion-title>频率</ion-title>
+    <ion-buttons end>
+      <button ion-button icon-only clear color="gray" (click)="doCancle()">
+        <ion-icon name="md-close"></ion-icon>
+      </button>
+    </ion-buttons>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content>
+
+  <ion-list no-lines class="gray-list">
+    <ion-item>
+      <ion-label stacked>在这些天</ion-label>
+    </ion-item>
+    <ion-item>
+      <my-week-selector (onWeekChanged)="onWeekChanged($event)" [weeks]="weeks" [color]="color|getColor"></my-week-selector>
+    </ion-item>
+
+    <ion-card>
+      <ion-item>
+      <ion-label>打卡时间</ion-label>
+      <ion-select [(ngModel)]="time_type" interface="popover"
+                  (ionChange)="onTimeTypeChnage($event)">
+        <ion-option value="1">任意时间</ion-option>
+        <ion-option value="2">指定时间</ion-option>
+      </ion-select>
+    </ion-item>
+    </ion-card>
+
+    <ion-item *ngIf="time_type == 2">
+      <ion-label stacked>开始时间</ion-label>
+    </ion-item>
+
+    <ion-card *ngIf="time_type == 2">
+      <ion-item>
+        <ion-datetime placeholder="无" displayFormat="HH:mm" pickerFormat="HH:mm"
+                      doneText="保存" cancelText="取消" (ionChange)="onTimeChange()"
+                      (ionChange)="onTimeChange()"
+                      [(ngModel)]="start_time"></ion-datetime>
+      </ion-item>
+    </ion-card>
+
+    <ion-item *ngIf="time_type == 2">
+      <ion-label stacked>结束时间</ion-label>
+    </ion-item>
+
+    <ion-card *ngIf="time_type == 2">
+      <ion-item>
+        <ion-datetime placeholder="无" displayFormat="HH:mm" pickerFormat="HH:mm"
+                      doneText="保存" cancelText="取消"
+                      (ionChange)="onTimeChange()"
+                      [(ngModel)]="end_time"></ion-datetime>
+      </ion-item>
+    </ion-card>
+  </ion-list>
+
+  <div padding>
+    <button ion-button block type="button" [color]="color" (click)="doSave()">保存</button>
+  </div>
+
+
+
+</ion-content>

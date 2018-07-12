@@ -1,0 +1,143 @@
+page-goal-today {
+
+  .stat_content{
+    margin-top:80px!important;
+    position: relative;
+
+    .swiper-pagination {
+      display: none;
+    }
+
+    .left-btn {
+      position: absolute;
+      left:5px;
+      top:40%;
+      z-index:10000;
+    }
+
+    .right-btn {
+      position: absolute;
+      right:5px;
+      top:40%;
+      z-index:10000;
+
+    }
+
+  }
+
+  .progress-wrapper {
+    position: relative;
+    margin: 20px auto;
+    font-size: 40px;
+  }
+
+  .current {
+    position: absolute;
+    //color: #bbb;
+    font-weight: 100;
+    line-height: 1;
+    top: 50%;
+    bottom: auto;
+    left: 50%;
+    text-align: center;
+    transform: translateY(-50%) translateX(-50%);
+
+    .count {
+      font-weight:500;
+      color:#000000;
+      font-size:2rem;
+    }
+
+    .count1 {
+      font-size:6rem;
+      font-weight: 700;
+    }
+
+    .progress {
+      margin-top: 10px;
+      font-size:3rem;
+    }
+  }
+
+  round-progress {
+    margin: auto;
+  }
+
+  .subTitle {
+    .toolbar-title {
+      font-size: 1.4rem;
+      font-weight: 400;
+    }
+  }
+
+  .checkinBtn {
+    position: fixed;
+    bottom: 10%;
+    left:0;
+    right:0;
+    width: 60%;
+    margin-right: auto;
+    margin-left: auto;
+  }
+
+  //progress {
+  //      width: 100%;
+  //      //height: 10px;
+  //      //border: 1px solid #0064B4;
+  //      background-color:#488aff;
+  //      color: #0064B4; /*IE10*/
+  //    }
+  //
+  //    progress::-moz-progress-bar { background: #488aff; }
+  //    progress::-webkit-progress-bar { background: #dedede; }
+  //progress::-webkit-progress-value {
+  //  background-color: var(--progress-bg-color);
+  //}
+  //
+  //    .progress-bar {
+  //      background-color: whiteSmoke;
+  //      border-radius: 2px;
+  //      box-shadow: 0 2px 3px rgba(0, 0, 0, 0.25) inset;
+  //
+  //      width: 250px;
+  //      height: 60px;
+  //
+  //      position: relative;
+  //      display: block;
+  //    }
+  //
+  //    .progress-title {
+  //      font-size: 1.8rem;
+  //      font-weight: 600;
+  //
+  //      span {
+  //        float: right;
+  //        text-align: right;
+  //        font-size: 1.2rem;
+  //        line-height: 1.8rem;
+  //      }
+  //    }
+  //
+  //    .progress-bar > span {
+  //      background-color: blue;
+  //      border-radius: 2px;
+  //
+  //      display: block;
+  //      text-indent: -9999px;
+  //    }
+  //
+  //    .progress-percent[data-value] {
+  //      position: relative;
+  //      min-width: 20px;
+  //      font-weight: 500;
+  //    }
+  //
+  //    .progress-percent[data-value]:after {
+  //      content: attr(data-value) '%';
+  //      position: absolute;
+  //      right: 0;
+  //      color:#fff;
+  //      font-size:0.5em;
+  //      //top:2px;
+  //    }
+}

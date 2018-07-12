@@ -3,7 +3,7 @@ import {Http, Response} from '@angular/http';
 // import { Observable } from 'rxjs/Observable';
 import {Observable} from 'rxjs/Rx'
 import {Headers, RequestOptions, URLSearchParams} from '@angular/http';
-import {App, NavController, ToastController} from 'ionic-angular';
+import {App, NavController, Platform, ToastController} from 'ionic-angular';
 
 import 'rxjs/add/operator/toPromise';
 
@@ -16,17 +16,33 @@ export class HttpProvider {
     API_URL = 'http://drip.growu.me/api';
 
     constructor(private http: Http,
+                private platform:Platform,
                 private toastCtrl: ToastController,
                 protected injector: Injector,
                 protected app: App,
                 private storage: Storage) {
+
+            // cordova.plugins.AppConfig.fetch(['JPUSH_CHANNEL'], result=> {
+            //     if(result){
+            //         console.log(result);
+            //         if(result.JPUSH_CHANNEL) {
+            //             this.channel = result.JPUSH_CHANNEL;
+            //         }
+            //     } else {
+            //         if(this.platform.is('ios')) {
+            //             this.channel = "appstore";
+            //         } else {
+            //             this.channel = "default";
+            //         }
+            //     }
+            // });
     }
 
     public httpGetWithAuth(url: string, params: URLSearchParams) {
         return this.storage.get("token").then(data => {
             var headers = new Headers();
             headers.append('Content-Type', 'application/json');
-            headers.append('Accept', 'application/x.drip.v2+json');
+            headers.append('Accept', 'application/x.drip.v3+json');
             headers.append('Authorization', 'Bearer ' + data);
             let options = new RequestOptions({headers: headers, search: params});
             return this.http.get(this.API_URL + url, options).toPromise()
@@ -38,7 +54,7 @@ export class HttpProvider {
     public httpGetNoAuth(url: string, params: URLSearchParams) {
         var headers = new Headers();
         headers.append('Content-Type', 'application/json');
-        headers.append('Accept', 'application/x.drip.v2+json');
+        headers.append('Accept', 'application/x.drip.v3+json');
         let options = new RequestOptions({headers: headers, search: params});
         return this.http.get(this.API_URL + url, options).toPromise()
             .then(this.extractData)
@@ -54,7 +70,7 @@ export class HttpProvider {
     public httpPostNoAuth(url: string, body: any) {
         var headers = new Headers();
         headers.append('Content-Type', 'application/json');
-        headers.append('Accept', 'application/x.drip.v2+json');
+        headers.append('Accept', 'application/x.drip.v3+json');
         let options = new RequestOptions({headers: headers});
         return this.http.post(this.API_URL + url, body, options).toPromise()
             .then(this.extractData)
@@ -65,7 +81,7 @@ export class HttpProvider {
         return this.storage.get("token").then(data => {
             var headers = new Headers();
             headers.append('Content-Type', 'application/json');
-            headers.append('Accept', 'application/x.drip.v2+json');
+            headers.append('Accept', 'application/x.drip.v3+json');
             headers.append('Authorization', 'Bearer ' + data);
             let options = new RequestOptions({headers: headers});
             return this.http.post(this.API_URL + url, body, options).toPromise()
@@ -79,7 +95,7 @@ export class HttpProvider {
         return this.storage.get("token").then(data => {
             var headers = new Headers();
             headers.append('Content-Type', 'application/json');
-            headers.append('Accept', 'application/x.drip.v2+json');
+            headers.append('Accept', 'application/x.drip.v3+json');
             headers.append('Authorization', 'Bearer ' + data);
             let options = new RequestOptions({headers: headers});
             return this.http.put(this.API_URL + url, body, options).toPromise()
@@ -93,7 +109,7 @@ export class HttpProvider {
         return this.storage.get("token").then(data => {
             var headers = new Headers();
             headers.append('Content-Type', 'application/json');
-            headers.append('Accept', 'application/x.drip.v2+json');
+            headers.append('Accept', 'application/x.drip.v3+json');
             headers.append('Authorization', 'Bearer ' + data);
             let options = new RequestOptions({headers: headers});
             return this.http.delete(this.API_URL + url, options).toPromise()
@@ -107,7 +123,7 @@ export class HttpProvider {
         return this.storage.get("token").then(data => {
             var headers = new Headers();
             headers.append('Content-Type', 'application/json');
-            headers.append('Accept', 'application/x.drip.v2+json');
+            headers.append('Accept', 'application/x.drip.v3+json');
             headers.append('Authorization', 'Bearer ' + data);
             let options = new RequestOptions({headers: headers});
             return this.http.patch(this.API_URL + url, body, options).toPromise()

@@ -232,6 +232,6 @@ export class MyEventComponent {
     goGoalHomePage($event, id) {
         $event.preventDefault();
         $event.stopPropagation();
-        this.navCtrl.push('goal-home', {id: id});
+        this.navCtrl.push('goal-home', {id: id,'rootNavCtrl':this.navCtrl});
     }
 }

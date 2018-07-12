@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='utf-8'?>
-<widget id="me.growu.drip" version="1.6.0" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
+<widget id="me.growu.drip" version="2.0.0" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
     <name>水滴打卡</name>
     <description>一款习惯养成和目标管理工具</description>
     <author email="drip@growu.me" href="http://drip.growu.me/">格吾社区</author>
@@ -156,5 +156,6 @@
     </plugin>
     <plugin name="cordova-plugin-background-mode" spec="~0.7.2" />
     <plugin name="cordova-plugin-vibration" spec="~3.0.1" />
-    <allow-navigation href="http://172.20.10.2:8101" />
+    <plugin name="cordova-plugin-local-notification" spec="~0.9.0-beta.2" />
+    <plugin name="cordova-plugin-app-config" spec="~0.2.0" />
 </widget>

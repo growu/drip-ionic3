@@ -1,0 +1,65 @@
+<ion-header no-border>
+
+    <ion-navbar color="white">
+        <ion-title>日期</ion-title>
+        <ion-buttons end>
+            <button ion-button icon-only clear color="gray" (click)="cancel()">
+                <ion-icon name="md-close"></ion-icon>
+            </button>
+        </ion-buttons>
+    </ion-navbar>
+
+</ion-header>
+
+
+<ion-content>
+    <ion-list no-lines class="gray-list">
+        <ion-card>
+            <ion-item>
+                <ion-label>日期范围</ion-label>
+                <ion-select [color]="color" [(ngModel)]="date_type" interface="popover"
+                            (ionChange)="onDateTypeChnage($event)">
+                    <ion-option value="1">长期目标</ion-option>
+                    <ion-option value="2">短期目标</ion-option>
+                </ion-select>
+            </ion-item>
+        </ion-card>
+        <ion-item *ngIf="date_type == 2">
+            <ion-label>开始日期</ion-label>
+        </ion-item>
+        <ion-card *ngIf="date_type == 2">
+            <ion-item>
+                <ion-datetime placeholder="今天" (ionChange)="onDateChange()" displayFormat="YYYY-MM-DD"
+                              pickerFormat="YYYY MM DD"
+                              cancelText="取消" doneText="保存" [max]="max"
+                              [(ngModel)]="start_date"></ion-datetime>
+            </ion-item>
+        </ion-card>
+        <ion-item *ngIf="date_type == 2">
+            <ion-label>结束日期</ion-label>
+        </ion-item>
+        <ion-card *ngIf="date_type == 2">
+            <ion-item >
+                <ion-datetime [color]="color" #endDate placeholder="无" (ionChange)="onDateChange()"
+                              displayFormat="YYYY-MM-DD" pickerFormat="YYYY MM DD"
+                              [min]="start_date>min?start_date:min"
+                              [max]="max" cancelText="取消" doneText="保存"
+                              [(ngModel)]="end_date"></ion-datetime>
+            </ion-item>
+        </ion-card>
+
+        <ion-item *ngIf="date_type == 2">
+            <ion-label>累计天数</ion-label>
+        </ion-item>
+        <ion-card *ngIf="date_type == 2">
+            <ion-item>
+                <h2>{{expect_days}}天</h2>
+            </ion-item>
+        </ion-card>
+    </ion-list>
+
+    <div padding>
+        <button ion-button block type="button" [color]="color" (click)="save()">保存</button>
+    </div>
+
+</ion-content>

@@ -52,6 +52,8 @@ export class MyWeekSelectorComponent {
     ];
 
     @Input() _weeks: Array<number> = [];
+    @Input() color: string;
+
     @Output() onWeekChanged = new EventEmitter();
 
     constructor() {
@@ -74,6 +76,15 @@ export class MyWeekSelectorComponent {
 
     ngAfterViewInit() {
         this.onWeekChanged.emit(this.getValues());
+    }
+
+    getColor(day) {
+        console.log(day);
+        if(day.isSelected) {
+            return this.color;
+        } else {
+            return '#dedede';
+        }
     }
 
     onSelected(index: number) {

@@ -1,30 +1,36 @@
 
-<ion-header>
+<ion-header no-border>
 
-  <ion-navbar color="primary">
+  <ion-navbar color="white">
     <ion-buttons start>
-      <button ion-button icon-only clear  (click)="close()">
+      <button ion-button icon-only clear color="gray" (click)="close()">
         <ion-icon name="arrow-back"></ion-icon>
       </button>
     </ion-buttons>
     <ion-title>选择铃声</ion-title>
-    <ion-buttons end>
-      <button ion-button icon-only clear type="submit" (click)="save()">
-        <ion-icon name="checkmark"></ion-icon>
-      </button>
-    </ion-buttons>
+    <!--<ion-buttons end>-->
+      <!--<button ion-button icon-only clear type="submit" (click)="save()">-->
+        <!--<ion-icon name="checkmark"></ion-icon>-->
+      <!--</button>-->
+    <!--</ion-buttons>-->
   </ion-navbar>
 
 </ion-header>
 
 
 <ion-content>
-  <ion-list radio-group [(ngModel)]="sound">
-    <ion-item *ngFor="let sound of sounds" >
-      <ion-label>{{sound.name}}
-        <ion-badge color="yellow" *ngIf="sound.is_vip">pro</ion-badge>
-      </ion-label>
-      <ion-radio value="{{sound.value}}" (ionSelect)="playSound(sound)"></ion-radio>
-    </ion-item>
+  <ion-list radio-group [(ngModel)]="sound" class="gray-list">
+    <ion-card *ngFor="let sound of sounds" >
+      <ion-item >
+        <ion-label>{{sound.name}}
+          <ion-badge color="yellow" *ngIf="sound.is_vip">pro</ion-badge>
+        </ion-label>
+        <ion-radio value="{{sound.value}}" (ionSelect)="playSound(sound)"></ion-radio>
+      </ion-item>
+    </ion-card>
   </ion-list>
+
+  <div padding>
+    <button ion-button block type="button" (click)="save()">保存</button>
+  </div>
 </ion-content>

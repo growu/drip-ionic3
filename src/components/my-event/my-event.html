@@ -28,7 +28,7 @@
     <p><a *ngIf="event.content&&event.content.length>100 && !event?.is_full_content" (click)="showFull($event,event)">全文</a></p>
     <p><a *ngIf="event?.is_full_content" (click)="showHide($event,event)">收起</a></p>
     <blockquote>
-      <p>完成<a (click)="goGoalHomePage(event.goal.id)"> #{{event.goal.name}}# </a>第{{event.checkin?.total_days || 0}}天</p>
+      <p>完成<a (click)="goGoalHomePage($event,event.goal.id)"> {{event.goal.name}} </a>第{{event.checkin?.total_days || 0}}天</p>
       <p *ngFor="let item of event.items">
         <ion-icon name="list" color="dark"></ion-icon> {{item.name+item.value+item.unit}}
       </p>
@@ -36,20 +36,22 @@
   </ion-card-content>
 
   <ion-row class="action-toolbar">
-    <ion-col>
+    <ion-col col-6>
+    </ion-col>
+    <ion-col col-2>
       <button ion-button icon-left clear small (click)="doLike(event)">
         <ion-icon name="ios-thumbs-up-outline" isActive="false" *ngIf="!event.is_like" color="dark-gray"></ion-icon>
         <ion-icon name="ios-thumbs-up" isActive="true" *ngIf="event.is_like" color="primary"></ion-icon>
         <div>{{event.like_count}}</div>
       </button>
     </ion-col>
-    <ion-col>
+    <ion-col col-2>
       <button ion-button icon-left clear small (click)="goEventDetailPage(event.id)">
-        <ion-icon name="ios-text-outline"></ion-icon>
+        <ion-icon name="ios-chatboxes-outline"></ion-icon>
         <div>{{event.comment_count}}</div>
       </button>
     </ion-col>
-    <ion-col center text-center>
+    <ion-col col-2>
       <button ion-button icon-left clear small (click)="showMore(event)">
         <ion-icon name="ios-more-outline"></ion-icon>
         <div></div>

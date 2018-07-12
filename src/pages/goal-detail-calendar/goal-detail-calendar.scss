@@ -1,38 +1,85 @@
 page-goal-detail-calendar {
-  .content {
-    background-color: #dedede!important;
-  }
-  ion-calendar-month button.days-btn.start {
-    border-radius: 12px 0 0 12px;
-  }
 
-  ion-calendar-month button.days-btn:not(.today) {
-    width: 100%;
-    border-radius: 0;
-  }
-
-  ion-calendar-month button.start {
-    border-radius: 0 12px 12px 0;
-  }
-
-  ion-calendar-month button.end {
-    border-radius: 0;
-  }
-
-  ion-calendar-month button.today{
-    //border: 1px solid color($colors,'primary');
-    background-color: #488aff;
-    p {
-      color:#fff!important;
+  ion-calendar-month {
+    .days .start,.days .end,.days .between{
+        background-color: color($colors, 'primary');
+        p {
+          color: #fff;
+        }
+      }
+    //
+    //.days .start,.days .end {
+    //  border-radius: 50%;
+    //}
+    //
+    .days:not(:nth-of-type(7n)){
+      .start:after,.between:after {
+        height: 3px;
+        width: 40%;
+        content: '';
+        position: absolute;
+        top: 45%;
+        right: -40%;
+        display: block;
+        background-color: color($colors, 'primary')
+      }
     }
+    //
+    //.end:after{
+    //  height: 36px;
+    //  width: 50%;
+    //  content: '';
+    //  position: absolute;
+    //  top: 0;
+    //  left: 0;
+    //  display: block;
+    //  background-color: color($colors, 'primary')
+    //}
+    //
+    //.days-btn {
+    //  z-index: 2;
+    //}
+    //
+    //.days .between {
+    //  width: 100%;
+    //  border-radius: 0;
+    //}
   }
 
-  ion-calendar-month button.start,
-  ion-calendar-month button.end,
-  ion-calendar-month button.between {
-    background-color: color($colors, 'primary');
-    p {
-      color: #fff;
-    }
-  }
+  //ion-calendar-month button.days-btn.start {
+  //  border-radius: 12px 0 0 12px;
+  //  border-radius: 50%;
+  //}
+  //
+  //ion-calendar-month button.days-btn:not(.today) {
+  //  width: 100%;
+  //  //border-radius: 0;
+  //}
+  //
+  //ion-calendar-month button.start {
+  //  border-radius: 0 12px 12px 0;
+  //}
+  //
+  //ion-calendar-month button.end {
+  //  //border-radius: 0;
+  //  border-radius: 50%;
+  //}
+  //
+  //ion-calendar-month button.today{
+  //  //border: 1px solid color($colors,'primary');
+  //  background-color: #488aff;
+  //  p {
+  //    color:#fff!important;
+  //  }
+  //}
+  //
+  //ion-calendar-month button.start,
+  //ion-calendar-month button.end,
+  //ion-calendar-month button.between {
+  //  background-color: color($colors, 'primary');
+  //  p {
+  //    color: #fff;
+  //  }
+  //}
+
 }

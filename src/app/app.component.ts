@@ -8,8 +8,9 @@ import {Keyboard} from '@ionic-native/keyboard';
 import {Deeplinks} from '@ionic-native/deeplinks';
 import {JPush} from '@jiguang-ionic/jpush';
 import {NativeAudio} from '@ionic-native/native-audio';
-import { BackgroundMode } from '@ionic-native/background-mode';
-import { Vibration } from '@ionic-native/vibration';
+import {BackgroundMode} from '@ionic-native/background-mode';
+import {Vibration} from '@ionic-native/vibration';
+import {LocalNotifications} from '@ionic-native/local-notifications';
 
 declare var chcp;
 
@@ -31,12 +32,15 @@ export class MyApp {
                 private keyboard: Keyboard,
                 private nativeAudio: NativeAudio,
                 private vibration: Vibration,
+                private localNotifications: LocalNotifications,
                 public userProvider: UserProvider) {
         platform.ready().then(() => {
+
             statusBar.styleDefault();
             splashScreen.hide();
             this.keyboard.disableScroll(true);
             this.backgroundMode.enable();
+
             // this.backgroundMode.overrideBackButton();
 
             if (platform.is('cordova')) {
@@ -45,97 +49,105 @@ export class MyApp {
                 jpush.setDebugMode(true);
                 jpush.setApplicationIconBadgeNumber(0);
 
-                document.addEventListener("jpush.receiveNotification", (event: any) => {
-                    console.log("接收到通知");
-                    console.log(event);
-                    this.playAudio(event);
-                }, false);
+                // 检查是否开启推送
+                jpush.getUserNotificationSettings().then(result => {
+                    if (result == 0) {
+                        console.log("推送状态：关闭");
+                    } else {
+                        console.log("推送状态：开启");
+                    }
+                }).catch(err => {
 
-                document.addEventListener("jpush.openNotification", (event: any) => {
-                    console.log("点击通知");
-                    console.log(event);
-                    this.goPage(event);
-                }, false);
+                });
 
-                document.addEventListener("jpush.backgroundNotification", (event: any) => {
-                    console.log("后台通知");
-                    console.log(event);
-                    this.playAudio(event);
-                }, false);
+                localNotifications.hasPermission().then(granted => {
+                    if (granted) {
+                        console.log("本地通知状态：开启");
+                    } else {
+                        console.log("本地通知状态：关闭");
+
+                        // 请求权限
+                        localNotifications.requestPermission().then(
+                            granted => {
+
+                            }).catch(
+                            err => {
+
+                            });
+                    }
+                }).catch(err => {
+
+                });
+
+
+                if(platform.is('android')) {
+                    document.addEventListener("jpush.receiveMessage", (event: any) => {
+                        console.log("接收到自定义消息");
+                        console.log(event);
+                        this.dealMessage(event.content);
+                    }, false);
+                }
+
+                if (platform.is('ios')) {
+                    document.addEventListener("jpush.receiveNotification", (event: any) => {
+                        console.log("收到通知");
+                        console.log(event);
+                        this.goPage(event);
+                    }, false);
+
+
+                    document.addEventListener("jpush.openNotification", (event: any) => {
+                        console.log("点击通知");
+                        console.log(event);
+                        this.goPage(event);
+                    }, false);
+
+                    document.addEventListener("jpush.backgroundNotification", (event: any) => {
+                        console.log("收到后台通知");
+                        console.log(event);
+                        this.goPage(event);
+                    }, false);
+                }
 
                 this.subscribeRoutes();
 
-                // var appUpdate = {
-                //     // Application Constructor
-                //     initialize: function () {
-                //         this.bindEvents();
-                //     },
-                //     // Bind any events that are required.
-                //     // Usually you should subscribe on 'deviceready' event to know, when you can start calling cordova modules
-                //     bindEvents: function () {
-                //         document.addEventListener('deviceready', this.onDeviceReady, false);
-                //         document.addEventListener('chcp_updateLoadFailed', this.onUpdateLoadError, false);
-                //     },
-                //     // deviceready Event Handler
-                //     onDeviceReady: function () {
-                //         chcp.isUpdateAvailableForInstallation(function (error, data) {
-                //             if (error) {
-                //                 console.log('未发现安装资源包，开始向服务器请求..');
-                //                 chcp.fetchUpdate(appUpdate.fetchUpdateCallback);
-                //                 return;
-                //             }
-                //             // update is in cache and can be installed - install it
-                //             console.log('当前版本: ' + data.currentVersion);
-                //             console.log('最新版本: ' + data.readyToInstallVersion);
-                //             chcp.installUpdate(appUpdate.installationCallback);
-                //         });
-                //     },
-                //     fetchUpdateCallback: function (error, data) {
-                //         if (error) {
-                //             console.log('加载更新失败: ' + error.code);
-                //             console.log(error.description);
-                //             return;
-                //         }
-                //         console.log('更新已加载');
-                //     },
-                //
-                //     installationCallback: function (error) {
-                //         if (error) {
-                //             console.log('安装更新失败: ' + error.code);
-                //             console.log(error.description);
-                //         } else {
-                //             console.log('更新已安装!');
-                //         }
-                //     },
-                //     onUpdateLoadError: function (eventData) {
-                //
-                //         var error = eventData.detail.error;
-                //
-                //         console.log("更新失败：" + error.code);
-                //         console.log("更新失败：" + error.description);
-                //
-                //         // 当检测出内核版本过小
-                //         if (error && error.code == chcp.error.APPLICATION_BUILD_VERSION_TOO_LOW) {
-                //             var dialogMessage = '发现新版本，请下载更新';
-                //             chcp.requestApplicationUpdate(dialogMessage, this.userWentToStoreCallback, this.userDeclinedRedirectCallback);
-                //         }
-                //     },
-                //     userWentToStoreCallback: function () {
-                //         // user went to the store from the dialog
-                //     },
-                //     userDeclinedRedirectCallback: function () {
-                //         // User didn't want to leave the app.
-                //         // Maybe he will update later.
-                //     }
-                // };
-                // appUpdate.initialize();
             }
 
             platform.registerBackButtonAction(() => {
-                if(this.nav.canGoBack()){
+                if (this.nav.canGoBack()) {
                     this.nav.pop();
                 }
             });
+        });
+    }
+
+    dealMessage(message) {
+        message = JSON.parse(message);
+        console.log(message);
+
+        this.localNotifications.schedule({
+            id: message.id,
+            title: message.title,
+            text: message.text,
+            sound: 'file://assets/audio/' + message.sound,
+            vibrate: message.vibrate,
+            data:message.data
+        });
+
+
+        this.localNotifications.on('click').subscribe(notification=>{
+
+            if(notification.data) {
+                let page_url = notification.data.page_url;
+                let page_params = notification.data.page_params;
+
+                console.log(page_url);
+                console.log(page_params);
+
+                if (page_url) {
+                    this.nav.push(page_url, JSON.parse(page_params));
+                }
+            }
         });
     }
 
@@ -150,33 +162,16 @@ export class MyApp {
         console.log(page_params);
 
         if (page_url) {
-            this.nav.push(page_url,  JSON.parse(page_params));
+            console.log(this.nav.getActive());
+
+            if(this.nav.getActive()) {
+                if(this.nav.getActive().id == page_url) {
+                    return;
+                }
+            }
+
+            this.nav.push(page_url, JSON.parse(page_params));
         }
-    }
-
-    playAudio(event) {
-        let audio_name = event["extras"]["audio_name"];
-
-        console.log(audio_name);
-
-        if(!audio_name) {
-            audio_name = 'drip.mp3';
-        }
-
-        this.nativeAudio.preloadSimple('push-sound', 'assets/audio/'+audio_name).then(()=>{
-            console.log("preload audio successful");
-        }, (err)=>{
-            console.log("preload audio err");
-            console.log(err);
-        });
-
-        this.backgroundMode.on("activate").subscribe(()=>{
-            this.nativeAudio.play('push-sound', () => console.log('play audio success'));
-        });
-
-        this.nativeAudio.play('push-sound', () => console.log('play audio success'));
-        this.vibration.vibrate(2000);
-
     }
 
     subscribeRoutes() {

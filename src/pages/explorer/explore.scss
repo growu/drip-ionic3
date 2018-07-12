@@ -1,10 +1,32 @@
 .page-explore {
-  .category {
-    border:1px solid #dedede;
-    ion-icon {
-      font-size: 5rem;
-    }
-  }
+  //.category {
+  //  border:1px solid #dedede;
+  //  ion-icon {
+  //    font-size: 5rem;
+  //  }
+  //}
+  //
+  //ion-card {
+  //  position: relative;
+  //  text-align: center;
+  //}
+  //
+  //.card-title {
+  //  position: absolute;
+  //  top: 5%;
+  //  font-size: 2.0em;
+  //  width: 100%;
+  //  font-weight: bold;
+  //  color: #ca8448;
+  //}
+  //
+  //.card-subtitle {
+  //  font-size: 1.0em;
+  //  position: absolute;
+  //  top: 52%;
+  //  width: 100%;
+  //  color: #ca8448;
+  //}
 
   ion-card {
     position: relative;
@@ -13,11 +35,11 @@
 
   .card-title {
     position: absolute;
-    top: 5%;
+    top: 36%;
     font-size: 2.0em;
     width: 100%;
     font-weight: bold;
-    color: #ca8448;
+    color: #fff;
   }
 
   .card-subtitle {
@@ -25,7 +47,7 @@
     position: absolute;
     top: 52%;
     width: 100%;
-    color: #ca8448;
+    color: #fff;
   }
 
 }

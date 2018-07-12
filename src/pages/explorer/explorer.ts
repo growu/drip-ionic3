@@ -27,5 +27,14 @@ export class ExplorerPage {
         alert.present();
     }
 
+    showTip() {
+        let alert = this.alertCtrl.create({
+            title: '^_^',
+            subTitle: '暂未开放，请耐心等待',
+            buttons: ['确定']
+        });
+        alert.present();
+    }
+
 }
 

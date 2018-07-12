@@ -1,3 +1,13 @@
+<ion-header no-border>
+  <ion-navbar>
+    <ion-title>
+      日历
+    </ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
 <ion-content>
   <!--<ion-card>-->
 
@@ -26,18 +36,36 @@
     <!--&lt;!&ndash;</ion-row>&ndash;&gt;-->
   <!--</ion-card>-->
 
+  <div class="records" margin-top padding-left padding-right>
+    <ion-list no-lines class="gray-list">
+      <ion-item>
+        <ion-label>{{selectDay}}</ion-label>
+      </ion-item>
+      <ion-card *ngFor="let checkin of checkins">
+        <ion-item >
+          <h3 *ngFor="let item of checkin.items">{{item.name+item.unit}}</h3>
+          <ion-note item-end>{{checkin.created_at | slice:11:16}}</ion-note>
+        </ion-item>
+      </ion-card>
+      <ion-card (click)="goGoalCheckinPage()">
+        <ion-item>
+          <ion-label>添加记录</ion-label>
+        </ion-item>
+      </ion-card>
+    </ion-list>
+  </div>
 
-  <ion-item-group margin-top>
-  <ion-item-divider color="light">
-    {{checkins.length}} 次打卡
-    <button ion-button small item-end (click)="goGoalCheckinPage()">补打卡</button>
-  </ion-item-divider>
-  <ion-item *ngFor="let checkin of checkins">
-    <h2>{{checkin.created_at | slice:11:19}}</h2>
-    <p>{{checkin.content}}</p>
-    <button ion-button clear item-end (click)="goEventDetailPage(checkin.event_id)" *ngIf="checkin.event_id">详情</button>
-  </ion-item>
-  </ion-item-group>
+  <!--<ion-item-group margin-top>-->
+  <!--<ion-item-divider color="light">-->
+    <!--{{checkins.length}} 次打卡-->
+    <!--<button ion-button small item-end (click)="goGoalCheckinPage()">补打卡</button>-->
+  <!--</ion-item-divider>-->
+  <!--<ion-item *ngFor="let checkin of checkins">-->
+    <!--<h2>{{checkin.created_at | slice:11:19}}</h2>-->
+    <!--<p>{{checkin.content}}</p>-->
+    <!--<button ion-button clear item-end (click)="goEventDetailPage(checkin.event_id)" *ngIf="checkin.event_id">详情</button>-->
+  <!--</ion-item>-->
+  <!--</ion-item-group>-->
 
   <!--<ion-card *ngIf="(event|json) != '{}'">-->
     <!--<ion-card-header>-->

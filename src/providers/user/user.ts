@@ -10,6 +10,7 @@ import {JPush} from '@jiguang-ionic/jpush';
 import {ToastProvider} from "../../providers/toast/toast";
 import * as moment from 'moment'
 import swal from "sweetalert2";
+import {AppConfigProvider} from '../appconfig/appconfig';
 
 declare var Wechat;
 declare var WeiboSDK;
@@ -22,6 +23,7 @@ export class UserProvider {
                 private storage: Storage,
                 private device: Device,
                 public jpush: JPush,
+                public appConfigProvider: AppConfigProvider,
                 private app: App,
                 private events: Events,
                 private modalCtrl: ModalController,
@@ -34,11 +36,18 @@ export class UserProvider {
         return new Promise((resolve, reject) => {
             this.getDevice().then((device) => {
                 user.device = device;
-                this.httpProvider.httpPostNoAuth("/auth/login", user).then((data) => {
-                    resolve(data);
-                }).catch((err) => {
-                    reject(err);
+
+                this.appConfigProvider.getChannel().then((channel)=>{
+                    user.channel  = channel;
+
+                    this.httpProvider.httpPostNoAuth("/auth/login", user).then((data) => {
+                        resolve(data);
+                    }).catch((err) => {
+                        reject(err);
+                    });
                 });
+
+
             });
         });
     }
@@ -84,6 +93,7 @@ export class UserProvider {
             this.getDevice().then((device) => {
                 data.device = device;
                 data.provider = provider;
+
                 this.httpProvider.httpPostNoAuth("/auth/third", data).then((data) => {
                     resolve(data);
                 }).catch((err) => {
@@ -269,6 +279,7 @@ export class UserProvider {
 
     register(user) {
         user.device = this.device;
+
         return this.httpProvider.httpPostNoAuth("/auth/register", user);
     }
 
@@ -357,6 +368,13 @@ export class UserProvider {
         return this.httpProvider.httpGetWithAuth("/user/goal/" + id + "/day", params);
     }
 
+    getGoalDays(id, page,per_page) {
+        let params: URLSearchParams = new URLSearchParams();
+        params.set('page', page);
+        params.set('per_page', per_page);
+        return this.httpProvider.httpGetWithAuth("/user/goal/" + id + "/days", params);
+    }
+
     getGoalWeek(id) {
         return this.httpProvider.httpGetWithAuth("/user/goal/" + id + "/week", null);
     }
@@ -385,58 +403,58 @@ export class UserProvider {
             return;
         }
 
-        if (goal.checkin_model == 1) {
-
-            let body = {
-                day: moment().format('YYYY-MM-DD'),
-                content: null,
-                items: [],
-                attachs: []
-            }
-
-            this.checkinGoal(goal.id, body).then(data => {
-                if (data) {
-                    this.events.publish('goals:update', {});
-
-                    body['total_days'] = data.total_days;
-
-                    this.storage.get('user').then(data => {
-                        let params2 = {
-                            'goal': goal,
-                            'checkin': body,
-                            'user': data
-                        };
-
-                        let modal = this.modalCtrl.create('goal-checkin-succ', {'data': body});
-
-                        modal.onDidDismiss(data => {
-                        });
-
-                        modal.present();
-                    });
-
-
-                    // swal({
-                    //     title: '打卡成功',
-                    //     html: '单次打卡奖励：+' + data.single_add_coin + '水滴币<br>连续打卡奖励：+' + data.series_add_coin + '水滴币',
-                    //     type: 'success',
-                    //     // timer: 2000,
-                    //     showConfirmButton: true,
-                    //     width: '80%',
-                    //     // padding: 0
-                    // }).then(() => {
-                    //     this.events.publish('goals:update', {});
-                    // }, dismiss => {
-                    //     this.events.publish('goals:update', {});
-                    // });
-                }
-            }).catch(e => {
-                console.log(e)
-            });
-        } else {
+        // if (goal.checkin_model == 1) {
+        //
+        //     let body = {
+        //         day: moment().format('YYYY-MM-DD'),
+        //         content: null,
+        //         items: [],
+        //         attachs: []
+        //     }
+        //
+        //     this.checkinGoal(goal, body).then(data => {
+        //         if (data) {
+        //             this.events.publish('goals:update', {});
+        //
+        //             body['total_days'] = data.total_days;
+        //
+        //             this.storage.get('user').then(data => {
+        //                 let params2 = {
+        //                     'goal': goal,
+        //                     'checkin': body,
+        //                     'user': data
+        //                 };
+        //
+        //                 let modal = this.modalCtrl.create('goal-checkin-succ', {'data': body});
+        //
+        //                 modal.onDidDismiss(data => {
+        //                 });
+        //
+        //                 modal.present();
+        //             });
+        //
+        //
+        //             // swal({
+        //             //     title: '打卡成功',
+        //             //     html: '单次打卡奖励：+' + data.single_add_coin + '水滴币<br>连续打卡奖励：+' + data.series_add_coin + '水滴币',
+        //             //     type: 'success',
+        //             //     // timer: 2000,
+        //             //     showConfirmButton: true,
+        //             //     width: '80%',
+        //             //     // padding: 0
+        //             // }).then(() => {
+        //             //     this.events.publish('goals:update', {});
+        //             // }, dismiss => {
+        //             //     this.events.publish('goals:update', {});
+        //             // });
+        //         }
+        //     }).catch(e => {
+        //         console.log(e)
+        //     });
+        // } else {
             params["id"] = goal.id;
             this.app.getRootNav().push('goal-checkin', params);
-        }
+        // }
     }
 
     checkinGoal(goal, params) {

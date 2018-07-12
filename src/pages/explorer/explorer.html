@@ -1,11 +1,30 @@
-<ion-header>
-    <ion-toolbar color="primary">
+<ion-header no-border>
+    <ion-toolbar>
         <ion-title>发现</ion-title>
         <!--<ion-searchbar (input)="getItems($event)"></ion-searchbar>-->
     </ion-toolbar>
 </ion-header>
 
 <ion-content class="page-explore">
+
+    <ion-card (click)="showTip()">
+        <img src="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1527488500410&di=33976b2814e25df5fa477dfa07184ddc&imgtype=0&src=http%3A%2F%2Ffx120.120askimages.com%2F120ask_news%2F2017%2F0706%2F201707061499330465252242.jpg"/>
+        <div class="card-title">跑步训练营</div>
+        <div class="card-subtitle">20323 人参与</div>
+    </ion-card>
+
+    <ion-card (click)="showTip()">
+        <img src="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1527488555032&di=271b82f28cb768ae64734a8f60605274&imgtype=0&src=http%3A%2F%2Fpic11.huitu.com%2Fres%2F20130731%2F1912_20130731011247397200_1.jpg"/>
+        <div class="card-title">每周共读一本书</div>
+        <div class="card-subtitle">20323 人参与</div>
+    </ion-card>
+
+    <ion-card (click)="showTip()">
+        <img src="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1527488661238&di=001868e94dac13b4a634e8eedf5012ad&imgtype=0&src=http%3A%2F%2Ffile28.mafengwo.net%2FM00%2F56%2F8B%2FwKgB6lPB99uAOg6UAASgXUq91Z860.groupinfo.w665_500.jpeg"/>
+        <div class="card-title">早起训练</div>
+        <div class="card-subtitle">20323 人参与</div>
+    </ion-card>
+
     <!--<ion-row padding>-->
         <!--<ion-col col-4 text-center class="category">-->
             <!--<ion-icon name="switch" color="primary"></ion-icon>-->
@@ -54,20 +73,20 @@
         <!--</ion-slide>-->
     <!--</ion-slides>-->
 
-    <ion-list class="card-background-page">
-        <ion-card (click)="goTopPage()">
-            <img src="assets/img/top.png"/>
-            <div class="card-title">排行榜</div>
-            <div class="card-subtitle"></div>
-        </ion-card>
+    <!--<ion-list class="card-background-page">-->
+        <!--<ion-card (click)="goTopPage()">-->
+            <!--<img src="assets/img/top.png"/>-->
+            <!--<div class="card-title">排行榜</div>-->
+            <!--<div class="card-subtitle"></div>-->
+        <!--</ion-card>-->
 
 
-        <ion-card (click)="goQunPage()">
-            <img src="http://file.growu.me/drip_wechat_qun.jpeg"/>
-            <!--<div class="card-title">交流群</div>-->
-            <div class="card-subtitle"></div>
-        </ion-card>
-    </ion-list>
+        <!--<ion-card (click)="goQunPage()">-->
+            <!--<img src="http://file.growu.me/drip_wechat_qun.jpeg"/>-->
+            <!--&lt;!&ndash;<div class="card-title">交流群</div>&ndash;&gt;-->
+            <!--<div class="card-subtitle"></div>-->
+        <!--</ion-card>-->
+    <!--</ion-list>-->
 
 
 </ion-content>

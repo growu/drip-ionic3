@@ -1,8 +1,9 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, ToastController} from 'ionic-angular';
+import {AlertController, IonicPage, NavController, NavParams, ToastController} from 'ionic-angular';
+import {GoalProvider} from "../../providers/goal/goal";
 
 @IonicPage({
-  name:'page-goal-search',
+  name:'goal-search',
   segment:'goal/search'
 })
 @Component({
@@ -11,11 +12,62 @@ import { IonicPage, NavController, NavParams, ToastController} from 'ionic-angul
 })
 export class GoalSearchPage {
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+  public goals = [];
+
+  constructor(public navCtrl: NavController,
+              private goalProvider: GoalProvider,
+              private alertCtrl: AlertController,
+              public navParams: NavParams) {
   }
 
   ionViewDidLoad() {
-    console.log('ionViewDidLoad GoalSearchPage');
+    this.getGoals();
   }
+
+  getGoals() {
+    this.goalProvider.doSearch('').then(data=>{
+      this.goals = data;
+    }).catch(err=>{
+
+    });
+  }
+
+  goGoalAddPage() {
+
+      this.navCtrl.push('goal-create', {'type':1});
+
+
+      // let alert = this.alertCtrl.create();
+      // alert.setTitle('请选择目标类型');
+      //
+      // alert.addInput({
+      //     type: 'radio',
+      //     label: '个人目标',
+      //     value: '1',
+      //     checked: true
+      // });
+      //
+      // alert.addInput({
+      //     type: 'radio',
+      //     label: '小组目标',
+      //     value: '2'
+      // });
+      //
+      // alert.addButton('取消');
+      // alert.addButton({
+      //     text: '确定',
+      //     handler: data => {
+      //         console.log(data);
+      //         this.navCtrl.push('goal-create', {'type':data});
+      //     }
+      // });
+      // alert.present();
+
+  }
+
+    goGoalHomePage(goal) {
+        this.navCtrl.push('goal-home', {'id':goal.id,'rootNavCtrl':this.navCtrl});
+    }
+
 
 }

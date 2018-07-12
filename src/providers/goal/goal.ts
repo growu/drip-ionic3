@@ -22,27 +22,46 @@ export class GoalProvider {
 
     // 制定目标
     doFollowGoal(id) {
-        return this.httpProivder.httpPutWithAuth("/goal/"+id+"/follow", null);
+        return this.httpProivder.httpPutWithAuth("/goal/" + id + "/follow", null);
     }
 
     // 获取目标信息
     getGoalInfo(id) {
-        return this.httpProivder.httpGetWithAuth("/goal/" + id,null);
+        return this.httpProivder.httpGetWithAuth("/goal/" + id, null);
     }
 
     // 获取目标动态
-    getGoalEvnets(id,page,per_page) {
+    getGoalEvnets(id, page, per_page) {
         let params: URLSearchParams = new URLSearchParams();
         params.set('page', page);
         params.set('per_page', per_page);
         return this.httpProivder.httpGetWithAuth("/goal/" + id + "/events", params);
     }
 
-    // 获取目标排行
-    getGoalTop(id,page,per_page){
+    getGoalMember(id, is_audit, page, per_page) {
         let params: URLSearchParams = new URLSearchParams();
         params.set('page', page);
         params.set('per_page', per_page);
-        return this.httpProivder.httpGetWithAuth("/goal/" + id + "/top",params);
+        params.set('is_audit', is_audit);
+        return this.httpProivder.httpGetWithAuth("/goal/" + id + "/member", params);
+    }
+
+    // 获取目标排行
+    getGoalTop(id, page, per_page) {
+        let params: URLSearchParams = new URLSearchParams();
+        params.set('page', page);
+        params.set('per_page', per_page);
+        return this.httpProivder.httpGetWithAuth("/goal/" + id + "/top", params);
+    }
+
+    doAudit(id, param) {
+        let body = JSON.stringify(param);
+        return this.httpProivder.httpPatchWithAuth("/goal/" + id + "/audit", body);
+    }
+
+    doSearch(name) {
+        let params: URLSearchParams = new URLSearchParams();
+        params.set('name', name);
+        return this.httpProivder.httpGetWithAuth("/goal/search", params);
     }
 }

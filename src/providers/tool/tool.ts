@@ -1,7 +1,7 @@
 import {Injectable, SkipSelf} from '@angular/core';
 import {Http} from '@angular/http';
 import 'rxjs/add/operator/map';
-import {ActionSheetController, LoadingController} from "ionic-angular";
+import {ActionSheetController, LoadingController, Platform} from "ionic-angular";
 import {FileTransfer, FileTransferObject, FileUploadOptions} from '@ionic-native/file-transfer';
 import {Camera, CameraOptions} from '@ionic-native/camera';
 import {ToastProvider} from "../toast/toast";
@@ -24,8 +24,9 @@ export class ToolProvider {
                 private httpProvider: HttpProvider,
                 private crop: Crop,
                 private device: Device,
+                private platform: Platform,
                 private loadingCtrl: LoadingController,
-                public camera: Camera,) {
+                public camera: Camera) {
     }
 
     choosePic($event): Promise<any> {
@@ -163,15 +164,6 @@ export class ToolProvider {
             });
         });
 
-    }
-
-    checkUpdate(appVersion,webVersion)
-    {
-        let params: URLSearchParams = new URLSearchParams();
-        params.set('app_version', appVersion);
-        params.set('web_version', webVersion);
-        params.set('platform', this.device.platform);
-        return this.httpProvider.httpGetWithAuth("/update/check", params);
     }
 }
 

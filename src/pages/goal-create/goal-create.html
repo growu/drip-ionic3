@@ -1,65 +1,116 @@
-<ion-header>
-
-    <ion-navbar color="primary">
-        <ion-title>创建目标</ion-title>
+<ion-header no-border>
+    <ion-navbar>
+        <ion-title>{{action=='create'?'创建目标':'编辑目标'}}</ion-title>
+        <ion-buttons end *ngIf="action=='update'">
+            <button ion-button icon-only (click)="deleteGoal()">
+                <ion-icon name="trash"></ion-icon>
+            </button>
+        </ion-buttons>
     </ion-navbar>
 </ion-header>
 
-<ion-content class="page-goal-create" padding-top>
-    <form [formGroup]="goalCreateForm" (ngSubmit)="doCreateGoal()">
-        <ion-list>
-            <ion-item>
-                <ion-input placeholder="目标名称" formControlName="name" maxlength="20"></ion-input>
-            </ion-item>
-            <ion-item>
-                <ion-textarea placeholder="描述你的目标" formControlName="desc" maxlength="255"></ion-textarea>
-            </ion-item>
-        </ion-list>
+<ion-content padding-top>
+    <ion-list no-lines class="gray-list">
+        <ion-item>
+            <ion-label stacked>目标名称</ion-label>
+            <ion-input mode="wp" placeholder="不超过30字符" [(ngModel)]="goal.name" maxlength="20"></ion-input>
+        </ion-item>
 
-        <ion-list>
+        <ion-item>
+            <ion-label stacked>目标(计数)</ion-label>
+            <ion-icon item-end name="add" (click)="goItemPage()" *ngIf="user.is_vip"></ion-icon>
+        </ion-item>
+
+        <ion-card (click)="goItemPage(item)" *ngFor="let item of goal.items;let i = index"
+                  [ngClass]="{'no-margin-top':i==0}">
+            <ion-item-sliding>
+                <ion-item>
+                    <ion-label>{{item.name}}</ion-label>
+                    <ion-note item-end>{{item.expect+item.unit}}/天</ion-note>
+                    <!--<ion-icon align="right" float-right name="ios-arrow-forward"></ion-icon>-->
+                </ion-item>
+                <ion-item-options *ngIf="goal.items.length>1">
+                    <button ion-button color="danger" (click)="deleteItem(item)">
+                        删除
+                    </button>
+                </ion-item-options>
+            </ion-item-sliding>
+        </ion-card>
+
+        <!--<ion-card (click)="goItemPage()" *ngIf="user.is_vip">-->
+        <!--<ion-card-header>-->
+        <!--&lt;!&ndash;<ion-icon name="add-circle" align="left" color="gray"></ion-icon>&ndash;&gt;-->
+        <!--添加-->
+        <!--&lt;!&ndash;<ion-icon align="right" float-right name="ios-arrow-forward"></ion-icon>&ndash;&gt;-->
+        <!--</ion-card-header>-->
+        <!--</ion-card>-->
+
+
+        <ion-item>
+            <ion-label stacked>日期</ion-label>
+        </ion-item>
+        <ion-card (click)="goDatePage()" class="no-margin-top">
             <ion-item>
-                <ion-label>日期范围</ion-label>
-                <ion-select formControlName="date_type" [(ngModel)]="goal.date_type" interface="popover"
-                            (ionChange)="onDateTypeChnage($event)">
-                    <ion-option value="1">长期目标</ion-option>
-                    <ion-option value="2">短期目标</ion-option>
-                </ion-select>
+                <h2 *ngIf="goal.date_type == 1">长期</h2>
+                <h2 *ngIf="goal.date_type == 2">{{goal.expect_days}}天</h2>
+                <p *ngIf="goal.date_type == 2">从{{goal.start_date}}到{{goal.end_date}}</p>
+                <ion-icon item-end name="ios-arrow-forward"></ion-icon>
             </ion-item>
-            <ion-item *ngIf="goal.date_type==2">
-                <ion-label>开始日期</ion-label>
-                <ion-datetime placeholder="今天" (ionChange)="onDateChange()"
-                              displayFormat="YYYY-MM-DD" pickerFormat="YYYY MM DD" cancelText="取消" doneText="保存"
-                              [min]="min" [max]="max" formControlName="start_date"
-                              [(ngModel)]="goal.start_date"></ion-datetime>
-            </ion-item>
-            <ion-item *ngIf="goal.date_type==2">
-                <ion-label>结束日期</ion-label>
-                <ion-datetime #endDate placeholder="无" (ionChange)="onDateChange()"
-                              displayFormat="YYYY-MM-DD" pickerFormat="YYYY MM DD" [min]="goal.start_date" [max]="max"
-                              cancelText="取消" doneText="保存" formControlName="end_date"
-                              [(ngModel)]="goal.end_date"></ion-datetime>
-            </ion-item>
-        </ion-list>
+        </ion-card>
 
-        <ion-list>
+        <ion-item>
+            <ion-label stacked>频率</ion-label>
+        </ion-item>
+        <ion-card (click)="goFreqPage()" class="no-margin-top">
             <ion-item>
-                <ion-label>目标天数</ion-label>
-                <ion-input type="number" text-right formControlName="days" min="0" max="9999"
-                           [(ngModel)]="goal.days" (ionBlur)="checkDays()"></ion-input>
+                <h2>{{freqText}}</h2>
+                <p *ngIf="goal.time_type==2">{{goal.start_time}}-{{goal.end_time}}</p>
+                <ion-icon item-end name="ios-arrow-forward"></ion-icon>
             </ion-item>
-        </ion-list>
+        </ion-card>
 
-        <ion-list>
+        <ion-item>
+            <ion-label stacked>提醒</ion-label>
+        </ion-item>
+        <ion-card (click)="goRemindPage()" class="no-margin-top">
             <ion-item>
-                <ion-label>是否公开</ion-label>
-                <ion-toggle checked="false" formControlName="is_public"></ion-toggle>
+                {{this.goal.remind_time || '无'}}
+                <ion-icon item-end name="ios-arrow-forward"></ion-icon>
             </ion-item>
-        </ion-list>
+        </ion-card>
 
-        <div padding>
-            <button ion-button block type="submit">提交</button>
-        </div>
+        <ion-row>
+            <ion-col>
+                <ion-item>
+                    <ion-label>图标</ion-label>
+                </ion-item>
+                <ion-item (click)="goIconPage()">
+                    <i class="iconfont icon-{{goal.icon}}" [ngStyle]="{'color': (goal.color|getColor)}" item-start></i>
+                </ion-item>
+            </ion-col>
 
-    </form>
+            <ion-col>
+                <ion-item>
+                    <ion-label>颜色</ion-label>
+                </ion-item>
+                <ion-item (click)="goColorPage()">
+                    <button [ngStyle]="{'background-color': (goal.color|getColor)}" class="color-btn"></button>
+                </ion-item>
+            </ion-col>
+
+            <ion-col col-6></ion-col>
+        </ion-row>
+
+        <ion-card>
+            <ion-item>
+                <ion-label stacked>是否公开</ion-label>
+                <ion-toggle [(ngModel)]="goal.is_public" [color]="goal.color" checked="false"></ion-toggle>
+            </ion-item>
+        </ion-card>
+    </ion-list>
+
+    <div padding>
+        <button ion-button block (click)="save()" [color]="goal.color">提交</button>
+    </div>
 
 </ion-content>

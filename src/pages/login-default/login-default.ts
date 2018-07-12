@@ -51,7 +51,7 @@ export class LoginDefaultPage {
             if (response) {
                 this.storage.set('token', response.token);
                 this.storage.set('user', response.user);
-                this.toastProvider.show("登录成功",'success');
+                this.toastProvider.show("登录成功", 'success');
                 this.navCtrl.push('main');
                 // swal({
                 //     title: '登录成功',

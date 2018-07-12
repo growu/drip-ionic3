@@ -10,7 +10,7 @@ import {Storage} from '@ionic/storage';
 @IonicPage({
     name: "goal-checkin",
     segment: "goal/:id/checkin",
-    defaultHistory:['home']
+    defaultHistory: ['home']
 })
 @Component({
     selector: 'page-goal-checkin',
@@ -72,19 +72,19 @@ export class GoalCheckinPage {
                 this.events.publish('goals:update', {});
 
                 params['total_days'] = data.total_days;
-                if(this.attachs.length>0) {
+                if (this.attachs.length > 0) {
                     params['image'] = this.attachs[0];
                 } else {
                     params['image'] = 'https://source.unsplash.com/random/400x300';
                 }
 
                 let body = {
-                    'goal':this.goal,
-                    'checkin':params,
-                    'user':this.user
+                    'goal': this.goal,
+                    'checkin': params,
+                    'user': this.user
                 };
 
-                let modal = this.modalCtrl.create('goal-checkin-succ',{'data':body});
+                let modal = this.modalCtrl.create('goal-checkin-succ', {'data': body});
 
                 modal.onDidDismiss(data => {
                     this.navCtrl.pop();
@@ -110,12 +110,11 @@ export class GoalCheckinPage {
         this.attachs = [];
     }
 
-    deleteItem(item,$event) {
+    deleteItem(item, $event) {
         let index = this.goal.items.indexOf(item);
         console.log(index);
-        if(index >= 0) {
-            this.goal.items.splice(index,1);
+        if (index >= 0) {
+            this.goal.items.splice(index, 1);
         }
     }
-
 }

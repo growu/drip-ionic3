@@ -14,6 +14,7 @@ import {NativeStorage} from '@ionic-native/native-storage';
 import {NativeAudio} from '@ionic-native/native-audio';
 import {BackgroundMode} from '@ionic-native/background-mode';
 import {Vibration} from '@ionic-native/vibration';
+import {LocalNotifications} from '@ionic-native/local-notifications';
 
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 
@@ -30,7 +31,9 @@ import {IonicImageViewerModule} from 'ionic-img-viewer';
 import {MyShareModule} from '../components/my-share/my-share.module';
 import {TopProvider} from '../providers/top/top';
 import {TopicProvider} from '../providers/topic/topic';
-import { MallProvider } from '../providers/mall/mall';
+import {MallProvider} from '../providers/mall/mall';
+import {UpdateProvider} from '../providers/update/update';
+import { AppConfigProvider } from '../providers/appconfig/appconfig';
 
 @NgModule({
     declarations: [
@@ -53,7 +56,7 @@ import { MallProvider } from '../providers/mall/mall';
         }),
         IonicImageViewerModule,
         MyShareModule,
-        BrowserAnimationsModule
+        BrowserAnimationsModule,
     ],
     bootstrap: [IonicApp],
     entryComponents: [
@@ -70,6 +73,7 @@ import { MallProvider } from '../providers/mall/mall';
         NativeAudio,
         BackgroundMode,
         Vibration,
+        LocalNotifications,
         {provide: ErrorHandler, useClass: IonicErrorHandler},
         {
             provide: HAMMER_GESTURE_CONFIG,
@@ -84,7 +88,9 @@ import { MallProvider } from '../providers/mall/mall';
         LoadingProvider,
         TopProvider,
         TopicProvider,
-    MallProvider,
+        MallProvider,
+        UpdateProvider,
+        AppConfigProvider,
     ]
 })
 export class AppModule {

@@ -2,6 +2,7 @@ import {NgModule} from '@angular/core';
 import {IonicPageModule} from 'ionic-angular';
 import {GoalCreatePage} from './goal-create';
 import {MyWeekSelectorComponentModule} from '../../components/my-week-selector/my-week-selector.module';
+import {PipesModule} from '../../pipes/pipes.module'
 
 @NgModule({
     declarations: [
@@ -9,7 +10,8 @@ import {MyWeekSelectorComponentModule} from '../../components/my-week-selector/m
     ],
     imports: [
         IonicPageModule.forChild(GoalCreatePage),
-        MyWeekSelectorComponentModule
+        MyWeekSelectorComponentModule,
+        PipesModule
     ],
     exports: [
         GoalCreatePage

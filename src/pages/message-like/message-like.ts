@@ -67,7 +67,7 @@ export class MessageLikePage {
 
     goUserHomePage(user) {
         this.navCtrl.push("user-home",{'id':user.id});
-    }c
+    }
 
 
 

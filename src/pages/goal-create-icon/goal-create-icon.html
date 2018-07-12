@@ -1,0 +1,31 @@
+<ion-header no-border>
+    <ion-navbar color="white">
+        <ion-title>图标</ion-title>
+        <ion-buttons end>
+            <button ion-button icon-only clear color="gray" (click)="dismiss()">
+                <ion-icon name="md-close"></ion-icon>
+            </button>
+        </ion-buttons>
+    </ion-navbar>
+</ion-header>
+<ion-content>
+
+    <!--<ion-list no-lines>-->
+    <!--<ion-item>-->
+    <!--<ion-label>颜色</ion-label>-->
+    <!--</ion-item>-->
+    <!--<ion-card>-->
+    <!--<ion-card-header>-->
+    <!--<button style="background-color: #3b97f7;" class="color-btn"></button>-->
+    <!--<ion-icon align="right" float-right name="ios-arrow-forward"></ion-icon>-->
+    <!--</ion-card-header>-->
+    <!--</ion-card>-->
+    <!--</ion-list>-->
+
+    <ion-row margin-top>
+        <ion-col col-3 *ngFor="let icon of icons" text-center>
+            <i class="iconfont icon-{{icon}}" [ngStyle]="{'color':color|getColor}" (click)="doChooseIcon(icon)"></i>
+        </ion-col>
+    </ion-row>
+
+</ion-content>

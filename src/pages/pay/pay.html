@@ -1,27 +1,28 @@
-<ion-header>
-  <ion-navbar color="primary">
-    <ion-title>充值</ion-title>
-  </ion-navbar>
+<ion-header no-border>
+    <ion-navbar>
+        <ion-title>充值</ion-title>
+    </ion-navbar>
 </ion-header>
 
 
 <ion-content padding-top>
 
-  <div class="row" text-center>
-    <div class="col-6 recharge-card" [class.isActive]="recharge?.isSelected" *ngFor="let recharge of recharges" (click)="onClickRecharge(recharge)">
-        <ion-card>
-          <ion-card-header>
-            {{recharge.name}}
-          </ion-card-header>
-          <ion-card-content>
-            {{recharge.price}}元
-          </ion-card-content>
-        </ion-card>
-    </div>
-  </div>
+    <ion-row>
+        <ion-col text-center col-4 class="recharge-card" [class.isActive]="recharge?.isSelected"
+                 *ngFor="let recharge of recharges" (click)="onClickRecharge(recharge)">
+            <ion-card>
+                <ion-card-header>
+                    {{recharge.name}}
+                </ion-card-header>
+                <ion-card-content>
+                    {{recharge.price}}元
+                </ion-card-content>
+            </ion-card>
+        </ion-col>
+    </ion-row>
 
-  <div class="row" padding>
-    <button ion-button block (click)="doPay()">立即支付</button>
-  </div>
+    <div class="row" padding>
+        <button ion-button block (click)="doPay()">立即支付</button>
+    </div>
 
 </ion-content>

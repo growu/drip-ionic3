@@ -16,14 +16,18 @@ page-event {
   .event-card {
     margin:5px;
     width: calc(100% - 10px);
+    border-radius: 2%;
 
     ion-card-content {
-      padding:10px 5px;
-
+      padding:10px 5px 5px 5px;
+      h2 {
+        font-size:1.2rem;
+        font-weight: 600;
+      }
       p{
         font-size: 1rem;
         color:#222;
-        min-height: 32px;
+        max-height: 1.2rem;
         overflow: hidden;
       }
     }
@@ -42,7 +46,7 @@ page-event {
   }
 
   .event-footer {
-    min-height: 3.3rem;
+    min-height: 2.1rem;
     padding-left:6px;
     //border-top:1px solid #dedede;
 

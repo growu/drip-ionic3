@@ -1,0 +1,23 @@
+<ion-header>
+    <ion-navbar color="primary">
+        <ion-title>目标动态</ion-title>
+    </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+
+    <div padding>
+        <ion-segment [(ngModel)]="is_audit" (ionChange)="segmentChanged($event)">
+            <ion-segment-button value="1">
+                已审核
+            </ion-segment-button>
+            <ion-segment-button value="0">
+                待审核
+            </ion-segment-button>
+        </ion-segment>
+    </div>
+
+        <my-event [eventSource]="events">
+
+        </my-event>
+</ion-content>

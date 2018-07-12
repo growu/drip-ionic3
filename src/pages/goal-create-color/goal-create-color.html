@@ -1,0 +1,25 @@
+
+<ion-header no-border>
+
+  <ion-navbar color="white">
+    <ion-title>颜色</ion-title>
+    <ion-buttons end>
+      <button ion-button icon-only clear color="gray" (click)="cancel()">
+        <ion-icon name="md-close"></ion-icon>
+      </button>
+    </ion-buttons>
+  </ion-navbar>
+
+</ion-header>
+
+<ion-content padding>
+  <ion-row>
+    <ion-col col-6 float-left *ngFor="let color of colors" (click)="onSelect(color)">
+      <ion-card [ngStyle]="{'background-color':color.value}" text-center>
+        <button large icon-only ion-button  clear color="white" align="center" *ngIf="selectColor==color">
+          <ion-icon name="md-checkmark" ></ion-icon>
+        </button>
+      </ion-card>
+    </ion-col>
+  </ion-row>
+</ion-content>

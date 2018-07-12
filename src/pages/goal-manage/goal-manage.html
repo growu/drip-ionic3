@@ -1,0 +1,69 @@
+<ion-header>
+
+    <ion-navbar color="primary">
+        <ion-title>目标管理</ion-title>
+    </ion-navbar>
+
+</ion-header>
+
+
+<ion-content class="gray-content">
+    <ion-list>
+        <ion-item>
+            <h2>今日数据</h2>
+            <ion-note item-end>更新至 13:00</ion-note>
+        </ion-item>
+        <ion-item>
+            <ion-row>
+                <ion-col text-center>
+                    <ion-card>
+                        <strong ion-text class="num" color="primary">10,233</strong>
+                        <br>人数
+                    </ion-card>
+                </ion-col>
+                <ion-col text-center>
+                    <ion-card>
+                        <strong ion-text class="num" color="primary">23,122</strong>
+                        <br>打卡数
+                    </ion-card>
+
+                </ion-col>
+                <ion-col text-center>
+                    <ion-card>
+                        <strong ion-text class="num" color="primary">20.3%</strong>
+                        <br>完成率
+                    </ion-card>
+                </ion-col>
+            </ion-row>
+        </ion-item>
+    </ion-list>
+
+    <div margin-top style="background-color: #fff;">
+            <ion-row class="grid2">
+                <ion-col text-center (click)="goGoalEditPage()">
+                    <ion-icon name="settings" color="primary"></ion-icon>
+                    <p>基本设置</p>
+                </ion-col>
+                <ion-col text-center (click)="goGoalMemberPage()">
+                    <ion-icon name="people" color="secondary"></ion-icon>
+                    <p>成员管理</p>
+                </ion-col>
+                <ion-col text-center (click)="goGoalEventPage()">
+                    <ion-icon name="md-done-all" color="yellow"></ion-icon>
+                    <p>打卡管理</p>
+                </ion-col>
+            </ion-row>
+            <ion-row class="grid2">
+                <ion-col text-center (click)="showMore()">
+                    <ion-icon name="more"></ion-icon>
+                    <p>更多功能</p>
+                </ion-col>
+                <ion-col text-center>
+
+                </ion-col>
+                <ion-col text-center>
+
+                </ion-col>
+            </ion-row>
+        </div>
+</ion-content>

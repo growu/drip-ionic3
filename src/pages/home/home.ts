@@ -13,12 +13,14 @@ import * as autoScroll from 'dom-autoscroller';
 import {NativeStorage} from '@ionic-native/native-storage';
 import {Events} from 'ionic-angular';
 import swal from "sweetalert2";
+import {DomSanitizer} from "@angular/platform-browser";
 
 @IonicPage({
     name: 'home',
     segment: 'home'
 })
 @Component({
+    selector: 'page-home',
     templateUrl: 'home.html'
 })
 export class HomePage {
@@ -47,6 +49,7 @@ export class HomePage {
                 private platform: Platform,
                 private nativeStorage: NativeStorage,
                 private elementRef: ElementRef,
+                private sanitizer: DomSanitizer,
                 public events: Events,
                 private dragulaService: DragulaService,
                 private toastProvider: ToastProvider) {
@@ -58,7 +61,8 @@ export class HomePage {
             directions: "horizontal",
             moves: (el, source, handle, sibling) => {
                 if (this.setting.enableSort) {
-                    return !el.classList.contains('no-drag');
+                    return true;
+                    // return !el.classList.contains('no-drag');
                 } else {
                     return false;
                 }
@@ -91,7 +95,6 @@ export class HomePage {
                 this.getGoals(null);
             }
         });
-
     }
 
     // private onDrag(args) {
@@ -140,7 +143,7 @@ export class HomePage {
     ngAfterViewInit() {
         setTimeout(() => {
             var scroll = autoScroll([
-                this.scrollContent.nativeElement
+                // this.scrollContent.nativeElement
                 //this.autoscroll.nativeElement,
                 //this.autoscroll2.nativeElement
             ], {
@@ -224,7 +227,7 @@ export class HomePage {
     goGoalAddPage() {
         // console.log(this.navCtrl);
         // this.navCtrl.push('goal-home', {'id':9,'rootNavCtrl':this.navCtrl});
-        this.navCtrl.push('goal-create', {});
+        // this.navCtrl.push('goal-create', {});
 
         // var inputOptions = new Promise((resolve) => {
         //     setTimeout(() => {
@@ -250,28 +253,32 @@ export class HomePage {
         //     }
         // })
 
+        this.navCtrl.push('goal-search', {});
+
+        return;
+
         // let alert = this.alertCtrl.create();
         // alert.setTitle('请选择目标类型');
         //
         // alert.addInput({
         //     type: 'radio',
         //     label: '个人目标',
-        //     value: 'blue',
+        //     value: '1',
         //     checked: true
         // });
         //
         // alert.addInput({
         //     type: 'radio',
-        //     label: '小组目标(限team用户使用)',
-        //     value: 'blue',
-        //     disabled:true
+        //     label: '小组目标',
+        //     value: '2'
         // });
         //
         // alert.addButton('取消');
         // alert.addButton({
         //     text: '确定',
         //     handler: data => {
-        //         this.navCtrl.push('goal-create', {});
+        //         console.log(data);
+        //         this.navCtrl.push('goal-create', {'type':data});
         //     }
         // });
         // alert.present();
@@ -359,6 +366,23 @@ export class HomePage {
 
     ngOnDestroy() {
         this.dragulaService.destroy('bag-one');
+    }
+
+    getColor(color:string) {
+
+        console.log(color);
+
+        // color = color || "#488aff";
+
+        // color = "#488aff";
+        return this.sanitizer.bypassSecurityTrustStyle('background-color:' + color);
+
+
+        // return this.sanitizer.bypassSecurityTrustStyle('--progress-bg-color:' + color);
+    }
+
+    goGoalTodayPage(goal) {
+        this.navCtrl.push('goal-today', {id: goal.id, goal: goal});
     }
 
 }

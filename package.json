@@ -43,6 +43,7 @@
     "@ionic-native/image-picker": "4.5.2",
     "@ionic-native/in-app-browser": "4.5.2",
     "@ionic-native/keyboard": "4.5.2",
+    "@ionic-native/local-notifications": "^4.9.0",
     "@ionic-native/native-audio": "^4.5.2",
     "@ionic-native/native-storage": "^4.5.2",
     "@ionic-native/social-sharing": "4.5.2",

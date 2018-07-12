@@ -3,6 +3,8 @@ import {HomePage} from './home';
 import {IonicPageModule} from 'ionic-angular';
 import {MyCalendarComponentModule} from '../../components/my-calendar/my-calendar.module';
 import {DragulaModule,DragulaService} from 'ng2-dragula/ng2-dragula';
+import {PipesModule} from '../../pipes/pipes.module'
+import {TimeAgoPipeModule} from '../../pipes/time-ago/time-ago.module';
 
 @NgModule({
     declarations: [
@@ -11,7 +13,9 @@ import {DragulaModule,DragulaService} from 'ng2-dragula/ng2-dragula';
     imports: [
         IonicPageModule.forChild(HomePage),
         MyCalendarComponentModule,
-        DragulaModule
+        DragulaModule,
+        PipesModule,
+        TimeAgoPipeModule
     ],
     entryComponents: []
 })

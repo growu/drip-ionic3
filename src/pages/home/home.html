@@ -1,26 +1,89 @@
 <ion-header no-border>
-    <ion-toolbar color="primary">
-        <ion-buttons start>
-            <button ion-button icon-only (click)="openMenu($event)">
-                <ion-icon name="ios-menu"></ion-icon>
-            </button>
-        </ion-buttons>
+    <ion-toolbar>
+        <!--<ion-buttons start>-->
+            <!--<button ion-button icon-only (click)="openMenu($event)">-->
+                <!--<ion-icon name="ios-menu"></ion-icon>-->
+            <!--</button>-->
+        <!--</ion-buttons>-->
 
-            <ion-title>{{viewTitle}}</ion-title>
+        <ion-title>目标</ion-title>
 
         <ion-buttons end>
             <button ion-button icon-only (click)="goGoalAddPage()">
-                <ion-icon name="md-add" *ngIf="!setting.enableSort"></ion-icon>
-            </button>
-
-            <button ion-button icon-only (click)="saveGoalsOrder()" *ngIf="setting.enableSort">
-                <ion-icon name="md-checkmark"></ion-icon>
+                <!--<ion-icon name="md-add" *ngIf="!setting.enableSort"></ion-icon>-->
+                <ion-icon name="md-add"></ion-icon>
             </button>
         </ion-buttons>
     </ion-toolbar>
-
 </ion-header>
-<ion-content class="page-home no-scroll">
+
+<ion-content>
+    <ion-list [dragula]='"bag-one"' [dragulaModel]="goals">
+        <!--<ion-list-header>-->
+            <!--个人目标-->
+        <!--</ion-list-header>-->
+        <ion-card *ngFor="let goal of goals" >
+            <!--<progress value="{{goal.total_days}}" max="{{goal.expect_days}}" [attr.style]="getColor(goal.color)"></progress>-->
+            <ion-item-sliding >
+                <ion-item [ngStyle]="{'background-color':(goal.color|getColor)}" (click)="goGoalTodayPage(goal)">
+                    <!--<ion-icon name="ios-water" item-start></ion-icon>-->
+                    <i class="iconfont icon-{{goal.icon}}" item-start [ngStyle]="{'color':'#fff'}"></i>
+                    <h2>{{goal.name}}</h2>
+                    <p>最近打卡：{{goal.last_checkin_at | timeAgo }}</p>
+                    <div item-end text-center>
+                        <h3>{{goal.total_days}}天</h3>
+                        <ion-note>累计打卡</ion-note>
+                    </div>
+                    <!--<ion-icon name="md-checkmark-circle" item-end color="white"></ion-icon>-->
+
+                </ion-item>
+                <ion-item-options side="right">
+                    <button ion-button color="primary" (click)="doCheckin(goal,$event)">
+                        打卡
+                    </button>
+                    <button ion-button color="danger" (click)="deleteGoal(goal)">
+                        删除
+                    </button>
+                </ion-item-options>
+            </ion-item-sliding>
+            <!--</ion-card-header>-->
+        </ion-card>
+    </ion-list>
+
+    <!--<ion-list margin-top>-->
+        <!--<ion-list-header>-->
+            <!--小组目标-->
+        <!--</ion-list-header>-->
+    <!--</ion-list>-->
+
+    <!--<ion-list margin-top>-->
+    <!--<ion-list-header>-->
+    <!--已完成-->
+    <!--</ion-list-header>-->
+    <!--<ion-card *ngFor="let goal of goals" class="finish-goal">-->
+    <!--<ion-card-header>-->
+    <!--<ion-item-sliding>-->
+    <!--<ion-item>-->
+    <!--<ion-icon name="leaf" item-start color="light"></ion-icon>-->
+    <!--{{goal.name}}-->
+    <!--<div item-end text-center>-->
+    <!--<h3 >1次</h3>-->
+    <!--<ion-note >10%</ion-note>-->
+    <!--</div>-->
+    <!--</ion-item>-->
+    <!--<ion-item-options side="right">-->
+    <!--<button ion-button color="primary" (click)="doCheckin(goal,$event)">-->
+    <!--打卡-->
+    <!--</button>-->
+    <!--<button ion-button color="danger" (click)="deleteGoal(goal)">-->
+    <!--删除-->
+    <!--</button>-->
+    <!--</ion-item-options>-->
+    <!--</ion-item-sliding>-->
+    <!--</ion-card-header>-->
+    <!--</ion-card>-->
+    <!--</ion-list>-->
+
 
     <!--<ion-refresher (ionRefresh)="doRefresh($event)">-->
     <!--<ion-refresher-content-->
@@ -31,114 +94,124 @@
     <!--</ion-refresher-content>-->
     <!--</ion-refresher>-->
 
-    <my-calendar (onTitleChanged)="onViewTitleChanged($event)"
-                 (onDaySelected)="onDaySelected($event)"
-                 [mode]="setting?.calendarMode"
-                 *ngIf="setting?.calendarMode">
-    </my-calendar>
+    <!--<my-calendar (onTitleChanged)="onViewTitleChanged($event)"-->
+    <!--(onDaySelected)="onDaySelected($event)"-->
+    <!--[mode]="setting?.calendarMode"-->
+    <!--*ngIf="setting?.calendarMode">-->
+    <!--</my-calendar>-->
 
-    <ion-scroll scrollX="true" style="height: 100%" >
-        <div class="scroll-content" style="overflow: scroll;" #scrollContent >
-            <div *ngIf="goals.length > 0">
-                <ion-list *ngIf="setting?.viewMode=='list'" class="events-list" margin-top [dragula]='"bag-one"' [dragulaModel]="goals">
-                    <ng-template ngFor let-goal [ngForOf]="goals">
-                    <ion-card *ngIf="!(goal.status==2&&setting.hideExpireGoals)"  [ngClass]="{'no-drag':goal.status != 1}" >
-                        <ion-card-content>
-                            <ion-item-sliding>
-                                <ion-item (click)="goGoalDetailPage(goal.id,$event)" >
-                                    <ion-icon name="checkmark-circle" class="check-icon"
-                                              [class.active]="goal.is_today_checkin" item-start (click)="goGoalCheckinPage(goal.id,$event)"></ion-icon>
-                                    <ion-label>
-                                    <h2>{{goal.name}}</h2>
-                                        <p>
-                                            <button *ngIf="goal.status==0" color="gray" ion-button small outline>
-                                                未开始
-                                            </button>
-                                            <button *ngIf="goal.status==1" color="secondary" ion-button small outline>
-                                                进行中
-                                            </button>
-                                            <button *ngIf="goal.status==2" color="danger" ion-button small outline>已结束
-                                            </button>
-                                        </p>
-                                    </ion-label>
+    <!--<ion-scroll scrollX="true" style="height: 100%" >-->
+    <!--<div class="scroll-content" style="overflow: scroll;" #scrollContent >-->
+    <!--<div *ngIf="goals.length > 0">-->
+    <!--<ion-list *ngIf="setting?.viewMode=='list'" class="events-list" margin-top [dragula]='"bag-one"' [dragulaModel]="goals">-->
+    <!--<ng-template ngFor let-goal [ngForOf]="goals">-->
+    <!--<ion-card *ngIf="!(goal.status==2&&setting.hideExpireGoals)"  [ngClass]="{'no-drag':goal.status != 1}" >-->
+    <!--<ion-card-content>-->
+    <!--<ion-item-sliding>-->
+    <!--<ion-item (click)="goGoalDetailPage(goal.id,$event)" >-->
 
-                                    <ion-note item-end>
-                                        <span text-center>{{goal.total_days}} / {{goal.expect_days>0?goal.expect_days:'--'}} </span>
-                                    </ion-note>
+    <!--<div class="" style="height: 100%;">-->
+    <!--<span style="width:50%;background-color: #3b97f7;height:100%;  display: block;">-->
+    <!--</span>-->
+    <!--</div>-->
 
-                                </ion-item>
-                                <!--<ion-item-options side="left">-->
-                                    <!--<button ion-button   icon-only>-->
-                                        <!--<ion-icon name="arrow-up"></ion-icon>-->
-                                    <!--</button>-->
-                                    <!--<button ion-button color="light" icon-only>-->
-                                        <!--<ion-icon name="arrow-down"></ion-icon>-->
-                                    <!--</button>-->
-                                <!--</ion-item-options>-->
-                                <ion-item-options side="right">
-                                    <button ion-button color="primary" (click)="doCheckin(goal,$event)">
-                                        打卡
-                                    </button>
-                                    <button ion-button color="danger" (click)="deleteGoal(goal)">
-                                        删除
-                                    </button>
-                                </ion-item-options>
-                            </ion-item-sliding>
-                        </ion-card-content>
-                        <ion-row>
-                        <!--<p class="progress-title" style="width:20%" data-value="20"></p>-->
-                        <!--<progress value="20" max="100">-->
-                        <!--<div class="progress-bar">-->
-                        <!--<span style="width: 20%;">20%</span>-->
-                        <!--</div>-->
-                        <!--</progress>-->
-                        </ion-row>
-                    </ion-card>
-                    </ng-template>
-                </ion-list>
+    <!--&lt;!&ndash;<progress value="80" max="100"></progress><span>JavaScript/jQuery</span>&ndash;&gt;-->
 
-                <ion-list *ngIf="setting?.viewMode=='card'" class="events-card" [dragula]='"bag-one"' [dragulaModel]="goals">
-                    <ng-template ngFor let-goal [ngForOf]="goals">
-                            <div  *ngIf="!(goal.status==2&&setting.hideExpireGoals)"  [ngClass]="{'no-drag':goal.status != 1}" class="card-col">
-                            <ion-card>
-                                <ion-card-header text-center>
-                                    {{goal.name}}
-                                </ion-card-header>
-                                <ion-card-content text-center padding-top (click)="goGoalDetailPage(goal.id,$event)">
-                                    <ion-icon name="checkmark-circle" class="check-icon"
-                                              [class.active]="goal.is_checkin" (click)="goGoalCheckinPage(goal.id,$event)"></ion-icon>
-                                </ion-card-content>
-                                <ion-row class="footer">
-                                    <ion-col class="status">
-                                        <button *ngIf="goal.status==0" color="gray" ion-button small outline>未开始
-                                        </button>
-                                        <button *ngIf="goal.status==1" color="secondary" ion-button small outline>进行中
-                                        </button>
-                                        <button *ngIf="goal.status==2" color="danger" ion-button small outline>已完成
-                                        </button>
-                                    </ion-col>
+    <!--&lt;!&ndash;<ion-icon name="checkmark-circle" class="check-icon"&ndash;&gt;-->
+    <!--&lt;!&ndash;[class.active]="goal.is_today_checkin" item-start (click)="goGoalCheckinPage(goal.id,$event)"></ion-icon>&ndash;&gt;-->
+    <!--&lt;!&ndash;<ion-label>&ndash;&gt;-->
+    <!--&lt;!&ndash;<h2>{{goal.name}}</h2>&ndash;&gt;-->
+    <!--&lt;!&ndash;<p>&ndash;&gt;-->
+    <!--&lt;!&ndash;<button *ngIf="goal.status==0" color="gray" ion-button small outline>&ndash;&gt;-->
+    <!--&lt;!&ndash;未开始&ndash;&gt;-->
+    <!--&lt;!&ndash;</button>&ndash;&gt;-->
+    <!--&lt;!&ndash;<button *ngIf="goal.status==1" color="secondary" ion-button small outline>&ndash;&gt;-->
+    <!--&lt;!&ndash;进行中&ndash;&gt;-->
+    <!--&lt;!&ndash;</button>&ndash;&gt;-->
+    <!--&lt;!&ndash;<button *ngIf="goal.status==2" color="danger" ion-button small outline>已结束&ndash;&gt;-->
+    <!--&lt;!&ndash;</button>&ndash;&gt;-->
+    <!--&lt;!&ndash;</p>&ndash;&gt;-->
+    <!--&lt;!&ndash;</ion-label>&ndash;&gt;-->
 
-                                    <ion-col class="time">
-                                        <ion-note>
-                                        {{goal.total_days}}天
-                                        </ion-note>
-                                    </ion-col>
-                                    <!--<ion-note item-end>{{goal.total_days}}</ion-note>-->
-                                </ion-row>
-                            </ion-card>
-                        </div>
-                        </ng-template>
-                </ion-list>
+    <!--&lt;!&ndash;<ion-note item-end>&ndash;&gt;-->
+    <!--&lt;!&ndash;<span text-center>{{goal.total_days}} / {{goal.expect_days>0?goal.expect_days:'&#45;&#45;'}} </span>&ndash;&gt;-->
+    <!--&lt;!&ndash;</ion-note>&ndash;&gt;-->
 
-            </div>
+    <!--</ion-item>-->
+    <!--&lt;!&ndash;<ion-item-options side="left">&ndash;&gt;-->
+    <!--&lt;!&ndash;<button ion-button   icon-only>&ndash;&gt;-->
+    <!--&lt;!&ndash;<ion-icon name="arrow-up"></ion-icon>&ndash;&gt;-->
+    <!--&lt;!&ndash;</button>&ndash;&gt;-->
+    <!--&lt;!&ndash;<button ion-button color="light" icon-only>&ndash;&gt;-->
+    <!--&lt;!&ndash;<ion-icon name="arrow-down"></ion-icon>&ndash;&gt;-->
+    <!--&lt;!&ndash;</button>&ndash;&gt;-->
+    <!--&lt;!&ndash;</ion-item-options>&ndash;&gt;-->
+    <!--<ion-item-options side="right">-->
+    <!--<button ion-button color="primary" (click)="doCheckin(goal,$event)">-->
+    <!--打卡-->
+    <!--</button>-->
+    <!--<button ion-button color="danger" (click)="deleteGoal(goal)">-->
+    <!--删除-->
+    <!--</button>-->
+    <!--</ion-item-options>-->
+    <!--</ion-item-sliding>-->
+    <!--</ion-card-content>-->
+    <!--<ion-row>-->
+    <!--&lt;!&ndash;<p class="progress-title" style="width:20%" data-value="20"></p>&ndash;&gt;-->
+    <!--&lt;!&ndash;<progress value="20" max="100">&ndash;&gt;-->
+    <!--&lt;!&ndash;<div class="progress-bar">&ndash;&gt;-->
+    <!--&lt;!&ndash;<span style="width: 20%;">20%</span>&ndash;&gt;-->
+    <!--&lt;!&ndash;</div>&ndash;&gt;-->
+    <!--&lt;!&ndash;</progress>&ndash;&gt;-->
+    <!--</ion-row>-->
+    <!--</ion-card>-->
+    <!--</ng-template>-->
+    <!--</ion-list>-->
 
-            <div text-center style="position: absolute;left: 0;right: 0;top: 40%;" *ngIf="goals.length == 0">
-                <p>还没有制定目标或计划</p>
-                <button ion-button (click)="goGoalAddPage()">立即制定</button>
-            </div>
+    <!--<ion-list *ngIf="setting?.viewMode=='card'" class="events-card" [dragula]='"bag-one"' [dragulaModel]="goals">-->
+    <!--<ng-template ngFor let-goal [ngForOf]="goals">-->
+    <!--<div  *ngIf="!(goal.status==2&&setting.hideExpireGoals)"  [ngClass]="{'no-drag':goal.status != 1}" class="card-col">-->
+    <!--<ion-card>-->
+    <!--<ion-card-header text-center>-->
+    <!--{{goal.name}}-->
+    <!--</ion-card-header>-->
+    <!--<ion-card-content text-center padding-top (click)="goGoalDetailPage(goal.id,$event)">-->
+    <!--<ion-icon name="checkmark-circle" class="check-icon"-->
+    <!--[class.active]="goal.is_checkin" (click)="goGoalCheckinPage(goal.id,$event)"></ion-icon>-->
+    <!--</ion-card-content>-->
+    <!--<ion-row class="footer">-->
+    <!--<ion-col class="status">-->
+    <!--<button *ngIf="goal.status==0" color="gray" ion-button small outline>未开始-->
+    <!--</button>-->
+    <!--<button *ngIf="goal.status==1" color="secondary" ion-button small outline>进行中-->
+    <!--</button>-->
+    <!--<button *ngIf="goal.status==2" color="danger" ion-button small outline>已完成-->
+    <!--</button>-->
+    <!--</ion-col>-->
 
-        </div>
-    </ion-scroll>
+    <!--<ion-col class="time">-->
+    <!--<ion-note>-->
+    <!--{{goal.total_days}}天-->
+    <!--</ion-note>-->
+    <!--</ion-col>-->
+    <!--&lt;!&ndash;<ion-note item-end>{{goal.total_days}}</ion-note>&ndash;&gt;-->
+    <!--</ion-row>-->
+    <!--</ion-card>-->
+    <!--</div>-->
+    <!--</ng-template>-->
+    <!--</ion-list>-->
 
+    <!--</div>-->
+
+    <div text-center style="position: absolute;left: 0;right: 0;top: 40%;" *ngIf="goals.length == 0">
+        <p>你的计划栏还是空的..</p>
+        <button ion-button (click)="goGoalAddPage()" icon-right="">
+            开始制定目标
+            <ion-icon name="ios-arrow-forward"></ion-icon>
+        </button>
+    </div>
+
+    <!--</div>-->
+    <!--</ion-scroll>-->
 
 </ion-content>

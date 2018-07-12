@@ -1,0 +1,104 @@
+<ion-header no-border>
+    <ion-navbar>
+        <ion-title>{{goal?.name}}</ion-title>
+        <ion-buttons end>
+            <button ion-button icon-only (click)="openMenu($event)">
+                <ion-icon name="ios-more"></ion-icon>
+            </button>
+        </ion-buttons>
+    </ion-navbar>
+
+    <!--<ion-toolbar>-->
+        <!--<ion-title class="subTitle">今天</ion-title>-->
+    <!--</ion-toolbar>-->
+
+</ion-header>
+
+
+<ion-content>
+    <!--<h2>目标</h2>-->
+    <!--<ion-card *ngFor="let item of data.items">-->
+        <!--<ion-card-header>-->
+            <!--{{item.name}}-->
+            <!--<ion-note float-right>{{item.current}}/{{item.expect}}</ion-note>-->
+        <!--</ion-card-header>-->
+        <!--<ion-card-content>-->
+            <!--&lt;!&ndash;<p class="progress-percent" style="width:20%" data-value="20"></p>&ndash;&gt;-->
+                <!--&lt;!&ndash;<div class="progress-bar">&ndash;&gt;-->
+                    <!--&lt;!&ndash;<span style="width: 20%;">20%</span>&ndash;&gt;-->
+                <!--&lt;!&ndash;</div>&ndash;&gt;-->
+        <!--</progress>-->
+        <!--</ion-card-content>-->
+    <!--</ion-card>-->
+    <div class="stat_content">
+        <ion-slides pager #Slides>
+            <ion-slide *ngFor="let item of data.items">
+            <h6 text-center>{{item.name}}({{item.unit}})</h6>
+            <div class="progress-wrapper">
+                <div class="current">
+                    <p class="count"><span class="count1">{{item.current}}</span>/{{item.expect}}</p>
+                </div>
+                <round-progress
+                        [current]="item.current"
+                        [max]="item.expect"
+                        [color]="goal?.color|getColor"
+                        [background]="'#eaeaea'"
+                        [radius]="100"
+                        [stroke]="15"
+                        [semicircle]="false"
+                        [rounded]="true"
+                        [clockwise]="false"
+                        [responsive]="false"
+                        [duration]="800"
+                        [animation]="'easeInOutQuart'"
+                        [animationDelay]="0"
+                ></round-progress>
+            </div>
+            </ion-slide>
+        </ion-slides>
+
+        <button ion-button icon-only clear color="gray" large class="left-btn" (click)="slideToPrev()" *ngIf="data.items.length>1">
+            <ion-icon name="ios-arrow-back"></ion-icon>
+        </button>
+
+        <button ion-button icon-only clear color="gray" large class="right-btn" (click)="slideToNext()" *ngIf="data.items.length>1">
+            <ion-icon name="ios-arrow-forward"></ion-icon>
+        </button>
+        <!--<ng-container *ngIf="data.items.length>1">-->
+            <!--<ion-list no-lines *ngFor="let item of data.items" style="margin-bottom:0;" >-->
+                <!--<ion-item>-->
+                    <!--{{item.name}}-->
+                    <!--<ion-note item-end>{{item.current}}/{{item.expect}}</ion-note>-->
+                <!--</ion-item>-->
+
+                <!--<div class="row" padding-left padding-right>-->
+                    <!--<progress value="{{item.current}}" max="{{item.expect}}" [attr.style]="getColor(goal?.color|getColor)"></progress>-->
+                <!--</div>-->
+            <!--</ion-list>-->
+        <!--</ng-container>-->
+    </div>
+
+
+
+    <!--<h2>记录</h2>-->
+
+    <!--<ion-list no-lines class="gray-list">-->
+        <!--<ion-card *ngFor="let checkin of data.checkins">-->
+            <!--<ion-item no-lines>-->
+                <!--<p *ngFor="let item of checkin.items">{{item.name+item.value+item.unit}}</p>-->
+                <!--<ion-note item-end>{{checkin.created_at | slice:-8:-3 }}</ion-note>-->
+            <!--</ion-item>-->
+        <!--</ion-card>-->
+    <!--</ion-list>-->
+
+    <button class="checkinBtn" round (click)="goGoalCheckinPage()" ion-button full [color]="goal?.color||'primary'">打卡</button>
+
+</ion-content>
+
+<!--<ion-footer no-border>-->
+    <!--<ion-toolbar>-->
+        <!--<ion-title>-->
+            <!--<button ion-button full [ngStyle]="{'background-color':goal?.color}">打卡</button>-->
+        <!--</ion-title>-->
+    <!--</ion-toolbar>-->
+<!--</ion-footer>-->

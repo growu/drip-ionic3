@@ -264,6 +264,9 @@ export class EventDetailPage {
         });
 
         actionSheet.present();
+    }
 
+    goGoalHomePage(id) {
+        this.navCtrl.push('goal-home', {'id':id,'rootNavCtrl':this.navCtrl});
     }
 }

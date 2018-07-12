@@ -1,12 +1,44 @@
-<ion-header>
+<ion-header no-border>
 
   <ion-navbar>
-    <ion-title>goalSearchPage</ion-title>
+    <ion-title>目标推荐</ion-title>
+
+    <!--<ion-buttons end>-->
+      <!--<button ion-button icon-only clear (click)="goGoalAddPage()">-->
+        <!--<ion-icon name="search"></ion-icon>-->
+      <!--</button>-->
+    <!--</ion-buttons>-->
   </ion-navbar>
 
 </ion-header>
 
 
-<ion-content padding>
+<ion-content>
+  <!--<ion-searchbar (ionInput)="getGoals($event)"></ion-searchbar>-->
+
+  <ion-list margin-top no-lines class="gray-list">
+      <ion-card (click)="goGoalAddPage()" class="no-margin-bottom">
+        <ion-item>
+          <ion-icon name="md-add-circle" color="gray" item-start></ion-icon>
+          创建自定义目标
+        </ion-item>
+      </ion-card>
+  </ion-list>
+
+  <ion-list no-lines class="gray-list">
+    <ion-item>
+      <ion-list-header>热门</ion-list-header>
+    </ion-item>
+    <ion-row>
+      <ion-col no-padding col-6 float-left *ngFor="let goal of goals" (click)="goGoalHomePage(goal)">
+        <ion-card >
+          <ion-item>
+            <i class="iconfont icon-{{goal.icon}}" [ngStyle]="{'color': (goal.color|getColor)}" item-start></i>
+            {{ goal.name }}
+        </ion-item>
+        </ion-card>
+      </ion-col>
+    </ion-row>
+  </ion-list>
 
 </ion-content>

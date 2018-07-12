@@ -19,6 +19,7 @@ export class WelcomePage {
                 private storage: Storage) {
     }
 
+
     ionViewWillEnter() {
         this.storage.get('user').then((data) => {
             if (data) {
@@ -30,7 +31,9 @@ export class WelcomePage {
                 }
 
                 setTimeout(() => {
-                    this.navCtrl.push('main');
+                    if(this.navCtrl.length() == 1){
+                        this.navCtrl.push('main');
+                    }
                 }, 1000);
 
             } else {

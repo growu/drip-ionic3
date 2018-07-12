@@ -1,35 +1,124 @@
 page-my {
   ion-content{
-    background-color: #e0e0e0!important;
+    //background-color: #2196F3!important;
+    background-image: url('../assets/img/app_bg.jpg');
+    background-repeat: no-repeat;
+    background-color:transparent!important;
+    background-position: 60% 60%;
   }
 
-  .profile-list {
-    margin-bottom:0px;
+  .toolbar-title {
+    color:#fff!important;
   }
 
-  .follow-row {
-    background-color: #fff;
-    .num {
-      font-family: Oswald;
-      font-size: 1.8rem;
+  //.profile {
+  //  //background-color: color($colors,primary);
+  //
+  //  .num {
+  //    color:#fff;
+  //    font-family: Oswald;
+  //    font-size: 1.8rem;
+  //  }
+  //
+  //  p {
+  //    color:#e0e0e0;
+  //  }
+  //}
+  //
+  //.profile-list {
+  //  margin-bottom:0px;
+  //
+  //  ion-item {
+  //    background: transparent;
+  //    color:#fff;
+  //    padding:20px;
+  //  }
+  //
+  //  ion-avatar img{
+  //    border: 3px solid #fff;
+  //    -webkit-border-radius: 50%;
+  //    border-radius: 50%;
+  //    width:64px;
+  //    height:64px;
+  //  }
+  //
+  //
+  //
+  //
+  //}
+  //
+  //
+  //#message-btn {
+  //  position: relative;
+  //  width: 42px;
+  //  top:1px;
+  //  right: 1px;
+  //  overflow: visible!important;
+  //}
+  //
+  //
+  //#message-badge {
+  //  background-color: red;
+  //  position: absolute;
+  //  top: -3px;
+  //  right: -3px;
+  //  border-radius: 100%;
+  //}
+
+  .avatar-list {
+    .item {
+      background-color: transparent;
+      border:0!important;
+      color:#fff;
+    }
+
+    .icon {
+      font-size:24px;
+    }
+
+    p {
+      padding-top:5px;
+      color:#fff;
+    }
+
+    img {
+      width: 64px;
+      height: 64px;
+      border: 3px solid #fff;
     }
   }
 
+  .follow-row {
+    background-color: #6c5ce7;
+    opacity: 0.6;
+    padding:20px 0;
+    color:#fff;
 
-  #message-btn {
-    position: relative;
-    width: 42px;
-    top:1px;
-    right: 1px;
-    overflow: visible!important;
+    .note {
+      color:#fff;
+    }
   }
 
+  .setting-list {
+    background-color: #f6f6f6;
+    height: 100%;
 
-  #message-badge {
-    background-color: red;
-    position: absolute;
-    top: -3px;
-    right: -3px;
-    border-radius: 100%;
+    ion-card {
+       margin: 0;
+      width:100%;
+    }
+
+    ion-col {
+      padding: 0;
+    }
+
+    ion-icon {
+      font-size:3.8rem;
+      color:#9E9E9E;
+    }
+
+    .title {
+      color:#9E9E9E;
+    }
   }
 }

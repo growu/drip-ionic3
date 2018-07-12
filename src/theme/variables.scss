@@ -34,16 +34,26 @@ $app-direction: ltr;
 // The "primary" color is the only required color in the map.
 
 $colors: (
-  primary:    #488aff,
-  //primary: #0984e3,
-  secondary:  #32db64,
-  danger:     #f53d3d,
-  light:      #f4f4f4,
-  dark:       #222,
-  gray:       #ccc,
-  dark-gray:  #999,
-  yellow:     #ffeaa7,
-  orange:     #ffa502,
+  //primary:    #488aff,
+  ////primary: #0984e3,
+  //secondary:  #32db64,
+  //danger:     #f53d3d,
+  //light:      #f4f4f4,
+  //dark:       #222,
+  //gray:       #ccc,
+  //dark-gray:  #999,
+  //yellow:     #ffeaa7,
+  //orange:     #ffa502,
+  primary:      #2196F3,
+  secondary:    #1dd1a1,
+  danger:       #F44336,
+  dark:         #2d3436,
+  light:        #dfe6e9,
+  gray:         #9E9E9E,
+  yellow:       #f39c12,
+  pink:         #f368e0,
+  purple:       #6c5ce7,
+  white:        #ffffff,
 );
 
 
@@ -94,3 +104,22 @@ $colors: (
 
 $segment-button-md-border-bottom-width: 0px;
 $segment-button-md-font-size: 1.4rem;
+
+
+$list-ios-header-font-size:	1.8rem;
+$list-md-header-font-size:	1.8rem;
+
+$toolbar-ios-title-font-size: 2.0rem;
+$toolbar-ios-title-font-weight:	700;
+
+
+$toolbar-md-title-font-size: 2.0rem;
+$toolbar-md-title-font-weight:	700;
+
+$toolbar-ios-button-color: map_get($colors,gray);
+$toolbar-md-button-color: map_get($colors,gray);
+
+$tabs-ios-tab-text-color-active: map_get($colors,dark)	;
+$tabs-md-tab-text-color-active: map_get($colors,dark)	;
+$tabs-ios-tab-icon-color-active: map_get($colors,dark)	;
+$tabs-md-tab-icon-color-active: map_get($colors,dark)	;
