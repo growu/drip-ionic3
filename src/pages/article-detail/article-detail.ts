@@ -14,6 +14,7 @@ import {HttpProvider} from "../../providers/http/http";
 export class ArticleDetailPage {
 
   public article;
+  public comments = [];
 
   constructor(public navCtrl: NavController,
               private httpProvider: HttpProvider,

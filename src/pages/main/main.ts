@@ -28,7 +28,7 @@ export class MainPage {
     eventRoot: string = 'event';
     myRoot: string = 'my';
     messageRoot:string = 'message'
-    messageCount: number = 1;
+    messageCount: number = 0;
 
     private timer: any;
 

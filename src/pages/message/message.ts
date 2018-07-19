@@ -17,7 +17,8 @@ export class MessagePage {
     public messages: any = {
         like_count:0,
         fan_count:0,
-        comment_count:0
+        comment_count:0,
+        notice_count:0
     };
 
     public articles = [];
@@ -49,10 +50,8 @@ export class MessagePage {
     }
 
 
-    goArticleDetail() {
-        this.navCtrl.push('article-detail', {"id":8});
+    goArticleDetail(article) {
+        this.navCtrl.push('article-detail', {"id":article.id});
     }
-
-
 
 }

@@ -42,12 +42,11 @@ export class GoalDetailCalendarPage {
 
                 let next_day = moment(item.checkin_day).add(1, 'days').format('YYYY-MM-DD');
 
-                console.log('当前日期' + item.checkin_day);
-
-                console.log('当前index' + index);
+                // console.log('当前日期' + item.checkin_day);
+                // console.log('当前index' + index);
 
                 if (index < data.length - 1) {
-                    console.log('下一日期' + data[index + 1]['checkin_day']);
+                    // console.log('下一日期' + data[index + 1]['checkin_day']);
                 }
 
                 if (data.length > 1) {
@@ -55,9 +54,9 @@ export class GoalDetailCalendarPage {
                     if (index == 0) {
                         // 必须在同一个月
                         if (moment(data[index + 1]['checkin_day']).format('YYYY-MM') == moment(item.checkin_day).format('YYYY-MM')) {
-                            console.log("下一日期在同一个月");
+                            // console.log("下一日期在同一个月");
                             if (next_day == data[index + 1]['checkin_day']) {
-                                console.log("下一日期对比相同");
+                                // console.log("下一日期对比相同");
                                 cssClass = 'start';
                             }
                         }
@@ -72,28 +71,28 @@ export class GoalDetailCalendarPage {
                             }
                         } else {
                             if (moment(data[index + 1]['checkin_day']).format('YYYY-MM') == moment(item.checkin_day).format('YYYY-MM')) {
-                                console.log("下一日期在同一个月");
-                                console.log(days[index - 1].cssClass);
+                                // console.log("下一日期在同一个月");
+                                // console.log(days[index - 1].cssClass);
                                 if (!days[index - 1].cssClass) {
-                                    console.log("前一日期没有样式");
+                                    // console.log("前一日期没有样式");
                                     if (next_day == data[index + 1]['checkin_day']) {
-                                        console.log("下一日期对比相同");
+                                        // console.log("下一日期对比相同");
                                         cssClass = 'start';
                                     }
                                 } else {
-                                    console.log("前一日期有样式");
+                                    // console.log("前一日期有样式");
                                     if (next_day == data[index + 1]['checkin_day']) {
-                                        console.log("下一日期对比相同");
+                                        // console.log("下一日期对比相同");
                                         cssClass = 'between';
                                     } else {
-                                        console.log("下一日期对比不同");
+                                        // console.log("下一日期对比不同");
                                         cssClass = 'end';
                                     }
                                 }
                             } else {
-                                console.log("下一日期不在同一个月");
+                                // console.log("下一日期不在同一个月");
                                 if (moment(data[index - 1]['checkin_day']).format('YYYY-MM') == moment(item.checkin_day).format('YYYY-MM')) {
-                                    console.log("上一日期在同一个月");
+                                    // console.log("上一日期在同一个月");
                                     if (days[index - 1].cssClass) {
                                         cssClass = 'end';
                                     }
@@ -103,7 +102,7 @@ export class GoalDetailCalendarPage {
                     }
                 }
 
-                console.log(cssClass);
+                // console.log(cssClass);
 
                 days.push({
                     date: new Date(item.checkin_day),
