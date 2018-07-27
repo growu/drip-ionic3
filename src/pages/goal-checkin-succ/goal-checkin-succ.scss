@@ -1,85 +1,100 @@
 page-goal-checkin-succ {
   ion-content {
-    background-color: #f4f4f4!important;
+    background-color: #f4f4f4 !important;
 
     .close-btn {
       position: absolute;
-      top:5px;
-      right:10px;
-      color:#fff;
+      top: 5px;
+      right: 10px;
+      color: #fff;
       font-size: 3em;
       font-weight: 900;
-      z-index:9999;
+      z-index: 9999;
     }
 
-    .date {
+    //.date {
+    //
+    //  position: absolute;
+    //  left:30px;top:20px;
+    //  font-weight: 900;
+    //
+    //  .year{
+    //    font-size:3rem;
+    //    color:#f4f4f4;
+    //    display: block;
+    //  }
+    //  .month {
+    //    font-size:1.5rem;
+    //    color:#f4f4f4;
+    //    display: block;
+    //  }
+    //  .day {
+    //    font-size: 4rem;
+    //    color:#fff;
+    //    em {
+    //      font-size:1rem;
+    //    }
+    //  }
+    //}
+    //
+    //.picture2 {
+    //  height:270px;
+    //  background-color: #8e8ee0;
+    //  overflow: hidden;
+    //  position:relative;
+    //
+    //  .date2 {
+    //    font: 87.5%/1.5em "Oswald", sans-serif;
+    //    position:absolute;
+    //    left:10px;
+    //    bottom:10%;
+    //    color:#fff;
+    //    .day {
+    //      font-size: 8em;
+    //      font-weight: 900;
+    //      line-height: 1em;
+    //    }
+    //    .month {
+    //      font-size: 4em;
+    //      line-height: 1em;
+    //    }
+    //  }
+    //
+    //  img {
+    //    //height: 100%;
+    //  }
+    //
+    //}
+    //
+    //.picture {
+    //  max-height:400px;
+    //  overflow: hidden;
+    //}
+    //
+    //ion-card {
+    //  margin: 0 !important;
+    //  width:100% !important;
+    //}
+    //
+    //#share-logo {
+    //  ion-label {
+    //    overflow: visible;
+    //  }
+    //}
 
-      position: absolute;
-      left:30px;top:20px;
-      font-weight: 900;
-
-      .year{
-        font-size:3rem;
-        color:#f4f4f4;
-        display: block;
-      }
-      .month {
-        font-size:1.5rem;
-        color:#f4f4f4;
-        display: block;
-      }
-      .day {
-        font-size: 4rem;
-        color:#fff;
-        em {
-          font-size:1rem;
-        }
-      }
+    #shareImage {
+      height: 100%;
+      min-height: 500px;
     }
 
-    .picture2 {
-      height:270px;
-      background-color: #8e8ee0;
-      overflow: hidden;
-      position:relative;
-
-      .date2 {
-        font: 87.5%/1.5em "Oswald", sans-serif;
-        position:absolute;
-        left:10px;
-        bottom:10%;
-        color:#fff;
-        .day {
-          font-size: 8em;
-          font-weight: 900;
-          line-height: 1em;
-        }
-        .month {
-          font-size: 4em;
-          line-height: 1em;
-        }
-      }
-
-      img {
-        //height: 100%;
-      }
-
-    }
-
-    .picture {
-      max-height:400px;
-      overflow: hidden;
-    }
-
-    ion-card {
-      margin: 0 !important;
-      width:100% !important;
-    }
-
-    #share-logo {
-      ion-label {
-        overflow: visible;
-      }
+    #shareBtn {
+      position: fixed;
+      bottom: 5%;
+      left: 0;
+      right: 0;
+      width: 60%;
+      margin-left: auto;
+      margin-right: auto;
     }
 
   }

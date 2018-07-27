@@ -6,6 +6,7 @@ import {ToolProvider} from "../../providers/tool/tool";
 import * as moment from 'moment'
 import swal from "sweetalert2";
 import {Storage} from '@ionic/storage';
+import {ToastProvider} from "../../providers/toast/toast";
 
 @IonicPage({
     name: "goal-checkin",
@@ -32,6 +33,7 @@ export class GoalCheckinPage {
                 public app: App,
                 private events: Events,
                 private  userProvider: UserProvider,
+                private toastProvider: ToastProvider,
                 private storage: Storage,
                 private modalCtrl: ModalController,
                 private toolProvider: ToolProvider,) {
@@ -71,26 +73,46 @@ export class GoalCheckinPage {
             if (data) {
                 this.events.publish('goals:update', {});
 
-                params['total_days'] = data.total_days;
-                if (this.attachs.length > 0) {
-                    params['image'] = this.attachs[0];
-                } else {
-                    params['image'] = 'https://source.unsplash.com/random/400x300';
-                }
+                swal({
+                    title: '打卡成功',
+                    text: '每一步前进，都会离梦想更近一点儿.',
+                    type: 'success',
+                    // timer: 4000,
+                    showConfirmButton: true,
+                    confirmButtonText:'分享打卡',
+                    // width: '80%',
+                    padding: 0
+                }).then((result) => {
+                    if(result.value) {
+                        params['total_days'] = data.total_days;
+                        // if (this.attachs.length > 0) {
+                        //     params['image'] = this.attachs[0];
+                        // } else {
+                        //     params['image'] = 'https://source.unsplash.com/random/400x300';
+                        // }
 
-                let body = {
-                    'goal': this.goal,
-                    'checkin': params,
-                    'user': this.user
-                };
+                        let body = {
+                            'goal': this.goal,
+                            'checkin': params,
+                            'user': this.user,
+                            'event':data.event
+                        };
 
-                let modal = this.modalCtrl.create('goal-checkin-succ', {'data': body});
+                        let modal = this.modalCtrl.create('goal-checkin-succ', {'data': body});
 
-                modal.onDidDismiss(data => {
-                    this.navCtrl.pop();
+                        modal.onDidDismiss(data => {
+                            this.navCtrl.pop();
+                        });
+
+                        modal.present();
+                    }
+
+                }, dismiss => {
+                    this.navCtrl.push('main');
                 });
 
-                modal.present();
+
+
 
             }
 

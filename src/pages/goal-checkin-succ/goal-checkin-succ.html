@@ -15,55 +15,52 @@
     <ion-icon name="close" (click)="dismiss()"></ion-icon>
   </div>
 
-  <div id="share-content" *ngIf="!shareImage">
-    <ion-card>
-      <!--<div class="date" style="">
-          <span class="year">{{this.year}}</span>
-          <span class="month">{{this.month}}</span>
-          <span class="day">{{this.date}}<em>{{this.day}}</em></span>
-      </div>-->
+  <!--<div id="share-content" *ngIf="!shareImage">-->
+    <!--<ion-card>-->
+      <!--&lt;!&ndash;<div class="date" style="">-->
+          <!--<span class="year">{{this.year}}</span>-->
+          <!--<span class="month">{{this.month}}</span>-->
+          <!--<span class="day">{{this.date}}<em>{{this.day}}</em></span>-->
+      <!--</div>&ndash;&gt;-->
 
-      <!--<img src="https://source.unsplash.com/random/400x300" crossOrigin="anonymous"/>-->
-      <div class="picture2">
-        <div class="date2">
-          <div class="day">{{this.date}}</div>
-          <div class="month">{{this.month}}</div>
-        </div>
-        <!--<img src="https://source.unsplash.com/random/400x300"/>-->
-        <img [src]="data.checkin?.image" *ngIf="data.checkin?.image"/>
-      </div>
-      <ion-card-content text-center>
-        <ion-card-title>
-          <!--<img src="assets/img/default-avatar.jpg"> -->
-          {{data.user?.nickname || '我已经'}}
-        </ion-card-title>
-        <h2>坚持 <a>#{{data.goal?.name}}#</a>第{{data.checkin?.total_days || '--'}}天
-        </h2>
-        <br>
-        <p [innerHTML]="data.checkin?.content"></p>
-      </ion-card-content>
-    </ion-card>
+      <!--&lt;!&ndash;<img src="https://source.unsplash.com/random/400x300" crossOrigin="anonymous"/>&ndash;&gt;-->
+      <!--<div class="picture2">-->
+        <!--<div class="date2">-->
+          <!--<div class="day">{{this.date}}</div>-->
+          <!--<div class="month">{{this.month}}</div>-->
+        <!--</div>-->
+        <!--&lt;!&ndash;<img src="https://source.unsplash.com/random/400x300"/>&ndash;&gt;-->
+        <!--<img [src]="data.checkin?.image" *ngIf="data.checkin?.image"/>-->
+      <!--</div>-->
+      <!--<ion-card-content text-center>-->
+        <!--<ion-card-title>-->
+          <!--&lt;!&ndash;<img src="assets/img/default-avatar.jpg"> &ndash;&gt;-->
+          <!--{{data.user?.nickname || '我已经'}}-->
+        <!--</ion-card-title>-->
+        <!--<h2>坚持 <a>#{{data.goal?.name}}#</a>第{{data.checkin?.total_days || '&#45;&#45;'}}天-->
+        <!--</h2>-->
+        <!--<br>-->
+        <!--<p [innerHTML]="data.checkin?.content"></p>-->
+      <!--</ion-card-content>-->
+    <!--</ion-card>-->
 
-    <ion-list margin-top id="share-logo">
-      <ion-item no-border no-lines>
-        <ion-thumbnail item-start>
-          <img src="assets/icon/drip.png">
-        </ion-thumbnail>
-        <h2>水滴打卡</h2>
-        <p>#见证持之以恒的力量#</p>
-        <img item-end src="assets/img/mp_qrcode.jpg" style="width: 64px;height: 64px;">
-      </ion-item>
-    </ion-list>
+    <!--<ion-list margin-top id="share-logo">-->
+      <!--<ion-item no-border no-lines>-->
+        <!--<ion-thumbnail item-start>-->
+          <!--<img src="assets/icon/drip.png">-->
+        <!--</ion-thumbnail>-->
+        <!--<h2>水滴打卡</h2>-->
+        <!--<p>#见证持之以恒的力量#</p>-->
+        <!--<img item-end src="assets/img/mp_qrcode.jpg" style="width: 64px;height: 64px;">-->
+      <!--</ion-item>-->
+    <!--</ion-list>-->
+  <!--</div>-->
+
+  <div id="shareImage" *ngIf="shareImage">
+    <img [src]="shareImage">
   </div>
 
-  <div id="share-image" *ngIf="shareImage">
-  </div>
 
-  <ion-row>
-    <ion-col col-2></ion-col>
-    <ion-col col-8>
-      <button ion-button block round (click)="doShare()">分享</button>
-    </ion-col>
-    <ion-col col-2></ion-col>
-  </ion-row>
+  <button ion-button block round (click)="doShare()" id="shareBtn">分享</button>
+
 </ion-content>

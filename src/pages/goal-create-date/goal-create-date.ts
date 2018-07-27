@@ -49,7 +49,9 @@ export class GoalCreateDatePage {
     getDays() {
         var a = moment(this.start_date);
         var b = moment(this.end_date);
-        return b.diff(a, 'days') + 1;
+        var diff = b.diff(a, 'days') + 1;
+        console.log(diff);
+        return diff;
     }
 
     // 日期修改监听

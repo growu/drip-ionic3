@@ -41,6 +41,11 @@ export class EventProvider {
         return this.httpProvider.httpPostWithAuth("/event/" + id + "/comment", body);
     }
 
+    share(id, param) {
+        let body = JSON.stringify(param);
+        return this.httpProvider.httpPostWithAuth("/event/" + id + "/share", body);
+    }
+
     // 删除动态
     deleteEvent(event) {
         return this.httpProvider.httpDeleteWithAuth("/event/" + event.id);

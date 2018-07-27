@@ -51,21 +51,21 @@ export class LoginDefaultPage {
             if (response) {
                 this.storage.set('token', response.token);
                 this.storage.set('user', response.user);
-                this.toastProvider.show("登录成功", 'success');
+                // this.toastProvider.show("登录成功", 'success');
                 this.navCtrl.push('main');
-                // swal({
-                //     title: '登录成功',
-                //     // text: '欢迎回来',
-                //     type: 'success',
-                //     timer: 2000,
-                //     showConfirmButton: false,
-                //     // width: '80%',
-                //     padding: 0
-                // }).then(() => {
-                //     this.navCtrl.push('main');
-                // }, dismiss => {
-                //     this.navCtrl.push('main');
-                // });
+                swal({
+                    title: '欢迎回来',
+                    text: '开始迎接新的一天...',
+                    type: 'success',
+                    timer: 4000,
+                    showConfirmButton: true,
+                    // width: '80%',
+                    padding: 0
+                }).then(() => {
+                    this.navCtrl.push('main');
+                }, dismiss => {
+                    this.navCtrl.push('main');
+                });
             }
         }).catch((err) => {
 

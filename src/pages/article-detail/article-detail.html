@@ -7,6 +7,11 @@
 </ion-header>
 
 <ion-content padding>
+
+  <ion-fab bottom right>
+    <button ion-fab mini><ion-icon name="ios-chatbubbles-outline"></ion-icon></button>
+  </ion-fab>
+
   <p [innerHtml]="article?.content"></p>
 
   <ion-list>
@@ -33,9 +38,7 @@
     </ion-card>
   </ion-list>
 
-  <ion-fab buttom right edge>
-    <button ion-fab mini><ion-icon name="reply"></ion-icon></button>
-  </ion-fab>
+
 
 </ion-content>
 

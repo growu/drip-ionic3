@@ -1,48 +1,53 @@
 <ion-header no-border>
 
-    <ion-navbar color="primary">
-        <ion-title>排行榜</ion-title>
-
-    </ion-navbar>
+    <ion-toolbar>
+        <!--<ion-title>排行榜</ion-title>-->
+        <ion-select interface="action-sheet"  [(ngModel)]="mode" (ionChange)="changeMode()" cancelText="取消">
+            <ion-option value="week">周榜</ion-option>
+            <ion-option value="month">月榜</ion-option>
+            <ion-option value="year">年榜</ion-option>
+            <ion-option value="total">总榜</ion-option>
+        </ion-select>
+    </ion-toolbar>
 </ion-header>
 
 <ion-content padding>
 
-    <ion-row>
-    <ion-segment color="primary" [(ngModel)]="mode" (ionChange)="changeMode()">
-        <ion-segment-button value="week">
-            周
-        </ion-segment-button>
-        <ion-segment-button value="month">
-            月
-        </ion-segment-button>
-        <ion-segment-button value="year">
-            年
-        </ion-segment-button>
-        <ion-segment-button value="all">
-            总
-        </ion-segment-button>
-    </ion-segment>
+    <!--<ion-row>-->
+    <!--<ion-segment color="primary" [(ngModel)]="mode" (ionChange)="changeMode()">-->
+        <!--<ion-segment-button value="week">-->
+            <!--周-->
+        <!--</ion-segment-button>-->
+        <!--<ion-segment-button value="month">-->
+            <!--月-->
+        <!--</ion-segment-button>-->
+        <!--<ion-segment-button value="year">-->
+            <!--年-->
+        <!--</ion-segment-button>-->
+        <!--<ion-segment-button value="all">-->
+            <!--总-->
+        <!--</ion-segment-button>-->
+    <!--</ion-segment>-->
 
-    </ion-row>
+    <!--</ion-row>-->
 
-   　<ion-list>
-        <ion-card padding>
-            <ion-row text-center>
-                <ion-col>
-                    <p>我的排名</p>
-                    <p class="count">{{ret?.rank || '--'}}</p>
-                </ion-col>
-                <ion-col text-center class="my-avatar">
-                    <img [src]="user?.avatar_url || 'assets/img/default-avatar.jpg'">
-                </ion-col>
-                <ion-col>
-                    <p>我的打卡</p>
-                    <p class="count">{{ret?.count || '--'}}</p>
-                </ion-col>
-            </ion-row>
-        </ion-card>
-    </ion-list>
+   <!--　<ion-list>-->
+        <!--<ion-card padding>-->
+            <!--<ion-row text-center>-->
+                <!--<ion-col>-->
+                    <!--<p>我的排名</p>-->
+                    <!--<p class="count">{{ret?.rank || '&#45;&#45;'}}</p>-->
+                <!--</ion-col>-->
+                <!--<ion-col text-center class="my-avatar">-->
+                    <!--<img [src]="user?.avatar_url || 'assets/img/default-avatar.jpg'">-->
+                <!--</ion-col>-->
+                <!--<ion-col>-->
+                    <!--<p>我的打卡</p>-->
+                    <!--<p class="count">{{ret?.count || '&#45;&#45;'}}</p>-->
+                <!--</ion-col>-->
+            <!--</ion-row>-->
+        <!--</ion-card>-->
+    <!--</ion-list>-->
 
     <ion-list no-lines>
 

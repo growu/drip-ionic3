@@ -84,10 +84,10 @@ export class EventDetailPage {
                 data: {
                     type: 'url',
                     title: this.event.user.nickname + " 的打卡动态",
-                    description: this.event.content,
+                    description: this.event.content || "第"+this.event.checkin.total_days+'天',
                     image: image,
                     thumb: image,
-                    url: "http://drip.growu.me",
+                    url: "http://drip.growu.me/event/"+this.event.event_id,
                 },
                 extra:this.event
             })

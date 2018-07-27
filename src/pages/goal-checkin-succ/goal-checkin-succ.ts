@@ -3,6 +3,8 @@ import {IonicPage, LoadingController, NavController, NavParams, ViewController} 
 import * as html2canvas from 'html2canvas';
 import {ToastProvider} from "../../providers/toast/toast";
 import {MyShareController} from "../../components/my-share/my-share.controller";
+import {EventProvider} from "../../providers/event/event";
+import swal from "sweetalert2";
 
 @IonicPage({
     name: 'goal-checkin-succ'
@@ -16,7 +18,8 @@ export class GoalCheckinSuccPage {
     public data = {
         user: null,
         checkin: null,
-        goal: null
+        goal: null,
+        event:null
     };
 
     public year;
@@ -29,6 +32,7 @@ export class GoalCheckinSuccPage {
                 private viewCtrl: ViewController,
                 private myShareCtrl: MyShareController,
                 private toastProvider: ToastProvider,
+                private eventProvider: EventProvider,
                 public navParams: NavParams) {
 
         this.data = this.navParams.get('data');
@@ -61,59 +65,85 @@ export class GoalCheckinSuccPage {
 
         loading.present();
 
-        const source = document.getElementById("share-content");
-
-        var w = source.scrollWidth;
-        var h = source.scrollHeight;
-
-        const options = {
-            background: "white",
-            //canvas: canvasDom,
-            // height: w,
-            // width: h,
-            logging: true,
-            //useCORS:true,
-            proxy: 'http://drip.growu.me/uploads/images/html2canvasproxy.php',
-        };
-
-        setTimeout(() => {
+        this.eventProvider.share(this.data.event.event_id,null).then((data)=>{
             loading.dismiss();
-        }, 5000);
 
-        html2canvas(source, options).then((canvas) => {
-            var img = new Image();
-            img.crossOrigin = 'anonymous';
-            img.src = canvas.toDataURL("image/png");
-            this.shareImage = canvas.toDataURL("image/png");
-            console.log(canvas);
+            this.shareImage = data.url;
+
+        }).catch((err)=>{
+
             loading.dismiss();
-            img.onload = () => {
-                img.onload = null;
-                img.style.width = w + "px";
-                img.style.height = h + "px";
-                document.getElementById('share-image').appendChild(img);
-            };
-            img.onerror = (err) => {
-                this.toastProvider.show("图片生成错误:" + err, 'error');
-                img.onerror = null;
-            };
-        }, (err) => {
-            loading.dismiss();
-            this.toastProvider.show("图片生成错误", 'error');
-            console.log(err);
-        });
+
+            swal({
+                title: '生成失败',
+                text: '分享图生成失败，请重试',
+                type: 'warning',
+                showConfirmButton: true,
+                confirmButtonText:'重试',
+                // width: '80%',
+                padding: 0
+            }).then((result) => {
+                if(result.value) {
+                    this.loadImage();
+                }
+            }, dismiss => {
+            });
+        })
+
+        // const source = document.getElementById("share-content");
+        //
+        // var w = source.scrollWidth;
+        // var h = source.scrollHeight;
+        //
+        // const options = {
+        //     background: "white",
+        //     //canvas: canvasDom,
+        //     // height: w,
+        //     // width: h,
+        //     logging: true,
+        //     //useCORS:true,
+        //     proxy: 'http://drip.growu.me/uploads/images/html2canvasproxy.php',
+        // };
+        //
+        // setTimeout(() => {
+        //     loading.dismiss();
+        // }, 5000);
+        //
+        // html2canvas(source, options).then((canvas) => {
+        //     var img = new Image();
+        //     img.crossOrigin = 'anonymous';
+        //     img.src = canvas.toDataURL("image/png");
+        //     this.shareImage = canvas.toDataURL("image/png");
+        //     console.log(canvas);
+        //     loading.dismiss();
+        //     img.onload = () => {
+        //         img.onload = null;
+        //         img.style.width = w + "px";
+        //         img.style.height = h + "px";
+        //         document.getElementById('share-image').appendChild(img);
+        //     };
+        //     img.onerror = (err) => {
+        //         this.toastProvider.show("图片生成错误:" + err, 'error');
+        //         img.onerror = null;
+        //     };
+        // }, (err) => {
+        //     loading.dismiss();
+        //     this.toastProvider.show("图片生成错误", 'error');
+        //     console.log(err);
+        // });
     }
 
     // 调用分享
     doShare() {
+
         let myShare = this.myShareCtrl.create({
                 data: {
                     type: 'image',
                     title: this.data.user.nickname + "坚持#"+this.data.goal.name+'#第'+this.data.checkin.total_days+'天',
-                    description: this.data.checkin.content,
+                    description: this.data.checkin.content || '打卡动态',
                     image: this.shareImage,
                     thumb: this.shareImage,
-                    url: "http://drip.growu.me"
+                    url: "http://drip.growu.me/event/"+this.data.event.event_id
                 },
                 extra:event
             })
