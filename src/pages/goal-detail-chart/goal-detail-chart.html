@@ -28,14 +28,14 @@
             </ion-buttons>
         </ion-toolbar>
         <canvas baseChart
-                [datasets]="barChartData"
-                [labels]="barChartLabels"
-                [options]="barChartOptions"
-                [legend]="barChartLegend"
-                [colors]="barChartColors"
-                [chartType]="barChartType"
-                (chartHover)="chartHovered($event)"
-                (chartClick)="chartClicked($event)" *ngIf="barChartLabels.length>0"></canvas>
+                   [datasets]="barChartData"
+                   [labels]="barChartLabels"
+                   [options]="barChartOptions"
+                   [legend]="barChartLegend"
+                   [colors]="barChartColors"
+                   [chartType]="barChartType"
+                   (chartHover)="chartHovered($event)"
+                   (chartClick)="chartClicked($event)" *ngIf="barChartLabels.length>0"></canvas>
     </div>
 
     <ion-list margin-top>

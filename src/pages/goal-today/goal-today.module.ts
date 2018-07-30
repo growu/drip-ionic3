@@ -3,6 +3,7 @@ import { IonicPageModule } from 'ionic-angular';
 import { GoalTodayPage } from './goal-today';
 import {RoundProgressModule} from 'angular-svg-round-progressbar';
 import {PipesModule} from '../../pipes/pipes.module'
+import {ChartsModule} from 'ng2-charts/ng2-charts';
 
 @NgModule({
   declarations: [
@@ -11,7 +12,8 @@ import {PipesModule} from '../../pipes/pipes.module'
   imports: [
     IonicPageModule.forChild(GoalTodayPage),
       RoundProgressModule,
-      PipesModule
+      PipesModule,
+      ChartsModule
   ],
 })
 export class GoalTodayPageModule {}

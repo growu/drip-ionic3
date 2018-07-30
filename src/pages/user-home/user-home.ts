@@ -43,10 +43,6 @@ export class UserHomePage {
 
     }
 
-    goVipPage() {
-        this.navCtrl.push("vip");
-    }
-
     goUserFollowingPage() {
         this.navCtrl.push("user-following",{id:this.user.id,user:this.user});
     }

@@ -89,6 +89,16 @@ page-goal-checkin-succ {
 
     #shareBtn {
       position: fixed;
+      bottom: 15%;
+      left: 0;
+      right: 0;
+      width: 60%;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    #saveBtn {
+      position: fixed;
       bottom: 5%;
       left: 0;
       right: 0;

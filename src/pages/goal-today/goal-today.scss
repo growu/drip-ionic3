@@ -1,5 +1,9 @@
 page-goal-today {
 
+  .toolbar-title {
+    font-size:1.6rem!important;
+  }
+
   .stat_content{
     margin-top:80px!important;
     position: relative;
@@ -63,12 +67,12 @@ page-goal-today {
     margin: auto;
   }
 
-  .subTitle {
-    .toolbar-title {
-      font-size: 1.4rem;
-      font-weight: 400;
-    }
-  }
+  //.subTitle {
+  //  .toolbar-title {
+  //    font-size: 1.4rem;
+  //    font-weight: 400;
+  //  }
+  //}
 
   .checkinBtn {
     position: fixed;

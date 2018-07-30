@@ -1,17 +1,15 @@
 <ion-header no-border>
     <ion-navbar>
-        <ion-title>{{goal?.name}}</ion-title>
+        <ion-title >
+            {{goal?.name}}
+            <br /><span style="font-size: 1.2rem; padding:0px;color:#4c5052;">今天</span>
+        </ion-title>
         <ion-buttons end>
             <button ion-button icon-only (click)="openMenu($event)">
                 <ion-icon name="ios-more"></ion-icon>
             </button>
         </ion-buttons>
     </ion-navbar>
-
-    <!--<ion-toolbar>-->
-        <!--<ion-title class="subTitle">今天</ion-title>-->
-    <!--</ion-toolbar>-->
-
 </ion-header>
 
 
@@ -64,6 +62,19 @@
         <button ion-button icon-only clear color="gray" large class="right-btn" (click)="slideToNext()" *ngIf="data.items.length>1">
             <ion-icon name="ios-arrow-forward"></ion-icon>
         </button>
+
+
+        <!--<canvas baseChart-->
+                <!--[datasets]="barChartData"-->
+                <!--[labels]="barChartLabels"-->
+                <!--[options]="barChartOptions"-->
+                <!--[legend]="barChartLegend"-->
+                <!--[colors]="barChartColors"-->
+                <!--[chartType]="barChartType"-->
+                <!--(chartHover)="chartHovered($event)"-->
+                <!--(chartClick)="chartClicked($event)" *ngIf="barChartLabels.length>0"></canvas>-->
+
+
         <!--<ng-container *ngIf="data.items.length>1">-->
             <!--<ion-list no-lines *ngFor="let item of data.items" style="margin-bottom:0;" >-->
                 <!--<ion-item>-->

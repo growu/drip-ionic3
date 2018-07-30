@@ -372,11 +372,7 @@ export class HomePage {
 
         console.log(color);
 
-        // color = color || "#488aff";
-
-        // color = "#488aff";
         return this.sanitizer.bypassSecurityTrustStyle('background-color:' + color);
-
 
         // return this.sanitizer.bypassSecurityTrustStyle('--progress-bg-color:' + color);
     }

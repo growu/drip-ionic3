@@ -1,0 +1,35 @@
+<ion-header no-border>
+
+  <ion-navbar>
+    <ion-title>我的归档</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content>
+  <ion-list>
+    <ion-card *ngFor="let goal of goals" >
+      <!--<progress value="{{goal.total_days}}" max="{{goal.expect_days}}" [attr.style]="getColor(goal.color)"></progress>-->
+      <ion-item-sliding >
+        <ion-item [ngStyle]="{'background-color':(goal.color|getColor)}" (click)="goGoalHistoryPage(goal)">
+          <!--<ion-icon name="ios-water" item-start></ion-icon>-->
+          <i class="iconfont icon-{{goal.icon}}" item-start [ngStyle]="{'color':'#fff'}"></i>
+          <h2>{{goal.name}}</h2>
+          <div item-end text-center>
+            <h3>{{goal.total_days}}天</h3>
+            <ion-note>累计打卡</ion-note>
+          </div>
+          <!--<ion-icon name="md-checkmark-circle" item-end color="white"></ion-icon>-->
+
+        </ion-item>
+        <ion-item-options side="right">
+          <button ion-button color="danger" (click)="deleteGoal(goal)">
+            删除
+          </button>
+        </ion-item-options>
+      </ion-item-sliding>
+      <!--</ion-card-header>-->
+    </ion-card>
+  </ion-list>
+</ion-content>

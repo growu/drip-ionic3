@@ -13,7 +13,11 @@
     <my-user-avatar item-start [user]="event.user"></my-user-avatar>
     <h2 >
       <span ion-text [color]="event.user?.is_vip?'danger':'dark'">{{event.user?.nickname || '还没有昵称'}}</span>
-      <i class="iconfont icon-professional-hexagon" *ngIf="event.user?.is_vip" ion-text style="color:#ffa502;font-size: 18px!important;"></i>
+      <!--<i class="iconfont icon-professional-hexagon" *ngIf="event.user?.is_vip" ion-text style="color:#ffa502;font-size: 18px!important;"></i>-->
+      <svg class="icon svg-iconfont" aria-hidden="true" *ngIf="event.user?.is_vip" style="vertical-align: -0.2rem;">
+        <use xlink:href="#icon-zhuanyebanxiaotubiao">
+        </use>
+      </svg>
     </h2>
     <p>{{event.created_at | amLocale:"zh_cn" | amUtc | amTimeAgo }}</p>
     <ion-icon name="bookmark" color="secondary" *ngIf="event.is_hot" style="position:absolute;top:-2px;right:5px;font-size: 20px;"></ion-icon>

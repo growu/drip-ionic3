@@ -344,9 +344,10 @@ export class UserProvider {
         });
     }
 
-    getGoals(data) {
+    getGoals(data,is_archive = "0") {
         var params = new URLSearchParams();
         params.set('day', data);
+        params.set('is_archive', is_archive);
         return this.httpProvider.httpGetWithAuth("/user/goals", params);
     }
 

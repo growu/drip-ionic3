@@ -1,66 +1,51 @@
 <ion-header no-border>
 
-    <ion-toolbar>
-        <!--<ion-title>排行榜</ion-title>-->
+    <ion-navbar color="primary">
+        <ion-title>排行榜</ion-title>
         <ion-select interface="action-sheet"  [(ngModel)]="mode" (ionChange)="changeMode()" cancelText="取消">
             <ion-option value="week">周榜</ion-option>
             <ion-option value="month">月榜</ion-option>
             <ion-option value="year">年榜</ion-option>
-            <ion-option value="total">总榜</ion-option>
+            <ion-option value="all">总榜</ion-option>
         </ion-select>
-    </ion-toolbar>
+    </ion-navbar>
 </ion-header>
 
-<ion-content padding>
+<ion-content>
+    <ion-card>
+        <ion-list>
+            <ion-item text-nowrap *ngFor="let user of users;let i = index" (click)="goUserHomePage(user)">
+                <svg class="icon svg-iconfont" aria-hidden="true" item-start *ngIf="i<=2">
+                    <use attr.xlink:href="{{'#icon-NO'+(i+1)}}"></use>
+                </svg>
 
-    <!--<ion-row>-->
-    <!--<ion-segment color="primary" [(ngModel)]="mode" (ionChange)="changeMode()">-->
-        <!--<ion-segment-button value="week">-->
-            <!--周-->
-        <!--</ion-segment-button>-->
-        <!--<ion-segment-button value="month">-->
-            <!--月-->
-        <!--</ion-segment-button>-->
-        <!--<ion-segment-button value="year">-->
-            <!--年-->
-        <!--</ion-segment-button>-->
-        <!--<ion-segment-button value="all">-->
-            <!--总-->
-        <!--</ion-segment-button>-->
-    <!--</ion-segment>-->
+                <ion-note *ngIf="i>2" item-start class="no">{{i+1}}</ion-note>
+                <ion-avatar item-start >
+                    <img [src]="user.avatar_url || 'assets/img/default-avatar.jpg'">
+                </ion-avatar>
+                <h2>{{user.nickname|| '低调人士'}}</h2>
+                <p>目标数：{{user.goal_count}}</p>
 
-    <!--</ion-row>-->
-
-   <!--　<ion-list>-->
-        <!--<ion-card padding>-->
-            <!--<ion-row text-center>-->
-                <!--<ion-col>-->
-                    <!--<p>我的排名</p>-->
-                    <!--<p class="count">{{ret?.rank || '&#45;&#45;'}}</p>-->
-                <!--</ion-col>-->
-                <!--<ion-col text-center class="my-avatar">-->
-                    <!--<img [src]="user?.avatar_url || 'assets/img/default-avatar.jpg'">-->
-                <!--</ion-col>-->
-                <!--<ion-col>-->
-                    <!--<p>我的打卡</p>-->
-                    <!--<p class="count">{{ret?.count || '&#45;&#45;'}}</p>-->
-                <!--</ion-col>-->
-            <!--</ion-row>-->
-        <!--</ion-card>-->
-    <!--</ion-list>-->
-
-    <ion-list no-lines>
-
-        <ion-item *ngFor="let user of users;let i = index" (click)="goUserHomePage(user)">
-            <ion-icon *ngIf="i<=2" item-start name="md-medal" [ngClass]="'medal'+i"></ion-icon>
-            <ion-note *ngIf="i>2" item-start class="no">{{i+1}}</ion-note>
+                <div item-end text-center>
+                    <h3 class="count">{{user.checkin_count}}</h3>
+                    <ion-note>打卡次数</ion-note>
+                </div>
+            </ion-item>
+        </ion-list>
+    </ion-card>
+</ion-content>
+<ion-footer>
+        <ion-item (click)="goUserHomePage(user)">
+            <ion-note item-start class="no">{{my?.rank}}</ion-note>
             <ion-avatar item-start >
-                <img [src]="user.avatar_url || 'assets/img/default-avatar.jpg'">
+                <img [src]="user?.avatar_url || 'assets/img/default-avatar.jpg'">
             </ion-avatar>
-            <h2>{{user.nickname|| '低调人士'}}</h2>
-                <ion-note item-end class="count">{{user.checkin_count}}</ion-note>
+            <h2>{{user?.nickname|| '低调人士'}}</h2>
+            <p>目标数：{{my?.goal_count}}</p>
+            <div item-end text-center>
+                <h3 class="count">{{my?.checkin_count}}</h3>
+                <ion-note>打卡次数</ion-note>
+            </div>
             <!--<ion-icon item-end name="heart-outline"></ion-icon>-->
         </ion-item>
-    </ion-list>
-
-</ion-content>
+</ion-footer>

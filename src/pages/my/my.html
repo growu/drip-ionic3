@@ -40,8 +40,8 @@
             <!--<i class="iconfont icon-professional-hexagon" ion-text [color]="user.is_vip?'gray':'gray'" (click)="goVipPage($event)"></i>-->
           </h2>
           <p (click)="goWalletPage()" ion-text color="light">水滴币：{{user.coin || '0'}}</p>
-          <button ion-button item-end color="yellow" *ngIf="user.is_vip">PRO会员</button>
-          <button ion-button item-end color="gray" *ngIf="!user.is_vip">开通会员</button>
+          <button ion-button item-end color="yellow" *ngIf="user.is_vip" (click)="goPage('vip')">PRO会员</button>
+          <button ion-button item-end color="gray" *ngIf="!user.is_vip" (click)="goPage('vip')">开通会员</button>
         </ion-item>
       </ion-list>
 
@@ -64,7 +64,7 @@
   <div class="setting-list" padding-top>
   <ion-list text-center>
     <ion-row>
-      <ion-col>
+      <ion-col (click)="goPage('top')">
         <ion-card>
           <ion-card-header>
             <ion-icon name="md-medal">
@@ -102,25 +102,25 @@
 
     </ion-row>
     <ion-row style="margin-top: 1px;">
-      <ion-col>
+      <ion-col (click)="goPage('my-archive')">
         <ion-card>
           <ion-card-header>
-            <ion-icon name="ios-more">
+            <ion-icon name="ios-archive">
             </ion-icon>
           </ion-card-header>
           <ion-card-content>
-            <span class="title">敬请期待</span>
+            <span class="title">我的归档</span>
           </ion-card-content>
         </ion-card>
       </ion-col>
       <ion-col>
         <ion-card>
           <ion-card-header>
-            <ion-icon name="ios-more">
+            <ion-icon name="ios-star">
             </ion-icon>
           </ion-card-header>
           <ion-card-content>
-            <span class="title">敬请期待</span>
+            <span class="title">我的收藏</span>
           </ion-card-content>
         </ion-card>
       </ion-col>

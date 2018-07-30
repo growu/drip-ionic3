@@ -1,4 +1,4 @@
-import {Component, ViewChild} from '@angular/core';
+import {Component, ViewChild,NgZone} from '@angular/core';
 import {
     IonicPage, NavController, NavParams, ToastController, DateTime, Events, ModalController,
     AlertController

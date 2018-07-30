@@ -53,8 +53,8 @@ export class MyPage {
         this.navCtrl.push("setting");
     }
 
-    goMessagePage() {
-        this.navCtrl.push("message");
+    goPage(url) {
+        this.navCtrl.push(url);
     }
 
     goVipPage($event) {

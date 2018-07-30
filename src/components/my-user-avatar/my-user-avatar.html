@@ -1,9 +1,9 @@
 <ion-avatar style="position: relative;">
   <img [src]="user?.avatar_url || 'assets/img/default-avatar.jpg'">
   <i class="iconfont icon-renzheng2 icon-with-bg" *ngIf="user?.verified_type == 1" ion-text color="yellow" style="position: absolute;right:-2px;bottom:-2px;padding:1px;background-color:#fff;border-radius: 50%;
-    font-size: 12px;"></i>
+    "></i>
   <i class="iconfont icon-renzheng2 icon-with-bg" *ngIf="user?.verified_type == 2" ion-text color="primary" style="position: absolute;right:-2px;bottom:-2px;padding:1px;background-color:#fff;border-radius: 50%;
-    font-size: 12px;"></i>
+   "></i>
   <i class="iconfont icon-iconfontshenqingdaren icon-with-bg" *ngIf="user?.verified_type == 3" ion-text color="danger" style="position: absolute;right:-2px;bottom:-2px;padding:1px;background-color:#fff;border-radius:50%;
-    font-size: 14px;"></i>
+   "></i>
 </ion-avatar>

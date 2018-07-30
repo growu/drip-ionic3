@@ -1,6 +1,6 @@
 {
   "name": "drip-ionic3",
-  "version": "0.0.1",
+  "version": "2.1.0",
   "author": "Ionic Framework",
   "homepage": "http://ionicframework.com/",
   "private": true,
@@ -46,6 +46,7 @@
     "@ionic-native/local-notifications": "^4.9.0",
     "@ionic-native/native-audio": "^4.5.2",
     "@ionic-native/native-storage": "^4.5.2",
+    "@ionic-native/photo-library": "^4.10.1",
     "@ionic-native/social-sharing": "4.5.2",
     "@ionic-native/splash-screen": "4.5.2",
     "@ionic-native/status-bar": "4.5.2",

@@ -15,6 +15,7 @@ import {NativeAudio} from '@ionic-native/native-audio';
 import {BackgroundMode} from '@ionic-native/background-mode';
 import {Vibration} from '@ionic-native/vibration';
 import {LocalNotifications} from '@ionic-native/local-notifications';
+import {PhotoLibrary} from '@ionic-native/photo-library';
 
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 
@@ -71,6 +72,7 @@ import { AppConfigProvider } from '../providers/appconfig/appconfig';
         JPush,
         NativeStorage,
         NativeAudio,
+        PhotoLibrary,
         BackgroundMode,
         Vibration,
         LocalNotifications,

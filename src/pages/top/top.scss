@@ -1,8 +1,30 @@
 page-top{
 
+  ion-content {
+    background-color: color($colors,primary)!important;
+  }
+
   ion-select {
-    width:80px;
-    margin:0 auto;
+    //width:80px;
+    position: absolute;
+    top:5px;
+    right:10px;
+    //margin-right:10px;
+    color:#fff;
+    max-width:20%;
+  }
+
+  ion-avatar>img {
+    width: 48px!important;
+    height: 48px!important;
+  }
+
+  .select-icon-inner {
+    color:#fff!important;
+  }
+
+  ion-item {
+    border-bottom: 1px solid #e8e8e8!important;
   }
 
   .my-avatar {
@@ -31,8 +53,8 @@ page-top{
   }
 
   .count{
-    color:#488aff;
-    font-size:2.5rem;
+    color:black;
+    font-size:2.2rem!important;
     font-weight:500;
     font-family: "Oswald","Segoe UI", "Noto Sans", sans-serif;
   }

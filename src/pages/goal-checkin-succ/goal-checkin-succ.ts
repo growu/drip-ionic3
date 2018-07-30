@@ -5,6 +5,7 @@ import {ToastProvider} from "../../providers/toast/toast";
 import {MyShareController} from "../../components/my-share/my-share.controller";
 import {EventProvider} from "../../providers/event/event";
 import swal from "sweetalert2";
+import { PhotoLibrary } from '@ionic-native/photo-library';
 
 @IonicPage({
     name: 'goal-checkin-succ'
@@ -31,6 +32,7 @@ export class GoalCheckinSuccPage {
                 public loadingCtrl: LoadingController,
                 private viewCtrl: ViewController,
                 private myShareCtrl: MyShareController,
+                private photoLibrary: PhotoLibrary,
                 private toastProvider: ToastProvider,
                 private eventProvider: EventProvider,
                 public navParams: NavParams) {
@@ -149,6 +151,22 @@ export class GoalCheckinSuccPage {
             })
         ;
         myShare.present();
+    }
+
+    doSave() {
+        this.photoLibrary.requestAuthorization( {
+            read: true,
+            write: true
+        }).then(() => {
+           this.photoLibrary.saveImage(this.shareImage+'&ext=.jpg','水滴打卡',{}).then(()=>{
+               this.toastProvider.show("保存成功","success");
+           }).catch((err) => {
+               console.log(err);
+               this.toastProvider.show("保存失败，请重试","error");
+           });
+        }).catch((err) => {
+            this.toastProvider.show("请求相册权限失败","error");
+        });
     }
 
     // 关闭界面

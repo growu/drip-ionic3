@@ -19,13 +19,28 @@
             <img src="{{user.avatar_url || 'assets/img/default-avatar.jpg'}}" imageViewer>
             <h2>
                 <span ion-text>{{user.nickname || '还没有昵称'}}</span>
-                <i class="iconfont icon-professional-hexagon icon-with-bg2"  *ngIf="user.is_vip" ion-text style="color:#ffa502;font-size: 18px!important;"></i>
-                <i class="iconfont icon-nv icon-with-bg" *ngIf="user.sex==2" ion-text style="color:#eb89e5;"></i>
-                <i class="iconfont icon-nan icon-with-bg" *ngIf="user.sex==1"  ion-text style="color:#3ea8e5;"></i>
+                <!--<i class="iconfont icon-professional-hexagon icon-with-bg2"  *ngIf="user.is_vip" ion-text style="color:#ffa502;font-size: 18px!important;"></i>-->
+
+                <svg class="icon svg-iconfont" aria-hidden="true" *ngIf="user.sex==2" >
+                    <use xlink:href="#icon-nv2">
+                    </use>
+                </svg>
+
+                <svg class="icon svg-iconfont" aria-hidden="true" *ngIf="user?.is_vip" style="font-size:32px!important;vertical-align: -0.3em;">
+                    <use xlink:href="#icon-zhuanyebanxiaotubiao">
+                    </use>
+                </svg>
+
+                <svg class="icon svg-iconfont" aria-hidden="true" *ngIf="user.sex==1">
+                    <use xlink:href="#icon-nan2"></use>
+                </svg>
             </h2>
             <p *ngIf="user.verified_type == 0">{{user.signature || ' '}}</p>
             <p *ngIf="user.verified_type > 0">
-                <i class="iconfont icon-renzheng2 icon-with-bg"  ion-text color="primary"></i>
+                <!--<svg class="icon svg-iconfont" aria-hidden="true">-->
+                    <!--<use xlink:href="#icon-renzheng1"></use>-->
+                <!--</svg>-->
+                <!--<i class="iconfont icon-renzheng2 icon-with-bg"  ion-text color="primary"></i>-->
                 水滴认证： {{user.verified_reason}}
             </p>
 

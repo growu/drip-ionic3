@@ -14,7 +14,7 @@ import {Storage} from "@ionic/storage";
 export class TopPage {
 
     public users:any = [];
-    public ret:any;
+    public my:any;
 
     private perPage:number = 20;
     public user;
@@ -34,7 +34,7 @@ export class TopPage {
 
     getTopUsers(page) {
         this.topProvider.getTopUsers(this.mode,page,this.perPage).then((res)=>{
-            this.ret = res;
+            this.my = res.my;
             this.users = res.users;
         }).catch((err)=>{
         });

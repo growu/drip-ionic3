@@ -1,5 +1,5 @@
 import {Component, ViewChild} from '@angular/core';
-import {Nav, Platform} from 'ionic-angular';
+import {App, Nav, NavController, Platform} from 'ionic-angular';
 import {StatusBar} from '@ionic-native/status-bar';
 import {SplashScreen} from '@ionic-native/splash-screen';
 import {UserProvider} from '../providers/user/user';
@@ -11,6 +11,7 @@ import {NativeAudio} from '@ionic-native/native-audio';
 import {BackgroundMode} from '@ionic-native/background-mode';
 import {Vibration} from '@ionic-native/vibration';
 import {LocalNotifications} from '@ionic-native/local-notifications';
+import {ToastProvider} from "../providers/toast/toast";
 
 declare var chcp;
 
@@ -22,16 +23,18 @@ export class MyApp {
     rootPage: any = 'welcome';
     @ViewChild(Nav) nav: Nav;
 
-    constructor(platform: Platform,
+    constructor(private platform: Platform,
                 statusBar: StatusBar,
                 splashScreen: SplashScreen,
                 jpush: JPush,
                 private deeplinks: Deeplinks,
                 storage: Storage,
+                public appCtrl: App,
                 private backgroundMode: BackgroundMode,
                 private keyboard: Keyboard,
                 private nativeAudio: NativeAudio,
                 private vibration: Vibration,
+                private toastProvider: ToastProvider,
                 private localNotifications: LocalNotifications,
                 public userProvider: UserProvider) {
         platform.ready().then(() => {
@@ -113,9 +116,21 @@ export class MyApp {
 
             }
 
+            var lastTimeBackPress = 0;
+            var timePeriodToExit  = 2000;
+
             platform.registerBackButtonAction(() => {
-                if (this.nav.canGoBack()) {
-                    this.nav.pop();
+                let activeNav: NavController = this.appCtrl.getActiveNavs()[0];
+
+                if (activeNav.canGoBack()) {
+                    activeNav.pop();
+                } else {
+                    if (new Date().getTime() - lastTimeBackPress < timePeriodToExit) {
+                        this.platform.exitApp(); //Exit from app
+                    } else {
+                        this.toastProvider.show("再按一次退出程序","warning")
+                        lastTimeBackPress = new Date().getTime();
+                    }
                 }
             });
         });

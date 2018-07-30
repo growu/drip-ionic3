@@ -72,7 +72,6 @@ export class MyEventComponent {
                     handler: () => {
                         console.log(event.attachs);
 
-                        // let image = 'https://source.unsplash.com/random/400/300';
                         let image = null;
                         if (event.attachs.length > 0) {
                             let attach = event.attachs[0];
@@ -133,7 +132,6 @@ export class MyEventComponent {
         } else {
             this.app.getRootNav().push('event-detail', {id: id});
         }
-
     }
 
 
