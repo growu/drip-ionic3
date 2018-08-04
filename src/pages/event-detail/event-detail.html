@@ -30,13 +30,13 @@
             </div>
             <ion-card-content>
                 <p [innerHtml]="event.content"></p>
-                <blockquote>完成 <a (click)="goGoalHomePage(event.goal.id)">{{event.goal.name}}</a> 打卡第{{event.checkin.total_days}}天</blockquote>
+                <blockquote>
+                    <p>完成 <a (click)="goGoalHomePage(event.goal.id)">{{event.goal.name}}</a> 打卡第{{event.checkin.total_days}}天</p>
+                    <p *ngFor="let item of event.checkin.items">
+                        <ion-icon name="list" color="dark"></ion-icon> {{item.name+item.value+item.unit}}
+                    </p>
+                </blockquote>
             </ion-card-content>
-
-            <p *ngFor="let item of event.items">
-                <ion-icon name="list" color="dark"></ion-icon> {{item.name+item.value+item.unit}}
-            </p>
-
         </ion-card>
     </ion-list>
 

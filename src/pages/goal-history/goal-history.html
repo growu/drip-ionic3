@@ -16,20 +16,20 @@
       {{record.day}}
     </ion-list-header>
     <ion-card *ngFor="let checkin of record.checkins">
-      <ion-item-sliding>
-      <ion-item no-lines>
+      <!--<ion-item-sliding>-->
+      <ion-item no-lines (click)="goEventDetailPage(checkin)">
         <p *ngFor="let item of checkin.items">{{item.name+item.value+item.unit}}</p>
         <ion-note item-end>{{checkin.created_at | slice:-8:-3 }}</ion-note>
       </ion-item>
-        <ion-item-options side="right">
-          <button ion-button color="primary" (click)="goEventDetailPage(checkin)">
-            详情
-          </button>
-          <button ion-button color="danger" (click)="deleteCheckin(checkin)">
-            删除
-          </button>
-        </ion-item-options>
-      </ion-item-sliding>
+        <!--<ion-item-options side="right">-->
+          <!--<button ion-button color="primary" (click)="goEventDetailPage(checkin)">-->
+            <!--详情-->
+          <!--</button>-->
+          <!--<button ion-button color="danger" (click)="deleteCheckin(checkin)">-->
+            <!--删除-->
+          <!--</button>-->
+        <!--</ion-item-options>-->
+      <!--</ion-item-sliding>-->
     </ion-card>
   </ion-list>
 

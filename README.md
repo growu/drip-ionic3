@@ -1,74 +1,93 @@
-# 关于项目
+# drip-ionic3
 
-水滴打卡是一款帮助用户进行习惯养成和目标管理的App。该项目基于[Ionic Framework v3](http://ionicframework.com/)版本创建。
+「水滴打卡」App open source code，base on [Ionic Framework v3](http://ionicframework.com/)
 
-# 如何使用
+
+
+[中文文档](README.md)
+
+
+
+# Example
+
+[Download Link](http://a.app.qq.com/o/simple.jsp?pkgname=me.growu.drip)
+
+![二维码](qrcode.png)
+
+
+
+# Usage
 
 
 ```bash
+git clone https://github.com/growu/drip-ionic3
+
+cd drip-ionic3
+
 npm install
-```
 
-```bash
 ionic cordova platform add ios
-```
 
-```bash
 ionic cordova platform add android
+
+ionic cordova run ios
+
+ionic cordova run ios
 ```
 
-# 注意事项
+# Notice
 
-由于ionic2-super-tabs插件的问题
+1. ionic2-super-tabs issue
 
-需要手动复制文件https://raw.githubusercontent.com/zyra/ionic2-super-tabs/master/src/components/super-tabs.scss
-到*node_modules/ionic2-super-tabs/dist/components*下
+   you should manually copy https://raw.githubusercontent.com/zyra/ionic2-super-tabs/master/src/components/super-tabs.scss to *node_modules/ionic2-super-tabs/dist/components*
 
-由于app-scripts3.19.2版本在AOT环境下编译会报错[ISSUES](https://github.com/ionic-team/ionic-cli/issues/2889)
+   ​
 
-需要修改 node_modules/@ionic/app-scripts/dist/logger/logger-typescript.js的29行
 
-原来：
+2. app-scripts 3.19.2 AOT issue [Detail](https://github.com/ionic-team/ionic-cli/issues/2889)
 
-```if (tsDiagnostic.file) {```
+   ​
 
-修改为：
+   modify `node_modules/@ionic/app-scripts/dist/logger/logger-typescript.js` line 29
 
-```if (tsDiagnostic.file && tsDiagnostic.file.getText) {```
+   change：
 
-# ionic v1
+   ```if (tsDiagnostic.file) {```
 
-ionic v1版本的源码可以参考[drip-ionic](https://github.com/growu/drip-ionic)
+   to：
 
-# 后台API接口
+   ```if (tsDiagnostic.file && tsDiagnostic.file.getText) {```
 
-后台API暂未整理，源码可参考[drip-website](https://github.com/growu/drip-website)
+# Relation
 
-# 下载体验
+Ionic v1 version：[drip-ionic](https://github.com/growu/drip-ionic)
+admin and api：[drip-website](https://github.com/growu/drip-website)
 
- AppStore:[已上架](https://itunes.apple.com/cn/app/id1255579223)
+# About
 
- 国内安卓各大市场，搜索"水滴打卡"即可。
+website：[http://drip.growu.me](http://drip.growu.me)
 
-# 关于我们
+wechat ：growuu
 
-官网：[http://drip.growu.me](http://drip.growu.me)
+weibo：[格吾社区](http://weibo.com/growu)
 
-微信公众号：格吾社区（growuu）
+# Feedback
 
-新浪微博：[格吾社区](http://weibo.com/growu)
+qq群：783459080
 
-微信号：格吾君 (growu001)
+[![ionic付费问答群](https://pub.idqqimg.com/wpa/images/group.png)](https://hang.qq.com/wpa/qunwpa?idkey=26fee235eae2460a35007c9790b5661b0a97033c948550fe06936a2cbbda009b)
 
-# 问题反馈
+# Donate
 
-有任何使用上遇到的BUG或者优化建议，都可以提交[Issues](https://github.com/growu/drip-ionic3/issues),也可以加入我们的产品交流群反馈。
+If this project help you reduce time to develop, you can give me a cup of coffee :)
 
-IONIC技术交流群：783459080
+
+
+[![paypal](https://img.shields.io/badge/Donate-PayPal-green.svg)](https://www.paypal.me/jasonz1987/6.66)
 
 # License
 
-本APP遵循GPLv3协议，源代码仅供参考学习，请勿用作商业用途。
+GPLv3
 
 
 

@@ -5,6 +5,7 @@ my-event {
 
   .card-content {
     padding-bottom:0;
+    padding-top:0;
     blockquote {
       background-color: #f4f4f4;
       padding:10px;
@@ -16,6 +17,7 @@ my-event {
   .event-image {
     max-height:400px;
     overflow: hidden;
+    margin-bottom:10px;
   }
 
   .action-toolbar {

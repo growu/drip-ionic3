@@ -20,7 +20,13 @@
       </svg>
     </h2>
     <p>{{event.created_at | amLocale:"zh_cn" | amUtc | amTimeAgo }}</p>
-    <ion-icon name="bookmark" color="secondary" *ngIf="event.is_hot" style="position:absolute;top:-2px;right:5px;font-size: 20px;"></ion-icon>
+
+    <svg class="icon svg-iconfont" aria-hidden="true" *ngIf="event.is_hot" style="position:absolute;top:-2px;right:5px;font-size: 20px;">
+      <use xlink:href="#icon-zhuanyebanxiaotubiao">
+      </use>
+    </svg>
+
+    <!--<ion-icon name="bookmark" color="secondary" *ngIf="event.is_hot" style="position:absolute;top:-2px;right:5px;font-size: 20px;"></ion-icon>-->
   </ion-item>
 
   <div class="event-image">
@@ -50,7 +56,7 @@
       </button>
     </ion-col>
     <ion-col col-2>
-      <button ion-button icon-left clear small (click)="goEventDetailPage(event.id)">
+      <button ion-button icon-left clear small (click)="goEventDetailPage($event,event.id)">
         <ion-icon name="ios-chatboxes-outline"></ion-icon>
         <div>{{event.comment_count}}</div>
       </button>

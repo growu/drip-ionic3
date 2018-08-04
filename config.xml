@@ -130,7 +130,6 @@
     <plugin name="cordova-plugin-ionic-webview" spec="^1.1.16" />
     <plugin name="cordova-plugin-ionic-keyboard" spec="^2.0.5" />
     <engine name="android" spec="~6.1.2" />
-    <engine name="ios" spec="~4.3.1" />
     <plugin name="cordova-plugin-file" spec="~4.3.3" />
     <plugin name="cordova-plugin-bugly-sdk" spec="~0.0.4">
         <variable name="ANDROID_APPID" value="a3f4bd261d" />
@@ -161,4 +160,5 @@
     <plugin name="cordova-plugin-photo-library" spec="~2.1.1">
         <variable name="PHOTO_LIBRARY_USAGE_DESCRIPTION" value="To choose photos" />
     </plugin>
+    <engine name="ios" spec="~4.3.1" />
 </widget>

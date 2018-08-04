@@ -32,6 +32,12 @@ page-event-detail {
     }
   }
 
+  .event-image {
+    max-height:400px;
+    overflow: hidden;
+    margin-bottom:10px;
+  }
+
   .card{
     margin:1px 0;
     width: 100%;

@@ -52,7 +52,6 @@ export class UserHomePage {
     }
 
     ngAfterViewInit() {
-
         this.content.ionScroll.subscribe((scroll)=>{
             console.log('scrolling ', scroll);
 
@@ -67,7 +66,6 @@ export class UserHomePage {
             this.ref.detectChanges();
 
         });
-
     }
 
 }
