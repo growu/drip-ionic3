@@ -3,6 +3,7 @@ import {AlertController, IonicPage, NavController, NavParams} from 'ionic-angula
 import {Storage} from '@ionic/storage';
 import {ToastProvider} from "../../providers/toast/toast";
 import {UserProvider} from "../../providers/user/user";
+import {MallProvider} from "../../providers/mall/mall";
 
 @IonicPage({
     name: 'vip',
@@ -15,11 +16,12 @@ import {UserProvider} from "../../providers/user/user";
 export class VipPage {
 
     private user:any;
-
+  public type:number = 0;
   constructor(public navCtrl: NavController,
               private alertCtrl: AlertController,
               private storage: Storage,
               private userProvider: UserProvider,
+              private mallProvider: MallProvider,
               private toastProvider: ToastProvider,
               public navParams: NavParams) {
   }
@@ -33,9 +35,38 @@ export class VipPage {
       });
   }
 
-  showBuyPage() {
-      this.navCtrl.push('mall');
-      // let prompt = this.alertCtrl.create({
+  buyVip(num,good_id){
+
+    const confirm = this.alertCtrl.create({
+      title: '确认兑换？',
+      message: '确定使用 '+num+'水滴币兑换此商品？',
+      buttons: [
+        {
+          text: '取消',
+          handler: () => {
+            console.log('Disagree clicked');
+          }
+        },
+        {
+          text: '确认',
+          handler: () => {
+            this.mallProvider.doExchangeGood(good_id).then(data=>{
+                if(data) {
+                  this.toastProvider.show("兑换成功","success");
+                  this.storage.set('user',data);
+                } else {
+                    this.toastProvider.show("兑换失败","error");
+                }
+            }).catch(err=>{});
+          }
+        }
+      ]
+    });
+    confirm.present();
+
+
+      // this.navCtrl.push('mall');
+        // let prompt = this.alertCtrl.create({
       //     title: '兑换',
       //     message: "1个月（30天）= 1000 水滴币",
       //     inputs: [

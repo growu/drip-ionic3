@@ -47,6 +47,7 @@ export class GoalCheckinPage {
 
     ionViewDidLoad() {
         let goal_id = this.navParams.get('id');
+
         this.userProvider.getGoal(goal_id).then((data) => {
             this.goal = data;
             this.min = data.start_date;

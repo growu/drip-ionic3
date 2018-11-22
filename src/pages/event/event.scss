@@ -11,6 +11,7 @@ page-event {
 
   .event-col {
     padding:0;
+
   }
 
   .event-card {
@@ -19,6 +20,7 @@ page-event {
     border-radius: 2%;
 
     ion-card-content {
+      height:50px;
       padding:10px 5px 5px 5px;
       h2 {
         font-size:1.2rem;

@@ -5,32 +5,41 @@
       <button ion-button clear icon-only (click)="goGoalCalendarPage()">
         <ion-icon name="md-calendar"></ion-icon>
       </button>
+      <button ion-button clear icon-only (click)="goGoalChartPage()">
+        <ion-icon name="md-stats"></ion-icon>
+      </button>
     </ion-buttons>
   </ion-navbar>
 
 </ion-header>
 
 <ion-content>
-  <ion-list *ngFor="let record of records" no-border>
+  <div *ngIf="mode=='timeline'">
+  <ion-list *ngFor="let record of records" no-border no-lines padding-bottom >
     <ion-list-header>
       {{record.day}}
     </ion-list-header>
     <ion-card *ngFor="let checkin of record.checkins">
-      <!--<ion-item-sliding>-->
+      <ion-item-sliding>
       <ion-item no-lines (click)="goEventDetailPage(checkin)">
         <p *ngFor="let item of checkin.items">{{item.name+item.value+item.unit}}</p>
         <ion-note item-end>{{checkin.created_at | slice:-8:-3 }}</ion-note>
       </ion-item>
-        <!--<ion-item-options side="right">-->
-          <!--<button ion-button color="primary" (click)="goEventDetailPage(checkin)">-->
-            <!--详情-->
-          <!--</button>-->
-          <!--<button ion-button color="danger" (click)="deleteCheckin(checkin)">-->
-            <!--删除-->
-          <!--</button>-->
-        <!--</ion-item-options>-->
-      <!--</ion-item-sliding>-->
+        <ion-item-options side="right">
+          <button ion-button color="primary" (click)="goCheckinPage(checkin)">
+            编辑
+          </button>
+          <button ion-button color="danger" (click)="deleteCheckin(record,checkin)">
+            删除
+          </button>
+        </ion-item-options>
+      </ion-item-sliding>
     </ion-card>
   </ion-list>
+  </div>
+
+
+  <my-event [eventSource]="records" *ngIf="mode=='feed'"></my-event>
+
 
 </ion-content>

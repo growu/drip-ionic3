@@ -1,0 +1,34 @@
+<ion-header no-border>
+
+  <ion-navbar>
+    <ion-title>创建目标</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+  <ion-grid style="height: 70%">
+    <ion-row justify-content-center  align-items-center style="height: 100%">
+    <ion-card text-center  padding [ngClass]="type==1?'selected':''" (click)="changeType(1)">
+      <ion-card-content>
+        <h2>个人目标</h2>
+        <p>适合个人习惯养成</p>
+      </ion-card-content>
+    </ion-card>
+    </ion-row>
+    <ion-row justify-content-center  align-items-center style="height: 100%">
+
+    <ion-card text-center padding [ngClass]="type==2?'selected':''" (click)="changeType(2)">
+      <ion-card-content>
+        <h2>小组目标</h2>
+        <p>适合团队进行目标养成</p>
+      </ion-card-content>
+    </ion-card>
+  </ion-row>
+</ion-grid>
+
+
+  <button ion-button block (click)="goCreate()">创建</button>
+
+</ion-content>

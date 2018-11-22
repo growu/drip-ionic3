@@ -91,20 +91,20 @@
   font-size: 20px !important;
 }
 
-//.segment-md .segment-button {
-//  color: color($colors, dark) !important;
-//  height:34px;
-//  line-height: 28px;
-//}
-//.segment-md .segment-button.segment-activated {
-//  color: color($colors, primary) !important;
-//  font-weight: bold;
-//  .bolder-sm{
-//    border: 2px solid color($colors, primary);
-//    width: 25px;
-//    margin: 0 auto;
-//  }
-//}
+.segment-md .segment-button {
+  color: color($colors, dark) !important;
+  height:34px;
+  line-height: 28px;
+}
+.segment-md .segment-button.segment-activated {
+  color: color($colors, primary) !important;
+  font-weight: bold;
+  .bolder-sm{
+    border: 2px solid color($colors, primary);
+    width: 25px;
+    margin: 0 auto;
+  }
+}
 
 .badge-ios-yellow, .badge-md-yellow {
   color: #312929;

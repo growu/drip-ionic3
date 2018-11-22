@@ -1,0 +1,15 @@
+page-goal-add {
+  h2 {
+    font-size: 3rem!important;
+    margin-bottom: 20px!important;
+  }
+
+  .selected {
+     background-color:  color($colors, 'dark');
+     color:#fff;
+  }
+
+  .selected p,.selected h2{
+     color:#fff;
+  }
+}

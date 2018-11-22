@@ -1,18 +1,45 @@
+<ion-header no-border>
+    <ion-navbar>
+        <ion-title>统计</ion-title>
+    </ion-navbar>
+</ion-header>
+
 <ion-content>
-    <ion-segment padding [(ngModel)]="mode" color="primary" (ionChange)="changeMode($event)">
-        <ion-segment-button value="week">
-            周
-        </ion-segment-button>
-        <ion-segment-button value="month">
-            月
-        </ion-segment-button>
-        <ion-segment-button value="year">
-            年
-        </ion-segment-button>
-    </ion-segment>
+    <ion-row>
+        <ion-col col-5 text-left>
+            <ion-select [(ngModel)]="item_id" (ionChange)="onChangeItem()" interface="popover" float-right>
+                <ion-option value="{{item.id}}" *ngFor="let item of goal.items">{{item.name}}</ion-option>
+            </ion-select>
+        </ion-col>
+        <ion-col col-3>
+            <ion-select [(ngModel)]="mode" (ionChange)="onChangeMode()" interface="popover" float-right>
+                <ion-option value="week">周</ion-option>
+                <ion-option value="month">月</ion-option>
+                <ion-option value="year">年</ion-option>
+            </ion-select>
+        </ion-col>
+        <ion-col col-3>
+            <ion-select [(ngModel)]="chartType" (ionChange)="onChangeType()" interface="popover" float-right>
+                <ion-option value="bar">柱</ion-option>
+                <ion-option value="line">线</ion-option>
+            </ion-select>
+        </ion-col>
+    </ion-row>
+
+    <!--<ion-segment padding [(ngModel)]="mode" color="light" (ionChange)="changeMode($event)">-->
+        <!--<ion-segment-button value="week">-->
+            <!--周-->
+        <!--</ion-segment-button>-->
+        <!--<ion-segment-button value="month">-->
+            <!--月-->
+        <!--</ion-segment-button>-->
+        <!--<ion-segment-button value="year">-->
+            <!--年-->
+        <!--</ion-segment-button>-->
+    <!--</ion-segment>-->
 
     <div class="chart-container" style="display: block">
-        <ion-toolbar  no-border-top>
+        <ion-toolbar no-border-top mode="ios">
             <ion-buttons start>
             <button ion-button icon-only color="gray" *ngIf="prevValue" (click)="goPrev()">
                 <ion-icon name="md-arrow-dropleft"></ion-icon>
@@ -28,27 +55,60 @@
             </ion-buttons>
         </ion-toolbar>
         <canvas baseChart
-                   [datasets]="barChartData"
-                   [labels]="barChartLabels"
-                   [options]="barChartOptions"
-                   [legend]="barChartLegend"
-                   [colors]="barChartColors"
-                   [chartType]="barChartType"
+                   [datasets]="chartData"
+                   [labels]="chartLabels"
+                   [options]="chartOptions"
+                   [legend]="chartLegend"
+                   [colors]="chartColors"
+                   [chartType]="chartType"
                    (chartHover)="chartHovered($event)"
-                   (chartClick)="chartClicked($event)" *ngIf="barChartLabels.length>0"></canvas>
+                   (chartClick)="chartClicked($event)" *ngIf="chartLabels.length>0"></canvas>
     </div>
 
     <ion-list margin-top>
+        <ion-list-header>
+            {{ current_data?.title}}
+        </ion-list-header>
+        <ion-item>
+            打卡次数
+            <ion-note item-end> {{current_data?.checkin_count}}
+                次</ion-note>
+        </ion-item>
         <ion-item>
             打卡天数
-        <ion-note item-end> {{chartCheckinCount}} 天</ion-note>
+            <ion-note item-end> {{current_data?.checkin_days}}
+                天</ion-note>
         </ion-item>
         <ion-item>
             打卡率
-            <ion-note item-end>{{chartCheckinRate}} %</ion-note>
+            <ion-note item-end>{{current_data?.checkin_rate}} %</ion-note>
+        </ion-item>
+        <ion-item>
+            总{{current_data?.item_name}}
+            <ion-note item-end> {{current_data?.total_value}}
+                {{current_data?.item_unit}}</ion-note>
+        </ion-item>
+        <ion-item>
+            平均{{current_data?.item_name}}
+            <ion-note item-end>{{current_data?.avg_value}} {{current_data?.item_unit}}</ion-note>
         </ion-item>
     </ion-list>
 
+    <!--<ion-list>-->
+        <!--<ion-item>-->
+            <!--总打卡次数-->
+            <!--<ion-note item-end>{{current_data.checkin_rate}}</ion-note>-->
+        <!--</ion-item>-->
+        <!--<ion-item>-->
+            <!--平均打卡次数(天)-->
+            <!--<ion-note item-end>{{current.checkin_rate}}</ion-note>-->
+        <!--</ion-item>-->
+    <!--</ion-list>-->
 
+
+    <!--<ion-fab bottom right color="light">-->
+        <!--<button ion-fab mini *ngIf="chartType=='bar'" (click)="changeChartType('line')"><ion-icon name="ios-stats-outline"></ion-icon></button>-->
+        <!--<button ion-fab mini *ngIf="chartType=='line'" (click)="changeChartType('bar')"><ion-icon name="ios-pulse-outline"></ion-icon></button>-->
+    <!--</ion-fab>-->
 
 </ion-content>

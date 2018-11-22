@@ -253,7 +253,7 @@ export class HomePage {
         //     }
         // })
 
-        this.navCtrl.push('goal-search', {});
+        this.navCtrl.push('goal-add', {});
 
         return;
 

@@ -480,8 +480,9 @@ export class UserProvider {
         return this.httpProvider.httpGetWithAuth("/user/goal/" + id + "/events", params);
     }
 
-    getGoalChart(id, mode, day) {
+    getGoalChart(id, item_id,mode, day) {
         let params: URLSearchParams = new URLSearchParams();
+        params.set('item_id', item_id);
         params.set('mode', mode);
         params.set('day', day);
         return this.httpProvider.httpGetWithAuth("/user/goal/" + id + "/chart", params);
@@ -589,6 +590,22 @@ export class UserProvider {
         }).catch(e => {
             console.log(e)
         });
+    }
+
+    deleteCheckin(id) {
+        return this.httpProvider.httpDeleteWithAuth("/user/checkin/"+id).then(value => {
+            return value;
+        }).catch(e => {
+            console.log(e)
+        });
+    }
+
+    getCheckin(id) {
+        return this.httpProvider.httpGetWithAuth("/user/checkin/" + id, null);
+    }
+
+    updateCheckin(id, body) {
+        return this.httpProvider.httpPatchWithAuth("/user/checkin/" + id, body);
     }
 
 }

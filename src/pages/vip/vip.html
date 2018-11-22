@@ -1,14 +1,14 @@
 <ion-header>
 
     <ion-navbar color="primary">
-        <ion-title>水滴PRO</ion-title>
+        <ion-title>水滴会员</ion-title>
     </ion-navbar>
 
 </ion-header>
 
 <ion-content padding>
 
-    <ion-slides>
+    <!-- <ion-slides>
         <ion-slide>
             <h1>&nbsp;日历/周历视图</h1>
             <br />
@@ -54,12 +54,62 @@
             <br />
             <span style="background-color:#ffffff"><span style="color:null">目标排序只针对&ldquo;进行中&rdquo;的目标，目标排序的总体规则仍然按照 未开始-&gt;进行中-&gt;已结束 由上往下显示。</span></span>
         </ion-slide>
-    </ion-slides>
+    </ion-slides> -->
+    <!-- <ion-row>
+      水滴会员是针对不同层次用户听过的一项服务，水滴打卡将持续为用户提供免费的服务，高级服务购买支持水滴币兑换。
+    </ion-row> -->
+    <ion-grid style="height: 100%">
+      <ion-row justify-content-center  align-items-center style="height: 100%">
+      <ion-card  class="gray-card">
+        <ion-card-content>
+          <h2>免费会员</h2>
+          <ul>
+            <li>总目标上限5个</li>
+            <li>单目标提醒上限5个</li>
+            <li>单目标计数上限1个</li>
+            <li>限个人目标</li>
+          </ul>
+          <button ion-button small class="buy-btn" color="danger">0币/月</button>
+        </ion-card-content>
+      </ion-card>
+      </ion-row>
+      <ion-row justify-content-center  align-items-center style="height: 100%" >
+        <ion-card (click)="buyVip(1000,1)" class="yellow-card">
+          <ion-card-content>
+            <h2>PRO会员</h2>
+            <ul>
+              <li>总目标上限10个</li>
+              <li>单目标提醒上限10个</li>
+              <li>单目标计数不限</li>
+              <li>限个人目标</li>
+            </ul>
+            <button ion-button small class="buy-btn" color="danger">1k币/月</button>
+          </ion-card-content>
+        </ion-card>
+      </ion-row>
+
+      <ion-row justify-content-center  align-items-center style="height: 100%">
+        <ion-card (click)="buyVip(10000,2)" class="blue-card">
+          <ion-card-content>
+            <h2>TEAM会员</h2>
+            <ul>
+                <li>总目标无限制</li>
+                <li>单目标提醒无限制</li>
+                <li>单目标计数不限</li>
+                <li>个人/小组目标</li>
+                <li>开通收益功能</li>
+            </ul>
+            <button ion-button small class="buy-btn" color="danger">10k币/月</button>
+          </ion-card-content>
+        </ion-card>
+      </ion-row>
+  </ion-grid>
+
 
 </ion-content>
 
 <ion-footer>
-    <ion-list>
+    <!-- <ion-list>
         <ion-item>
             <ion-thumbnail item-start>
                 <img src="{{user?.avatar_url || 'assets/img/default-avatar.jpg'}}">
@@ -67,11 +117,10 @@
             <h2>
                 {{user?.nickname || '还没有昵称'}}
                 <ion-badge [color]="user?.is_vip?'yellow':'gray'">pro</ion-badge>
-                <!--<i class="iconfont icon-vip-copy" ion-text [color]="user?.is_vip?'danger':'gray'"></i>-->
             </h2>
             <p *ngIf="user?.is_vip">{{user.vip_end_date}}到期</p>
             <p *ngIf="!user?.is_vip">未开通</p>
             <button ion-button item-end  (click)="showBuyPage()">兑换</button>
         </ion-item>
-    </ion-list>
+    </ion-list> -->
 </ion-footer>

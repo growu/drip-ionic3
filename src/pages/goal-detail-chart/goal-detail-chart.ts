@@ -1,11 +1,12 @@
-import {Component} from '@angular/core';
+import {Component, ViewChild} from '@angular/core';
 import {NavController, NavParams, IonicPage} from "ionic-angular";
 import {UserProvider} from '../../providers/user/user'
 import * as moment from 'moment'
+import {BaseChartDirective} from 'ng2-charts/ng2-charts';
 
 @IonicPage({
-    name: "goal-detail-chart",
-    segment: 'chart'
+    name: "goal-chart",
+    segment: 'goal/:id/chart'
 })
 
 @Component({
@@ -14,24 +15,27 @@ import * as moment from 'moment'
 })
 export class GoalDetailChartPage {
 
+    @ViewChild(BaseChartDirective) chart: BaseChartDirective;
+
     public mode: string = "week";
+    public item_id: number;
+    public goal;
+
     public chartTitle: string = "";
-    public chartCheckinCount: number = 0;
-    public chartCheckinRate: number = 0;
 
     public prevValue = "";
     public nextValue = "";
     public currentValue:any = null;
 
-    public barChartOptions: any = {
+    public chartOptions: any = {
         scaleShowVerticalLines: false,
         responsive: true
     };
-    public barChartLabels: any = [];
-    public barChartType: string = 'bar';
-    public barChartLegend: boolean = true;
+    public chartLabels: any = [];
+    public chartType: string = 'bar';
+    public chartLegend: boolean = true;
 
-    public barChartColors: Array<any> = [{ // grey
+    public chartColors: Array<any> = [{ // grey
         backgroundColor: '#488aff',
         borderColor: 'rgba(148,159,177,1)',
         pointBackgroundColor: 'rgba(148,159,177,1)',
@@ -40,25 +44,39 @@ export class GoalDetailChartPage {
         pointHoverBorderColor: 'rgba(148,159,177,0.8)'
     }];
 
+    public all_data;
+    public current_data;
+
+    @ViewChild('baseChart') private _chart;
+
     // public barChartColors:Array<any> = [];
 
-    public barChartData: any[] = [
-        {data: [], label: '打卡次数'}
+    public chartData: any[] = [
+        // {data: [], label: '打卡天数'}
     ];
 
     // events
     public chartClicked(e: any): void {
         console.log(e);
+        if(e.active[0]) {
+            let index:number = e.active[0]._index;
+            setTimeout(()=>{
+                this.current_data = this.all_data[index];
+            },10);
+        }
     }
 
     public chartHovered(e: any): void {
         console.log(e);
     }
 
-
     constructor(public navCtrl: NavController,
                 public navParams: NavParams,
                 private userProvider: UserProvider) {
+        this.goal = this.navParams.get('goal');
+        if(this.goal.items) {
+            this.item_id = (this.goal.items)[0]['id'];
+        }
     }
 
     ionViewDidLoad() {
@@ -68,45 +86,64 @@ export class GoalDetailChartPage {
 
     getData(day) {
         let id = this.navParams.data.id;
-        this.userProvider.getGoalChart(id, this.mode, day).then((response) => {
+        this.userProvider.getGoalChart(id, this.item_id,this.mode, day).then((response) => {
 
-            let chartData: any[] = [];
-            let chartLabels: any[] = [];
-            this.chartTitle = response.title;
+            // let chartData: any[] = [];
+            // let chartLabels: any[] = [];
             this.nextValue = response.next;
             this.prevValue = response.prev;
+            this.chartTitle = response.chart_title;
+            this.all_data = response.all_data;
+            this.chartData = response.chart_data;
+            this.chartLabels = response.chart_labels;
 
-            this.chartCheckinCount = response.checkin_count;
-            this.chartCheckinRate = response.checkin_rate;
+            if(response.all_data.length > 0) {
+                console.log(response.all_data.length);
+                this.current_data = (response.all_data)[response.all_data.length-1];
+            }
 
-            var data = response.data;
+            let clone = JSON.parse(JSON.stringify(this.chartData));
+            clone = response.chart_data;
+            this.chartData = clone;
 
-            data.forEach((item, index) => {
-                chartLabels.push(item.label);
-                chartData.push(item.checkin_count);
-            });
+            let clone2 = JSON.parse(JSON.stringify(this.chartLabels));
+            // clone2 = response.chartLabels;
+            this.chartLabels = clone2;
 
-            let clone = JSON.parse(JSON.stringify(this.barChartData));
-            clone[0].data = chartData;
+            if(this.chart&&this.chart.chart) {
+                setTimeout(() => {
+                    this.chart.chart = this.chart.getChartBuilder(this.chart.ctx);
+                });
+            }
 
-            this.barChartData = clone;
-            this.barChartLabels = chartLabels;
         });
     }
 
-    public goPrev() {
+    goPrev() {
         this.currentValue = this.prevValue;
         this.getData(this.prevValue);
     }
 
-    public goNext() {
+    goNext() {
         this.currentValue = this.nextValue;
         this.getData(this.nextValue);
     }
 
-    public changeMode($event) {
-        this.barChartLabels = [];
+    onChangeItem(item_id) {
+        // this.item_id = item_id;
         this.getData(this.currentValue);
+    }
+
+    onChangeMode(mode) {
+        // this.mode = mode;
+        this.getData(this.currentValue);
+    }
+
+    onChangeType(type) {
+        // this.chartType = type;
+        setTimeout(()=>{
+            this.chart.chart.update();
+        },10);
     }
 
 }

@@ -13,7 +13,7 @@
 </ion-header>
 
 
-<ion-content>
+<ion-content no-bounce>
     <!--<h2>目标</h2>-->
     <!--<ion-card *ngFor="let item of data.items">-->
         <!--<ion-card-header>-->
@@ -29,7 +29,7 @@
         <!--</ion-card-content>-->
     <!--</ion-card>-->
     <div class="stat_content">
-        <ion-slides pager #Slides>
+        <ion-slides pager #Slides (ionSlideDidChange)="slideChanged()">
             <ion-slide *ngFor="let item of data.items">
             <h6 text-center>{{item.name}}({{item.unit}})</h6>
             <div class="progress-wrapper">
@@ -55,24 +55,14 @@
             </ion-slide>
         </ion-slides>
 
-        <button ion-button icon-only clear color="gray" large class="left-btn" (click)="slideToPrev()" *ngIf="data.items.length>1">
+        <button ion-button icon-only clear color="gray" large class="left-btn" (click)="slideToPrev()" *ngIf="data.items.length>1&&currentIndex>0">
             <ion-icon name="ios-arrow-back"></ion-icon>
         </button>
 
-        <button ion-button icon-only clear color="gray" large class="right-btn" (click)="slideToNext()" *ngIf="data.items.length>1">
+        <button ion-button icon-only clear color="gray" large class="right-btn" (click)="slideToNext()" *ngIf="data.items.length>1&&currentIndex<(data.items.length-1)">
             <ion-icon name="ios-arrow-forward"></ion-icon>
         </button>
 
-
-        <!--<canvas baseChart-->
-                <!--[datasets]="barChartData"-->
-                <!--[labels]="barChartLabels"-->
-                <!--[options]="barChartOptions"-->
-                <!--[legend]="barChartLegend"-->
-                <!--[colors]="barChartColors"-->
-                <!--[chartType]="barChartType"-->
-                <!--(chartHover)="chartHovered($event)"-->
-                <!--(chartClick)="chartClicked($event)" *ngIf="barChartLabels.length>0"></canvas>-->
 
 
         <!--<ng-container *ngIf="data.items.length>1">-->

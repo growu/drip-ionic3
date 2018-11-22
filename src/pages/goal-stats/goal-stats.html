@@ -1,0 +1,24 @@
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>数据</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content>
+  <canvas baseChart
+  [datasets]="barChartData"
+  [labels]="barChartLabels"
+  [options]="barChartOptions"
+  [legend]="barChartLegend"
+  [colors]="barChartColors"
+  [chartType]="barChartType"
+  (chartHover)="chartHovered($event)"
+  (chartClick)="chartClicked($event)" *ngIf="barChartLabels.length>0">
+
+  </canvas>
+
+
+</ion-content>

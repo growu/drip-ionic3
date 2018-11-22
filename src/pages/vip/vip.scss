@@ -1,6 +1,38 @@
 page-vip {
   ion-slides { height: initial; }
 
+  h2 {
+    font-size:2.5rem!important;
+    margin-bottom: 10px!important;
+  }
+
+  ul {
+    padding-left: 20px;
+  }
+
+  .card-content {
+    position: relative;
+    color:#fff;
+  }
+
+  .buy-btn {
+    position: absolute;
+    right:10px;
+    top:40%;
+  }
+
+  .gray-card {
+     background-color:  #9E9E9E;
+  }
+
+  .yellow-card {
+     background-color:  #f39c12;
+  }
+
+  .blue-card {
+     background-color:  color($colors, 'primary');
+  }
+
   ion-footer {
     ion-list {
       margin-bottom: 0px!important;

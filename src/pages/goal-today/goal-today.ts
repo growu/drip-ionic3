@@ -28,6 +28,8 @@ export class GoalTodayPage {
         checkins: []
     };
 
+    public currentIndex = 0;
+
     public day = moment().format('YYYY-MM-DD');
 
     constructor(public navCtrl: NavController,
@@ -61,6 +63,10 @@ export class GoalTodayPage {
 
     slideToNext() {
         this.slides.slideNext();
+    }
+
+    slideChanged() {
+        this.currentIndex = this.slides.getActiveIndex();
     }
 
     openMenu() {

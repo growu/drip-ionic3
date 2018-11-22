@@ -19,7 +19,7 @@ export class AboutPage {
     public isUpdate: boolean = false;
     public isInstall: boolean = false;
 
-    public appVersion: string = '--';
+    public appVersion: string = '2.1';
     public webVersion: string = '--';
 
     constructor(public navCtrl: NavController,

@@ -57,14 +57,14 @@ export class LoginDefaultPage {
                     title: '欢迎回来',
                     text: '开始迎接新的一天...',
                     type: 'success',
-                    timer: 4000,
-                    showConfirmButton: true,
+                    timer: 2000,
+                    showConfirmButton: false,
                     // width: '80%',
                     padding: 0
                 }).then(() => {
-                    this.navCtrl.push('main');
+                    this.navCtrl.setRoot('main');
                 }, dismiss => {
-                    this.navCtrl.push('main');
+                    this.navCtrl.setRoot('main');
                 });
             }
         }).catch((err) => {
