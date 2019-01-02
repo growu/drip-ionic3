@@ -1,5 +1,5 @@
 <ion-list class="popover-page">
-    <ion-item>
+    <!-- <ion-item>
         <ion-label>日历模式 <ion-badge color="yellow" *ngIf="!user.is_vip">pro</ion-badge></ion-label>
         <ion-select [(ngModel)]="setting.calendarMode"
                     [disabled]="!user.is_vip"
@@ -22,9 +22,9 @@
     <ion-item>
         <ion-label>隐藏过期目标</ion-label>
         <ion-toggle [(ngModel)]="setting.hideExpireGoals"></ion-toggle>
-    </ion-item>
+    </ion-item> -->
     <ion-item>
-        <ion-label>自定义排序 <ion-badge color="yellow" *ngIf="!user.is_vip">pro</ion-badge></ion-label>
+        <ion-label>开启排序 <ion-badge color="yellow" *ngIf="!user.is_vip">pro</ion-badge></ion-label>
         <ion-toggle [(ngModel)]="setting.enableSort" [disabled]="!user.is_vip" isPro="user.is_vip"></ion-toggle>
     </ion-item>
 </ion-list>

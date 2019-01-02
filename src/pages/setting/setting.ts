@@ -36,6 +36,10 @@ export class SettingPage {
         this.navCtrl.push(name);
     }
 
+    goFeedback() {
+        this.navCtrl.push('chat-detail',{user:this.user})
+    }
+
     clearCache() {
         this.toastProvider.show("清理成功", 'success');
     }

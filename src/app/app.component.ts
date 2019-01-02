@@ -13,6 +13,7 @@ import {Vibration} from '@ionic-native/vibration';
 import {LocalNotifications} from '@ionic-native/local-notifications';
 import {ToastProvider} from "../providers/toast/toast";
 
+
 declare var chcp;
 
 @Component({
@@ -190,15 +191,21 @@ export class MyApp {
     }
 
     subscribeRoutes() {
+        var defaultOptions = {
+            root: false
+          };
         this.deeplinks.routeWithNavController(this.nav, {
             '/about': 'about',
             '/goal/:goalId': 'goal-home',
             '/event/:eventId': 'event-detail'
-        }).subscribe((match) => {
-            console.log(JSON.stringify(match));
-            this.nav.push(match.$route, match.$args);
-            return true;
-        }, (nomatch) => {
+        },defaultOptions).subscribe(
+            match => {
+                console.log(JSON.stringify(match));
+                if(match.$route) {
+                    this.nav.push(match.$route, match.$args);
+                }
+            // return true;
+            }, nomatch => {
             console.error('Got a deeplink that didn\'t match', JSON.stringify(nomatch));
             return true;
         });

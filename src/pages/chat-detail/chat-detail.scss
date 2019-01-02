@@ -1,4 +1,4 @@
-page-chate-detail {
+page-chat-detail {
 
   $userBackgroundColor: #387ef5;
   $toUserBackgroundColor: #fff;
@@ -60,9 +60,9 @@ page-chate-detail {
           border-radius: 5px;
           padding: 8px;
           border: 1px solid #ddd;
-          color: #fff;
           width: auto;
           max-width: 80%;
+          background-color:#fff;
           span.triangle {
             background-color: #fff;
             border-radius: 2px;

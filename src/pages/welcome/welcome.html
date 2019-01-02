@@ -1,7 +1,22 @@
-<ion-content class="page-welcome no-scroll" no-bounce>
+<ion-content class="no-scroll" no-bounce (swipe)="swipeEvent($event)">
   <div class="container">
+    <div class="row date">
+        <ion-col text-left>
+            {{today}} 星期五
+          <ion-icon name="sunny" *ngIf="time=='morning'"></ion-icon>
+          <ion-icon name="moon" *ngIf="time=='evening'"></ion-icon>
+        </ion-col>
+        <ion-col text-right>DAY.{{days}}</ion-col>
+    </div>
+
+    <ion-row class="quote">
+      <p class="quote-content">时光周而复始，允许重新开始</p>
+      <p class="quote-people">--《左耳》</p>
+<!--       <ion-icon class="light" name="ios-camera-outline"></ion-icon>
+ -->    </ion-row>
+
     <!--<h1 class="day">1489</h1>-->
-    <ion-row  class="title"><h2 text-center ion-text>#坚持水滴打卡#</h2></ion-row>
+   <!--  <ion-row  class="title"><h2 text-center ion-text>#坚持水滴打卡#</h2></ion-row>
     <ion-row class="days" >
       <ion-col col-3 *ngFor="let day of days">
         <div class="line"></div>
@@ -9,13 +24,13 @@
         </div>
       </ion-col>
     </ion-row>
-    <ion-row class="title2"><span text-center ion-text>天</span></ion-row>
+    <ion-row class="title2"><span text-center ion-text>天</span></ion-row>-->
 
-    <ion-row class="quote">
-      <p class="quote-content">人所缺乏的不是才干而是志向，不是成功的能力而是勤劳的意志。</p>
-      <p text-right class="quote-people">-- 部尔卫</p>
+    <ion-row class="action">
+      <button ion-button round block color="primary" (click)="goHome()">开启一天</button>
+      <button ion-button outline round block color color="light" (click)="doShare()">分享日签</button>
     </ion-row>
-
+    
 
   </div>
 </ion-content >

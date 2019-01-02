@@ -537,6 +537,25 @@ export class UserProvider {
         return this.httpProvider.httpGetWithAuth("/user/messages/comment", params);
     }
 
+    getPrivateMessages(page, perPage) {
+        var params = new URLSearchParams();
+        params.set('page', page);
+        params.set('per_page', perPage);
+        return this.httpProvider.httpGetWithAuth("/user/messages/private", params);
+    }
+
+    getPrivateMessageDetail(user_id,page, perPage) {
+        var params = new URLSearchParams();
+        params.set('user_id', user_id);
+        params.set('page', page);
+        params.set('per_page', perPage);
+        return this.httpProvider.httpGetWithAuth("/user/messages/private/detail", params);
+    }
+
+    sendPrivateMessage(body) {     
+        return this.httpProvider.httpPostWithAuth("/user/messages/private", body);
+    }
+
     getMessageDetail(id) {
         return this.httpProvider.httpGetWithAuth("/message/" + id, null);
     }
@@ -606,6 +625,11 @@ export class UserProvider {
 
     updateCheckin(id, body) {
         return this.httpProvider.httpPatchWithAuth("/user/checkin/" + id, body);
+    }
+
+    share(param) {
+        let body = JSON.stringify(param);
+        return this.httpProvider.httpPostWithAuth("/user/share", body);
     }
 
 }

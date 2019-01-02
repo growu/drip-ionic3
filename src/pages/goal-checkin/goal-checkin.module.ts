@@ -5,6 +5,12 @@ import {Camera} from '@ionic-native/camera';
 import {ImagePickerProvider, FileProvider, FileTransferProvider, CropProvider} from '../../providers/AppProvider';
 import {ToolProvider} from "../../providers/tool/tool";
 import {IonicImageViewerModule} from "ionic-img-viewer";
+import {VgStreamingModule} from 'videogular2/streaming';
+import {VgCoreModule} from 'videogular2/core';
+import {VgControlsModule} from 'videogular2/controls';
+import {VgOverlayPlayModule} from 'videogular2/overlay-play';
+import {VgBufferingModule} from 'videogular2/buffering';
+// import { VgAPI } from 'videogular2/core';
 
 @NgModule({
     declarations: [
@@ -12,7 +18,12 @@ import {IonicImageViewerModule} from "ionic-img-viewer";
     ],
     imports: [
         IonicPageModule.forChild(GoalCheckinPage),
-        IonicImageViewerModule
+        IonicImageViewerModule,
+        VgCoreModule,
+        VgControlsModule,
+        VgOverlayPlayModule,
+        VgBufferingModule,
+        VgStreamingModule
     ],
     providers: [
         ImagePickerProvider,
@@ -20,7 +31,8 @@ import {IonicImageViewerModule} from "ionic-img-viewer";
         FileTransferProvider,
         Camera,
         CropProvider,
-        ToolProvider
+        ToolProvider,
+        // VgAPI
     ]
 })
 export class GoalCheckinPageModule {

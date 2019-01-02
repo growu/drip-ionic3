@@ -12,6 +12,10 @@ page-top{
     //margin-right:10px;
     color:#fff;
     max-width:20%;
+    display: flex;
+    flex:1;
+    align-items: center;
+    height:100%;
   }
 
   ion-avatar>img {

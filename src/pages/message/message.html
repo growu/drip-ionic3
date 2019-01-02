@@ -40,16 +40,6 @@
                     </ion-card-content>
                 </ion-card>
             </ion-col>
-        </ion-row>
-
-        <ion-row>
-            <!--<ion-item (click)="goPage('message-at')">-->
-            <!--<ion-icon name="ios-at" item-start></ion-icon>-->
-            <!--@-->
-            <!--<ion-note clear item-end>-->
-            <!--<ion-icon name="arrow-forward"></ion-icon>-->
-            <!--</ion-note>-->
-            <!--</ion-item>-->
             <ion-col>
                 <ion-card padding-top (click)="goPage('message-fan')">
                     <ion-card-header>
@@ -62,6 +52,31 @@
                     </ion-card-content>
                 </ion-card>
             </ion-col>
+        </ion-row>
+
+        <ion-row>
+            <!--<ion-item (click)="goPage('message-at')">-->
+            <!--<ion-icon name="ios-at" item-start></ion-icon>-->
+            <!--@-->
+            <!--<ion-note clear item-end>-->
+            <!--<ion-icon name="arrow-forward"></ion-icon>-->
+            <!--</ion-note>-->
+            <!--</ion-item>-->
+
+            <ion-col>
+                <ion-card padding-top (click)="goPage('message-at')">
+                    <ion-card-header>
+                        <ion-icon name="ios-at" item-start>
+                            <ion-badge color="danger" *ngIf="messages.notice_count>0">{{messages.at_count}}
+                            </ion-badge>
+                        </ion-icon>
+                    </ion-card-header>
+                    <ion-card-content>
+                        @
+                    </ion-card-content>
+                </ion-card>
+            </ion-col>
+           
             <ion-col>
                 <ion-card padding-top (click)="goPage('message-notice')">
                     <ion-card-header>
@@ -72,6 +87,20 @@
                     </ion-card-header>
                     <ion-card-content>
                         通知
+                    </ion-card-content>
+                </ion-card>
+            </ion-col>
+
+            <ion-col>
+                <ion-card padding-top (click)="goPage('message-private')">
+                    <ion-card-header>
+                        <ion-icon name="ios-chatbubbles" item-start>
+                            <ion-badge color="danger" *ngIf="messages.notice_count>0">{{messages.notice_count}}
+                            </ion-badge>
+                        </ion-icon>
+                    </ion-card-header>
+                    <ion-card-content>
+                        私信
                     </ion-card-content>
                 </ion-card>
             </ion-col>

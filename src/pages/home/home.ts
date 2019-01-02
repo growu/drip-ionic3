@@ -381,4 +381,10 @@ export class HomePage {
         this.navCtrl.push('goal-today', {id: goal.id, goal: goal});
     }
 
+    swipeEvent($event) {
+        if($event.direction == Hammer.DIRECTION_DOWN) {
+           this.navCtrl.push('welcome');
+        }
+    }
+
 }

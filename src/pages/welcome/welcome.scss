@@ -1,10 +1,15 @@
-.page-welcome {
-  background-color:#488aff;
-  font-family:"Aldrich";
+page-welcome {
+  background-image:url('../assets/img/welcome_bg.jpg');
+  background-repeat: no-repeat;
+  background-size: cover;
+  //font-family:"Aldrich";
 
   //.container {
   //  height:10%;
   //}
+  ion-content {
+    background: rgba(0,0,0,0.5)!important;
+  }
 
   .title {
     position:absolute;
@@ -64,18 +69,42 @@
 
   .quote{
     position:absolute;
+    top:35%;
+    left:0;
+    right:0;
+    color:#fff;
+    padding:0 40px;
+    font-weight: 800;
+    font-size:1.5rem;
+    text-align:center;
+
+    .quote-content {
+      width:100%;
+      text-align:center;
+    }
+
+    .quote-people {
+      width:100%;
+    }
+
+  }
+
+  .date {
+    color:#fff;
+    font-weight:700;
+    padding:20px;
+    font-family:"Aldrich";
+  }
+
+  .action {
+    position:absolute;
     top:75%;
     left:0;
     right:0;
     color:#fff;
     padding:0 40px;
-    font-style: oblique;
-    font-weight: 800;
-    font-size:1.5rem;
-
-    .quote-people {
-      width:100%;
-    }
   }
+
+
 
 }

@@ -5,9 +5,11 @@ page-goal-checkin {
     right:5px;
     padding: 0;
     height: 1.5rem;
+    z-index: 1000;
   }
 
   .large-icon {
-    font-size:6rem;
+    font-size:5rem;
+    margin-right: 10px;
   }
 }

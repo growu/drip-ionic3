@@ -29,8 +29,14 @@
     <!--<ion-icon name="bookmark" color="secondary" *ngIf="event.is_hot" style="position:absolute;top:-2px;right:5px;font-size: 20px;"></ion-icon>-->
   </ion-item>
 
-  <div class="event-image">
-    <img [src]="attach.url" *ngFor="let attach of event.attachs" imageViewer>
+  <div class="event-image"*ngFor="let attach of event.attachs">
+      <img [src]="attach.url" *ngIf="attach.type==1" imageViewer>
+      <button ion-button outline round small (click)="playAudio(attach)" *ngIf="attach.type==2">{{attach.duration}} s</button>
+      <vg-player *ngIf="attach.type==3">
+          <video [vgMedia]="media" #media  preload="auto" controls crossorigin>
+              <source src="{{attach.url}}" type="video/mp4">
+          </video>
+      </vg-player>
   </div>
 
   <ion-card-content  (click)="goEventDetailPage($event,event.id)">

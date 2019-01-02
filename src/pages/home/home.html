@@ -1,10 +1,10 @@
 <ion-header no-border>
     <ion-toolbar>
-        <!--<ion-buttons start>-->
-            <!--<button ion-button icon-only (click)="openMenu($event)">-->
-                <!--<ion-icon name="ios-menu"></ion-icon>-->
-            <!--</button>-->
-        <!--</ion-buttons>-->
+        <ion-buttons start>
+            <button ion-button icon-only (click)="openMenu($event)">
+                <ion-icon name="ios-menu"></ion-icon>
+            </button>
+        </ion-buttons>
 
         <ion-title>目标</ion-title>
 
@@ -17,7 +17,7 @@
     </ion-toolbar>
 </ion-header>
 
-<ion-content>
+<ion-content (swipe)="swipeEvent($event)">
 
     <ion-list [dragula]='"bag-one"' [dragulaModel]="goals">
         <!--<ion-list-header>-->

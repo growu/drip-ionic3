@@ -12,23 +12,20 @@ export class AppConfigProvider {
   getChannel(): Promise<any> {
       return new Promise((resolve, reject) => {
 
-          if(this.platform.is('cordova')) {
+          if(this.platform.is('android')) {
               cordova.plugins.AppConfig.fetch(['JPUSH_CHANNEL'], result=> {
+                  console.log(result);
+
                   if(result){
-                      console.log(result);
                       if(result.JPUSH_CHANNEL) {
                           resolve(result.JPUSH_CHANNEL);
-                      } else {
-                          reject("web");
-                      }
-                  } else {
-                      if(this.platform.is('ios')) {
-                          resolve("appstore");
-                      } else {
-                          resolve("developer-default");
+                          return;
                       }
                   }
+                  resolve("developer-default");
               });
+          } else if(this.platform.is('ios')) {
+              resolve("appstore");
           } else {
               resolve("web");
           }

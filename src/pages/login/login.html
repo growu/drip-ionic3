@@ -8,22 +8,7 @@
         </ion-col>
     </ion-row>
 
-    <ion-row text-center class="third-title" margin-top>
-        <ion-col>
-            <p ion-text>- 第三方账号登录 -</p>
-        </ion-col>
-    </ion-row>
-    <ion-row text-center class="third-toolbar">
-        <ion-col col-4 *ngIf="isWechatInstalled">
-            <i class="iconfont icon-weixin" color="" (click)="doWechatLogin()"></i>
-        </ion-col>
-        <ion-col col-4 *ngIf="isQQInstalled">
-            <i class="iconfont icon-qq" color="" (click)="doQQLogin()"></i>
-        </ion-col>
-        <!--<ion-col col-4>-->
-            <!--<i class="iconfont icon-weibo" color="" (click)="doWeiboLogin()"></i>-->
-        <!--</ion-col>-->
-    </ion-row>
+    <my-third-login></my-third-login>
 
     <ion-row padding text-center class="register-title">
         <ion-col>

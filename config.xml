@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='utf-8'?>
-<widget id="me.growu.drip" version="2.1.0" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
+<widget id="me.growu.drip" version="2.5.0" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
     <name>水滴打卡</name>
     <description>一款习惯养成和目标管理工具</description>
     <author email="drip@growu.me" href="http://drip.growu.me/">格吾社区</author>
@@ -102,12 +102,12 @@
     <plugin name="cordova-plugin-splashscreen" spec="^4.1.0" />
     <plugin name="cordova-plugin-inappbrowser" spec="^1.7.2" />
     <plugin name="cordova-plugin-weibosdk" spec="^0.6.1">
-        <variable name="WEIBO_APP_ID" value="3987556016" />
+        <variable name="WEIBO_APP_ID" value="415534840" />
     </plugin>
     <plugin name="cordova-plugin-device" spec="^1.1.7" />
     <plugin name="cordova-plugin-camera" spec="^2.4.1">
-        <variable name="CAMERA_USAGE_DESCRIPTION" value=" " />
-        <variable name="PHOTOLIBRARY_USAGE_DESCRIPTION" value=" " />
+        <variable name="CAMERA_USAGE_DESCRIPTION" value="水滴打卡需要你的同意才能访问相机" />
+        <variable name="PHOTOLIBRARY_USAGE_DESCRIPTION" value="水滴打卡需要你的同意才能访问相册" />
     </plugin>
     <plugin name="cordova-plugin-file-transfer" spec="^1.7.0" />
     <plugin name="cordova-plugin-whitelist" spec="^1.3.3" />
@@ -115,7 +115,7 @@
     <plugin name="cordova-plugin-datepicker" spec="^0.9.3" />
     <plugin name="cordova-plugin-console" spec="^1.1.0" />
     <plugin name="com.synconset.imagepicker" spec="^2.1.10">
-        <variable name="PHOTO_LIBRARY_USAGE_DESCRIPTION" value=" " />
+        <variable name="PHOTO_LIBRARY_USAGE_DESCRIPTION" value="水滴打卡需要你的同意才能访问相册" />
     </plugin>
     <plugin name="cordova-plugin-crop" spec="^0.4.0" />
     <plugin name="cordova-plugin-wechat" spec="^2.1.0">
@@ -158,7 +158,17 @@
     <plugin name="cordova-plugin-local-notification" spec="~0.9.0-beta.2" />
     <plugin name="cordova-plugin-app-config" spec="~0.2.0" />
     <plugin name="cordova-plugin-photo-library" spec="~2.1.1">
-        <variable name="PHOTO_LIBRARY_USAGE_DESCRIPTION" value="To choose photos" />
+        <variable name="PHOTO_LIBRARY_USAGE_DESCRIPTION" value="水滴打卡需要你的同意才能访问相册" />
     </plugin>
     <engine name="ios" spec="~4.3.1" />
+    <plugin name="cordova-plugin-media" spec="~3.0.1">
+        <variable name="MICROPHONE_USAGE_DESCRIPTION" value="水滴打卡需要你的同意才能访问麦克风" />
+    </plugin>
+    <plugin name="cordova-plugin-media-capture" spec="~1.4.3">
+        <variable name="CAMERA_USAGE_DESCRIPTION" value=" " />
+        <variable name="MICROPHONE_USAGE_DESCRIPTION" value="水滴打卡需要你的同意才能访问麦克风" />
+        <variable name="PHOTOLIBRARY_USAGE_DESCRIPTION" value="水滴打卡需要你的同意才能访问相册" />
+    </plugin>
+    <plugin name="cordova-plugin-streaming-media" spec="~2.2.0" />
+    <plugin name="com.telerik.plugins.nativepagetransitions" spec="~0.6.5" />
 </widget>

@@ -1,0 +1,28 @@
+<ion-row text-center class="third-title" margin-top>
+  <ion-col>
+      <p ion-text>- 第三方账号登录 -</p>
+  </ion-col>
+</ion-row>
+<ion-row text-center class="third-toolbar">
+  <ion-col col-4 (click)="doWechatLogin()">
+      <svg class="icon svg-iconfont" aria-hidden="true" style="vertical-align: -0.2rem;">
+          <use xlink:href="#icon-weibiaoti---">
+          </use>
+        </svg>
+      <!-- <i class="iconfont icon-weixin" color="" ></i> -->
+  </ion-col>
+  <ion-col col-4  (click)="doQQLogin()">
+      <svg class="icon svg-iconfont" aria-hidden="true" style="vertical-align: -0.2rem;">
+          <use xlink:href="#icon-qq1">
+          </use>
+        </svg>
+      <!-- <i class="iconfont icon-qq" color=""></i> -->
+  </ion-col>
+  <ion-col col-4>
+      <svg class="icon svg-iconfont" aria-hidden="true" style="vertical-align: -0.2rem;">
+          <use xlink:href="#icon-weibo1">
+          </use>
+        </svg>
+      <!-- <i class="iconfont icon-weibo" color="" (click)="doWeiboLogin()"></i> -->
+  </ion-col>
+</ion-row>

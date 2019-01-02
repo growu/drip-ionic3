@@ -7,6 +7,11 @@ import {IonicImageViewerModule} from 'ionic-img-viewer';
 import {MyShareModule} from '../my-share/my-share.module';
 import {InAppBrowser} from '@ionic-native/in-app-browser';
 import {MyUserAvatarModule} from '../my-user-avatar/my-user-avatar.module';
+import {VgStreamingModule} from 'videogular2/streaming';
+import {VgCoreModule} from 'videogular2/core';
+import {VgControlsModule} from 'videogular2/controls';
+import {VgOverlayPlayModule} from 'videogular2/overlay-play';
+import {VgBufferingModule} from 'videogular2/buffering';
 
 @NgModule({
     declarations: [
@@ -18,10 +23,15 @@ import {MyUserAvatarModule} from '../my-user-avatar/my-user-avatar.module';
         MomentModule,
         IonicImageViewerModule,
         MyShareModule,
-        MyUserAvatarModule
+        MyUserAvatarModule,
+        VgCoreModule,
+        VgControlsModule,
+        VgOverlayPlayModule,
+        VgBufferingModule,
+        VgStreamingModule
     ],
     exports: [
-        MyEventComponent
+        MyEventComponent,
     ],
     entryComponents: [
     ],

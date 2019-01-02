@@ -16,6 +16,11 @@ import {BackgroundMode} from '@ionic-native/background-mode';
 import {Vibration} from '@ionic-native/vibration';
 import {LocalNotifications} from '@ionic-native/local-notifications';
 import {PhotoLibrary} from '@ionic-native/photo-library';
+import {Media} from '@ionic-native/media';
+import {MediaCapture} from '@ionic-native/media-capture';
+import {StreamingMedia} from '@ionic-native/streaming-media';
+import { NativePageTransitions} from '@ionic-native/native-page-transitions';
+
 
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 
@@ -34,7 +39,7 @@ import {TopProvider} from '../providers/top/top';
 import {TopicProvider} from '../providers/topic/topic';
 import {MallProvider} from '../providers/mall/mall';
 import {UpdateProvider} from '../providers/update/update';
-import { AppConfigProvider } from '../providers/appconfig/appconfig';
+import {AppConfigProvider} from '../providers/appconfig/appconfig';
 
 @NgModule({
     declarations: [
@@ -75,7 +80,11 @@ import { AppConfigProvider } from '../providers/appconfig/appconfig';
         PhotoLibrary,
         BackgroundMode,
         Vibration,
+        Media,
+        MediaCapture,
+        StreamingMedia,
         LocalNotifications,
+        NativePageTransitions,
         {provide: ErrorHandler, useClass: IonicErrorHandler},
         {
             provide: HAMMER_GESTURE_CONFIG,

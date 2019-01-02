@@ -64,3 +64,30 @@
             <super-tab [root]="page3" [rootParams]="navParams" title="相册"></super-tab>
         </super-tabs>
 </ion-content>
+
+<ion-footer>
+        <ion-toolbar text-center class="action-bar" *ngIf="!isComment">
+            <ion-row>
+                    <ion-col (click)="doFollow()" *ngIf="!followStatus">
+                        <button ion-button clear icon-left color="dark">
+                            <ion-icon name="add"  ></ion-icon>
+                            <span class="num" *ngIf="!followStatus">关注</span>
+                        </button>
+                    </ion-col>
+                    <ion-col (click)="doUnFollow()" *ngIf="followStatus">
+                            <button ion-button clear icon-left color="dark">
+                                <ion-icon name="ios-checkmark"  *ngIf="followStatus"></ion-icon>
+                                <span class="num" *ngIf="followStatus">已关注</span>
+                            </button>
+                        </ion-col>
+                    <ion-col (click)="goChatPage()">
+                        <button ion-button clear icon-left>
+                        <ion-icon name="ios-chatboxes-outline">
+                        </ion-icon>
+                        <span class="num">聊天</span>
+                        </button>
+                    </ion-col>
+                
+                </ion-row>
+        </ion-toolbar>
+</ion-footer>

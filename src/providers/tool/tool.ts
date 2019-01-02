@@ -66,7 +66,7 @@ export class ToolProvider {
                                         //     this.crop.crop(results[0], {quality: 75})
                                         //         .then(
                                         //             newImage => {
-                                                        this.uploadImage(results[0]).then((ret) => {
+                                                        this.uploadFile(results[0],"image").then((ret) => {
                                                             resolve(ret);
                                                         }).catch((err) => {
                                                             reject(err);
@@ -103,7 +103,7 @@ export class ToolProvider {
                             }
 
                             this.camera.getPicture(options).then((imageData) => {
-                                    this.uploadImage(imageData).then((ret) => {
+                                    this.uploadFile(imageData,"image").then((ret) => {
                                         resolve(ret);
                                     }).catch((err) => {
                                         reject(err);
@@ -127,7 +127,7 @@ export class ToolProvider {
         });
     }
 
-    uploadImage(fileUrl): Promise<any> {
+    uploadFile(fileUrl,type='image'): Promise<any> {
 
         return new Promise((resolve, reject) => {
 
@@ -135,11 +135,17 @@ export class ToolProvider {
                 let options: FileUploadOptions = {
                     fileKey: 'file',
                     fileName: fileUrl.substr(fileUrl.lastIndexOf('/') + 1),
-                    headers: {"Authorization": 'Bearer ' + token, "Accept": 'application/x.drip.v2+json'}
+                    headers: {"Authorization": 'Bearer ' + token, "Accept": 'application/x.drip.v3+json'}
                 }
 
+                // if(type == "audio") {
+                //     options.mimeType = "audio/mp3";
+                // } else if(type == "video") {
+                //     options.mimeType = "video/mp4";
+                // }
+
                 let loading = this.loadingCtrl.create({
-                    content: "图片上传中,请稍候...",
+                    content: "上传中,请稍候...",
                     dismissOnPageChange: true,
                     showBackdrop: false,
                     duration: 10000
@@ -148,16 +154,17 @@ export class ToolProvider {
                 loading.present();
 
                 const fileTransfer: FileTransferObject = this.transfer.create();
+                const that = this;
 
-                fileTransfer.upload(fileUrl, 'http://drip.growu.me/api/upload/image', options)
+                fileTransfer.upload(fileUrl, 'http://drip.growu.me/api/upload/'+type, options)
                     .then((res) => {
                         loading.dismiss();
                         var result = JSON.parse(res.response);
                         resolve(result);
                     }, (err) => {
                         loading.dismiss();
-                        reject(err.json().message);
-                        this.toastProvider.show(err.json().message, 'error');
+                        reject(err.body.json().message);
+                        that.toastProvider.show(err.body.json().message, 'error');
                     });
             }).catch((err) => {
                 reject(err);
@@ -165,5 +172,7 @@ export class ToolProvider {
         });
 
     }
+
+
 }
 

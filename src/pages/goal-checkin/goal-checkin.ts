@@ -7,6 +7,13 @@ import * as moment from 'moment'
 import swal from "sweetalert2";
 import {Storage} from '@ionic/storage';
 import {ToastProvider} from "../../providers/toast/toast";
+import { Media, MediaObject } from '@ionic-native/media';
+import { File } from '@ionic-native/file';
+import {
+    MediaCapture, MediaFile, CaptureError, CaptureImageOptions,
+    CaptureVideoOptions,CaptureAudioOptions
+} from '@ionic-native/media-capture';
+import { StreamingMedia, StreamingVideoOptions,StreamingAudioOptions} from '@ionic-native/streaming-media';
 
 @IonicPage({
     name: "goal-checkin",
@@ -36,6 +43,10 @@ export class GoalCheckinPage {
                 private toastProvider: ToastProvider,
                 private storage: Storage,
                 private modalCtrl: ModalController,
+                public media: Media,
+                private mediaCapture: MediaCapture,
+                 public file: File,
+                private streamingMedia: StreamingMedia,
                 private toolProvider: ToolProvider,) {
 
         if (this.navParams.get('day')) {
@@ -128,6 +139,96 @@ export class GoalCheckinPage {
         });
     }
 
+    doRecord() {
+
+
+        // swal({
+        //     title: '录音中',
+        //     html: '<strong>0</strong>/60 s',
+        //     timer: 60000,
+        //     imageUrl:"assets/img/recording.gif",
+        //     imageHeight: 150,
+        //     imageWidth: 150,
+        //     showConfirmButton: true,
+        //     confirmButtonText:"停止录音",
+        //     padding: 0,
+        //     onOpen: () => {
+        //         timerInterval = setInterval(() => {
+        //             timeSencond ++;
+        //             swal.getContent().querySelector('strong').textContent = timeSencond.toString();
+        //         }, 1000)
+        //     },
+        //     onClose: () => {
+        //         clearInterval(timerInterval)
+        //     }
+        // }).then(() => {
+        //     file.stopRecord();
+        // }, dismiss => {
+        //     file.stopRecord();
+        // });
+        const that = this;
+
+        let options: CaptureAudioOptions = { limit: 1,duration:30};
+
+        this.mediaCapture.captureAudio(options).then((res:MediaFile[])  => {
+            console.log(res);
+
+            that.toolProvider.uploadFile(res[0].fullPath,"audio").then((ret) => {
+                console.log(ret);
+                that.attachs.push(ret);
+            }).catch((err) => {
+                that.toastProvider.show("上传失败","error");
+            });
+          }, 
+          (err: CaptureError) => {
+            that.toastProvider.show("录音失败","error");
+              console.error(err)
+            }
+          );
+
+
+    //   this.file.createFile(this.file.tempDirectory, 'my_file.mp3', true).then(() => {
+    //      console.log(this.file.tempDirectory);
+    //       let filePath = this.file.tempDirectory.replace(/^file:\/\//, '') + 'my_file.mp3';
+    //       let file = this.media.create(filePath);
+    //       const that = this;
+    //       file.startRecord();
+    //       file.onSuccess.subscribe(() => {
+    //           that.toolProvider.uploadFile(filePath,"audio").then((ret) => {
+    //               that.attachs.push(ret);
+    //           }).catch((err) => {
+    //               that.toastProvider.show("上传失败","error");
+    //           });
+    //       });
+    //       file.onError.subscribe(err => alert('Record fail! Error: ' + err));
+
+    //       let timerInterval;
+    //       let timeSencond:number = 0;
+    //   });
+    }
+
+    doFilm() {
+      let options: CaptureVideoOptions = { limit: 1,duration:30};
+      const that = this;
+      this.mediaCapture.captureVideo(options)
+        .then(
+          (res: MediaFile[]) => {
+              console.log(res);
+                that.toolProvider.uploadFile(res[0].fullPath,"video").then((ret) => {
+                    console.log(ret);
+                    that.attachs.push(ret);
+                }).catch((err) => {
+                  that.toastProvider.show("上传失败","error");
+                });
+               
+          },
+          (err: CaptureError) => {
+            console.error(err);
+            that.toastProvider.show("录制失败","error");
+          }
+        );
+    }
+
     removeAttach($event) {
         $event.preventDefault();
         this.attachs = [];
@@ -139,5 +240,43 @@ export class GoalCheckinPage {
         if (index >= 0) {
             this.goal.items.splice(index, 1);
         }
+    }
+
+    playAudio(audio) {
+
+        // const file: MediaObject = this.media.create('http://file.growu.me/5bfad2cef41c6.mp3');
+
+        // console.log(file);
+
+        // file.onStatusUpdate.subscribe(status => console.log(status));
+        //
+        // file.onSuccess.subscribe(() => console.log('Action is successful'));
+        //
+        // file.onError.subscribe(error => console.log('Error!', error));
+        //
+        // // play the file
+        // file.play();
+
+
+        let options: StreamingAudioOptions = {
+            initFullscreen:false,
+            successCallback: () => { console.log('audio played') },
+            errorCallback: (e) => { console.log('Error audio') },
+        };
+
+        this.streamingMedia.playAudio(audio.url, options);
+    }
+
+
+    playVideo(video) {
+        let options: StreamingVideoOptions = {
+            successCallback: () => { console.log('Video played') },
+            errorCallback: (e) => { console.log('Error Video') },
+            orientation: 'landscape',
+            shouldAutoClose: true,
+            controls: false
+        };
+
+        this.streamingMedia.playVideo(video.url, options);
     }
 }

@@ -48,18 +48,49 @@
 
             <ion-item no-border no-lines>
                 <ion-icon name="camera" item-start (click)="choosePic($event)" class="large-icon"></ion-icon>
-                <!--<ion-icon name="mic" large item-start></ion-icon>-->
-                <!--<ion-icon name="videocam" large item-start></ion-icon>-->
+                <ion-icon name="mic"  item-start class="large-icon" (click)="doRecord()"></ion-icon>
+                <ion-icon name="videocam"  item-start class="large-icon" (click)="doFilm()"></ion-icon>
             </ion-item>
         </ion-list>
 
         <ion-row>
-            <ion-col col-4 *ngFor="let attach of attachs">
+            <ng-template ngFor let-attach [ngForOf]="attachs">
+                <ion-col col-4 *ngIf="attach.type=='image'">
+                    <img [src]="attach.url" imageViewer>
+                </ion-col>
+                <ion-col col-6 *ngIf="attach.type=='audio'">
+                    <button clear ion-button color="dark" (click)="removeAttach($event)" class="attach-del-btn">
+                        <ion-icon name="close-circle"></ion-icon>
+                    </button>
+                    <button ion-button outline round block (click)="playAudio(attach)">{{attach.duration}}</button>
+                </ion-col>
+                <ion-col col-12  *ngIf="attach.type=='video'" style="max-height: 200px;">
+                    <button clear ion-button color="light" (click)="removeAttach($event)" class="attach-del-btn">
+                        <ion-icon name="close-circle"></ion-icon>
+                    </button>
+                    <vg-player>
+                        <video [vgMedia]="media" #media  preload="auto" controls crossorigin>
+                            <source src="{{attach.url}}" type="video/mp4">
+                        </video>
+                    </vg-player>
+                </ion-col>
+            </ng-template>
+            <!-- <ion-col col-6>
                 <button clear ion-button color="dark" (click)="removeAttach($event)" class="attach-del-btn">
                     <ion-icon name="close-circle"></ion-icon>
                 </button>
-                <img [src]="attach.url" imageViewer>
+                <button ion-button outline round block (click)="playAudio(null)">6.2s</button>
             </ion-col>
+            <ion-col col-12 style="max-height: 200px;">
+                <button clear ion-button color="light" (click)="removeAttach($event)" class="attach-del-btn">
+                    <ion-icon name="close-circle"></ion-icon>
+                </button>
+                <vg-player>
+                    <video [vgMedia]="media"  #media  preload="auto" controls  crossorigin>
+                        <source src="http://file.growu.me/5c03434aede5e.mp4" type="video/mp4">
+                    </video>
+                </vg-player>
+            </ion-col> -->
         </ion-row>
         <ion-row padding>
             <button block ion-button type="button" (click)="doCheckin($event)">提交</button>
