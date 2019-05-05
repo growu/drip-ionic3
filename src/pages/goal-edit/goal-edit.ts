@@ -80,7 +80,7 @@ export class GoalEditPage {
 
         let id = this.navParams.get('id');
 
-        this.userProvider.getGoal(id).then((data) => {
+        this.userProvider.getGoalsInfo(id).then((data) => {
             this.goal = data;
             this.weeks = this.goal.weeks;
         }).catch((err) => {

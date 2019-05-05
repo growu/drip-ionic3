@@ -1,6 +1,5 @@
-<ion-header>
-
-  <ion-navbar color="primary">
+<ion-header no-border>
+  <ion-navbar color="white">
     <ion-title>目标主页</ion-title>
   </ion-navbar>
 
@@ -9,23 +8,69 @@
 
 <ion-content class="gray-content">
 
-  <ion-list >
-    <ion-item padding-top padding-bottom>
+  <ion-list class="goal-desc">
+    <ion-item padding-top padding-bottom no-border no-lines>
       <h2>{{goal?.name}}</h2>
       <p>{{goal?.follow_nums || 0}}人参与 | {{goal?.checkin_count || 0}}次打卡</p>
     </ion-item>
   </ion-list>
 
-  <super-tabs scrollTabs tabsPlacement="top" selectedTabIndex="0">
-    <super-tab [root]="page1" [rootParams]="navParams" title="动态"></super-tab>
-    <super-tab [root]="page2" [rootParams]="navParams" title="排行"></super-tab>
-  </super-tabs>
+  <div class="white-content">
+    <ion-segment  [(ngModel)]="page" mode="wp">
+      <ion-segment-button value="events">
+        动态
+      </ion-segment-button>
+      <ion-segment-button value="rank">
+        排行
+      </ion-segment-button>
+    </ion-segment>
+
+    <div [ngSwitch]="page">
+      <div class="" *ngSwitchCase="'events'">
+        <my-event [eventSource]="events" *ngIf="events.length>0"></my-event>
+
+        <div text-center style="position: absolute;left: 0;right: 0;top: 40%;">
+            <p *ngIf="events.length==0&&!isLoading">暂时还没有动态</p>
+            <div *ngIf="isLoading">
+              <ion-spinner name="circles"></ion-spinner>
+            </div>
+        </div>
+
+        <ion-infinite-scroll (ionInfinite)="doInfinite($event)">
+            <ion-infinite-scroll-content
+            loadingSpinner="bubbles"
+            loadingText="加载更多">
+            </ion-infinite-scroll-content>
+        </ion-infinite-scroll>
+      </div>
+
+      <div class="" *ngSwitchCase="'rank'">
+        <ion-list>
+          <ion-item *ngFor="let user of users;let i = index" (click)="goUserHomePage(user.id)">
+            <svg class="icon svg-iconfont" aria-hidden="true" item-start *ngIf="i<=2">
+              <use attr.xlink:href="{{'#icon-NO'+(i+1)}}"></use>
+            </svg>
+            <ion-note *ngIf="i>2" item-start class="no">{{i+1}}</ion-note>
+            <ion-avatar item-start >
+              <img [src]="user.avatar_url || 'assets/img/default-avatar.jpg'">
+            </ion-avatar>
+            <h2>{{user.nickname|| '水滴用户'}}</h2>
+            <ion-note item-end class="count">
+              {{user.total_days}}天
+            </ion-note>
+            <!--<ion-icon item-end name="heart-outline"></ion-icon>-->
+          </ion-item>
+        </ion-list>
+      </div>
+    </div>
+  </div>
+
+  <!--<super-tabs scrollTabs tabsPlacement="top" selectedTabIndex="0">-->
+    <!--<super-tab [root]="page1" [rootParams]="navParams" title="动态"></super-tab>-->
+    <!--<super-tab [root]="page2" [rootParams]="navParams" title="排行"></super-tab>-->
+  <!--</super-tabs>-->
 
 </ion-content>
 
-<ion-footer>
-  <ion-toolbar color="danger">
-    <ion-title *ngIf="!goal.is_follow" (click)="doFollowGoal()">制定目标</ion-title>
-    <ion-title *ngIf="goal.is_follow" (click)="goGoalDetailPage()">我的目标</ion-title>
-  </ion-toolbar>
-</ion-footer>
+<button round block ion-button fixed class="follow-btn btn-gradient" *ngIf="!goal.is_follow" (click)="followGoal">制定该目标</button>
+

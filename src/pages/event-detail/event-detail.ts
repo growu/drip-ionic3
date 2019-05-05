@@ -19,10 +19,13 @@ declare var Keyboard;
 })
 export class EventDetailPage {
     private event: any;
+    private likes: any[] = [];
+    private comments: any[] = [];
     public isComment:boolean = false;
     public content:string;
     public reply_comment:any;
     public user;
+    public isLoading:boolean = false;
 
     @ViewChild('commentInput') commentInput ;
     @ViewChild('eventContent') eventContent ;
@@ -56,19 +59,55 @@ export class EventDetailPage {
     }
 
     ionViewDidLoad() {
-        this.getEventDetail();
+        this.getEventDetail().then(data=>{
+            this.eventProvider.getEventLikes(this.navParams.get("id"),6,0).then(data => {
+                this.likes = data;
+            });
+
+            this.isLoading = true;
+            this.eventProvider.getEventComments(this.navParams.get("id"),6,0).then(data => {
+                this.comments = data;
+                this.isLoading = false;
+            }).catch(err=>{
+                this.isLoading = false;
+            });
+        });
     }
 
+    /**
+     * 获取动态详情
+     * @returns {Promise<Response>}
+     */
     getEventDetail() {
         var id = this.navParams.get("id");
-        this.eventProvider.getEventDetail(id).then((data) => {
+        return this.eventProvider.getEventDetail(id).then((data) => {
             this.event = data;
         });
     }
 
+    /**
+     * 跳转到动态点赞页面
+     * @returns {Promise<Response>}
+     */
     goEventLikePage() {
         var id = this.navParams.get("id");
         this.navCtrl.push('page-event-like', {'id': id});
+    }
+
+    /**
+     * 跳转到目标主页
+     * @returns {Promise<Response>}
+     */
+    goGoalHomePage(id) {
+        this.navCtrl.push('goal-home', {'id':id,'rootNavCtrl':this.navCtrl});
+    }
+
+    /**
+     * 跳转到用户主页页面
+     * @returns {Promise<Response>}
+     */
+    goUserHomePage(user) {
+        this.navCtrl.push('user-home', {'id': user.id});
     }
 
     doShare(){
@@ -95,9 +134,7 @@ export class EventDetailPage {
         myShare.present();
     }
 
-    goUserHomePage(user) {
-        this.navCtrl.push('user-home', {'id': user.id});
-    }
+
 
     showComment(){
         this.isComment = true;
@@ -120,7 +157,7 @@ export class EventDetailPage {
 
         this.eventProvider.comment(this.event.id,body).then((data) => {
             this.toastProvider.show("评论成功",'success');
-            this.event.comments.unshift(data);
+            this.comments.unshift(data);
 
             if(this.platform.is('cordova')) {
                 Keyboard.close();
@@ -153,19 +190,19 @@ export class EventDetailPage {
     doLikeComment(comment,$event){
         $event.stopPropagation();
 
-        let index = this.event.comments.indexOf(comment);
+        let index = this.comments.indexOf(comment);
 
         if (comment.is_like) {
             this.commentProvider.unLike(comment.id).then((data) => {
-                this.event.comments[index].is_like = false;
-                this.event.comments[index].like_count -= 1;
+                this.comments[index].is_like = false;
+                this.comments[index].like_count -= 1;
             }).catch((err) => {
 
             });
         } else {
             this.commentProvider.like(comment.id).then((data) => {
-                this.event.comments[index].is_like = true;
-                this.event.comments[index].like_count += 1;
+                this.comments[index].is_like = true;
+                this.comments[index].like_count += 1;
             }).catch((err) => {
 
             });
@@ -266,7 +303,5 @@ export class EventDetailPage {
         actionSheet.present();
     }
 
-    goGoalHomePage(id) {
-        this.navCtrl.push('goal-home', {'id':id,'rootNavCtrl':this.navCtrl});
-    }
+
 }

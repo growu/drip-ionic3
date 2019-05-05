@@ -1,11 +1,8 @@
 <ion-header no-border>
-
     <ion-navbar>
         <ion-title>消息中心</ion-title>
     </ion-navbar>
-
 </ion-header>
-
 
 <ion-content no-bounce>
     <ion-list no-lines text-center class="gray-list">
@@ -55,19 +52,11 @@
         </ion-row>
 
         <ion-row>
-            <!--<ion-item (click)="goPage('message-at')">-->
-            <!--<ion-icon name="ios-at" item-start></ion-icon>-->
-            <!--@-->
-            <!--<ion-note clear item-end>-->
-            <!--<ion-icon name="arrow-forward"></ion-icon>-->
-            <!--</ion-note>-->
-            <!--</ion-item>-->
-
             <ion-col>
                 <ion-card padding-top (click)="goPage('message-at')">
                     <ion-card-header>
                         <ion-icon name="ios-at" item-start>
-                            <ion-badge color="danger" *ngIf="messages.notice_count>0">{{messages.at_count}}
+                            <ion-badge color="danger" *ngIf="messages.at_count>0">{{messages.at_count}}
                             </ion-badge>
                         </ion-icon>
                     </ion-card-header>
@@ -76,7 +65,7 @@
                     </ion-card-content>
                 </ion-card>
             </ion-col>
-           
+
             <ion-col>
                 <ion-card padding-top (click)="goPage('message-notice')">
                     <ion-card-header>
@@ -95,7 +84,7 @@
                 <ion-card padding-top (click)="goPage('message-private')">
                     <ion-card-header>
                         <ion-icon name="ios-chatbubbles" item-start>
-                            <ion-badge color="danger" *ngIf="messages.notice_count>0">{{messages.notice_count}}
+                            <ion-badge color="danger" *ngIf="messages.private_count>0">{{messages.private_count}}
                             </ion-badge>
                         </ion-icon>
                     </ion-card-header>
@@ -107,31 +96,19 @@
 
         </ion-row>
     </ion-list>
-
-    <ion-list style="background-color: #e4e4e4" padding-top padding-bottom>
-
-        <ion-card (click)="goArticleDetail(article)" *ngFor="let article of articles">
-            <ion-card-content>
-                <ion-card-title>
-                    {{article.title}}
-                </ion-card-title>
-                <p>
-                    {{article.subtitle}}
-                </p>
-            </ion-card-content>
-            <img [src]="article.image"/>
-        </ion-card>
-
-        <!--<ion-card (click)="goArticleDetail()">-->
-        <!--<ion-card-content>-->
-        <!--<ion-card-title>-->
-        <!--团队招募-->
-        <!--</ion-card-title>-->
-        <!--<p>-->
-        <!--明人不说暗话，我需要你-->
-        <!--</p>-->
-        <!--</ion-card-content>-->
-        <!--<img src="https://ss1.bdstatic.com/70cFuXSh_Q1YnxGkpoWK1HF6hhy/it/u=4000021669,2919525092&fm=11&gp=0.jpg"/>-->
-        <!--</ion-card>-->
-    </ion-list>
+    <div>
+        <ion-list>
+            <ion-card (click)="goPage('article-detail',{'id':article.id,'article':article})" *ngFor="let article of articles">
+                <ion-card-content>
+                    <ion-card-title>
+                        {{article.title}}
+                    </ion-card-title>
+                    <p>
+                        {{article.subtitle}}
+                    </p>
+                </ion-card-content>
+                <img [src]="article.image"/>
+            </ion-card>
+        </ion-list>
+    </div>
 </ion-content>

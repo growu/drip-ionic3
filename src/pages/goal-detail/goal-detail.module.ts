@@ -5,6 +5,7 @@ import { RoundProgressModule } from 'angular-svg-round-progressbar';
 // import { MyCalendarComponentModule } from '../../components/my-calendar/my-calendar.module';
 import { SuperTabsModule } from 'ionic2-super-tabs';
 import { SuperTabsController } from "ionic2-super-tabs/dist/index";
+import {TimeAgoPipeModule} from '../../pipes/time-ago/time-ago.module';
 
 @NgModule({
   declarations: [
@@ -14,6 +15,7 @@ import { SuperTabsController } from "ionic2-super-tabs/dist/index";
     IonicPageModule.forChild(GoalDetailPage),
     RoundProgressModule,
     SuperTabsModule,
+      TimeAgoPipeModule
       // MyCalendarComponentModule
   ],
   exports: [

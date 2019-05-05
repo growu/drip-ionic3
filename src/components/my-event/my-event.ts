@@ -41,6 +41,10 @@ export class MyEventComponent {
         // this._eventSource = value;
     }
 
+    /**
+     * 动态点赞
+     * @param event
+     */
     doLike(event) {
 
         let index = this._eventSource.indexOf(event);
@@ -210,7 +214,12 @@ export class MyEventComponent {
     ngOnDestroy() {
     }
 
-    goUserHomePage() {
+    /**
+     * 跳转到用户主页
+     * @param user
+     */
+    goUserHomePage(user) {
+        this.navCtrl.push('user-home', {'id': user.id});
     }
 
     showFull($event, event) {

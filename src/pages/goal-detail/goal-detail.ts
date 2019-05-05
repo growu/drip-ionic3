@@ -1,9 +1,9 @@
-import {Component} from '@angular/core';
+import {Component, ViewChild} from '@angular/core';
 import {
     ActionSheetController, AlertController, Events, IonicPage, NavController, NavParams,
     PopoverController
 } from 'ionic-angular';
-import {SuperTabsController} from "ionic2-super-tabs/dist/index";
+import {SuperTabs, SuperTabsController} from "ionic2-super-tabs/dist/index";
 import {UserProvider} from '../../providers/user/user'
 import {ToastProvider} from "../../providers/toast/toast";
 
@@ -17,12 +17,16 @@ import {ToastProvider} from "../../providers/toast/toast";
 })
 export class GoalDetailPage {
 
-    page1: any = "goal-detail-summary";
+    @ViewChild(SuperTabs) superTabs: SuperTabs;
+
+    page1: any = "goal-detail-info";
     page2: any = "goal-detail-event";
-    page3: any = "goal-detail-chart";
-    selectedTabIndex: number = 0;
-    public isShowMore: boolean = false;
-    goal: any = {};
+    page3: any = "goal-detail-index";
+    page4: any = "goal-detail-calendar";
+    page5: any = "goal-detail-chart";
+
+    public selectedTabIndex: number = 2;
+    public goal: any = {};
     public weeks:[string] = ['日','一','二','三','四','五','六'];
 
     constructor(public navCtrl: NavController,
@@ -35,18 +39,27 @@ export class GoalDetailPage {
                 private alertCtrl: AlertController,
                 private popoverCtrl: PopoverController) {
 
+        this.goal = this.navParams.data.goal;
+
+        if(!this.goal) {
+            if(this.navCtrl.canGoBack()) {
+                this.navCtrl.pop();
+            } else {
+                this.navCtrl.setRoot('main');
+            }
+        }
+
         events.subscribe('goals:update', () => {
-            // user and time are the same arguments passed in `events.publish(user, time)`
-            this.getGoal();
+            this.getGoalsInfo();
         });
     }
 
-    getGoal() {
+    getGoalsInfo() {
         console.log(this.navParams);
         var params = this.navParams;
 
         let id = this.navParams.data.id;
-        this.userProvider.getGoal(id).then((data) => {
+        this.userProvider.getGoalsInfo(id).then((data) => {
             this.goal = data;
         }).catch((err) => {
 
@@ -54,40 +67,79 @@ export class GoalDetailPage {
     }
 
     ionViewDidLoad() {
-        this.getGoal();
-        console.log(this.goal.type);
+        // this.getGoalsInfo();
     }
 
-    showMore() {
-        this.isShowMore = !this.isShowMore;
-    }
+    // showMore() {
+    //     this.isShowMore = !this.isShowMore;
+    // }
 
     // 打开菜单
     openMenu($event) {
+        let buttons =  [
+            {
+                text: '删除目标',
+                role: 'destructive',
+                handler: () => {
+                    this.doDelGoal();
+                }
+            }, {
+                text: '取消',
+                role: 'cancel',
+                handler: () => {
 
-            let actionSheet = this.actionSheetCtrl.create({
+                }
+            }
+        ];
+
+        if(!this.goal.is_archive) {
+            buttons.push({
+                text: '编辑目标',
+                role: 'perssive',
+                handler: () => {
+                    this.navCtrl.push('goal-edit', {id: this.goal.id, goal: this.goal});
+                }
+            },{
+                text: '归档目标',
+                role: '',
+                handler: () => {
+
+                    let confirm = this.alertCtrl.create({
+                        title: '确认归档?',
+                        message: '归档后目标将从你的列表中移除，你可以在个人中心-我的归档里查看',
+                        buttons: [
+                            {
+                                text: '取消',
+                                handler: () => {
+                                }
+                            },
+                            {
+                                text: '确认',
+                                cssClass: 'my-alert-danger',
+                                handler: () => {
+                                    this.goal['is_archive'] = 1;
+                                    this.userProvider.updateGoals(this.goal.id, this.goal).then(data => {
+                                        this.toastProvider.show("归档成功",'success');
+                                        this.events.publish('goals:update', {});
+
+                                    }).catch((err) => {
+
+                                    });
+                                }
+                            }
+                        ]
+                    });
+                    confirm.present();
+
+
+                }
+            });
+        }
+
+
+        let actionSheet = this.actionSheetCtrl.create({
                 title: '目标设置',
-                buttons: [
-                    {
-                        text: '编辑目标',
-                        handler: () => {
-                            this.navCtrl.push('goal-edit', {id: this.goal.id, goal: this.goal})
-                        }
-                    },
-                    {
-                        text: '删除目标',
-                        role: 'destructive',
-                        handler: () => {
-                            this.doDelGoal();
-                        }
-                    },{
-                        text: '取消',
-                        role: 'cancel',
-                        handler: () => {
-
-                        }
-                    }
-                ]
+                buttons: buttons
             });
             actionSheet.present();
     }
@@ -126,6 +178,10 @@ export class GoalDetailPage {
     // 进入目标管理页面
     goGoalManagePage() {
         this.navCtrl.push('goal-manage', {id: this.goal.id, goal: this.goal})
+    }
+
+    goIndexPage(){
+        this.superTabs.slideTo(2);
     }
 
 }

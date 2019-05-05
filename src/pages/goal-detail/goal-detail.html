@@ -1,10 +1,9 @@
 <ion-header no-border>
-
-    <ion-navbar color="primary">
+    <ion-navbar color="white">
         <ion-title (click)="showMore()">
             {{goal?.name}}
-            <ion-icon name="md-arrow-dropdown" *ngIf="!isShowMore"></ion-icon>
-            <ion-icon name="md-arrow-dropup" *ngIf="isShowMore"></ion-icon>
+            <!--<ion-icon name="md-arrow-dropdown" *ngIf="!isShowMore"></ion-icon>-->
+            <!--<ion-icon name="md-arrow-dropup" *ngIf="isShowMore"></ion-icon>-->
         </ion-title>
         <ion-buttons end>
         <button ion-button icon-only (click)="openMenu($event)">
@@ -17,29 +16,35 @@
 
 <ion-content class="page-goal-detail">
 
-    <ion-row text-center class="goal-info" *ngIf="isShowMore">
-        <ion-col>
-            <p>
-                <ion-badge *ngIf="goal.status==0"  color="dark">未开始</ion-badge>
-                <ion-badge *ngIf="goal.status==1" color="secondary">进行中</ion-badge>
-                <ion-badge *ngIf="goal.status==2" color="danger">已结束</ion-badge>
-            </p>
-            <p *ngIf="goal.date_type == 2">日期范围：从{{goal.start_date}}至{{goal.end_date}}</p>
-            <p *ngIf="goal.date_type == 1">日期范围：长期</p>
-            <p *ngIf="goal?.weeks&&goal?.weeks.length>0">打卡频率：
-                <span *ngFor="let w of goal.weeks">周{{weeks[w]}} </span>
-            </p>
-            <p>{{goal.desc}}</p>
-        </ion-col>
-    </ion-row>
+    <!--<ion-row text-center class="goal-info" *ngIf="isShowMore">-->
+        <!--<ion-col>-->
+            <!--<p>-->
+                <!--<ion-badge *ngIf="goal.status==0"  color="dark">未开始</ion-badge>-->
+                <!--<ion-badge *ngIf="goal.status==1" color="secondary">进行中</ion-badge>-->
+                <!--<ion-badge *ngIf="goal.status==2" color="danger">已结束</ion-badge>-->
+            <!--</p>-->
+            <!--<p *ngIf="goal.date_type == 2">日期范围：从{{goal.start_date}}至{{goal.end_date}}</p>-->
+            <!--<p *ngIf="goal.date_type == 1">日期范围：长期</p>-->
+            <!--<p *ngIf="goal?.weeks&&goal?.weeks.length>0">打卡频率：-->
+                <!--<span *ngFor="let w of goal.weeks">周{{weeks[w]}} </span>-->
+            <!--</p>-->
+            <!--<p>{{goal.desc}}</p>-->
+        <!--</ion-col>-->
+    <!--</ion-row>-->
 
-    <super-tabs scrollTabs tabsPlacement="bottom" [selectedTabIndex]="selectedTabIndex">
+    <super-tabs color="light" scrollTabs tabsPlacement="bottom" [selectedTabIndex]="selectedTabIndex">
         <super-tab [root]="page1" [rootParams]="navParams" title="概况"></super-tab>
         <super-tab [root]="page2" [rootParams]="navParams" title="动态"></super-tab>
-        <super-tab [root]="page3" [rootParams]="navParams" title="统计"></super-tab>
+        <super-tab [root]="page3" [rootParams]="navParams" title="今日"></super-tab>
+        <super-tab [root]="page4" [rootParams]="navParams" title="日历"></super-tab>
+        <super-tab [root]="page5" [rootParams]="navParams" title="统计"></super-tab>
     </super-tabs>
 
-    <ion-fab right bottom (click)="goGoalManagePage()" *ngIf="goal.type == 2">
+    <ion-fab bottom center slot="fixed" (click)="goIndexPage()">
+        <button ion-fab color="primary" class="btn-gradient">打卡</button>
+    </ion-fab>
+
+    <ion-fab right bottom (click)="goGoalManagePage()" *ngIf="goal?.type == 2">
         <button ion-fab color="danger">管理</button>
     </ion-fab>
 

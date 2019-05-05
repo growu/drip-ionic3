@@ -11,8 +11,13 @@ export class GoalProvider {
                 public httpProivder: HttpProvider) {
     }
 
+    /**
+     * 创建目标
+     * @param goal
+     * @returns {Promise<any>}
+     */
     createGoal(goal) {
-        return this.httpProivder.httpPostWithAuth("/goal/create", goal);
+        return this.httpProivder.httpPostWithAuth("/goals", goal);
     }
 
     updateGoal(id, param) {
@@ -25,17 +30,27 @@ export class GoalProvider {
         return this.httpProivder.httpPutWithAuth("/goal/" + id + "/follow", null);
     }
 
-    // 获取目标信息
+    /**
+     * 获取目标
+     * @param id
+     * @returns {Promise<Response>}
+     */
     getGoalInfo(id) {
-        return this.httpProivder.httpGetWithAuth("/goal/" + id, null);
+        return this.httpProivder.httpGetWithAuth("/goals/" + id, null);
     }
 
-    // 获取目标动态
+    /**
+     * 获取目标动态
+     * @param id
+     * @param page
+     * @param per_page
+     * @returns {Promise<Response>}
+     */
     getGoalEvnets(id, page, per_page) {
         let params: URLSearchParams = new URLSearchParams();
         params.set('page', page);
         params.set('per_page', per_page);
-        return this.httpProivder.httpGetWithAuth("/goal/" + id + "/events", params);
+        return this.httpProivder.httpGetWithAuth("/goals/" + id + "/events", params);
     }
 
     getGoalMember(id, is_audit, page, per_page) {
@@ -47,11 +62,11 @@ export class GoalProvider {
     }
 
     // 获取目标排行
-    getGoalTop(id, page, per_page) {
+    getGoalRanks(id, page, per_page) {
         let params: URLSearchParams = new URLSearchParams();
         params.set('page', page);
         params.set('per_page', per_page);
-        return this.httpProivder.httpGetWithAuth("/goal/" + id + "/top", params);
+        return this.httpProivder.httpGetWithAuth("/goals/" + id + "/ranks", params);
     }
 
     doAudit(id, param) {
@@ -63,5 +78,13 @@ export class GoalProvider {
         let params: URLSearchParams = new URLSearchParams();
         params.set('name', name);
         return this.httpProivder.httpGetWithAuth("/goal/search", params);
+    }
+
+    /**
+     * 获取热门目标
+     * @returns {Promise<Response>}
+     */
+    getHotGoals() {
+        return this.httpProivder.httpGetWithAuth("/goals/hot", null);
     }
 }

@@ -1,5 +1,15 @@
 page-event-like {
-  .like-item {
-
+  ion-item {
+    line-height: 60px!important;
   }
+
+  .list-header {
+    background-color: #fff!important;
+    border-bottom: 0;
+  }
+
+  .toolbar-background {
+    background: #fff!important;
+  }
+
 }

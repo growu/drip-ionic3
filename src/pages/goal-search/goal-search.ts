@@ -25,7 +25,7 @@ export class GoalSearchPage {
   }
 
   getGoals() {
-    this.goalProvider.doSearch('').then(data=>{
+    this.goalProvider.getHotGoals().then(data=>{
       this.goals = data;
     }).catch(err=>{
 

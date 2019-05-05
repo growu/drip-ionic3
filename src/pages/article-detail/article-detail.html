@@ -1,9 +1,7 @@
-<ion-header>
-
-  <ion-navbar color="primary">
+<ion-header no-border>
+  <ion-navbar>
     <ion-title>{{article?.title}}</ion-title>
   </ion-navbar>
-
 </ion-header>
 
 <ion-content>
@@ -25,7 +23,7 @@
     </ion-col>
     <ion-col center text-center text-right (click)="doLike()">
         <ion-icon name="thumbs-up"  color="primary"></ion-icon>
-        <span ion-text color="primary"> {{article?.like_count}}</span>
+        <span ion-text> {{article?.like_count}}</span>
     </ion-col>
   </ion-row>
 
@@ -34,7 +32,7 @@
     <button ion-button clear  (click)="isComment = !isComment">写评论</button>
   </div>
 
-  <ion-list *ngIf="article?.comments.length>0">
+  <ion-list *ngIf="comments.length>0">
       <ion-item *ngFor="let comment of article?.comments">
         <ion-avatar small item-start>
           <img [src]="comment.user.avatar_url">

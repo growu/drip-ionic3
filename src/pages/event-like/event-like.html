@@ -1,10 +1,12 @@
 <ion-header>
-  <ion-navbar color="primary">
+  <ion-navbar>
     <ion-title>点赞列表</ion-title>
   </ion-navbar>
 </ion-header>
 
 <ion-content>
+  <my-loader *ngIf="isLoading"></my-loader>
+
   <ion-refresher (ionRefresh)="doRefresh($event)">
     <ion-refresher-content
             pullingIcon="arrow-dropdown"
@@ -21,8 +23,9 @@
       </ion-avatar>
       <h2>{{like.user.nickname || '还没有昵称'}}</h2>
       <p>{{like.user.signature}}</p>
-      <button small round item-end ion-button (click)="doFollow(like,$event)" *ngIf="!like.user.is_follow">关注</button>
-      <button small round item-end ion-button outline (click)="doUnFollow(like,$event)"  *ngIf="like.user.is_follow">已关注</button>
+
+      <my-follow-button [followStatus]="like.user.is_following" [followUser]="like.user.id"
+                        item-end ></my-follow-button>
     </ion-item>
   </ion-list>
 

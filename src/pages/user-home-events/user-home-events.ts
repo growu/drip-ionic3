@@ -13,6 +13,7 @@ import {UserProvider} from "../../providers/user/user";
 export class UserHomeEventsPage {
     public events: any = [];
     private perPage: number = 20;
+    public isLoading: boolean = false;
 
     constructor(public navCtrl: NavController,
                 public navParams: NavParams,
@@ -24,15 +25,21 @@ export class UserHomeEventsPage {
     }
 
     ionViewDidEnter() {
-        this.getUserEvents(1);
+        this.isLoading = true;
+
+        this.getUserEvents().then(data=>{
+            this.isLoading = false;
+        }).catch(err=>{
+            this.isLoading = false;
+        });
     }
 
-    getUserEvents(page) {
+    getUserEvents() {
         let id = this.navParams.get('id');
 
-        this.userProvider.getEvents(id, page, this.perPage).then((data) => {
+        return this.userProvider.getEvents(id, this.perPage, this.events).then((data) => {
             if (data) {
-                if (page == 1) {
+                if (this.events.length == 0) {
                     this.events = data;
                 } else {
                     this.events = this.events.concat(data);
@@ -41,27 +48,16 @@ export class UserHomeEventsPage {
         });
     }
 
-    // doRefresh(refresher) {
-    //
-    //     this.getUserEvents(1);
-    //
-    //     setTimeout(() => {
-    //         refresher.complete();
-    //     }, 2000);
-    // }
 
     doInfinite(infiniteScroll) {
 
-        var num = this.events.length;
-
-        if (num > 0 && num % 20 == 0) {
-            var page = Math.floor(this.events.length / 20) + 1;
-            this.getUserEvents(page);
-        }
+        this.getUserEvents().then(data=>{
+            infiniteScroll.complete();
+        });
 
         setTimeout(() => {
             infiniteScroll.complete();
-        }, 2000);
+        }, 10000);
     }
 
     goCheckinPage() {

@@ -1,7 +1,7 @@
 
-<ion-header>
+<ion-header no-border>
 
-  <ion-navbar color="primary">
+  <ion-navbar color="white">
     <ion-title>我的水滴币</ion-title>
     <ion-buttons end>
       <button ion-button clear (click)="goCoinLogPage()">
@@ -23,7 +23,7 @@
 
   </ion-row>
   　
-  <ion-row text-center *ngIf="!isAudit">
+  <ion-row text-center *ngIf="isAudit" padding-bottom>
     <ion-col>
       <button ion-button  block color="danger" (click)="goPayPage()">充值</button>
     </ion-col>

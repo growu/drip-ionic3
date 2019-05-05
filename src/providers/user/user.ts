@@ -11,6 +11,7 @@ import {ToastProvider} from "../../providers/toast/toast";
 import * as moment from 'moment'
 import swal from "sweetalert2";
 import {AppConfigProvider} from '../appconfig/appconfig';
+import {VersionProvider} from '../version/version';
 
 declare var Wechat;
 declare var WeiboSDK;
@@ -28,27 +29,27 @@ export class UserProvider {
                 private events: Events,
                 private modalCtrl: ModalController,
                 private toastProvider: ToastProvider,
+                private versionProvider: VersionProvider,
                 private platform: Platform) {
 
     }
 
     login(user): Promise<any> {
         return new Promise((resolve, reject) => {
-            this.getDevice().then((device) => {
-                user.device = device;
-
-                this.appConfigProvider.getChannel().then((channel)=>{
-                    user.channel  = channel;
+            // this.getDevice().then((device) => {
+                console.log(this.device.platform);
+                user.device = this.device;
+                user.version = this.versionProvider.getVersion();
+                // this.appConfigProvider.getChannel().then((channel)=>{
+                //     user.channel  = channel;
 
                     this.httpProvider.httpPostNoAuth("/auth/login", user).then((data) => {
                         resolve(data);
                     }).catch((err) => {
                         reject(err);
                     });
-                });
-
-
-            });
+                // });
+            // });
         });
     }
 
@@ -288,12 +289,16 @@ export class UserProvider {
         return this.httpProvider.httpPostNoAuth("/auth/find", user);
     }
 
-    getUser(id) {
-        return this.httpProvider.httpGetWithAuth("/user/" + id, null);
+    getUsersInfo(id) {
+        return this.httpProvider.httpGetWithAuth("/users/" + id, null);
     }
 
+    /**
+     * 获取用户信息
+     * @returns {Promise<any>}
+     */
     getUserInfo() {
-        return this.httpProvider.httpGetWithAuth("/user/info", null);
+        return this.httpProvider.httpGetWithAuth("/user/", null);
     }
 
     updateUser(id, body) {
@@ -351,22 +356,55 @@ export class UserProvider {
         return this.httpProvider.httpGetWithAuth("/user/goals", params);
     }
 
-    getGoal(id) {
-        return this.httpProvider.httpGetWithAuth("/user/goal/" + id, null);
+    /**
+     * 获取目标信息
+     * @param id
+     * @returns {Promise<any>}
+     */
+    getGoalsInfo(id) {
+        return this.httpProvider.httpGetWithAuth("/user/goals/" + id, null);
     }
 
-    getUserGoals(userId) {
-        return this.httpProvider.httpGetWithAuth("/user/" + userId + "/goals", null);
+    /**
+     *  获取用户目标
+     * @param userId
+     * @returns {Promise<any>}
+     */
+    getUsersGoals(userId) {
+        return this.httpProvider.httpGetWithAuth("/users/" + userId + "/goals", null);
     }
 
-    getUserPhotos(userId) {
-        return this.httpProvider.httpGetWithAuth("/user/" + userId + "/photos", null);
+    /**
+     * 获取用户相册
+     * @param userId
+     * @returns {Promise<any>}
+     */
+    getUsersPhotos(userId,limit,offset) {
+        var params = new URLSearchParams();
+        params.set('limit', limit);
+        params.set('offset', offset);
+        return this.httpProvider.httpGetWithAuth("/users/" + userId + "/photos", params);
     }
 
-    getGoalDay(id, day) {
+    /**
+     * 更新目标信息
+     * @param id
+     * @param param
+     * @returns {Promise<any>}
+     */
+    updateGoals(id, param) {
+        let body = JSON.stringify(param);
+        return this.httpProvider.httpPatchWithAuth("/user/goal/" + id, body);
+    }
+
+    /**
+     * 获取目标当日打卡
+     * @param id
+     * @returns {Promise<any>}
+     */
+    getGoalsToday(id) {
         let params: URLSearchParams = new URLSearchParams();
-        params.set('day', day);
-        return this.httpProvider.httpGetWithAuth("/user/goal/" + id + "/day", params);
+        return this.httpProvider.httpGetWithAuth("/user/goals/" + id + "/today", params);
     }
 
     getGoalDays(id, page,per_page) {
@@ -380,12 +418,13 @@ export class UserProvider {
         return this.httpProvider.httpGetWithAuth("/user/goal/" + id + "/week", null);
     }
 
-    getGoalCalendar(id) {
-        return this.httpProvider.httpGetWithAuth("/user/goal/" + id + "/calendar", null);
-    }
-
+    /**
+     * 删除目标
+     * @param id
+     * @returns {Promise<any>}
+     */
     deleteGoal(id) {
-        return this.httpProvider.httpDeleteWithAuth("/user/goal/" + id).then(value => {
+        return this.httpProvider.httpDeleteWithAuth("/user/goals/" + id).then(value => {
             return value;
         });
     }
@@ -458,8 +497,14 @@ export class UserProvider {
         // }
     }
 
+    /**
+     * 目标打卡
+     * @param goal
+     * @param params
+     * @returns {Promise<never | any>}
+     */
     checkinGoal(goal, params) {
-        return this.httpProvider.httpPostWithAuth("/user/goal/" + goal.id + "/checkin", params).then(data => {
+        return this.httpProvider.httpPostWithAuth("/user/goals/" + goal.id + "/checkin", params).then(data => {
             return data;
         }).catch(e => {
             console.log(e);
@@ -470,29 +515,50 @@ export class UserProvider {
         let params: URLSearchParams = new URLSearchParams();
         params.set('page', page);
         params.set('per_page', per_page);
-        return this.httpProvider.httpGetWithAuth("/user/" + id + "/events", params);
+        return this.httpProvider.httpGetWithAuth("/users/" + id + "/events", params);
     }
 
+    /**
+     * 获取目标动态
+     * @param id
+     * @param page
+     * @param per_page
+     * @returns {Promise<any>}
+     */
     getGoalEvents(id, page, per_page) {
         let params: URLSearchParams = new URLSearchParams();
         params.set('page', page);
         params.set('per_page', per_page);
-        return this.httpProvider.httpGetWithAuth("/user/goal/" + id + "/events", params);
+        return this.httpProvider.httpGetWithAuth("/user/goals/" + id + "/events", params);
     }
 
-    getGoalChart(id, item_id,mode, day) {
+    /**
+     * 获取目标图表
+     * @param id
+     * @param item_id
+     * @param mode
+     * @param day
+     * @returns {Promise<any>}
+     */
+    getGoalsChart(id, item_id,mode, day) {
         let params: URLSearchParams = new URLSearchParams();
         params.set('item_id', item_id);
         params.set('mode', mode);
         params.set('day', day);
-        return this.httpProvider.httpGetWithAuth("/user/goal/" + id + "/chart", params);
+        return this.httpProvider.httpGetWithAuth("/user/goals/" + id + "/chart", params);
     }
 
-    getGoalsCalendar(start_date, end_date) {
+    /**
+     * 获取目标日历
+     * @param start_date
+     * @param end_date
+     * @returns {Promise<any>}
+     */
+    getGoalsCalendar(id,start_date, end_date) {
         let params: URLSearchParams = new URLSearchParams();
         params.set('start_date', start_date);
         params.set('end_date', end_date);
-        return this.httpProvider.httpGetWithAuth("/user/goals/calendar", params);
+        return this.httpProvider.httpGetWithAuth("/user/goals/" + id + "/calendar", params);
     }
 
     updateGoal(id, body) {
@@ -556,44 +622,79 @@ export class UserProvider {
         return this.httpProvider.httpPostWithAuth("/user/messages/private", body);
     }
 
+    /**
+     * 获取具体消息详情
+     * @param id
+     * @returns {Promise<Response>}
+     */
     getMessageDetail(id) {
-        return this.httpProvider.httpGetWithAuth("/message/" + id, null);
+        return this.httpProvider.httpGetWithAuth("/user/messages/" + id, null);
     }
 
-    getNoticeMessages(page, perPage) {
+    /**
+     * 获取通知
+     * @param limit
+     * @param offset
+     * @returns {Promise<Response>}
+     */
+    getNoticeMessages(limit, offset) {
         var params = new URLSearchParams();
-        params.set('page', page);
-        params.set('per_page', perPage);
+        params.set('limit', limit);
+        params.set('offset', offset);
         return this.httpProvider.httpGetWithAuth("/user/messages/notice", params);
     }
 
-    getLikeMessages(page, perPage) {
+    /**
+     * 获取点赞
+     * @param limit
+     * @param offset
+     * @returns {Promise<Response>}
+     */
+    getLikeMessages(limit, offset) {
         var params = new URLSearchParams();
-        params.set('page', page);
-        params.set('per_page', perPage);
+        params.set('limit', limit);
+        params.set('offset', offset);
         return this.httpProvider.httpGetWithAuth("/user/messages/like", params);
     }
 
+    /**
+     * 获取未读消息
+     * @returns {Promise<Response>}
+     */
     getNewMessages() {
-        return this.httpProvider.httpGetWithAuth("/user/messages/new", null);
+        return this.httpProvider.httpGetWithAuth("/user/messages/unread", null);
     }
 
     feedback(body) {
         return this.httpProvider.httpPostWithAuth("/user/feedback", body);
     }
 
-    getUserFollwers(id, page, perPage) {
+    getAuthUserFollowers(offset, limit) {
         var params = new URLSearchParams();
-        params.set('page', page);
-        params.set('per_page', perPage);
-        return this.httpProvider.httpGetWithAuth("/user/" + id + "/followers", params);
+        params.set('offset', offset);
+        params.set('limit', limit);
+        return this.httpProvider.httpGetWithAuth("/user/followers", params);
     }
 
-    getUserFollowings(id, page, perPage) {
+    /**
+     * 获取用户粉丝列表
+     * @param userId
+     * @param limit
+     * @param offset
+     * @returns {Promise<any>}
+     */
+    getUsersFollowers(userId, limit, offset) {
         var params = new URLSearchParams();
-        params.set('page', page);
-        params.set('per_page', perPage);
-        return this.httpProvider.httpGetWithAuth("/user/" + id + "/followings", params);
+        params.set('offset', offset);
+        params.set('limit', limit);
+        return this.httpProvider.httpGetWithAuth("/users/" + userId + "/followers", params);
+    }
+
+    getUserFollowings(userId, offset, limit) {
+        var params = new URLSearchParams();
+        params.set('offset', offset);
+        params.set('limit', limit);
+        return this.httpProvider.httpGetWithAuth("/users/" + userId + "/followings", params);
     }
 
     getCoinLogs(page, per_page) {

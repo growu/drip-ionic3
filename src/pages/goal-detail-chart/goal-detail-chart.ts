@@ -5,7 +5,7 @@ import * as moment from 'moment'
 import {BaseChartDirective} from 'ng2-charts/ng2-charts';
 
 @IonicPage({
-    name: "goal-chart",
+    name: "goal-detail-chart",
     segment: 'goal/:id/chart'
 })
 
@@ -81,12 +81,12 @@ export class GoalDetailChartPage {
 
     ionViewDidLoad() {
         this.currentValue = moment().format("YYYY-MM-DD");
-        this.getData(moment().format("YYYY-MM-DD"));
+        this.getGoalsChart(moment().format("YYYY-MM-DD"));
     }
 
-    getData(day) {
+    getGoalsChart(day) {
         let id = this.navParams.data.id;
-        this.userProvider.getGoalChart(id, this.item_id,this.mode, day).then((response) => {
+        this.userProvider.getGoalsChart(id, this.item_id,this.mode, day).then((response) => {
 
             // let chartData: any[] = [];
             // let chartLabels: any[] = [];
@@ -121,22 +121,22 @@ export class GoalDetailChartPage {
 
     goPrev() {
         this.currentValue = this.prevValue;
-        this.getData(this.prevValue);
+        this.getGoalsChart(this.prevValue);
     }
 
     goNext() {
         this.currentValue = this.nextValue;
-        this.getData(this.nextValue);
+        this.getGoalsChart(this.nextValue);
     }
 
     onChangeItem(item_id) {
         // this.item_id = item_id;
-        this.getData(this.currentValue);
+        this.getGoalsChart(this.currentValue);
     }
 
     onChangeMode(mode) {
         // this.mode = mode;
-        this.getData(this.currentValue);
+        this.getGoalsChart(this.currentValue);
     }
 
     onChangeType(type) {

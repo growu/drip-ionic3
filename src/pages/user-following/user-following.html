@@ -1,11 +1,9 @@
-<ion-header>
-
-  <ion-navbar color="primary">
+<ion-header no-border>
+  <ion-navbar color="white">
     <ion-title>{{user?.nickname+' 的关注' || '关注列表' }} </ion-title>
-
     <ion-buttons end>
       <button ion-button icon-only (click)="goUserSearchPage()">
-        <ion-icon name="person-add"></ion-icon>
+        <ion-icon name="ios-person-add-outline"></ion-icon>
       </button>
     </ion-buttons>
   </ion-navbar>
@@ -13,7 +11,7 @@
 </ion-header>
 
 
-<ion-content padding>
+<ion-content>
   <ion-refresher (ionRefresh)="doRefresh($event)">
     <ion-refresher-content
             pullingIcon="arrow-dropdown"
@@ -30,8 +28,12 @@
       </ion-avatar>
       <h2>{{user.nickname || '还没有昵称'}}</h2>
       <p>{{user.signature}}</p>
-      <button small round item-end ion-button (click)="doFollow(user,$event)" *ngIf="!user.is_follow">关注</button>
-      <button small round item-end ion-button outline (click)="doUnFollow(user,$event)"  *ngIf="user.is_follow">已关注</button>
+
+      <my-follow-button [followStatus]="user.is_follow" [followUser]="user.id"
+                        item-end  (click)="doFollow(user,$event)"></my-follow-button>
+
+      <!--<button small round item-end ion-button (click)="doFollow(user,$event)" *ngIf="!user.is_follow">关注</button>-->
+      <!--<button small round item-end ion-button outline (click)="doUnFollow(user,$event)"  *ngIf="user.is_follow">已关注</button>-->
     </ion-item>
   </ion-list>
 

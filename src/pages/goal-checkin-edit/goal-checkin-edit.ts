@@ -39,7 +39,7 @@ export class GoalCheckinEditPage {
       let goal_id = this.navParams.get('goalId');
       let checkin_id = this.navParams.get('checkinId');
 
-      this.userProvider.getGoal(goal_id).then((data) => {
+      this.userProvider.getGoalsInfo(goal_id).then((data) => {
           this.goal = data;
           this.min = data.start_date;
       }).catch((err) => {

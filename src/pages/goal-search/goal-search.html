@@ -33,7 +33,9 @@
       <ion-col no-padding col-6 float-left *ngFor="let goal of goals" (click)="goGoalHomePage(goal)">
         <ion-card >
           <ion-item>
-            <i class="iconfont icon-{{goal.icon}}" [ngStyle]="{'color': (goal.color|getColor)}" item-start></i>
+            <i class="iconfont icon-{{goal.icon}}" [ngStyle]="{'color': '#6e4cff'}" item-start></i>
+
+            <!--<i class="iconfont icon-{{goal.icon}}" [ngStyle]="{'color': (goal.color|getColor)}" item-start></i>-->
             {{ goal.name }}
         </ion-item>
         </ion-card>

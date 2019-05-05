@@ -25,7 +25,7 @@ export class GoalHistoryPage {
                 public navParams: NavParams) {
         // this.goal = this.navParams.get('goal');
 
-        this.userProvider.getGoal(this.navParams.get('id')).then((data) => {
+        this.userProvider.getGoalsInfo(this.navParams.get('id')).then((data) => {
             this.goal = data;
         }).catch((err) => {
 

@@ -13,25 +13,40 @@ import {UserProvider} from '../../providers/user/user'
 })
 export class EventLikePage {
     public likes: any = [];
-    private perPage: number = 20;
-
+    private perPage: number = 10;
+    public isLoading: boolean;
 
     constructor(public navCtrl: NavController,
                 public navParams: NavParams,
                 public eventProvider: EventProvider,
                 public userProvider: UserProvider) {
+
+
     }
 
     ionViewDidLoad() {
-        this.getEventLikes(1);
+        this.isLoading = true;
+        this.getEventLikes().then(data=>{
+            this.isLoading = false;
+        }).catch(err=>{
+            this.isLoading = false;
+        });
     }
 
-    getEventLikes(page) {
-        var id = this.navParams.get("id");
+    /**
+     * 获取动态点赞
+     * @param page
+     */
+    getEventLikes(isRefresh:boolean=false) {
+        let id = this.navParams.get("id")
 
-        this.eventProvider.getEventLikes(id, page, this.perPage).then((data) => {
+        if(typeof id == "undefined") {
+            return;
+        }
 
-            if (page == 1) {
+        return this.eventProvider.getEventLikes(id, this.perPage,this.likes.length).then((data) => {
+
+            if (isRefresh || this.likes.length == 0) {
                 this.likes = data;
             } else {
                 this.likes = this.likes.concat(data);
@@ -42,43 +57,24 @@ export class EventLikePage {
 
     doRefresh(refresher) {
 
-        this.getEventLikes(1);
+        this.getEventLikes(true).then(data=>{
+            refresher.complete();
+        });
 
         setTimeout(() => {
             refresher.complete();
-        }, 2000);
+        }, 10000);
     }
 
     doInfinite(infiniteScroll) {
 
-        var num = this.likes.length;
-
-        if (num > 0 && num % 20 == 0) {
-            var page = Math.floor(this.likes.length / 20) + 1;
-            this.getEventLikes(page);
-        }
+        this.getEventLikes(true).then(data=>{
+            infiniteScroll.complete();
+        });
 
         setTimeout(() => {
             infiniteScroll.complete();
-        }, 2000);
-    }
-
-    doFollow(like, $event) {
-        $event.stopPropagation();
-
-        this.userProvider.follow(like.user.id).then((data) => {
-            let index = this.likes.indexOf(like);
-            this.likes[index].user.is_follow = true;
-        });
-    }
-
-    doUnFollow(like, $event) {
-        $event.stopPropagation();
-
-        this.userProvider.unFollow(like.user.id).then((data) => {
-            let index = this.likes.indexOf(like);
-            this.likes[index].user.is_follow = false;
-        });
+        }, 10000);
     }
 
     goUserHomePage(user) {

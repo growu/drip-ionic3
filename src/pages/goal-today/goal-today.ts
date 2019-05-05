@@ -46,7 +46,7 @@ export class GoalTodayPage {
     }
 
     ionViewDidLoad() {
-        this.userProvider.getGoalDay(this.navParams.get('id'), this.day).then((data) => {
+        this.userProvider.getGoalsInfo(this.navParams.get('id')).then((data) => {
             this.data = data;
         }).catch((err) => {
 

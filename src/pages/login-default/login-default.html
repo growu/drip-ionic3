@@ -1,18 +1,21 @@
-<ion-header>
-    <ion-navbar color="primary">
+<ion-header no-border>
+    <ion-navbar>
         <ion-title>登录</ion-title>
     </ion-navbar>
 </ion-header>
-<ion-content padding class="page-login-default">
-    <form [formGroup]="loginForm" (ngSubmit)="doLogin()">
-        <ion-list>
+<ion-content padding class="center-content">
+    <div class="logo" padding-bottom>
+        <img src="assets/icon/drip.png" />
+    </div>
+    <form [formGroup]="loginForm" (ngSubmit)="doLogin()" margin-top>
+        <ion-list no-border no-lines>
             <ion-item>
                 <ion-label>
                     <ion-icon name="ios-person" color="light"></ion-icon>
                 </ion-label>
                 <ion-input type="text" formControlName="account" placeholder="手机号或邮箱" clearInput></ion-input>
             </ion-item>
-            <ion-item>
+            <ion-item margin-top>
                 <ion-label>
                     <ion-icon name="md-unlock" color="light"></ion-icon>
                 </ion-label>
@@ -23,7 +26,7 @@
             </ion-item>
         </ion-list>
         <ion-row padding>
-            <button block round ion-button  type="submit">登录</button>
+            <button block round ion-button class="btn-gradient" type="submit">登录</button>
         </ion-row>
     </form>
     <ion-row padding class="footer-bar">

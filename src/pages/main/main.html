@@ -1,7 +1,13 @@
-<ion-tabs #mainTabs color="light" selectedIndex="2">
-    <ion-tab tabIcon="md-chatboxes" tabTitle="动态" [root]="eventRoot" tabUrlPath="1" ></ion-tab>
+<ion-tabs #mainTabs selectedIndex="2">
+    <ion-tab color="primary" tabIcon="ios-compass-outline" tabTitle="动态" [root]="eventRoot" tabUrlPath="1" ></ion-tab>
     <ion-tab tabIcon="ios-search" tabTitle="发现" [root]="explorerRoot" tabUrlPath="2"></ion-tab>
-    <ion-tab tabIcon="md-checkmark-circle-outline" tabTitle="打卡" [root]="homeRoot" tabUrlPath="3"></ion-tab>
+    <ion-tab tabIcon="md-checkmark-circle-outline"  [root]="homeRoot" tabUrlPath="3" class="homeTab"></ion-tab>
     <ion-tab tabIcon="mail" tabTitle="消息" [root]="messageRoot" tabUrlPath="4" [tabBadge]="messageCount" tabBadgeStyle="danger"></ion-tab>
     <ion-tab tabIcon="person" tabTitle="我" [root]="myRoot" tabUrlPath="5"></ion-tab>
 </ion-tabs>
+
+<ion-fab bottom center slot="fixed" (click)="goHomePage()" *ngIf="!isSubPage()">
+    <button ion-fab color="primary" class="btn-gradient"><ion-icon name="add"></ion-icon></button>
+</ion-fab>
+
+

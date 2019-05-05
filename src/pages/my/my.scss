@@ -1,15 +1,12 @@
 page-my {
-  ion-content{
-    //background-color: #2196F3!important;
-    background-image: url('../assets/img/app_bg.jpg');
-    background-repeat: no-repeat;
-    background-color:transparent!important;
-    background-position: 60% 60%;
-  }
+  //ion-content{
+  //  //background-color: #2196F3!important;
+  //  background-image: url('../assets/img/app_bg.jpg');
+  //  background-repeat: no-repeat;
+  //  background-color:transparent!important;
+  //  background-position: 60% 60%;
+  //}
 
-  .toolbar-title {
-    color:#fff!important;
-  }
 
   //.profile {
   //  //background-color: color($colors,primary);
@@ -66,10 +63,11 @@ page-my {
   //}
 
   .avatar-list {
+    background-color: #fff;
+    margin: 0;
+
     .item {
-      background-color: transparent;
       border:0!important;
-      color:#fff;
     }
 
     .icon {
@@ -78,34 +76,33 @@ page-my {
 
     p {
       padding-top:5px;
-      color:#fff;
     }
 
     img {
       width: 64px;
       height: 64px;
-      border: 3px solid #fff;
     }
   }
 
   .follow-row {
-    background-color: #3F51B5;
-    opacity: 0.6;
+    background-color: #fff;
+    //opacity: 0.6;
     padding:20px 0;
-    color:#fff;
 
     .note {
-      color:#fff;
+      //color:#fff;
     }
   }
 
   .setting-list {
-    background-color: #f6f6f6;
+    margin-top: 20px;
     height: 100%;
 
     ion-card {
        margin: 0;
       width:100%;
+      box-shadow: none;
+      border-left: 0.55px solid color($colors,light-gray);
     }
 
     ion-col {

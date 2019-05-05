@@ -7,6 +7,7 @@ import {MyShareModule} from '../../components/my-share/my-share.module';
 import {IonicImageViewerModule} from "ionic-img-viewer";
 import {KeyboardProvider} from "../../providers/AppProvider";
 import {KeyboardAttachDirective} from "../../directives/keyboard-attach.directive";
+import {MyLoaderComponentModule} from '../../components/my-loader/my-loader.module';
 
 @NgModule({
     declarations: [
@@ -18,7 +19,8 @@ import {KeyboardAttachDirective} from "../../directives/keyboard-attach.directiv
         MomentModule,
         MyFollowButtonComponentModule,
         MyShareModule,
-        IonicImageViewerModule
+        IonicImageViewerModule,
+        MyLoaderComponentModule
     ],
     providers:[
         KeyboardProvider

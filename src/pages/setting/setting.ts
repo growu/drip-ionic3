@@ -3,6 +3,7 @@ import {IonicPage, NavController, NavParams} from 'ionic-angular';
 import {AppRate} from '@ionic-native/app-rate';
 import {Storage} from '@ionic/storage';
 import {ToastProvider} from '../../providers/toast/toast';
+import {UserProvider} from "../../providers/user/user";
 import {Platform} from 'ionic-angular';
 
 
@@ -22,6 +23,7 @@ export class SettingPage {
                 public navParams: NavParams,
                 public storage: Storage,
                 public toastProvider: ToastProvider,
+                public userProvider: UserProvider,
                 private platform: Platform,
                 private appRate: AppRate) {
     }
@@ -37,7 +39,9 @@ export class SettingPage {
     }
 
     goFeedback() {
-        this.navCtrl.push('chat-detail',{user:this.user})
+        this.userProvider.getUserInfo().then((data) => {
+            this.navCtrl.push('chat-detail',{user:data})
+        });
     }
 
     clearCache() {

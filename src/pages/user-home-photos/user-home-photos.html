@@ -1,5 +1,6 @@
 
 <ion-content>
+  <my-loader *ngIf="isLoading"></my-loader>
 
   <ion-row *ngIf="photos.length>0">
     <ion-col col-4 *ngFor="let photo of photos">
@@ -9,8 +10,15 @@
     </ion-col>
   </ion-row>
 
-  <div text-center style="position: absolute;left: 0;right: 0;top: 40%;" *ngIf="photos.length == 0">
+  <div text-center style="position: absolute;left: 0;right: 0;top: 40%;" *ngIf="!isLoading && photos.length == 0">
     <p>暂时还没有图片</p>
   </div>
+
+  <ion-infinite-scroll (ionInfinite)="doInfinite($event)">
+    <ion-infinite-scroll-content
+            loadingSpinner="bubbles"
+            loadingText="加载更多">
+    </ion-infinite-scroll-content>
+  </ion-infinite-scroll>
 
 </ion-content>

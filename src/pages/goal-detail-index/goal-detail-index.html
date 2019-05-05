@@ -1,0 +1,39 @@
+<ion-content class="center-content">
+    <div margin-top class="checkmark">
+        <div class="checkmark-circle" (click)="goCheckinPage()" >
+            <div  [class]="(goal?.is_today_checkin)?'background active':'background'"></div>
+            <div class="checkmark draw"></div>
+        </div>
+    </div>
+
+    <!--<p>最后打卡时间：{{goal?.last_checkin_at}}</p>-->
+
+    <!--<ion-list marigin-top>-->
+        <!--<ion-item-divider>统计项目</ion-item-divider>-->
+        <!--<ion-card *ngFor="let item of data.items" >-->
+            <!--<progress value="3" max="10"></progress>-->
+            <!--<ion-item>-->
+                <!--<h2>{{item.name}}</h2>-->
+                <!--<ion-note item-end>{{item.current}}/{{item.expect}}</ion-note>-->
+            <!--</ion-item>-->
+        <!--</ion-card>-->
+    <!--</ion-list>-->
+
+    <ion-card *ngFor="let checkin of checkins">
+        <ion-item-sliding>
+            <ion-item no-lines (click)="goEventDetailPage(checkin)">
+                <p *ngFor="let item of checkin.items">{{item.name+item.value+item.unit}}</p>
+                <ion-note item-end>{{checkin.created_at | slice:-8:-3 }}</ion-note>
+            </ion-item>
+            <ion-item-options side="right">
+                <button ion-button color="primary" (click)="goCheckinPage(checkin)">
+                    编辑
+                </button>
+                <button ion-button color="danger" (click)="deleteCheckin(record,checkin)">
+                    删除
+                </button>
+            </ion-item-options>
+        </ion-item-sliding>
+    </ion-card>
+
+</ion-content>

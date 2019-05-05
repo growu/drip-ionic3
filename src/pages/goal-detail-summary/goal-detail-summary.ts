@@ -40,20 +40,20 @@ export class GoalDetailSummaryPage {
 
         // 监听目标状态改变
         events.subscribe('goals:update', () => {
-            this.getGoal();
+            this.getGoalsInfo();
             this.getGoalWeek();
         });
 
     }
 
     ionViewDidEnter() {
-        this.getGoal();
+        this.getGoalsInfo();
         this.getGoalWeek();
     }
 
-    getGoal() {
+    getGoalsInfo() {
         let id = this.navParams.get('id');
-        this.userProvider.getGoal(id).then((data) => {
+        this.userProvider.getGoalsInfo(id).then((data) => {
             this.goal = data;
         }).catch((err)=>{
 
@@ -66,10 +66,10 @@ export class GoalDetailSummaryPage {
 
     // 获取目标周打卡
     getGoalWeek() {
-        let id = this.navParams.get('id');
-        this.userProvider.getGoalWeek(id).then((data) => {
-            this.week = data;
-        });
+        // let id = this.navParams.get('id');
+        // this.userProvider.getGoalWeek(id).then((data) => {
+        //     this.week = data;
+        // });
     }
 
     // 进入目标日历

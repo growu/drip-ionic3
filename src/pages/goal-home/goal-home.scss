@@ -1,3 +1,18 @@
 page-goal-home {
 
+  .goal-desc {
+    min-height: 120px;
+    background-color: #fff;
+  }
+
+  .follow-btn {
+    position: fixed;
+    bottom: 20px;
+    left:0;
+    right:0;
+  }
+
+  ion-item {
+    line-height: 60px!important;
+  }
 }

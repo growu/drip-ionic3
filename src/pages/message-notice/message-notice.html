@@ -1,13 +1,10 @@
-<ion-header>
-
-  <ion-navbar color="primary">
+<ion-header no-border>
+  <ion-navbar>
     <ion-title>通知</ion-title>
   </ion-navbar>
-
 </ion-header>
 
-
-<ion-content>
+<ion-content class="gray-content">
   <ion-refresher (ionRefresh)="doRefresh($event)">
     <ion-refresher-content
             pullingIcon="arrow-dropdown"
@@ -18,15 +15,17 @@
   </ion-refresher>
 
   <ion-list>
-    <ion-card *ngFor="let message of messages" (click)="goMessageDetail(message)">
+    <div *ngFor="let message of messages" >
+    <p text-center>{{message.created_at | amLocale:"zh_cn" | amUtc | amTimeAgo }}</p>
+    <ion-card (click)="goMessageDetail(message)">
       <ion-card-header>
         <h2>{{message.title}}</h2>
-        <p item-end>{{message.created_at | amLocale:"zh_cn" | amUtc | amTimeAgo }}</p>
       </ion-card-header>
       <ion-card-content>
-        <p [innerHTML]="message.content"></p>
+        <p [innerHTML]="message.short_content"></p>
       </ion-card-content>
     </ion-card>
+    </div>
   </ion-list>
 
   <ion-infinite-scroll (ionInfinite)="doInfinite($event)">

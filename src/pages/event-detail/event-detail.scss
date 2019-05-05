@@ -1,6 +1,6 @@
 page-event-detail {
-  ion-content {
-    background-color: #e0e0e0!important;
+  .toolbar-background {
+    background: #fff!important;
   }
 
   .list{
@@ -9,6 +9,8 @@ page-event-detail {
 
   ion-list-header {
     margin-top: 0!important;
+    font-size: 1.6rem!important;
+    font-weight: 400!important;
   }
 
   .list-header {
@@ -27,8 +29,13 @@ page-event-detail {
 
   .likes-item {
     ion-avatar {
-      float:right;
+      float:left;
       margin-left:5px;
+    }
+
+    ion-icon {
+      font-size:2rem;
+      min-height: 2rem;
     }
   }
 
@@ -38,15 +45,28 @@ page-event-detail {
     margin-bottom:10px;
   }
 
-  .card{
-    margin:1px 0;
-    width: 100%;
+  .event-content {
+    .card{
+      margin:0;
+      width: 100%;
+    }
   }
+
 
   .comment-card {
     ion-icon {
-      color:#999;
-      font-size:2rem;
+      color: #656565;
+      font-weight: 500;
+      font-size:1.8rem;
+    }
+
+    border-bottom: 0.55px solid map-get($colors,light-gray);
+    box-shadow:none;
+    margin:0;
+    width: 100%;
+
+    .card-content {
+        padding-left:64px;
     }
   }
 

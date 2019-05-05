@@ -6,8 +6,8 @@ import * as moment from 'moment'
 import {UserProvider} from '../../providers/user/user'
 
 @IonicPage({
-    name: 'goal-calendar',
-    segment: 'goal/:id/calendar'
+    name: 'goal-detail-calendar',
+    segment: 'calendar'
 })
 @Component({
     selector: 'page-goal-detail-calendar',
@@ -34,7 +34,7 @@ export class GoalDetailCalendarPage {
     }
 
     getGoalCalendar() {
-        this.userProvider.getGoalCalendar(this.navParams.get('id')).then((data) => {
+        this.userProvider.getGoalsCalendar(this.navParams.get('id'),null,null).then((data) => {
             let days: DayConfig[] = [];
 
             data.forEach((item, index) => {
@@ -125,9 +125,9 @@ export class GoalDetailCalendarPage {
     }
 
     getGoalDay() {
-        this.userProvider.getGoalDay(this.navParams.get('id'), this.selectDay).then((data) => {
-            this.checkins = data.checkins;
-        });
+        // this.userProvider.getGoalDay(this.navParams.get('id'), this.selectDay).then((data) => {
+        //     this.checkins = data.checkins;
+        // });
     }
 
     onChange($event) {

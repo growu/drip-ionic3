@@ -1,7 +1,8 @@
-.page-register {
+page-register {
 
     ion-item {
       margin-top:20px;
+      line-height: 40px!important;
     }
     .item-block:first-child {
       border:0;
@@ -16,6 +17,7 @@
     }
 
     .footer-bar {
+      width: 100%;
       span {
         color:#999;
       }

@@ -28,7 +28,7 @@
         <my-follow-button [followStatus]="message.user.is_follow" [followUser]="message.user.id" item-end></my-follow-button>
       </ion-item>
       <ion-card-content>
-        <p>鼓励了你</p>
+        <p>点赞了你的动态</p>
         <blockquote (click)="goEventDetailPage(message.like.event_id)">{{message.like?.source | slice:0:20}}</blockquote>
       </ion-card-content>
     </ion-card>

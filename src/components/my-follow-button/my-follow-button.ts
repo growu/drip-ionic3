@@ -1,12 +1,6 @@
 import {Component, Input} from '@angular/core';
 import { UserProvider } from '../../providers/user/user'
 
-/**
- * Generated class for the MyFollowButtonComponent component.
- *
- * See https://angular.io/api/core/Component for more info on Angular
- * Components.
- */
 @Component({
   selector: 'my-follow-button',
   templateUrl: 'my-follow-button.html'

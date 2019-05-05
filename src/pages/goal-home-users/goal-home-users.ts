@@ -27,7 +27,7 @@ export class GoalHomeUsersPage {
     getGoalTop(page) {
         let id = this.navParams.get('id');
 
-        this.goalProvider.getGoalTop(id, page, this.perPage).then((data) => {
+        this.goalProvider.getGoalRanks(id, page, this.perPage).then((data) => {
             if (data) {
                 if (page == 1) {
                     this.users = data;

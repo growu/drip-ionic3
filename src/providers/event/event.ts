@@ -10,35 +10,78 @@ export class EventProvider {
     constructor(public httpProvider: HttpProvider) {
     }
 
+    /**
+     * 点赞
+     * @param id
+     * @returns {Promise<Response>}
+     */
     like(id) {
-        return this.httpProvider.httpPutWithAuth("/event/" + id + "/like", null);
+        return this.httpProvider.httpPutWithAuth("/events/" + id + "/like", null);
     }
 
+    /**
+     * 取消点赞
+     * @param id
+     * @returns {Promise<Response>}
+     */
     unLike(id) {
-        return this.httpProvider.httpDeleteWithAuth("/event/" + id + "/like");
+        return this.httpProvider.httpDeleteWithAuth("/events/" + id + "/like");
     }
 
-    getEvents(mode, page, per_page) {
+    /**
+     * 获取动态
+     * @param page
+     * @param limit
+     * @param offset
+     * @returns {Promise<Response>}
+     */
+    getEvents(page, limit, offset) {
         let params: URLSearchParams = new URLSearchParams();
-        params.set('page', page);
-        params.set('per_page', per_page);
-        return this.httpProvider.httpGetWithAuth("/event/" + mode, params);
+        params.set('limit', limit);
+        params.set('offset',offset);
+        return this.httpProvider.httpGetWithAuth("/events/" + page, params);
     }
 
+    /**
+     * 获取动态详情
+     * @param id
+     * @returns {Promise<Response>}
+     */
     getEventDetail(id) {
-        return this.httpProvider.httpGetWithAuth("/event/" + id, null);
+        return this.httpProvider.httpGetWithAuth("/events/" + id, null);
     }
 
-    getEventLikes(id, page, per_page) {
+    /**
+     * 获取点赞列表
+     * @param id
+     * @param limit
+     * @param offset
+     * @returns {Promise<Response>}
+     */
+    getEventLikes(id, limit, offset) {
         let params: URLSearchParams = new URLSearchParams();
-        params.set('page', page);
-        params.set('per_page', per_page);
-        return this.httpProvider.httpGetWithAuth("/event/" + id + '/likes', params);
+        params.set('limit', limit);
+        params.set('offset', offset);
+        return this.httpProvider.httpGetWithAuth("/events/" + id + '/likes', params);
+    }
+
+    /**
+     * 获取评论列表
+     * @param id
+     * @param limit
+     * @param offset
+     * @returns {Promise<Response>}
+     */
+    getEventComments(id, limit, offset) {
+        let params: URLSearchParams = new URLSearchParams();
+        params.set('limit', limit);
+        params.set('offset', offset);
+        return this.httpProvider.httpGetWithAuth("/events/" + id + '/comments', params);
     }
 
     comment(id, param) {
         let body = JSON.stringify(param);
-        return this.httpProvider.httpPostWithAuth("/event/" + id + "/comment", body);
+        return this.httpProvider.httpPostWithAuth("/events/" + id + "/comment", body);
     }
 
     share(id, param) {

@@ -2,8 +2,8 @@ import {Component} from '@angular/core';
 import {NavController, IonicPage} from 'ionic-angular';
 
 @IonicPage({
-    name: 'login',
-    segment:'login'
+    name: 'login2',
+    segment:'login2'
 })
 
 @Component({

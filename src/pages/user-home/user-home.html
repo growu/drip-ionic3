@@ -1,5 +1,5 @@
 <ion-header no-border>
-    <ion-navbar transparent>
+    <ion-navbar color="primary">
         <ion-title *ngIf="mode == 'more'"></ion-title>
         <ion-title *ngIf="mode == 'less'">
             <img src="{{user.avatar_url || 'assets/img/default-avatar.jpg'}}">
@@ -17,7 +17,7 @@
     <ion-row text-center class="profile-row">
         <ion-col>
             <img src="{{user.avatar_url || 'assets/img/default-avatar.jpg'}}" imageViewer>
-            <h2>
+            <h3>
                 <span ion-text>{{user.nickname || '还没有昵称'}}</span>
                 <!--<i class="iconfont icon-professional-hexagon icon-with-bg2"  *ngIf="user.is_vip" ion-text style="color:#ffa502;font-size: 18px!important;"></i>-->
 
@@ -26,27 +26,30 @@
                     </use>
                 </svg>
 
-                <svg class="icon svg-iconfont" aria-hidden="true" *ngIf="user?.is_vip" style="font-size:32px!important;vertical-align: -0.3em;">
-                    <use xlink:href="#icon-zhuanyebanxiaotubiao">
-                    </use>
-                </svg>
-
                 <svg class="icon svg-iconfont" aria-hidden="true" *ngIf="user.sex==1">
                     <use xlink:href="#icon-nan2"></use>
                 </svg>
-            </h2>
+
+                <!--<svg class="icon svg-iconfont" aria-hidden="true" *ngIf="user?.is_vip">-->
+                    <!--<use xlink:href="#icon-zuanshi">-->
+                    <!--</use>-->
+                <!--</svg>-->
+
+                <button ion-button item-end color="yellow" class="vip-btn" (click)="goPage('vip')">PRO</button>
+
+            </h3>
             <p *ngIf="user.verified_type == 0">{{user.signature || ' '}}</p>
             <p *ngIf="user.verified_type > 0">
-                <!--<svg class="icon svg-iconfont" aria-hidden="true">-->
-                    <!--<use xlink:href="#icon-renzheng1"></use>-->
-                <!--</svg>-->
+                <svg class="icon svg-iconfont" aria-hidden="true">
+                    <use xlink:href="#icon-renzheng3"></use>
+                </svg>
                 <!--<i class="iconfont icon-renzheng2 icon-with-bg"  ion-text color="primary"></i>-->
                 水滴认证： {{user.verified_reason}}
             </p>
 
         </ion-col>
     </ion-row>
-    <ion-row class="follow-row" no-border *ngIf="_mode==='more'">
+    <ion-row class="follow-row" no-border>
         <ion-col text-center (click)="goUserFollowingPage(user?.id)">
             <strong ion-text class="num" color="dark">{{user.follow_count || '0'}}</strong>
             <br>
@@ -56,6 +59,11 @@
             <strong ion-text class="num" color="dark">{{user.fans_count || '0' }}</strong>
             <br>
             <ion-note>粉丝</ion-note>
+        </ion-col>
+        <ion-col text-center>
+            <strong ion-text class="num" color="dark">{{user.events_count || '0' }}</strong>
+            <br>
+            <ion-note>动态</ion-note>
         </ion-col>
     </ion-row>
         <super-tabs scrollTabs tabsPlacement="top" selectedTabIndex="0">

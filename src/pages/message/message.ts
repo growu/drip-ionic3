@@ -31,27 +31,27 @@ export class MessagePage {
     }
 
     ionViewDidLoad() {
-        this.storage.get('messages').then((data) => {
-            if(data) {
-                this.messages = data;
-            }
-        });
-
-
-        this.httpProvider.httpGetWithAuth('/article/top',null).then(
+        // TODO make as provider
+        // 获取文章列表
+        this.httpProvider.httpGetWithAuth('/posts',null).then(
             (data)=>{
                 this.articles = data;
             }
         )
     }
 
-    goPage(page) {
-        this.navCtrl.push(page, {});
+    ionViewDidEnter() {
+        // 读取消息
+        this.storage.get('messages').then((data) => {
+            if(data) {
+                this.messages = data;
+            }
+        });
     }
 
-
-    goArticleDetail(article) {
-        this.navCtrl.push('article-detail', {"id":article.id});
+    // 跳转页面
+    goPage(page,params=null) {
+        this.navCtrl.push(page, params);
     }
 
 }

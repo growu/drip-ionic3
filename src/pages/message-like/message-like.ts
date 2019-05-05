@@ -13,7 +13,7 @@ import { UserProvider } from '../../providers/user/user'
 export class MessageLikePage {
 
   public messages:any = [];
-  private perPage:number = 20;
+  private perPage:number = 10;
 
   constructor(public navCtrl: NavController,
               public navParams: NavParams,
@@ -23,13 +23,17 @@ export class MessageLikePage {
 
   ionViewDidLoad() {
       this.events.publish('messages:update', {});
-      this.getLikeMessages(1);
+      this.getLikeMessages();
   }
 
-  getLikeMessages(page) {
-    this.userProvider.getLikeMessages(page,this.perPage).then((data)=>{
+  /**
+   * 获取点赞消息
+   * @param {boolean} isRefresh
+   */
+  getLikeMessages(isRefresh:boolean=false) {
+    return this.userProvider.getLikeMessages(this.perPage,this.messages.length).then((data)=>{
       if(data) {
-        if(this.messages.length ==0){
+        if(isRefresh || this.messages.length == 0) {
           this.messages = data;
         } else {
           this.messages = this.messages.concat(data);
@@ -40,7 +44,11 @@ export class MessageLikePage {
 
   doRefresh(refresher) {
 
-    this.getLikeMessages(1);
+    this.getLikeMessages().then(data=>{
+        refresher.complete();
+    }).catch(err=>{
+        refresher.complete();
+    });
 
     setTimeout(() => {
       refresher.complete();
@@ -49,25 +57,32 @@ export class MessageLikePage {
 
   doInfinite(infiniteScroll) {
 
-    var num = this.messages.length;
-
-    if (num > 0 && num % this.perPage == 0) {
-      var page = Math.floor(this.messages.length/20)+1;
-      this.getLikeMessages(page);
-    }
+      this.getLikeMessages().then(data=>{
+          infiniteScroll.complete();
+      }).catch(err=>{
+          infiniteScroll.complete();
+      });
 
     setTimeout(() => {
       infiniteScroll.complete();
     }, 2000);
   }
 
+  /**
+   * 进入动态详情
+   * @param id
+   */
   goEventDetailPage(id) {
     this.navCtrl.push("event-detail",{'id':id});
   }
 
-    goUserHomePage(user) {
-        this.navCtrl.push("user-home",{'id':user.id});
-    }
+  /**
+   * 进入动态详情
+   * @param id
+   */
+  goUserHomePage(user) {
+      this.navCtrl.push("user-home",{'id':user.id});
+  }
 
 
 

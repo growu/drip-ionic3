@@ -1,7 +1,7 @@
 page-user-home {
 
-  #content {
-    //background-color: #488aff!important;
+  #content,ion-header >.toolbar>.toolbar-background {
+    background-color: color($colors,primary)!important;
   }
 
   .svg-iconfont {
@@ -9,9 +9,9 @@ page-user-home {
   }
 
   #content {
-    background-image: url("http://pic3.16pic.com/00/47/09/16pic_4709087_b.jpg");
-    background-repeat: no-repeat;
-    background-color:transparent!important;
+    //background-image: url("http://pic3.16pic.com/00/47/09/16pic_4709087_b.jpg");
+    //background-repeat: no-repeat;
+    //background-color:transparent!important;
     //background-size: cover;
     //background-position-x: 50%;
     //background-position-y: 50%;
@@ -101,5 +101,12 @@ page-user-home {
   .tab-buttons-container {
     width: 150px;
     margin:0 auto;
+  }
+
+  .vip-btn {
+    padding:2px;
+    height: 1.4rem;
+    font-size: 1.4rem;
+    margin-bottom: 14px;
   }
 }

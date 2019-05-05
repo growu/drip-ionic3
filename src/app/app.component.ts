@@ -12,7 +12,7 @@ import {BackgroundMode} from '@ionic-native/background-mode';
 import {Vibration} from '@ionic-native/vibration';
 import {LocalNotifications} from '@ionic-native/local-notifications';
 import {ToastProvider} from "../providers/toast/toast";
-
+import {VersionProvider} from "../providers/version/version";
 
 declare var chcp;
 
@@ -36,6 +36,8 @@ export class MyApp {
                 private nativeAudio: NativeAudio,
                 private vibration: Vibration,
                 private toastProvider: ToastProvider,
+                private versionProvider: VersionProvider,
+
                 private localNotifications: LocalNotifications,
                 public userProvider: UserProvider) {
         platform.ready().then(() => {
@@ -45,24 +47,12 @@ export class MyApp {
             this.keyboard.disableScroll(true);
             this.backgroundMode.enable();
 
+            // 初始化一些数据
+            this.versionProvider.init();
+
             // this.backgroundMode.overrideBackButton();
 
             if (platform.is('cordova')) {
-
-                jpush.init();
-                jpush.setDebugMode(true);
-                jpush.setApplicationIconBadgeNumber(0);
-
-                // 检查是否开启推送
-                jpush.getUserNotificationSettings().then(result => {
-                    if (result == 0) {
-                        console.log("推送状态：关闭");
-                    } else {
-                        console.log("推送状态：开启");
-                    }
-                }).catch(err => {
-
-                });
 
                 localNotifications.hasPermission().then(granted => {
                     if (granted) {

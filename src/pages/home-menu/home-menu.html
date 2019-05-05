@@ -24,7 +24,7 @@
         <ion-toggle [(ngModel)]="setting.hideExpireGoals"></ion-toggle>
     </ion-item> -->
     <ion-item>
-        <ion-label>开启排序 <ion-badge color="yellow" *ngIf="!user.is_vip">pro</ion-badge></ion-label>
-        <ion-toggle [(ngModel)]="setting.enableSort" [disabled]="!user.is_vip" isPro="user.is_vip"></ion-toggle>
+        <ion-label>开启排序 <ion-badge color="yellow">pro</ion-badge></ion-label>
+        <ion-toggle [(ngModel)]="setting.enableSort"></ion-toggle>
     </ion-item>
 </ion-list>

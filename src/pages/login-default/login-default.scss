@@ -1,4 +1,4 @@
-.page-login-default {
+page-login-default {
 
   ion-item {
     margin-top:20px;
@@ -15,7 +15,20 @@
     font-size: 1.2em;
   }
 
+  .logo {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    ion-img {
+      width:200px;
+      height: 200px;
+    }
+  }
+
   .footer-bar {
+
+    width: 100%;
+
     span {
       color:#999;
     }

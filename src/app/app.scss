@@ -91,20 +91,20 @@
   font-size: 20px !important;
 }
 
-.segment-md .segment-button {
-  color: color($colors, dark) !important;
-  height:34px;
-  line-height: 28px;
-}
-.segment-md .segment-button.segment-activated {
-  color: color($colors, primary) !important;
-  font-weight: bold;
-  .bolder-sm{
-    border: 2px solid color($colors, primary);
-    width: 25px;
-    margin: 0 auto;
-  }
-}
+//.segment-md .segment-button {
+//  color: color($colors, dark) !important;
+//  height:34px;
+//  line-height: 28px;
+//}
+//.segment-md .segment-button.segment-activated {
+//  color: color($colors, primary) !important;
+//  font-weight: bold;
+//  .bolder-sm{
+//    border: 2px solid color($colors, primary);
+//    width: 25px;
+//    margin: 0 auto;
+//  }
+//}
 
 .badge-ios-yellow, .badge-md-yellow {
   color: #312929;
@@ -116,6 +116,14 @@
 
 .gray-content {
   background-color: #dedede !important;
+  width: 100%;
+  height: 100%;
+}
+
+.white-content {
+  background-color: #fff !important;
+  width: 100%;
+  min-height: 100%;
 }
 
 .text-md-orange, .text-ios-orange {
@@ -131,17 +139,7 @@
 }
 
 
-.toolbar-background {
-  background-color: #fff;
-}
-.bar-button {
-  color: map-get($colors, gray);
-}
 
-
-ion-header ion-icon.back-button-icon.icon {
-
-}
 
 .list-header {
   border-bottom: 0 !important;
@@ -170,6 +168,12 @@ ion-header ion-icon.back-button-icon.icon {
     border:0!important;
     -webkit-box-shadow:none!important;
     box-shadow: none!important;
+    line-height: 42px;
+    background-color: transparent;
+
+    .list-header {
+      margin-bottom: -13px;
+    }
 
     .label,h2 {
       font-size: 1.8rem;
@@ -198,11 +202,23 @@ ion-header ion-icon.back-button-icon.icon {
     }
 
 
+
+
     p{
       margin-top: 10px;
       font-weight: 500;
     }
 
+  }
+
+  .item.item-input.ng-invalid.ng-touched:not(.input-has-focus):not(.item-input-has-focus) .item-inner {
+    border: 0;
+    box-shadow: none;
+  }
+
+  .list-md .item-input.ng-invalid.ng-touched:not(.input-has-focus):not(.item-input-has-focus):last-child{
+    border: 0!important;
+    box-shadow: none!important;
   }
 
   .item-inner {
@@ -222,5 +238,147 @@ ion-header ion-icon.back-button-icon.icon {
 
 body.swal2-iosfix {
   position: static !important;
+}
+
+.center-content {
+  .scroll-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+}
+
+.btn-gradient {
+  background:linear-gradient(197deg, #6e4cff 0%, #4e4bff 100%) !important
+}
+
+.button-block {
+  margin: auto;
+  width: 80%!important;
+}
+
+.bar-button-ios[icon-only] {
+  padding: 10px;
+  min-width: .9em;
+}
+
+form {
+  width: 100%;
+}
+
+ion-content {
+  background-color: color($colors, light-gray)!important;
+}
+
+
+/**
+  重写card TODO REMOVE
+ */
+.comment-card .card-content,.event-card .card-content{
+  padding-top: 15px!important;
+  padding-bottom: 15px!important;
+}
+
+
+/**
+  重写segment wp 样式
+ */
+.segment-wp {
+  padding:10px;
+  justify-content: center;
+  .segment-button {
+    font-size:1.8rem!important;
+    margin:0 10px;
+  }
+
+  .segment-button.segment-activated {
+    border-bottom: 3px solid  color($colors, primary);
+  }
+}
+
+/**
+  重写list
+ */
+
+.list-ios .item-block .item-inner {
+  border-bottom: 0.55px solid color($colors, light-gray);
+}
+
+.list-ios > .item-block:last-child,.list-ios > .item-wrapper:last-child .item-block {
+  border-bottom: 0.55px solid color($colors, light-gray);
+}
+
+
+  /**
+      重写tab样式
+   */
+.tabs {
+  .tab-button {
+    color:color($colors, dark);
+    .tab-button-icon {
+      color:color($colors, dark);
+    }
+  }
+
+  .tab-button[aria-selected=true] {
+    .tab-button-icon {
+      color: color($colors, primary);
+    }
+
+    color: color($colors, primary);
+  }
+}
+
+/**
+  重写toolbar样式
+ */
+.toolbar-background {
+  border:0!important;
+}
+
+ion-navbar:not([color="white"]) .toolbar-background {
+  background: transparent;
+  //background-color: color($colors, light-gray);
+
+
+  // 图标
+  .bar-button {
+    color: color($colors, dark);
+  }
+}
+
+.tabbar {
+  border-top:0!important;
+}
+
+/**
+    自定义loading 样式
+ */
+.my-loader {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  width: 100%;
+  img {
+    width: 48px;
+    height: 48px;
+  }
+}
+
+/**
+  自定义空白页样式
+ */
+.my-blank {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  width: 100%;
+  //img {
+  //  width: 64px;
+  //  height: 64px;
+  //}
 }
 

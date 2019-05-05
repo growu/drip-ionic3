@@ -19,7 +19,7 @@
 
 <ion-content (swipe)="swipeEvent($event)">
 
-    <ion-list [dragula]='"bag-one"' [dragulaModel]="goals">
+    <ion-list [dragula]='"bag-one"' [dragulaModel]="goals" *ngIf="goals.length > 0">
         <!--<ion-list-header>-->
             <!--个人目标-->
         <!--</ion-list-header>-->
@@ -206,9 +206,8 @@
 
     <div text-center style="position: absolute;left: 0;right: 0;top: 40%;" *ngIf="goals.length == 0">
         <p>你的计划栏还是空的..</p>
-        <button ion-button (click)="goGoalAddPage()" icon-right="">
-            开始制定目标
-            <ion-icon name="ios-arrow-forward"></ion-icon>
+        <button ion-button block round (click)="goGoalAddPage()" icon-right="">
+            制定目标
         </button>
     </div>
 

@@ -24,8 +24,7 @@ export class UserHomeGoalsPage {
   }
 
   ionViewDidLoad() {
-
-      this.userProvider.getUserGoals(this.userId).then((data) => {
+      this.userProvider.getUsersGoals(this.userId).then((data) => {
           this.goals = data;
       }).catch((err)=>{
 

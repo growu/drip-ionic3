@@ -1,5 +1,5 @@
 <ion-header no-border>
-  <ion-toolbar transparent>
+  <ion-toolbar color="white">
     <ion-title>我</ion-title>
     <ion-buttons end>
       <button ion-button icon-only (click)="goSettingPage()" color="white">
@@ -39,9 +39,17 @@
             <!--<ion-badge [color]="user.is_vip?'gray':'gray'">PRO会员</ion-badge>-->
             <!--<i class="iconfont icon-professional-hexagon" ion-text [color]="user.is_vip?'gray':'gray'" (click)="goVipPage($event)"></i>-->
           </h2>
-          <p (click)="goWalletPage()" ion-text color="light">水滴币：{{user.coin || '0'}}</p>
-          <button ion-button item-end color="yellow" *ngIf="user.is_vip" (click)="goPage('vip')">PRO会员</button>
-          <button ion-button item-end color="gray" *ngIf="!user.is_vip" (click)="goPage('vip')">开通会员</button>
+          <p (click)="goWalletPage()">
+            <svg class="icon svg-iconfont" aria-hidden="true" *ngIf="user?.is_vip">
+              <use xlink:href="#icon-jinbi">
+              </use>
+            </svg>
+            {{user?.coin || '0'}}
+          </p>
+          <!--<p (click)="goWalletPage()" ion-text color="light">水滴币：{{user.coin || '0'}}</p>-->
+          <button ion-button item-end color="yellow" *ngIf="user.is_vip" (click)="goPage('vip')">PRO</button>
+          <button ion-button item-end color="gray" *ngIf="!user.is_vip" (click)="goPage('vip')">FREE</button>
+          <ion-icon name="arrow-forward" item-end></ion-icon>
         </ion-item>
       </ion-list>
 
@@ -67,7 +75,7 @@
       <ion-col (click)="goPage('top')">
         <ion-card>
           <ion-card-header>
-            <ion-icon name="md-medal">
+            <ion-icon name="ios-list-box-outline">
             </ion-icon>
           </ion-card-header>
           <ion-card-content>
@@ -79,7 +87,7 @@
       <ion-col>
         <ion-card>
           <ion-card-header>
-            <ion-icon name="md-calendar">
+            <ion-icon name="ios-calendar-outline">
             </ion-icon>
           </ion-card-header>
           <ion-card-content>
@@ -88,10 +96,10 @@
         </ion-card>
       </ion-col>
 
-      <ion-col>
+      <ion-col (click)="goPage('medal')">
         <ion-card>
           <ion-card-header>
-            <ion-icon name="ios-ribbon">
+            <ion-icon name="ios-ribbon-outline">
             </ion-icon>
           </ion-card-header>
           <ion-card-content>
@@ -105,7 +113,7 @@
       <ion-col (click)="goPage('my-archive')">
         <ion-card>
           <ion-card-header>
-            <ion-icon name="ios-archive">
+            <ion-icon name="ios-archive-outline">
             </ion-icon>
           </ion-card-header>
           <ion-card-content>
@@ -116,7 +124,7 @@
       <ion-col>
         <ion-card>
           <ion-card-header>
-            <ion-icon name="ios-star">
+            <ion-icon name="ios-star-outline">
             </ion-icon>
           </ion-card-header>
           <ion-card-content>
@@ -127,7 +135,7 @@
       <ion-col>
         <ion-card>
           <ion-card-header>
-            <ion-icon name="ios-more">
+            <ion-icon name="ios-more-outline">
             </ion-icon>
           </ion-card-header>
           <ion-card-content>

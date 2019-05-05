@@ -75,7 +75,7 @@ weibo：[格吾社区](http://weibo.com/growu)
 
 qq群：783459080
 
-[![ionic付费问答群](https://pub.idqqimg.com/wpa/images/group.png)](https://hang.qq.com/wpa/qunwpa?idkey=26fee235eae2460a35007c9790b5661b0a97033c948550fe06936a2cbbda009b)
+[![ionic付费问答群](https://pub.idqqimg.com/wpa/images/group.png)](https://shang.qq.com/wpa/qunwpa?idkey=26fee235eae2460a35007c9790b5661b0a97033c948550fe06936a2cbbda009b)
 
 # Donate
 

@@ -40,6 +40,8 @@ import {TopicProvider} from '../providers/topic/topic';
 import {MallProvider} from '../providers/mall/mall';
 import {UpdateProvider} from '../providers/update/update';
 import {AppConfigProvider} from '../providers/appconfig/appconfig';
+import {VersionProvider } from '../providers/version/version';
+import {JpushProvider } from '../providers/jpush/jpush';
 
 @NgModule({
     declarations: [
@@ -102,6 +104,8 @@ import {AppConfigProvider} from '../providers/appconfig/appconfig';
         MallProvider,
         UpdateProvider,
         AppConfigProvider,
+    VersionProvider,
+    JpushProvider,
     ]
 })
 export class AppModule {

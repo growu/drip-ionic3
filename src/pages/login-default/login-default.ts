@@ -8,8 +8,8 @@ import {Storage} from '@ionic/storage';
 import swal from 'sweetalert2';
 
 @IonicPage({
-    name: 'login-default',
-    segment: 'login/default'
+    name: 'login',
+    segment: 'login'
 })
 @Component({
     selector: 'page-login-default',
@@ -52,20 +52,20 @@ export class LoginDefaultPage {
                 this.storage.set('token', response.token);
                 this.storage.set('user', response.user);
                 // this.toastProvider.show("登录成功", 'success');
-                this.navCtrl.push('main');
-                swal({
-                    title: '欢迎回来',
-                    text: '开始迎接新的一天...',
-                    type: 'success',
-                    timer: 2000,
-                    showConfirmButton: false,
-                    // width: '80%',
-                    padding: 0
-                }).then(() => {
-                    this.navCtrl.setRoot('main');
-                }, dismiss => {
-                    this.navCtrl.setRoot('main');
-                });
+                this.navCtrl.setRoot('main');
+                // swal({
+                //     title: '欢迎回来',
+                //     text: '开始迎接新的一天...',
+                //     type: 'success',
+                //     timer: 2000,
+                //     showConfirmButton: false,
+                //     // width: '80%',
+                //     padding: 0
+                // }).then(() => {
+                //     this.navCtrl.setRoot('main');
+                // }, dismiss => {
+                //     this.navCtrl.setRoot('main');
+                // });
             }
         }).catch((err) => {
 

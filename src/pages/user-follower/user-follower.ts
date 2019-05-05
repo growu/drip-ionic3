@@ -7,13 +7,14 @@ import {UserProvider} from '../../providers/user/user';
     segment: '/user/:id/follower'
 })
 @Component({
-    selector: 'page-user-fan',
+    selector: 'page-user-follower',
     templateUrl: 'user-follower.html',
 })
 export class UserFollowerPage {
     public user: any;
     public users: any = [];
-    private perPage: number = 20;
+    private perPage: number = 10;
+    public isLoading:boolean = false;
 
     constructor(public navCtrl: NavController,
                 public userProvider: UserProvider,
@@ -21,16 +22,21 @@ export class UserFollowerPage {
     }
 
     ionViewDidLoad() {
-        this.getUserFollwers(1);
         this.user = this.navParams.get("user");
+
+        if(!this.user) return;
+
+        this.isLoading = true;
+        this.getUserFollowers().then(data=>{
+            this.isLoading = false;
+        }).catch(err=>{
+            this.isLoading = false;
+        });
     }
 
-    getUserFollwers(page) {
-        var id = this.navParams.get("id");
-
-        this.userProvider.getUserFollwers(id, page, this.perPage).then((data) => {
-
-            if (page == 1) {
+    getUserFollowers(isRefresh:boolean=false) {
+        return this.userProvider.getUsersFollowers(this.user.id, this.perPage ,this.users.length).then((data) => {
+            if (isRefresh || this.users.lengt == 0) {
                 this.users = data;
             } else {
                 this.users = this.users.concat(data);
@@ -40,43 +46,25 @@ export class UserFollowerPage {
     }
 
     doRefresh(refresher) {
+        this.getUserFollowers(true).then(data=>{
+            refresher.complete();
+        });
 
-        this.getUserFollwers(1);
         setTimeout(() => {
             refresher.complete();
         }, 2000);
     }
 
     doInfinite(infiniteScroll) {
-
-        var num = this.users.length;
-
-        if (num > 0 && num % 20 == 0) {
-            var page = Math.floor(this.users.length / 20) + 1;
-            this.getUserFollwers(page);
-        }
+        this.getUserFollowers(false).then(data=>{
+            infiniteScroll.complete();
+        });
 
         setTimeout(() => {
             infiniteScroll.complete();
         }, 2000);
     }
 
-    doFollow(user, $event) {
-        $event.stopPropagation();
-
-        this.userProvider.follow(user.id).then((data) => {
-            let index = this.users.indexOf(user);
-            this.users[index].user.is_follow = true;
-        });
-    }
-
-    doUnFollow(user, $event) {
-        $event.stopPropagation();
-        this.userProvider.unFollow(user.id).then((data) => {
-            let index = this.users.indexOf(user);
-            this.users[index].user.is_follow = false;
-        });
-    }
 
     goUserHomePage(user) {
         this.navCtrl.push('user-home', {'id': user.id});

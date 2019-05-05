@@ -31,10 +31,16 @@ export class MainPage {
     messageRoot:string = 'message'
     messageCount: number = 0;
 
+    isShowBtn:boolean = true;
+
+    tabBarElement: any;
+
+
     private timer: any;
 
     constructor(public storage: Storage,
                 private platform: Platform,
+                private navCtrl: NavController,
                 private alertCtrl: AlertController,
                 private loadingCtrl: LoadingController,
                 private updateProvider: UpdateProvider,
@@ -52,7 +58,7 @@ export class MainPage {
             }).catch((err)=>{
 
             })
-        }, 60000);
+        }, 100000);
 
 
         // 检查更新
@@ -192,13 +198,39 @@ export class MainPage {
         }
     }
 
+    /**
+     * 跳转到主页
+     */
+    goHomePage() {
+        if(this.tabs) {
+            this.tabs.select(2);
+        }
+    }
+
+    /**
+     * 判断是否为子页面
+     * @returns {boolean}
+     */
+    isSubPage() {
+        this.tabBarElement = document.querySelector('.tab-subpage');
+        if(this.tabBarElement) {
+            return true;
+        }
+        return false;
+    }
 
     ionViewDidLoad() {
+    }
+
+    ionViewDidEnter() {
 
     }
 
     ionViewDidLeave() {
+        console.log("view leave");
         clearInterval(this.timer);
+        this.isShowBtn = false;
     }
+
 
 }

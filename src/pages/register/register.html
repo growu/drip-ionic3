@@ -1,24 +1,24 @@
-<ion-header>
+<ion-header no-border>
 
-    <ion-navbar color="primary">
+    <ion-navbar>
         <ion-title>注册</ion-title>
     </ion-navbar>
 
 </ion-header>
 
 
-<ion-content padding class="page-register">
+<ion-content padding class="page-register center-content">
     <form [formGroup]="registerForm" (ngSubmit)="doRegister()">
 
-        <ion-list>
+        <ion-list no-border no-lines>
             <ion-item>
                 <ion-label>
                     <ion-icon name="md-phone-portrait" color="light"></ion-icon>
                 </ion-label>
-                <ion-input type="text" placeholder="手机号或邮箱" clearInput formControlName="account"></ion-input>
+                <ion-input  type="text" placeholder="手机号或邮箱" clearInput formControlName="account"></ion-input>
             </ion-item>
 
-            <ion-item>
+            <ion-item margin-top>
                 <ion-label>
                     <ion-icon name="ios-color-filter" color="light"></ion-icon>
                 </ion-label>
@@ -30,7 +30,7 @@
 
             </ion-item>
 
-            <ion-item>
+            <ion-item margin-top>
                 <ion-label>
                     <ion-icon name="md-unlock" color="light"></ion-icon>
                 </ion-label>
@@ -43,7 +43,7 @@
         </ion-list>
 
         <ion-row padding>
-            <button block round ion-button>注册</button>
+            <button block round ion-button class="btn-gradient">注册</button>
         </ion-row>
     </form>
 

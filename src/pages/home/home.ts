@@ -378,7 +378,9 @@ export class HomePage {
     }
 
     goGoalTodayPage(goal) {
-        this.navCtrl.push('goal-today', {id: goal.id, goal: goal});
+
+        // this.navCtrl.push('goal-today', {id: goal.id, goal: goal});
+        this.navCtrl.push('goal-detail', {id: goal.id, goal: goal});
     }
 
     swipeEvent($event) {

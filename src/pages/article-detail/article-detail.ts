@@ -16,8 +16,8 @@ declare var Keyboard;
 })
 export class ArticleDetailPage {
 
-  public article;
-  public comments = [];
+    public article;
+    public comments = [];
     public isComment:boolean = false;
     public content:string;
     public reply_comment:any;
@@ -33,7 +33,7 @@ export class ArticleDetailPage {
   ionViewDidLoad() {
     let id = this.navParams.get("id");
 
-    this.httpProvider.httpGetWithAuth('/article/'+id,null).then(
+    this.httpProvider.httpGetWithAuth('/posts/'+id,null).then(
         (data)=>{
           this.article = data;
         }

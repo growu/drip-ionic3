@@ -1,13 +1,11 @@
-<ion-header>
-
-    <ion-navbar color="primary">
+<ion-header no-border>
+    <ion-navbar>
         <ion-title>找回密码</ion-title>
     </ion-navbar>
-
 </ion-header>
 
 
-<ion-content padding class="page-forget">
+<ion-content padding class="page-forget" margin-top>
     <form [formGroup]="forgetForm" (ngSubmit)="doReset()">
 
         <ion-list>
@@ -43,7 +41,7 @@
         </ion-list>
 
         <ion-row padding>
-            <button block round ion-button>重置密码</button>
+            <button block round ion-button class="btn-gradient">重置密码</button>
         </ion-row>
     </form>
 

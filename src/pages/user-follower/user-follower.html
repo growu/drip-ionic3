@@ -1,6 +1,5 @@
 <ion-header>
-
-  <ion-navbar color="primary">
+  <ion-navbar color="white">
     <ion-title>{{user?.nickname}} 的粉丝</ion-title>
   </ion-navbar>
 
@@ -16,15 +15,18 @@
     </ion-refresher-content>
   </ion-refresher>
 
+  <my-loader *ngIf="isLoading"></my-loader>
+
   <ion-list *ngIf="users.length>0">
-    <ion-item *ngFor="let user of users" class="like-item" (click)="goUserHomePage(user)">
+    <ion-item *ngFor="let user of users" (click)="goUserHomePage(user)">
       <ion-avatar item-start >
         <img [src]="user.avatar_url || 'assets/img/default-avatar.jpg'">
       </ion-avatar>
-      <h2>{{user.nickname || '还没有昵称'}}</h2>
+      <h2>{{user.nickname || '水滴用户'}}</h2>
       <p>{{user.signature}}</p>
-      <button small round item-end ion-button (click)="doFollow(user,$event)" *ngIf="!user.is_follow">关注</button>
-      <button small round item-end ion-button outline (click)="doUnFollow(user,$event)"  *ngIf="user.is_follow">已关注</button>
+
+      <my-follow-button [followStatus]="user.is_follow" [followUser]="user.id"
+                        item-end  (click)="doFollow(user,$event)"></my-follow-button>
     </ion-item>
   </ion-list>
 

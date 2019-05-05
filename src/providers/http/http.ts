@@ -1,7 +1,8 @@
+///<reference path="../../../node_modules/rxjs/internal/Observable.d.ts"/>
 import {Injectable, Injector} from '@angular/core';
 import {Http, Response} from '@angular/http';
 // import { Observable } from 'rxjs/Observable';
-import {Observable} from 'rxjs/Rx'
+import {throwError} from 'rxjs';
 import {Headers, RequestOptions, URLSearchParams} from '@angular/http';
 import {App, NavController, Platform, ToastController} from 'ionic-angular';
 
@@ -12,8 +13,8 @@ import {Storage} from '@ionic/storage';
 @Injectable()
 export class HttpProvider {
     host: string;
-    // API_URL = 'http://localhost:8080/api';
-    API_URL = 'http://drip.growu.me/api';
+    API_URL = 'http://localhost:8000/api';
+    // API_URL = 'http://drip.growu.me/api';
 
     constructor(private http: Http,
                 private platform:Platform,
@@ -40,10 +41,16 @@ export class HttpProvider {
 
     public httpGetWithAuth(url: string, params: URLSearchParams) {
         return this.storage.get("token").then(data => {
+
+            if(!data) {
+                this.app.getRootNav().setRoot('login');
+                return;
+            }
+
             var headers = new Headers();
             headers.append('Content-Type', 'application/json');
             headers.append('Accept', 'application/x.drip.v3+json');
-            headers.append('Authorization', 'Bearer ' + data);
+            headers.append('Authorization', 'Bearer ' + data.access_token);
             let options = new RequestOptions({headers: headers, search: params});
             return this.http.get(this.API_URL + url, options).toPromise()
                 .then(this.extractData)
@@ -70,7 +77,7 @@ export class HttpProvider {
     public httpPostNoAuth(url: string, body: any) {
         var headers = new Headers();
         headers.append('Content-Type', 'application/json');
-        headers.append('Accept', 'application/x.drip.v3+json');
+        // headers.append('Accept', 'application/x.drip.v3+json');
         let options = new RequestOptions({headers: headers});
         return this.http.post(this.API_URL + url, body, options).toPromise()
             .then(this.extractData)
@@ -79,10 +86,16 @@ export class HttpProvider {
 
     public httpPostWithAuth(url: string, body: any) {
         return this.storage.get("token").then(data => {
+
+            if(!data) {
+                this.app.getRootNav().setRoot('login');
+                return;
+            }
+
             var headers = new Headers();
             headers.append('Content-Type', 'application/json');
             headers.append('Accept', 'application/x.drip.v3+json');
-            headers.append('Authorization', 'Bearer ' + data);
+            headers.append('Authorization', 'Bearer ' + data.access_token);
             let options = new RequestOptions({headers: headers});
             return this.http.post(this.API_URL + url, body, options).toPromise()
                 .then(this.extractData)
@@ -93,10 +106,16 @@ export class HttpProvider {
     public httpPutWithAuth(url: string, body: any) {
 
         return this.storage.get("token").then(data => {
+
+            if(!data) {
+                this.app.getRootNav().setRoot('login');
+                return;
+            }
+
             var headers = new Headers();
             headers.append('Content-Type', 'application/json');
             headers.append('Accept', 'application/x.drip.v3+json');
-            headers.append('Authorization', 'Bearer ' + data);
+            headers.append('Authorization', 'Bearer ' + data.access_token);
             let options = new RequestOptions({headers: headers});
             return this.http.put(this.API_URL + url, body, options).toPromise()
                 .then(this.extractData)
@@ -107,10 +126,16 @@ export class HttpProvider {
     public httpDeleteWithAuth(url: string) {
 
         return this.storage.get("token").then(data => {
+
+            if(!data) {
+                this.app.getRootNav().setRoot('login');
+                return;
+            }
+
             var headers = new Headers();
             headers.append('Content-Type', 'application/json');
             headers.append('Accept', 'application/x.drip.v3+json');
-            headers.append('Authorization', 'Bearer ' + data);
+            headers.append('Authorization', 'Bearer ' + data.access_token);
             let options = new RequestOptions({headers: headers});
             return this.http.delete(this.API_URL + url, options).toPromise()
                 .then(this.extractData)
@@ -121,10 +146,16 @@ export class HttpProvider {
     public httpPatchWithAuth(url: string, body: any) {
 
         return this.storage.get("token").then(data => {
+
+            if(!data) {
+                this.app.getRootNav().setRoot('login');
+                return;
+            }
+
             var headers = new Headers();
             headers.append('Content-Type', 'application/json');
             headers.append('Accept', 'application/x.drip.v3+json');
-            headers.append('Authorization', 'Bearer ' + data);
+            headers.append('Authorization', 'Bearer ' + data.access_token);
             let options = new RequestOptions({headers: headers});
             return this.http.patch(this.API_URL + url, body, options).toPromise()
                 .then(this.extractData)
@@ -136,8 +167,9 @@ export class HttpProvider {
         return res.text() ? res.json() : {};
     }
 
-    private handleError(error: Response | any): Promise<any> {
+    private handleError(error: Response | any){
         console.log(error);
+        console.log(error.url);
 
         if (error.status == 200) {
             return Promise.resolve("success");
@@ -146,20 +178,67 @@ export class HttpProvider {
         let msg = error.text ? error.json().message : '请求地址错误';
 
         if (error.status == 400) {
-            // this.app.getActiveNav().push('login-default');
-            this.app.getRootNav().push('login-default');
+            this.app.getRootNav().setRoot('login');
         }
 
-        let toast = this.toastCtrl.create({
-            message: msg,
-            duration: 3000,
-            position: 'top',
-            cssClass: 'my-toast my-toast-error'
-        });
+        if(error.status == 401) {
+            console.log("Token过期,尝试刷新Token");
+           return this.refreshToken();
+        }
 
-        toast.present();
+        if(msg) {
+            let toast = this.toastCtrl.create({
+                message: msg,
+                duration: 3000,
+                position: 'top',
+                cssClass: 'my-toast my-toast-error'
+            });
+
+            toast.present();
+        }
 
         return Promise.reject(msg);
-        // return Observable.throw(msg);
     }
+
+    private refreshToken():Promise<any>{
+
+        return new Promise((resolve, reject) => {
+
+            this.storage.get("token").then(data => {
+                var headers = new Headers();
+                headers.append('Content-Type', 'application/json');
+                headers.append('Accept', 'application/x.drip.v3+json');
+                headers.append('Authorization', 'Bearer ' + data.access_token);
+                let options = new RequestOptions({headers: headers});
+                return this.http.post(this.API_URL + '/auth/refresh', null, options).toPromise()
+                    .then(res=>{
+                        console.log(res);
+                        this.storage.set('token',res.json());
+                        // this.app.getRootNav().setRoot(this.app.getActiveNav());
+                        window.location.reload();
+                        reject("refresh token");
+                    })
+                    .catch(err => {
+                       console.log("刷新token失败,跳转到登录页面...");
+                       console.log(err);
+
+                        let toast = this.toastCtrl.create({
+                            message: "登录信息失效，请重新登录",
+                            duration: 3000,
+                            position: 'top',
+                            cssClass: 'my-toast my-toast-error'
+                        });
+
+                        toast.present();
+
+                        this.app.getRootNav().setRoot('login');
+
+                        reject(err);
+
+                    });
+            });
+        });
+    }
+
+
 }

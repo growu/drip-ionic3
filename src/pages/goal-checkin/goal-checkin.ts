@@ -59,7 +59,7 @@ export class GoalCheckinPage {
     ionViewDidLoad() {
         let goal_id = this.navParams.get('id');
 
-        this.userProvider.getGoal(goal_id).then((data) => {
+        this.userProvider.getGoalsInfo(goal_id).then((data) => {
             this.goal = data;
             this.min = data.start_date;
         }).catch((err) => {
@@ -71,6 +71,10 @@ export class GoalCheckinPage {
         });
     }
 
+    /**
+     * 提交打卡
+     * @param $event
+     */
     doCheckin($event) {
         $event.preventDefault();
 

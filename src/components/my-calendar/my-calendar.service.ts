@@ -180,7 +180,7 @@ export class MyCalendarService {
 
         let lastDay = moment(days[num-1].date).format('YYYY-MM-DD')
 
-        return this.userProvider.getGoalsCalendar(firstDay,lastDay).then((data)=>{
+        return this.userProvider.getGoalsCalendar(null,firstDay,lastDay).then((data)=>{
             if(data) {
                 data.forEach((item,index) => {
                     days[index].events = item;
@@ -216,7 +216,7 @@ export class MyCalendarService {
 
         let lastDay = moment(days[6].date).format('YYYY-MM-DD');
 
-        return this.userProvider.getGoalsCalendar(firstDay,lastDay).then((data)=>{
+        return this.userProvider.getGoalsCalendar(null,firstDay,lastDay).then((data)=>{
             if(data) {
                 data.forEach((item,index) => {
                     days[index].events = item;
