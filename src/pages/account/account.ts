@@ -41,11 +41,13 @@ export class AccountPage {
         this.navCtrl.push('change-password');
     }
 
+    /**
+     * 注销
+     */
     doLogout() {
         this.storage.clear().then((data) => {
             // this.navCtrl.push('login');
-            this.app.getRootNav().push('login', {});
-
+            this.app.getRootNav().setRoot('login');
         });
     }
 

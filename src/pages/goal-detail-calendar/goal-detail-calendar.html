@@ -37,12 +37,16 @@
           <ion-note item-end>{{checkin.created_at | slice:11:16}}</ion-note>
         </ion-item>
       </ion-card>
-      <ion-card (click)="goGoalCheckinPage()">
-        <ion-item>
-          <ion-label>添加记录</ion-label>
-        </ion-item>
-      </ion-card>
+      <!--<ion-card (click)="goGoalCheckinPage()">-->
+        <!--<ion-item>-->
+          <!--<ion-label>添加记录</ion-label>-->
+        <!--</ion-item>-->
+      <!--</ion-card>-->
     </ion-list>
+  </div>
+
+  <div class="white-content" text-center *ngIf="checkins.length == 0">
+    <p>没有记录</p>
   </div>
 
   <!--<ion-item-group margin-top>-->

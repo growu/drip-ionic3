@@ -108,18 +108,17 @@
 </ion-content>
 
 <ion-footer>
-    <!-- <ion-list>
+     <ion-list>
         <ion-item>
-            <ion-thumbnail item-start>
-                <img src="{{user?.avatar_url || 'assets/img/default-avatar.jpg'}}">
-            </ion-thumbnail >
-            <h2>
-                {{user?.nickname || '还没有昵称'}}
-                <ion-badge [color]="user?.is_vip?'yellow':'gray'">pro</ion-badge>
-            </h2>
-            <p *ngIf="user?.is_vip">{{user.vip_end_date}}到期</p>
-            <p *ngIf="!user?.is_vip">未开通</p>
-            <button ion-button item-end  (click)="showBuyPage()">兑换</button>
+            <p>我的会员</p>
+            <h2 *ngIf="user?.vip_type == 0">免费会员</h2>
+            <h2 *ngIf="user?.vip_type == 1">PRO会员</h2>
+            <h2 *ngIf="user?.vip_type == 2">TEAM会员</h2>
+
+            <!--<ion-badge color="gray" *ngIf="user?.vip_type == 0">FREE</ion-badge>-->
+                <!--<ion-badge color="yellow" *ngIf="user?.vip_type == 1">PRO</ion-badge>-->
+                <!--<ion-badge color="primary" *ngIf="user?.vip_type == 2">TEAM</ion-badge>-->
+            <ion-note item-end *ngIf="user?.vip_type>0">{{user.vip_end_date}}到期</ion-note>
         </ion-item>
-    </ion-list> -->
+    </ion-list>
 </ion-footer>

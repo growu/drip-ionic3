@@ -1,9 +1,12 @@
 <ion-header>
-
-    <ion-navbar color="primary">
+    <ion-navbar color="white">
         <ion-title>编辑资料</ion-title>
+        <ion-buttons end>
+            <button ion-button clear (click)="saveProfile()">
+               保存
+            </button>
+        </ion-buttons>
     </ion-navbar>
-
 </ion-header>
 
 
@@ -12,7 +15,7 @@
         <ion-item (click)="onChangeAvatar()">
             头像
             <ion-avatar item-end>
-                <img [src]="user.avatar_url || 'assets/img/default-avatar.jpg'">
+                <img [src]="profile.avatar_url || 'assets/img/default-avatar.jpg'">
             </ion-avatar>
             <ion-note clear item-end>
                 <ion-icon name="arrow-forward"></ion-icon>
@@ -21,9 +24,9 @@
 
         <ion-item>
             <ion-label>昵称</ion-label>
-            <ion-input item-right [(ngModel)]="user.nickname" text-right
+            <ion-input item-right [(ngModel)]="profile.nickname" text-right
                        maxlength="10"
-                       type="text" (ionBlur)="updateUser('nickname',user.nickname)"></ion-input>
+                       type="text"></ion-input>
             <ion-note clear item-end>
                 <ion-icon name="arrow-forward"></ion-icon>
             </ion-note>
@@ -31,7 +34,7 @@
 
         <ion-item>
             <ion-label>性别</ion-label>
-            <ion-select [(ngModel)]="user.sex" (ionChange)="updateUser('sex',user.sex)">
+            <ion-select [(ngModel)]="profile.sex">
                 <ion-option value="1">男</ion-option>
                 <ion-option value="2">女</ion-option>
                 <ion-option value="">不设置</ion-option>
@@ -68,7 +71,7 @@
             简介
         </ion-item>
         <ion-item>
-            <ion-textarea rows="4" placeholder="用简短的话介绍你自己" (ionBlur)="updateUser('signature',user.signature)" [(ngModel)]="user.signature"></ion-textarea>
+            <ion-textarea rows="4" placeholder="用简短的话介绍你自己" [(ngModel)]="profile.signature"></ion-textarea>
         </ion-item>
     </ion-list>
 </ion-content>

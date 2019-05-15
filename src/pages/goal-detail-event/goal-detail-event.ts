@@ -15,6 +15,7 @@ export class GoalDetailEventPage {
 
     events: any = [];
     private perPage: number = 20;
+    public isLoading:boolean;
 
     constructor(public navCtrl: NavController,
                 public navParams: NavParams,
@@ -23,15 +24,31 @@ export class GoalDetailEventPage {
     }
 
     ionViewDidEnter() {
-        this.getGoalEvents(1);
+        this.isLoading = true;
+        this.getGoalEvents().then(data=>{
+            this.isLoading = false;
+        }).catch(err=>{
+            this.isLoading = false;
+        });
     }
 
-    getGoalEvents(page) {
+    /**
+     * 获取目标动态
+     * @param {boolean} isRefresh
+     * @returns {Promise<Promise<Response>>}
+     */
+    getGoalEvents(isRefresh=false) {
         let id = this.navParams.data.id;
 
-        this.userProvider.getGoalEvents(id, page, this.perPage).then((data) => {
+        let offset:number = 0;
+
+        if(!isRefresh) {
+            offset = this.events.length;
+        }
+
+        return this.userProvider.getGoalEvents(id, this.perPage, offset).then((data) => {
             if (data) {
-                if (page == 1) {
+                if (offset == 0) {
                     this.events = data;
                 } else {
                     this.events = this.events.concat(data);
@@ -40,31 +57,35 @@ export class GoalDetailEventPage {
         });
     }
 
+    /**
+     * 下拉刷新
+     * @param refresher
+     */
     doRefresh(refresher) {
-
-        this.getGoalEvents(1);
-
         setTimeout(() => {
             refresher.complete();
-        }, 2000);
+        }, 10000);
+
+        this.getGoalEvents(true).then(data=>{
+            refresher.complete();
+        }).catch(err=>{
+            refresher.complete();
+        });
     }
 
+    /**
+     * 上拉加载
+     * @param infiniteScroll
+     */
     doInfinite(infiniteScroll) {
-
-        var num = this.events.length;
-
-        if (num > 0 && num % 20 == 0) {
-            var page = Math.floor(this.events.length / 20) + 1;
-            this.getGoalEvents(page);
-        }
-
         setTimeout(() => {
             infiniteScroll.complete();
-        }, 2000);
-    }
+        }, 10000);
 
-    goCheckinPage() {
-        this.app.getRootNav().push('goal-checkin', {'id': this.navParams.data.id});
+        this.getGoalEvents(true).then(data=>{
+            infiniteScroll.complete();
+        }).catch(err=>{
+            infiniteScroll.complete();
+        });
     }
-
 }

@@ -1,10 +1,10 @@
-///<reference path="../../../node_modules/rxjs/internal/Observable.d.ts"/>
 import {Injectable, Injector} from '@angular/core';
-import {Http, Response} from '@angular/http';
-// import { Observable } from 'rxjs/Observable';
-import {throwError} from 'rxjs';
+import {Http, RequestOptionsArgs, Response} from '@angular/http';
+import 'rxjs/add/operator/toPromise';
+import 'rxjs/Rx';
+
 import {Headers, RequestOptions, URLSearchParams} from '@angular/http';
-import {App, NavController, Platform, ToastController} from 'ionic-angular';
+import {App, ToastController} from 'ionic-angular';
 
 import 'rxjs/add/operator/toPromise';
 
@@ -13,49 +13,16 @@ import {Storage} from '@ionic/storage';
 @Injectable()
 export class HttpProvider {
     host: string;
-    API_URL = 'http://localhost:8000/api';
-    // API_URL = 'http://drip.growu.me/api';
+    // API_URL = 'http://localhost:8000/api';
+    API_URL = 'https://drip.growu.me/api';
+    token: any;
 
     constructor(private http: Http,
-                private platform:Platform,
                 private toastCtrl: ToastController,
                 protected injector: Injector,
                 protected app: App,
                 private storage: Storage) {
 
-            // cordova.plugins.AppConfig.fetch(['JPUSH_CHANNEL'], result=> {
-            //     if(result){
-            //         console.log(result);
-            //         if(result.JPUSH_CHANNEL) {
-            //             this.channel = result.JPUSH_CHANNEL;
-            //         }
-            //     } else {
-            //         if(this.platform.is('ios')) {
-            //             this.channel = "appstore";
-            //         } else {
-            //             this.channel = "default";
-            //         }
-            //     }
-            // });
-    }
-
-    public httpGetWithAuth(url: string, params: URLSearchParams) {
-        return this.storage.get("token").then(data => {
-
-            if(!data) {
-                this.app.getRootNav().setRoot('login');
-                return;
-            }
-
-            var headers = new Headers();
-            headers.append('Content-Type', 'application/json');
-            headers.append('Accept', 'application/x.drip.v3+json');
-            headers.append('Authorization', 'Bearer ' + data.access_token);
-            let options = new RequestOptions({headers: headers, search: params});
-            return this.http.get(this.API_URL + url, options).toPromise()
-                .then(this.extractData)
-                .catch(err => this.handleError(err));
-        });
     }
 
     public httpGetNoAuth(url: string, params: URLSearchParams) {
@@ -77,97 +44,117 @@ export class HttpProvider {
     public httpPostNoAuth(url: string, body: any) {
         var headers = new Headers();
         headers.append('Content-Type', 'application/json');
-        // headers.append('Accept', 'application/x.drip.v3+json');
         let options = new RequestOptions({headers: headers});
         return this.http.post(this.API_URL + url, body, options).toPromise()
             .then(this.extractData)
             .catch(err => this.handleError(err));
     }
 
-    public httpPostWithAuth(url: string, body: any) {
-        return this.storage.get("token").then(data => {
-
-            if(!data) {
-                this.app.getRootNav().setRoot('login');
-                return;
-            }
-
-            var headers = new Headers();
-            headers.append('Content-Type', 'application/json');
-            headers.append('Accept', 'application/x.drip.v3+json');
-            headers.append('Authorization', 'Bearer ' + data.access_token);
-            let options = new RequestOptions({headers: headers});
-            return this.http.post(this.API_URL + url, body, options).toPromise()
-                .then(this.extractData)
-                .catch(err => this.handleError(err));
-        });
+    /**
+     * get 提交
+     * @param {string} url
+     * @param {URLSearchParams} params
+     * @returns {Promise<never | Response>}
+     */
+    public async httpGetWithAuth(url: string, params: URLSearchParams) {
+        let options = await this.getAuthRequestOptions(params);
+        return this.http.get(this.API_URL + url, options).toPromise()
+            .then(this.extractData)
+            .catch(err => this.handleError(err));
     }
 
-    public httpPutWithAuth(url: string, body: any) {
-
-        return this.storage.get("token").then(data => {
-
-            if(!data) {
-                this.app.getRootNav().setRoot('login');
-                return;
-            }
-
-            var headers = new Headers();
-            headers.append('Content-Type', 'application/json');
-            headers.append('Accept', 'application/x.drip.v3+json');
-            headers.append('Authorization', 'Bearer ' + data.access_token);
-            let options = new RequestOptions({headers: headers});
-            return this.http.put(this.API_URL + url, body, options).toPromise()
-                .then(this.extractData)
-                .catch(err => this.handleError(err));
-        });
+    /**
+     * post 提交
+     * @param {string} url
+     * @param body
+     * @returns {Promise<never | Response>}
+     */
+    public async httpPostWithAuth(url: string, body: any) {
+        let options = await this.getAuthRequestOptions();
+        return this.http.post(this.API_URL + url, body, options).toPromise()
+            .then(this.extractData)
+            .catch(err => this.handleError(err));
     }
 
-    public httpDeleteWithAuth(url: string) {
-
-        return this.storage.get("token").then(data => {
-
-            if(!data) {
-                this.app.getRootNav().setRoot('login');
-                return;
-            }
-
-            var headers = new Headers();
-            headers.append('Content-Type', 'application/json');
-            headers.append('Accept', 'application/x.drip.v3+json');
-            headers.append('Authorization', 'Bearer ' + data.access_token);
-            let options = new RequestOptions({headers: headers});
-            return this.http.delete(this.API_URL + url, options).toPromise()
-                .then(this.extractData)
-                .catch(err => this.handleError(err));
-        });
+    /**
+     * put 提交
+     * @param {string} url
+     * @param body
+     * @returns {Promise<never | Response>}
+     */
+    public async httpPutWithAuth(url: string, body: any) {
+        let options = await this.getAuthRequestOptions();
+        return this.http.put(this.API_URL + url, body, options).toPromise()
+            .then(this.extractData)
+            .catch(err => this.handleError(err));
     }
 
-    public httpPatchWithAuth(url: string, body: any) {
-
-        return this.storage.get("token").then(data => {
-
-            if(!data) {
-                this.app.getRootNav().setRoot('login');
-                return;
-            }
-
-            var headers = new Headers();
-            headers.append('Content-Type', 'application/json');
-            headers.append('Accept', 'application/x.drip.v3+json');
-            headers.append('Authorization', 'Bearer ' + data.access_token);
-            let options = new RequestOptions({headers: headers});
-            return this.http.patch(this.API_URL + url, body, options).toPromise()
-                .then(this.extractData)
-                .catch(err => this.handleError(err));
-        });
+    /**
+     * delete 提交
+     * @param {string} url
+     * @returns {Promise<never | Response>}
+     */
+    public async httpDeleteWithAuth(url: string) {
+        let options = await this.getAuthRequestOptions();
+        return this.http.delete(this.API_URL + url, options).toPromise()
+            .then(this.extractData)
+            .catch(err => this.handleError(err));
     }
 
+    /**
+     * patch 提交
+     * @param {string} url
+     * @param body
+     * @returns {Promise<never | Response>}
+     */
+    public async httpPatchWithAuth(url: string, body: any) {
+        let options = await this.getAuthRequestOptions();
+        return this.http.patch(this.API_URL + url, body, options).toPromise()
+            .then(this.extractData)
+            .catch(err => this.handleError(err));
+    }
+
+    /**
+     * 获取请求选项
+     * @returns {Promise<RequestOptions>}
+     */
+    protected async getAuthRequestOptions(params = null) {
+        let token = await this.storage.get("token");
+        if (!token) {
+            this.app.getRootNav().setRoot('login');
+            return;
+        }
+
+        var headers = new Headers();
+        headers.append('Content-Type', 'application/json');
+        headers.append('Accept', 'application/x.drip.v1+json');
+        headers.append('Authorization', 'Bearer ' + token.access_token);
+
+        var args:RequestOptionsArgs = {headers:headers}
+        if (params) {
+            args.params = params;
+        }
+
+        let options = new RequestOptions(args);
+
+        return options;
+    }
+
+    /**
+     * 处理数据
+     * @param {Response} res
+     * @returns {{}}
+     */
     private extractData(res: Response) {
         return res.text() ? res.json() : {};
     }
 
-    private handleError(error: Response | any){
+    /**
+     * 错误处理
+     * @param {Response | any} error
+     * @returns {any}
+     */
+    private handleError(error: Response | any) {
         console.log(error);
         console.log(error.url);
 
@@ -181,12 +168,12 @@ export class HttpProvider {
             this.app.getRootNav().setRoot('login');
         }
 
-        if(error.status == 401) {
+        if (error.status == 401) {
             console.log("Token过期,尝试刷新Token");
-           return this.refreshToken();
+            this.refreshToken();
         }
 
-        if(msg) {
+        if (msg) {
             let toast = this.toastCtrl.create({
                 message: msg,
                 duration: 3000,
@@ -200,45 +187,36 @@ export class HttpProvider {
         return Promise.reject(msg);
     }
 
-    private refreshToken():Promise<any>{
+    /**
+     * 刷新TOKEN
+     * @returns {Promise<never | Response>}
+     */
+    private async refreshToken() {
 
-        return new Promise((resolve, reject) => {
+        let options = await this.getAuthRequestOptions();
 
-            this.storage.get("token").then(data => {
-                var headers = new Headers();
-                headers.append('Content-Type', 'application/json');
-                headers.append('Accept', 'application/x.drip.v3+json');
-                headers.append('Authorization', 'Bearer ' + data.access_token);
-                let options = new RequestOptions({headers: headers});
-                return this.http.post(this.API_URL + '/auth/refresh', null, options).toPromise()
-                    .then(res=>{
-                        console.log(res);
-                        this.storage.set('token',res.json());
-                        // this.app.getRootNav().setRoot(this.app.getActiveNav());
-                        window.location.reload();
-                        reject("refresh token");
-                    })
-                    .catch(err => {
-                       console.log("刷新token失败,跳转到登录页面...");
-                       console.log(err);
+        return this.http.post(this.API_URL + '/auth/refresh', null, options).toPromise()
+            .then(res => {
+                console.log(res);
+                this.storage.set('token', res.json());
+                setTimeout(()=>{
+                    window.location.reload();
+                },1000)
+            })
+            .catch(err => {
+                console.log("刷新token失败,跳转到登录页面...");
+                console.log(err);
 
-                        let toast = this.toastCtrl.create({
-                            message: "登录信息失效，请重新登录",
-                            duration: 3000,
-                            position: 'top',
-                            cssClass: 'my-toast my-toast-error'
-                        });
+                let toast = this.toastCtrl.create({
+                    message: "登录信息失效，请重新登录",
+                    duration: 3000,
+                    position: 'top',
+                    cssClass: 'my-toast my-toast-error'
+                });
 
-                        toast.present();
+                toast.present();
 
-                        this.app.getRootNav().setRoot('login');
-
-                        reject(err);
-
-                    });
+                this.app.getRootNav().setRoot('login');
             });
-        });
     }
-
-
 }

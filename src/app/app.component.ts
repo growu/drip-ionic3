@@ -13,6 +13,7 @@ import {Vibration} from '@ionic-native/vibration';
 import {LocalNotifications} from '@ionic-native/local-notifications';
 import {ToastProvider} from "../providers/toast/toast";
 import {VersionProvider} from "../providers/version/version";
+import {JpushProvider} from '../providers/jpush/jpush';
 
 declare var chcp;
 
@@ -21,7 +22,7 @@ declare var chcp;
 })
 
 export class MyApp {
-    rootPage: any = 'welcome';
+    rootPage: any;
     @ViewChild(Nav) nav: Nav;
 
     constructor(private platform: Platform,
@@ -37,7 +38,7 @@ export class MyApp {
                 private vibration: Vibration,
                 private toastProvider: ToastProvider,
                 private versionProvider: VersionProvider,
-
+                private jpushProvider: JpushProvider,
                 private localNotifications: LocalNotifications,
                 public userProvider: UserProvider) {
         platform.ready().then(() => {
@@ -47,8 +48,9 @@ export class MyApp {
             this.keyboard.disableScroll(true);
             this.backgroundMode.enable();
 
-            // 初始化一些数据
+            // 初始化数据
             this.versionProvider.init();
+            this.jpushProvider.init();
 
             // this.backgroundMode.overrideBackButton();
 
@@ -73,8 +75,7 @@ export class MyApp {
 
                 });
 
-
-                if(platform.is('android')) {
+                if (platform.is('android')) {
                     document.addEventListener("jpush.receiveMessage", (event: any) => {
                         console.log("接收到自定义消息");
                         console.log(event);
@@ -108,7 +109,7 @@ export class MyApp {
             }
 
             var lastTimeBackPress = 0;
-            var timePeriodToExit  = 2000;
+            var timePeriodToExit = 2000;
 
             platform.registerBackButtonAction(() => {
                 let activeNav: NavController = this.appCtrl.getActiveNavs()[0];
@@ -119,11 +120,19 @@ export class MyApp {
                     if (new Date().getTime() - lastTimeBackPress < timePeriodToExit) {
                         this.platform.exitApp(); //Exit from app
                     } else {
-                        this.toastProvider.show("再按一次退出程序","warning")
+                        this.toastProvider.show("再按一次退出程序", "warning")
                         lastTimeBackPress = new Date().getTime();
                     }
                 }
             });
+
+            storage.get('token').then(data => {
+                if (!data) {
+                    this.rootPage = 'login';
+                } else {
+                    this.rootPage = 'welcome';
+                }
+            })
         });
     }
 
@@ -137,13 +146,13 @@ export class MyApp {
             text: message.text,
             sound: 'file://assets/audio/' + message.sound,
             vibrate: message.vibrate,
-            data:message.data
+            data: message.data
         });
 
 
-        this.localNotifications.on('click').subscribe(notification=>{
+        this.localNotifications.on('click').subscribe(notification => {
 
-            if(notification.data) {
+            if (notification.data) {
                 let page_url = notification.data.page_url;
                 let page_params = notification.data.page_params;
 
@@ -170,8 +179,8 @@ export class MyApp {
         if (page_url) {
             console.log(this.nav.getActive());
 
-            if(this.nav.getActive()) {
-                if(this.nav.getActive().id == page_url) {
+            if (this.nav.getActive()) {
+                if (this.nav.getActive().id == page_url) {
                     return;
                 }
             }
@@ -183,22 +192,22 @@ export class MyApp {
     subscribeRoutes() {
         var defaultOptions = {
             root: false
-          };
+        };
         this.deeplinks.routeWithNavController(this.nav, {
             '/about': 'about',
             '/goal/:goalId': 'goal-home',
             '/event/:eventId': 'event-detail'
-        },defaultOptions).subscribe(
+        }, defaultOptions).subscribe(
             match => {
                 console.log(JSON.stringify(match));
-                if(match.$route) {
+                if (match.$route) {
                     this.nav.push(match.$route, match.$args);
                 }
-            // return true;
+                // return true;
             }, nomatch => {
-            console.error('Got a deeplink that didn\'t match', JSON.stringify(nomatch));
-            return true;
-        });
+                console.error('Got a deeplink that didn\'t match', JSON.stringify(nomatch));
+                return true;
+            });
     }
 }
 

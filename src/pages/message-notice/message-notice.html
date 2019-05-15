@@ -14,6 +14,8 @@
     </ion-refresher-content>
   </ion-refresher>
 
+  <my-loader *ngIf="isLoading"></my-loader>
+
   <ion-list>
     <div *ngFor="let message of messages" >
     <p text-center>{{message.created_at | amLocale:"zh_cn" | amUtc | amTimeAgo }}</p>
@@ -27,6 +29,10 @@
     </ion-card>
     </div>
   </ion-list>
+
+  <div class="my-blank" *ngIf="messages.length==0">
+    <img src="assets/img/noevents.png">
+  </div>
 
   <ion-infinite-scroll (ionInfinite)="doInfinite($event)">
     <ion-infinite-scroll-content

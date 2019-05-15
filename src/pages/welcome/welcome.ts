@@ -63,6 +63,11 @@ export class WelcomePage {
                 // this.navCtrl.push('login');
             }
         });
+
+        // 5s 后进入首页
+        setTimeout(()=>{
+            this.navCtrl.push('main');
+        },5000);
     }
 
     goHome() {

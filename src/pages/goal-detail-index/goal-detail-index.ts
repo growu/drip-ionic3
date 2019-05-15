@@ -26,9 +26,9 @@ export class GoalDetailIndexPage {
 
           this.goal = this.navParams.data.goal;
 
-          // if(!this.goal) {
-          //     this.app.getRootNav().setRoot('home');
-          // }
+          if(!this.goal) {
+              this.navCtrl.popToRoot();
+          }
       }
 
       ionViewDidEnter() {

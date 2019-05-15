@@ -1,15 +1,11 @@
 <ion-header no-border>
-
     <ion-navbar>
         <ion-title>注册</ion-title>
     </ion-navbar>
-
 </ion-header>
 
-
-<ion-content padding class="page-register center-content">
+<ion-content padding class="center-content">
     <form [formGroup]="registerForm" (ngSubmit)="doRegister()">
-
         <ion-list no-border no-lines>
             <ion-item>
                 <ion-label>
@@ -41,7 +37,6 @@
                 </button>
             </ion-item>
         </ion-list>
-
         <ion-row padding>
             <button block round ion-button class="btn-gradient">注册</button>
         </ion-row>

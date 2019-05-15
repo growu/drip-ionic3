@@ -39,6 +39,10 @@ page-goal-detail {
     height:0;
   }
 
+  super-tabs-toolbar > ion-toolbar.toolbar.scroll-tabs .tab-buttons-container .tab-buttons super-tab-button {
+    display: block!important;
+  }
+
   super-tab-button.selected:not([ng-reflect-title="今日"]) {
     border-bottom:2px solid map_get($colors,'primary');
   }

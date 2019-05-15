@@ -1,14 +1,10 @@
 <ion-header>
-
-  <ion-navbar>
+  <ion-navbar color="white">
     <ion-title>水滴币明细</ion-title>
   </ion-navbar>
-
 </ion-header>
 
-
-<ion-content padding-top>
-
+<ion-content>
   <ion-refresher (ionRefresh)="doRefresh($event)">
     <ion-refresher-content
             pullingIcon="arrow-dropdown"
@@ -18,17 +14,21 @@
     </ion-refresher-content>
   </ion-refresher>
 
+  <my-loader *ngIf="isLoading"></my-loader>
 
-  <ion-list>
+  <ion-list *ngIf="logs.length > 0">
     <ion-item *ngFor="let log of logs">
       <h2>{{log.name}}</h2>
       <p>{{log.created_at}}</p>
       <span item-end ion-text color="primary" class="num" *ngIf="log.change>=0">+{{log.change}}</span>
       <span item-end ion-text color="danger" class="num" *ngIf="log.change<0">{{log.change}}</span>
-
     </ion-item>
   </ion-list>
 
+  <div class="my-blank" *ngIf="logs.length == 0 && !isLoading">
+    <img src="assets/img/noevents.png">
+    <!--<p>暂无明细</p>-->
+  </div>
 
   <ion-infinite-scroll (ionInfinite)="doInfinite($event)">
     <ion-infinite-scroll-content

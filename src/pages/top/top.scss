@@ -1,22 +1,22 @@
 page-top{
 
-  ion-content {
-    background-color: color($colors,primary)!important;
-  }
+  //ion-content {
+  //  background-color: color($colors,primary)!important;
+  //}
 
-  ion-select {
-    //width:80px;
-    position: absolute;
-    top:5px;
-    right:10px;
-    //margin-right:10px;
-    color:#fff;
-    max-width:20%;
-    display: flex;
-    flex:1;
-    align-items: center;
-    height:100%;
-  }
+  //ion-select {
+  //  //width:80px;
+  //  position: absolute;
+  //  top:5px;
+  //  right:10px;
+  //  //margin-right:10px;
+  //  //color:#fff;
+  //  max-width:20%;
+  //  display: flex;
+  //  flex:1;
+  //  align-items: center;
+  //  height:100%;
+  //}
 
   ion-avatar>img {
     width: 48px!important;
@@ -24,7 +24,7 @@ page-top{
   }
 
   .select-icon-inner {
-    color:#fff!important;
+    //color:#fff!important;
   }
 
   ion-item {

@@ -8,11 +8,13 @@
         </ion-refresher-content>
     </ion-refresher>
 
+    <my-loader *ngIf="isLoading"></my-loader>
+
     <my-event [eventSource]="events" *ngIf="events.length>0"></my-event>
 
-    <div text-center style="position: absolute;left: 0;right: 0;top: 40%;"  *ngIf="events.length == 0">
-        <p>暂时还没有动态</p>
-        <button ion-button (click)="goCheckinPage()"> 去打卡 </button>
+    <div text-center style="position: absolute;left: 0;right: 0;top: 40%;" *ngIf="!isLoading&&events.length == 0">
+        <!--<p>暂无动态</p>-->
+        <img src="assets/img/noevents.png">
     </div>
 
     <ion-infinite-scroll (ionInfinite)="doInfinite($event)">

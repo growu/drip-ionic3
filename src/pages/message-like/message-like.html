@@ -1,9 +1,7 @@
 <ion-header>
-
-  <ion-navbar color="primary">
+  <ion-navbar color="white">
     <ion-title>鼓励和赞</ion-title>
   </ion-navbar>
-
 </ion-header>
 
 
@@ -25,7 +23,7 @@
         </ion-avatar>
         <h2>{{message.user.nickname}}</h2>
         <p>{{message.created_at}}</p>
-        <my-follow-button [followStatus]="message.user.is_follow" [followUser]="message.user.id" item-end></my-follow-button>
+        <my-follow-button [followStatus]="message.user.is_following" [followUser]="message.user.id" item-end></my-follow-button>
       </ion-item>
       <ion-card-content>
         <p>点赞了你的动态</p>

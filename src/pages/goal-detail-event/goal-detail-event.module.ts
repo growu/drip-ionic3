@@ -3,7 +3,7 @@ import {IonicPageModule} from 'ionic-angular';
 import {GoalDetailEventPage} from './goal-detail-event';
 import {MyEventComponentModule} from '../../components/my-event/my-event.module';
 import {MomentModule} from 'angular2-moment';
-
+import {MyLoaderComponentModule} from '../../components/my-loader/my-loader.module';
 
 @NgModule({
     declarations: [
@@ -12,7 +12,8 @@ import {MomentModule} from 'angular2-moment';
     imports: [
         IonicPageModule.forChild(GoalDetailEventPage),
         MomentModule,
-        MyEventComponentModule
+        MyEventComponentModule,
+        MyLoaderComponentModule
     ],
 })
 export class GoalDetailEventPageModule {

@@ -35,7 +35,7 @@
                     <!--</use>-->
                 <!--</svg>-->
 
-                <button ion-button item-end color="yellow" class="vip-btn" (click)="goPage('vip')">PRO</button>
+                <button *ngIf="user?.vip_type==1" ion-button item-end color="yellow" class="vip-btn" (click)="goPage('vip')">PRO</button>
 
             </h3>
             <p *ngIf="user.verified_type == 0">{{user.signature || ' '}}</p>
@@ -51,17 +51,17 @@
     </ion-row>
     <ion-row class="follow-row" no-border>
         <ion-col text-center (click)="goUserFollowingPage(user?.id)">
-            <strong ion-text class="num" color="dark">{{user.follow_count || '0'}}</strong>
+            <strong ion-text class="num" color="dark">{{user.following_count || '0'}}</strong>
             <br>
             <ion-note>关注</ion-note>
         </ion-col>
         <ion-col text-center (click)="goUserFanPage(user?.id)">
-            <strong ion-text class="num" color="dark">{{user.fans_count || '0' }}</strong>
+            <strong ion-text class="num" color="dark">{{user.follower_count || '0' }}</strong>
             <br>
             <ion-note>粉丝</ion-note>
         </ion-col>
         <ion-col text-center>
-            <strong ion-text class="num" color="dark">{{user.events_count || '0' }}</strong>
+            <strong ion-text class="num" color="dark">{{user.event_count || '0' }}</strong>
             <br>
             <ion-note>动态</ion-note>
         </ion-col>

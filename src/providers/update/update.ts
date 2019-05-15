@@ -20,7 +20,7 @@ export class UpdateProvider {
 
         return this.appConfigProvider.getChannel().then(channel=>{
             params.set('channel', channel);
-            return this.httpProvider.httpGetWithAuth("/update/check", params);
+            return this.httpProvider.httpGetWithAuth("/version", params);
         });
     }
 

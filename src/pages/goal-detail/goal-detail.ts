@@ -1,6 +1,6 @@
 import {Component, ViewChild} from '@angular/core';
 import {
-    ActionSheetController, AlertController, Events, IonicPage, NavController, NavParams,
+    ActionSheetController, AlertController, App, Events, IonicPage, NavController, NavParams,
     PopoverController
 } from 'ionic-angular';
 import {SuperTabs, SuperTabsController} from "ionic2-super-tabs/dist/index";
@@ -32,6 +32,7 @@ export class GoalDetailPage {
     constructor(public navCtrl: NavController,
                 public navParams: NavParams,
                 private events: Events,
+                private app: App,
                 private userProvider: UserProvider,
                 private superTabsCtrl: SuperTabsController,
                 private toastProvider: ToastProvider,
@@ -42,11 +43,7 @@ export class GoalDetailPage {
         this.goal = this.navParams.data.goal;
 
         if(!this.goal) {
-            if(this.navCtrl.canGoBack()) {
-                this.navCtrl.pop();
-            } else {
-                this.navCtrl.setRoot('main');
-            }
+            this.navCtrl.popToRoot();
         }
 
         events.subscribe('goals:update', () => {
@@ -76,21 +73,7 @@ export class GoalDetailPage {
 
     // 打开菜单
     openMenu($event) {
-        let buttons =  [
-            {
-                text: '删除目标',
-                role: 'destructive',
-                handler: () => {
-                    this.doDelGoal();
-                }
-            }, {
-                text: '取消',
-                role: 'cancel',
-                handler: () => {
-
-                }
-            }
-        ];
+        let buttons =  [];
 
         if(!this.goal.is_archive) {
             buttons.push({
@@ -130,11 +113,23 @@ export class GoalDetailPage {
                         ]
                     });
                     confirm.present();
-
-
                 }
             });
         }
+
+        buttons.push({
+            text: '删除目标',
+            role: 'destructive',
+            handler: () => {
+                this.doDelGoal();
+            }
+        }, {
+            text: '取消',
+            role: 'cancel',
+            handler: () => {
+
+            }
+        })
 
 
         let actionSheet = this.actionSheetCtrl.create({
@@ -144,9 +139,10 @@ export class GoalDetailPage {
             actionSheet.present();
     }
 
-    // 删除目标
+    /**
+     * 删除目标
+     */
     doDelGoal() {
-
         let confirm = this.alertCtrl.create({
             title: '确认删除?',
             message: '此项操作将会清空该目标下的所有数据，请谨慎操作！',
@@ -162,7 +158,8 @@ export class GoalDetailPage {
                     handler: () => {
                         this.userProvider.deleteGoal(this.goal.id).then((data) => {
                             this.toastProvider.show("删除成功", 'success');
-                            this.navCtrl.push('home', {});
+                            // this.app.getRootNav().setRoot('home');
+                            this.navCtrl.popToRoot();
                         });
                     }
                 }

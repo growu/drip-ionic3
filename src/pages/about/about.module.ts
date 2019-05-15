@@ -2,7 +2,6 @@ import {NgModule} from '@angular/core';
 import {IonicPageModule} from 'ionic-angular';
 import {AboutPage} from './about';
 import {InAppBrowser} from '@ionic-native/in-app-browser';
-import {ClipboardModule} from 'ngx-clipboard/dist/src';
 import {ToolProvider} from "../../providers/tool/tool";
 import {ImagePickerProvider,FileProvider,FileTransferProvider,CropProvider} from '../../providers/AppProvider';
 import {Camera} from '@ionic-native/camera';
@@ -13,7 +12,6 @@ import {Camera} from '@ionic-native/camera';
     ],
     imports: [
         IonicPageModule.forChild(AboutPage),
-        ClipboardModule
     ],
     providers: [
         InAppBrowser,

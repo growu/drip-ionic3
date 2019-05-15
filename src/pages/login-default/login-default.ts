@@ -5,7 +5,6 @@ import {AccountValidator} from '../../validators/account';
 import {UserProvider} from "./../../providers/user/user";
 import {ToastProvider} from "./../../providers/toast/toast";
 import {Storage} from '@ionic/storage';
-import swal from 'sweetalert2';
 
 @IonicPage({
     name: 'login',
@@ -33,8 +32,10 @@ export class LoginDefaultPage {
         });
     }
 
+    /**
+     * 用户注册
+     */
     doLogin() {
-
         if (!this.loginForm.valid) {
             if (!this.loginForm.controls.account.valid || this.loginForm.controls.account.errors) {
                 this.toastProvider.show('请输入正确的手机号码或邮箱', 'error')
@@ -47,44 +48,28 @@ export class LoginDefaultPage {
             }
         }
 
-        this.userProvider.login(this.loginForm.value).then((response) => {
-            if (response) {
-                this.storage.set('token', response.token);
-                this.storage.set('user', response.user);
-                // this.toastProvider.show("登录成功", 'success');
-                this.navCtrl.setRoot('main');
-                // swal({
-                //     title: '欢迎回来',
-                //     text: '开始迎接新的一天...',
-                //     type: 'success',
-                //     timer: 2000,
-                //     showConfirmButton: false,
-                //     // width: '80%',
-                //     padding: 0
-                // }).then(() => {
-                //     this.navCtrl.setRoot('main');
-                // }, dismiss => {
-                //     this.navCtrl.setRoot('main');
-                // });
-            }
-        }).catch((err) => {
-
-        });
+        this.userProvider.login(this.loginForm.value);
     }
 
-    ionViewDidLoad() {
-
-    }
-
+    /**
+     * 显示/隐藏密码
+     * @param $event
+     */
     showPassword($event) {
         $event.preventDefault();
         this.isShowPassword = !this.isShowPassword;
     }
 
+    /**
+     * 跳转到注册页面
+     */
     goRegisterPage() {
         this.navCtrl.push("register");
     }
 
+    /**
+     * 跳转到忘记密码页面
+     */
     goForgetPage() {
         this.navCtrl.push("forget");
     }

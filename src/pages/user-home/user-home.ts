@@ -68,7 +68,7 @@ export class UserHomePage {
     }
 
     goUserFanPage() {
-        this.navCtrl.push("user-fan",{id:this.user.id,user:this.user});
+        this.navCtrl.push("user-follower",{id:this.user.id,user:this.user});
     }
 
     goChatPage() {

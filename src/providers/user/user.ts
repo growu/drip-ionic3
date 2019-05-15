@@ -10,8 +10,8 @@ import {JPush} from '@jiguang-ionic/jpush';
 import {ToastProvider} from "../../providers/toast/toast";
 import * as moment from 'moment'
 import swal from "sweetalert2";
-import {AppConfigProvider} from '../appconfig/appconfig';
 import {VersionProvider} from '../version/version';
+import {JpushProvider} from "../jpush/jpush";
 
 declare var Wechat;
 declare var WeiboSDK;
@@ -24,32 +24,39 @@ export class UserProvider {
                 private storage: Storage,
                 private device: Device,
                 public jpush: JPush,
-                public appConfigProvider: AppConfigProvider,
                 private app: App,
                 private events: Events,
                 private modalCtrl: ModalController,
                 private toastProvider: ToastProvider,
                 private versionProvider: VersionProvider,
+                private jpushProvider: JpushProvider,
                 private platform: Platform) {
 
     }
 
+    /**
+     * 用户登录
+     * @param user
+     * @returns {Promise<any>}
+     */
     login(user): Promise<any> {
-        return new Promise((resolve, reject) => {
-            // this.getDevice().then((device) => {
-                console.log(this.device.platform);
-                user.device = this.device;
-                user.version = this.versionProvider.getVersion();
-                // this.appConfigProvider.getChannel().then((channel)=>{
-                //     user.channel  = channel;
+        return this.httpProvider.httpPostNoAuth("/auth/login", this.getLoginParams(user)).then((data) => {
+            this.loginSuccCallback(data);
+        }).catch(err => {
+            // TODO 提示错误
+        });
+    }
 
-                    this.httpProvider.httpPostNoAuth("/auth/login", user).then((data) => {
-                        resolve(data);
-                    }).catch((err) => {
-                        reject(err);
-                    });
-                // });
-            // });
+    /**
+     * 用户注册
+     * @param user
+     * @returns {Promise<Response>}
+     */
+    register(user) : Promise<any>{
+        return this.httpProvider.httpPostNoAuth("/auth/register", this.getLoginParams(user)).then((data) => {
+            this.loginSuccCallback(data);
+        }).catch(err => {
+            // TODO 提示错误
         });
     }
 
@@ -57,53 +64,71 @@ export class UserProvider {
         return this.httpProvider.httpPostWithAuth("/user/password/change", data);
     }
 
-    getDevice(): Promise<any> {
-        return new Promise((resolve, reject) => {
-            if (this.platform.is('cordova')) {
-
-                let device = {
-                    cordova: this.device.cordova,
-                    model: this.device.model,
-                    platform: this.device.platform,
-                    uuid: this.device.uuid,
-                    version: this.device.version,
-                    manufacturer: this.device.manufacturer,
-                    isVirtual: this.device.isVirtual,
-                    serial: this.device.serial,
-                    push_id: null
-                };
-
-                this.jpush.getRegistrationID().then((id) => {
-                        console.log("获取极光推送ID:" + id);
-                        device.push_id = id;
-                        resolve(device);
-                    },
-                    (err) => {
-                        console.log("获取极光推送错误");
-                        console.log(err);
-                        resolve(device);
-                    });
-            } else {
-                resolve(null);
-            }
-        });
-    }
-
+    /**
+     * 第三方登录
+     * @param data
+     * @param provider
+     * @returns {Promise<any>}
+     */
     doThirdLogin(data, provider): Promise<any> {
-        return new Promise((resolve, reject) => {
-            this.getDevice().then((device) => {
-                data.device = device;
-                data.provider = provider;
+        data.provider = provider;
+        return this.httpProvider.httpPostNoAuth("/auth/third", this.getLoginParams(data)).then((data) => {
+            this.loginSuccCallback(data);
+        }).catch((err) => {
 
-                this.httpProvider.httpPostNoAuth("/auth/third", data).then((data) => {
-                    resolve(data);
-                }).catch((err) => {
-                    reject(err);
-                });
-            });
         });
     }
 
+    /**
+     * 封装登录参数
+     * @param data
+     * @returns {any}
+     */
+    protected getLoginParams(data) {
+        data.device = this.getDevice();
+        data.version = this.versionProvider.getVersion();
+        data.channel = this.jpushProvider.getChannel();
+        data.push_id = this.jpushProvider.getRegistrationID();
+        console.log(data);
+        return data;
+    }
+
+    /**
+     * 获取设备信息
+     * @returns {{cordova: string; model: string; version: string; uuid: string; isVirtual: boolean; platform: string; manufacturer: string; serial: string}}
+     */
+    protected getDevice() {
+        return {
+            cordova:this.device.cordova,
+            model:this.device.model,
+            version:this.device.version,
+            uuid : this.device.uuid,
+            isVirtual : this.device.isVirtual,
+            platform :  this.device.platform,
+            manufacturer : this.device.manufacturer,
+            serial : this.device.serial
+        }
+    }
+
+    /**
+     * 登录成功回调
+     * @param data
+     */
+    protected loginSuccCallback(data) {
+        if(!data || !data.user || !data.token) return;
+
+        this.storage.set('token', data.token);
+        this.storage.set('user', data.user);
+        // 设置别名
+        this.jpushProvider.setAlias(data.user);
+        // 跳转至欢迎界面
+        this.app.getRootNav().setRoot('main');
+    }
+
+    /**
+     * 微信登录
+     * @returns {Promise<any>}
+     */
     doWechatLogin(): Promise<any> {
 
         return new Promise((resolve, reject) => {
@@ -113,12 +138,8 @@ export class UserProvider {
                 var scope = "snsapi_userinfo",
                     state = "_" + (+new Date());
 
-                Wechat.auth(scope, state, response => {
-                    this.doThirdLogin(response, 'wechat').then((res) => {
-                        resolve(res);
-                    }).catch((err) => {
-                        reject(err);
-                    });
+                return Wechat.auth(scope, state, response => {
+                    return this.doThirdLogin(response, 'wechat')
                 });
             } else {
                 reject("非cordova平台");
@@ -127,11 +148,8 @@ export class UserProvider {
     }
 
     doWechatBind(): Promise<any> {
-
         return new Promise((resolve, reject) => {
-
             if (this.platform.is('cordova')) {
-
                 var scope = "snsapi_userinfo",
                     state = "_" + (+new Date());
 
@@ -148,6 +166,10 @@ export class UserProvider {
         });
     }
 
+    /**
+     * QQ登录
+     * @returns {Promise<any>}
+     */
     doQQLogin(): Promise<any> {
         return new Promise((resolve, reject) => {
             if (this.platform.is('cordova')) {
@@ -156,12 +178,8 @@ export class UserProvider {
                     client: QQSDK.ClientType.QQ
                 };
 
-                QQSDK.ssoLogin(result => {
-                    this.doThirdLogin(result, 'qq').then((res) => {
-                        resolve(res);
-                    }).catch((err) => {
-                        reject(err);
-                    });
+                return QQSDK.ssoLogin(result => {
+                    return this.doThirdLogin(result, 'qq');
                 }, err => {
                     reject(err);
                 }, args);
@@ -194,20 +212,16 @@ export class UserProvider {
         });
     }
 
+    /**
+     * 微博登录
+     * @returns {Promise<any>}
+     */
     doWeiboLogin(): Promise<any> {
 
         return new Promise((resolve, reject) => {
             if (this.platform.is('cordova')) {
-                WeiboSDK.ssoLogin(result => {
-
-                    result.provider = 'weibo';
-                    result.device = this.getDevice();
-
-                    this.doThirdLogin(result, 'weibo').then((res) => {
-                        resolve(res);
-                    }).catch((err) => {
-                        reject(err);
-                    });
+                return WeiboSDK.ssoLogin(result => {
+                    return this.doThirdLogin(result, 'weibo')
                 }, err => {
                     reject(err);
                 });
@@ -224,8 +238,6 @@ export class UserProvider {
                 WeiboSDK.ssoLogin(result => {
 
                     result.provider = 'weibo';
-                    result.device = this.getDevice();
-
                     this.bind('weibo', result).then((res) => {
                         resolve(res);
                     }).catch((err) => {
@@ -240,6 +252,10 @@ export class UserProvider {
         });
     }
 
+    /**
+     * 检查微信是否安装
+     * @returns {Promise<any>}
+     */
     checkWechatInstalled(): Promise<any> {
         return new Promise<any>((resolve, reject) => {
 
@@ -259,6 +275,10 @@ export class UserProvider {
         });
     }
 
+    /**
+     * 检查QQ是否安装
+     * @returns {Promise<any>}
+     */
     checkQQInstalled(): Promise<any> {
         return new Promise<any>((resolve, reject) => {
 
@@ -278,17 +298,16 @@ export class UserProvider {
 
     }
 
-    register(user) {
-        user.device = this.device;
-
-        return this.httpProvider.httpPostNoAuth("/auth/register", user);
-    }
 
     find(user) {
         user.device = this.device;
         return this.httpProvider.httpPostNoAuth("/auth/find", user);
     }
 
+    /**
+     * 获取用户信息
+     * @returns {Promise<any>}
+     */
     getUsersInfo(id) {
         return this.httpProvider.httpGetWithAuth("/users/" + id, null);
     }
@@ -301,14 +320,25 @@ export class UserProvider {
         return this.httpProvider.httpGetWithAuth("/user/", null);
     }
 
-    updateUser(id, body) {
-        return this.httpProvider.httpPatchWithAuth("/user/" + id, body);
+    /**
+     * 更新
+     * @param body
+     * @returns {Promise<Promise<Response>>}
+     */
+    updateUserInfo(body) {
+        return this.httpProvider.httpPatchWithAuth("/user", body);
     }
 
+    /**
+     * 搜索用户
+     *
+     * @param text
+     * @returns {Promise<Promise<Response>>}
+     */
     searchUser(text) {
         let params: URLSearchParams = new URLSearchParams();
         params.set('text', text);
-        return this.httpProvider.httpGetWithAuth("/user/search", params);
+        return this.httpProvider.httpGetWithAuth("/users/search", params);
     }
 
     getCode(account, type) {
@@ -322,13 +352,24 @@ export class UserProvider {
         return this.httpProvider.httpPostNoAuth("/auth/code", body);
     }
 
-
+    /**
+     * 关注用户
+     *
+     * @param id
+     * @returns {Promise<never | Response>}
+     */
     follow(id) {
-        return this.httpProvider.httpPutWithAuth("/user/follow/" + id, null).then(value => {
-            return value;
-        }).catch(e => {
-            console.log(e)
-        });
+        return this.httpProvider.httpPutWithAuth("/users/"+id+"/follow/" , null);
+    }
+
+    /**
+     * 取消关注
+     *
+     * @param id
+     * @returns {Promise<Promise<Response>>}
+     */
+    unFollow(id) {
+        return this.httpProvider.httpDeleteWithAuth("/users/" + id+"/follow/");
     }
 
     bind(provider, param) {
@@ -341,15 +382,9 @@ export class UserProvider {
         });
     }
 
-    unFollow(id) {
-        return this.httpProvider.httpDeleteWithAuth("/user/follow/" + id).then(value => {
-            return value;
-        }).catch(e => {
-            console.log(e)
-        });
-    }
 
-    getGoals(data,is_archive = "0") {
+
+    getGoals(data, is_archive = "0") {
         var params = new URLSearchParams();
         params.set('day', data);
         params.set('is_archive', is_archive);
@@ -379,7 +414,7 @@ export class UserProvider {
      * @param userId
      * @returns {Promise<any>}
      */
-    getUsersPhotos(userId,limit,offset) {
+    getUsersPhotos(userId, limit, offset) {
         var params = new URLSearchParams();
         params.set('limit', limit);
         params.set('offset', offset);
@@ -394,7 +429,7 @@ export class UserProvider {
      */
     updateGoals(id, param) {
         let body = JSON.stringify(param);
-        return this.httpProvider.httpPatchWithAuth("/user/goal/" + id, body);
+        return this.httpProvider.httpPatchWithAuth("/user/goals/" + id, body);
     }
 
     /**
@@ -407,7 +442,7 @@ export class UserProvider {
         return this.httpProvider.httpGetWithAuth("/user/goals/" + id + "/today", params);
     }
 
-    getGoalDays(id, page,per_page) {
+    getGoalDays(id, page, per_page) {
         let params: URLSearchParams = new URLSearchParams();
         params.set('page', page);
         params.set('per_page', per_page);
@@ -424,9 +459,7 @@ export class UserProvider {
      * @returns {Promise<any>}
      */
     deleteGoal(id) {
-        return this.httpProvider.httpDeleteWithAuth("/user/goals/" + id).then(value => {
-            return value;
-        });
+        return this.httpProvider.httpDeleteWithAuth("/user/goals/" + id);
     }
 
     goCheckinPage(goal, params = {}) {
@@ -492,8 +525,8 @@ export class UserProvider {
         //         console.log(e)
         //     });
         // } else {
-            params["id"] = goal.id;
-            this.app.getRootNav().push('goal-checkin', params);
+        params["id"] = goal.id;
+        this.app.getRootNav().push('goal-checkin', params);
         // }
     }
 
@@ -511,10 +544,10 @@ export class UserProvider {
         });
     }
 
-    getEvents(id, page, per_page) {
+    getEvents(id, limit, offset) {
         let params: URLSearchParams = new URLSearchParams();
-        params.set('page', page);
-        params.set('per_page', per_page);
+        params.set('limit', limit);
+        params.set('offset', offset);
         return this.httpProvider.httpGetWithAuth("/users/" + id + "/events", params);
     }
 
@@ -525,10 +558,10 @@ export class UserProvider {
      * @param per_page
      * @returns {Promise<any>}
      */
-    getGoalEvents(id, page, per_page) {
+    getGoalEvents(id, limit, offset) {
         let params: URLSearchParams = new URLSearchParams();
-        params.set('page', page);
-        params.set('per_page', per_page);
+        params.set('limit', limit);
+        params.set('offset', offset);
         return this.httpProvider.httpGetWithAuth("/user/goals/" + id + "/events", params);
     }
 
@@ -540,7 +573,7 @@ export class UserProvider {
      * @param day
      * @returns {Promise<any>}
      */
-    getGoalsChart(id, item_id,mode, day) {
+    getGoalsChart(id, item_id, mode, day) {
         let params: URLSearchParams = new URLSearchParams();
         params.set('item_id', item_id);
         params.set('mode', mode);
@@ -554,7 +587,7 @@ export class UserProvider {
      * @param end_date
      * @returns {Promise<any>}
      */
-    getGoalsCalendar(id,start_date, end_date) {
+    getGoalsCalendar(id, start_date, end_date) {
         let params: URLSearchParams = new URLSearchParams();
         params.set('start_date', start_date);
         params.set('end_date', end_date);
@@ -589,10 +622,16 @@ export class UserProvider {
         this.storage.set('user', user);
     }
 
-    getFanMessages(page, perPage) {
+    /**
+     * 获取粉丝消息
+     * @param limit
+     * @param offset
+     * @returns {Promise<Promise<Response>>}
+     */
+    getFanMessages(limit, offset) {
         var params = new URLSearchParams();
-        params.set('page', page);
-        params.set('per_page', perPage);
+        params.set('limit', limit);
+        params.set('offset', offset);
         return this.httpProvider.httpGetWithAuth("/user/messages/fan", params);
     }
 
@@ -610,15 +649,26 @@ export class UserProvider {
         return this.httpProvider.httpGetWithAuth("/user/messages/private", params);
     }
 
-    getPrivateMessageDetail(user_id,page, perPage) {
+    /**
+     * 获取与用户的私信
+     * @param user_id
+     * @param limit
+     * @param offset
+     * @returns {Promise<Promise<Response>>}
+     */
+    getPrivateMessageWithUser(user_id, limit, offset) {
         var params = new URLSearchParams();
-        params.set('user_id', user_id);
-        params.set('page', page);
-        params.set('per_page', perPage);
-        return this.httpProvider.httpGetWithAuth("/user/messages/private/detail", params);
+        params.set('limit', limit);
+        params.set('offset', offset);
+        return this.httpProvider.httpGetWithAuth("/user/messages/private/"+user_id, params);
     }
 
-    sendPrivateMessage(body) {     
+    /**
+     * 发送私信
+     * @param body
+     * @returns {Promise<Promise<Response>>}
+     */
+    sendPrivateMessage(body) {
         return this.httpProvider.httpPostWithAuth("/user/messages/private", body);
     }
 
@@ -697,27 +747,25 @@ export class UserProvider {
         return this.httpProvider.httpGetWithAuth("/users/" + userId + "/followings", params);
     }
 
-    getCoinLogs(page, per_page) {
+    /**
+     * 获取水滴币明细
+     * @param limit
+     * @param offset
+     * @returns {Promise<Promise<Response>>}
+     */
+    getCoins(limit, offset) {
         let params: URLSearchParams = new URLSearchParams();
-        params.set('page', page);
-        params.set('per_page', per_page);
-        return this.httpProvider.httpGetWithAuth("/user/coin/logs", params);
+        params.set('limit', limit);
+        params.set('offset', offset);
+        return this.httpProvider.httpGetWithAuth("/user/coins", params);
     }
 
     buyVip(body) {
-        return this.httpProvider.httpPostWithAuth("/vip/buy", body).then(value => {
-            return value;
-        }).catch(e => {
-            console.log(e)
-        });
+        return this.httpProvider.httpPostWithAuth("/vip/buy", body);
     }
 
     deleteCheckin(id) {
-        return this.httpProvider.httpDeleteWithAuth("/user/checkin/"+id).then(value => {
-            return value;
-        }).catch(e => {
-            console.log(e)
-        });
+        return this.httpProvider.httpDeleteWithAuth("/user/checkin/" + id);
     }
 
     getCheckin(id) {

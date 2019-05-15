@@ -12,7 +12,8 @@ import {UserProvider} from "../../providers/user/user";
 export class CoinLogPage {
 
     public logs: any = [];
-    private perPage: number = 20;
+    private perPage: number = 10;
+    private isLoading: boolean = false;
 
     constructor(public navCtrl: NavController,
                 private userProvider: UserProvider,
@@ -20,13 +21,29 @@ export class CoinLogPage {
     }
 
     ionViewDidLoad() {
-        this.getCoinLogs(1);
+        this.isLoading = true;
+        this.getCoins().then(data=>{
+            this.isLoading = false;
+        }).catch(err=>{
+            this.isLoading = false;
+        });
     }
 
-    getCoinLogs(page) {
-        this.userProvider.getCoinLogs(page, this.perPage).then((data) => {
+    /**
+     * 获取明细
+     * @param {boolean} isRefresh
+     * @returns {Promise<Promise<Response>>}
+     */
+    getCoins(isRefresh=false) {
+        let offset:number = 0;
+
+        if(!isRefresh) {
+            offset = this.logs.length;
+        }
+
+        return this.userProvider.getCoins(this.perPage,offset).then((data) => {
             if (data) {
-                if (this.logs.length == 0) {
+                if (offset == 0) {
                     this.logs = data;
                 } else {
                     this.logs = this.logs.concat(data);
@@ -35,27 +52,36 @@ export class CoinLogPage {
         });
     }
 
+    /**
+     * 下拉刷新
+     * @param refresher
+     */
     doRefresh(refresher) {
-
-        this.getCoinLogs(1);
-
         setTimeout(() => {
             refresher.complete();
-        }, 2000);
+        }, 10000);
+
+        this.getCoins(true).then(data=>{
+            refresher.complete();
+        }).catch(err=>{
+            refresher.complete();
+        });
     }
 
+    /**
+     * 上拉加载
+     * @param refresher
+     */
     doInfinite(infiniteScroll) {
-
-        var num = this.logs.length;
-
-        if (num > 0 && num % this.perPage == 0) {
-            var page = Math.floor(this.logs.length / 20) + 1;
-            this.getCoinLogs(page);
-        }
-
         setTimeout(() => {
             infiniteScroll.complete();
-        }, 2000);
+        }, 10000);
+
+        this.getCoins().then(data=>{
+            infiniteScroll.complete();
+        }).catch(err=>{
+            infiniteScroll.complete();
+        });
     }
 
 }

@@ -39,9 +39,13 @@ export class SettingPage {
     }
 
     goFeedback() {
-        this.userProvider.getUserInfo().then((data) => {
-            this.navCtrl.push('chat-detail',{user:data})
-        });
+        let user = {
+            id: 8,
+            nickname: 'Jason.z刚哥',
+            avatar_url: 'http://file.growu.me/5a3a879cf0c3e.jpg'
+        };
+
+        this.navCtrl.push('chat-detail', {user: user})
     }
 
     clearCache() {
@@ -70,7 +74,6 @@ export class SettingPage {
 
         this.appRate.promptForRating(true);
     }
-
 
 
 }

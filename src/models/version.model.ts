@@ -6,7 +6,6 @@
  * @version 1.0
  */
 export interface VersionModel {
-    appVersionNo: string;
-    appVersionCode: string;
-    appWebVersion: string;
+    appVersion: string;
+    webVersion: string;
 }

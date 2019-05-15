@@ -95,7 +95,9 @@ export class GoalCheckinPage {
                     type: 'success',
                     // timer: 4000,
                     showConfirmButton: true,
+                    showCancelButton: true,
                     confirmButtonText:'分享打卡',
+                    cancelButtonText:'回到主页',
                     // width: '80%',
                     padding: 0
                 }).then((result) => {
@@ -121,10 +123,14 @@ export class GoalCheckinPage {
                         });
 
                         modal.present();
+                    } else if(  result.dismiss === swal.DismissReason.cancel) {
+                        console.log("cancel2");
+                        this.navCtrl.popToRoot();
                     }
 
                 }, dismiss => {
-                    this.navCtrl.push('main');
+                    console.log("cancel");
+                    this.navCtrl.popToRoot();
                 });
 
 

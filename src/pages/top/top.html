@@ -1,20 +1,30 @@
 <ion-header no-border>
-
-    <ion-navbar color="primary">
-        <ion-title>排行榜</ion-title>
-        <ion-select interface="action-sheet"  [(ngModel)]="mode" (ionChange)="changeMode()" cancelText="取消">
-            <ion-option value="week">周榜</ion-option>
-            <ion-option value="month">月榜</ion-option>
-            <ion-option value="year">年榜</ion-option>
-            <ion-option value="all">总榜</ion-option>
-        </ion-select>
+    <!--<ion-navbar color="white">-->
+        <!--<ion-title>排行榜</ion-title>-->
+        <!--<ion-select item-end interface="popover" [(ngModel)]="mode" (ionChange)="changeMode()" cancelText="取消">-->
+            <!--<ion-option value="checkin">打卡榜</ion-option>-->
+            <!--<ion-option value="coin">财富榜</ion-option>-->
+        <!--</ion-select>-->
+    <!--</ion-navbar>-->
+    <ion-navbar>
+        <ion-segment [(ngModel)]="mode" mode="wp" (ionChange)="changePage()">
+            <ion-segment-button value="checkin">
+                打卡榜
+                <div class="bolder-sm"></div>
+            </ion-segment-button>
+            <ion-segment-button value="coin">
+                财富榜
+                <div class="bolder-sm"></div>
+            </ion-segment-button>
+        </ion-segment>
     </ion-navbar>
 </ion-header>
 
 <ion-content>
-    <ion-card>
+    <div [ngSwitch]="mode">
+        <div *ngSwitchCase="'checkin'">
         <ion-list>
-            <ion-item text-nowrap *ngFor="let user of users;let i = index" (click)="goUserHomePage(user)">
+            <ion-item text-nowrap *ngFor="let user of users.checkin;let i = index" (click)="goUserHomePage(user)">
                 <svg class="icon svg-iconfont" aria-hidden="true" item-start *ngIf="i<=2">
                     <use attr.xlink:href="{{'#icon-NO'+(i+1)}}"></use>
                 </svg>
@@ -23,29 +33,49 @@
                 <ion-avatar item-start >
                     <img [src]="user.avatar_url || 'assets/img/default-avatar.jpg'">
                 </ion-avatar>
-                <h2>{{user.nickname|| '低调人士'}}</h2>
-                <p>目标数：{{user.goal_count}}</p>
-
+                <h2>{{user.nickname|| '水滴用户'}}</h2>
                 <div item-end text-center>
                     <h3 class="count">{{user.checkin_count}}</h3>
                     <ion-note>打卡次数</ion-note>
                 </div>
             </ion-item>
         </ion-list>
-    </ion-card>
+        </div>
+        <div *ngSwitchCase="'coin'">
+            <ion-list>
+                <ion-item text-nowrap *ngFor="let user of users.coin;let i = index" (click)="goUserHomePage(user)">
+                    <svg class="icon svg-iconfont" aria-hidden="true" item-start *ngIf="i<=2">
+                        <use attr.xlink:href="{{'#icon-NO'+(i+1)}}"></use>
+                    </svg>
+
+                    <ion-note *ngIf="i>2" item-start class="no">{{i+1}}</ion-note>
+                    <ion-avatar item-start >
+                        <img [src]="user.avatar_url || 'assets/img/default-avatar.jpg'">
+                    </ion-avatar>
+                    <h2>{{user.nickname|| '低调人士'}}</h2>
+                    <div item-end text-center>
+                        <h3 class="count">{{user.energy_count}}</h3>
+                        <ion-note>水滴币</ion-note>
+                    </div>
+                </ion-item>
+            </ion-list>
+        </div>
+    </div>
+
+    <ion-infinite-scroll (ionInfinite)="doInfinite($event)">
+        <ion-infinite-scroll-content
+                loadingSpinner="bubbles"
+                loadingText="加载更多">
+        </ion-infinite-scroll-content>
+    </ion-infinite-scroll>
 </ion-content>
 <ion-footer>
         <ion-item (click)="goUserHomePage(user)">
-            <ion-note item-start class="no">{{my?.rank}}</ion-note>
-            <ion-avatar item-start >
-                <img [src]="user?.avatar_url || 'assets/img/default-avatar.jpg'">
-            </ion-avatar>
-            <h2>{{user?.nickname|| '低调人士'}}</h2>
-            <p>目标数：{{my?.goal_count}}</p>
-            <div item-end text-center>
-                <h3 class="count">{{my?.checkin_count}}</h3>
-                <ion-note>打卡次数</ion-note>
-            </div>
-            <!--<ion-icon item-end name="heart-outline"></ion-icon>-->
+            <h2>我的排名</h2>
+            <p ion-text color="danger">第 {{my?.rank}} 名</p>
+            <!--<ion-note item-end class="no">第 {{my?.rank}} 名</ion-note>-->
+            <ion-note item-end *ngIf="mode=='checkin'">打卡次数 {{my?.checkin_count}}</ion-note>
+            <ion-note item-end *ngIf="mode=='coin'">水滴币 {{my?.energy_count}}</ion-note>
+
         </ion-item>
 </ion-footer>

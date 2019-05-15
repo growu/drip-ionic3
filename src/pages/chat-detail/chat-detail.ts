@@ -1,77 +1,113 @@
-import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import {Component} from '@angular/core';
+import {IonicPage, NavController, NavParams} from 'ionic-angular';
 import {UserProvider} from "../../providers/user/user";
 import {ToastProvider} from "../../providers/toast/toast";
 import {Storage} from '@ionic/storage';
 
 @IonicPage({
-  name:'chat-detail',
-  segment:'chat/detail'
+    name: 'chat-detail',
+    segment: 'chat/detail'
 })
 @Component({
-  selector: 'page-chat-detail',
-  templateUrl: 'chat-detail.html',
+    selector: 'page-chat-detail',
+    templateUrl: 'chat-detail.html',
 })
 export class ChatDetailPage {
 
-  public messages:Array<any> = [];
+    public messages: Array<any> = [];
 
-  public toUser:any;
-  public user:any;
-  public content:any;
+    public toUser: any;
+    public user: any;
+    public content: any;
 
-  perPage:number = 20;
+    perPage: number = 20;
 
-  constructor(public navCtrl: NavController,
-    private userProvider: UserProvider,
-    private storage:Storage,
-    private toastProvider:ToastProvider,
-     public navParams: NavParams) {
-    this.toUser = this.navParams.get("user");
-    console.log(this.toUser);
-  }
+    constructor(public navCtrl: NavController,
+                private userProvider: UserProvider,
+                private storage: Storage,
+                private toastProvider: ToastProvider,
+                public navParams: NavParams) {
+        this.toUser = this.navParams.get("user");
+        console.log(this.toUser);
+    }
 
-  ionViewDidLoad() {
-    this.getUser();
-  }
+    ionViewDidLoad() {
+        this.getUser();
+    }
 
-  getUser() {
-  //   this.userProvider.getUser(this.toUser.id).then((data) => {
-  //     this.toUser = data;
-  // });
+    async getUser() {
+        this.user = await this.storage.get('user');
+        this.getMessages();
+    }
 
-    this.storage.get('user').then((user)=>{
-      this.user = user;
-      this.getMessages(1);
-    })
-  }
-
-  getMessages(page) {
-    this.userProvider.getPrivateMessageDetail(this.toUser.id,page, this.perPage).then((data) => {
-        if (data) {
-            if (this.messages.length == 0) {
-                this.messages = data;
-            } else {
-                this.messages = this.messages.concat(data);
-            }
+    /**
+     * 获取消息
+     * @param {boolean} isRefresh
+     * @returns {Promise<Promise<Response>>}
+     */
+    getMessages(isRefresh=false) {
+        let offset:number = 0;
+        if(!isRefresh) {
+            offset = this.messages.length;
         }
-    });
-}
 
-doComment() {
+        return this.userProvider.getPrivateMessageWithUser(this.toUser['id'], this.perPage, offset).then((data) => {
+            if (data) {
+                if (offset == 0) {
+                    this.messages = data;
+                } else {
+                    this.messages = this.messages.concat(data);
+                }
+            }
+        });
+    }
 
-  let body = {
-      user_id:this.toUser.id,
-      content:this.content
-  };
+    /**
+     * 下拉刷新
+     * @param refresher
+     */
+    doRefresh(refresher) {
+        setTimeout(() => {
+            refresher.complete();
+        }, 10000);
 
-  this.userProvider.sendPrivateMessage(body).then((data) => {
-    this.toastProvider.show("发送成功","success")
-    this.messages.unshift(data);
-  }).catch((err)=>{
+        this.getMessages(true).then(data=>{
+            refresher.complete();
+        }).catch(err=>{
+            refresher.complete();
+        });
+    }
 
-  });
-}
+    /**
+     * 上拉加载
+     * @param refresher
+     */
+    doInfinite(infiniteScroll) {
+        setTimeout(() => {
+            infiniteScroll.complete();
+        }, 10000);
+
+        this.getMessages().then(data=>{
+            infiniteScroll.complete();
+        }).catch(err=>{
+            infiniteScroll.complete();
+        });
+    }
+
+    doComment() {
+
+        let body = {
+            user_id: this.toUser['id'],
+            content: this.content
+        };
+
+        this.userProvider.sendPrivateMessage(body).then((data) => {
+            this.toastProvider.show("发送成功", "success")
+            this.messages.unshift(data);
+        }).catch((err) => {
+
+        });
+    }
 
 
 }

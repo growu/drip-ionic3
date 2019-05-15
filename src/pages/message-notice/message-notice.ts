@@ -1,37 +1,52 @@
-import { Component } from '@angular/core';
+import {Component} from '@angular/core';
 import {NavController, NavParams, IonicPage, Events} from "ionic-angular";
-import {CommentProvider} from "../../providers/comment/comment";
 import {UserProvider} from "../../providers/user/user";
 
 @IonicPage({
-  name:"message-notice",
-  segment:"message/notice"
+    name: "message-notice",
+    segment: "message/notice"
 })
 @Component({
-  selector: 'page-message-notice',
-  templateUrl: 'message-notice.html',
+    selector: 'page-message-notice',
+    templateUrl: 'message-notice.html',
 })
 export class MessageNoticePage {
 
     public messages: any = [];
-    private perPage: number = 20;
+    private perPage: number = 10;
+    public isLoading:boolean = false;
 
-  constructor(public navCtrl: NavController,
-              public navParams: NavParams,
-              private events: Events,
-              private userProvider: UserProvider
-             ) {
-  }
+    constructor(public navCtrl: NavController,
+                public navParams: NavParams,
+                private events: Events,
+                private userProvider: UserProvider) {
+    }
 
-  ionViewDidLoad() {
-      this.events.publish('messages:update', {});
-      this.getNoticeMessages(1);
-  }
+    ionViewDidLoad() {
+        // this.events.publish('messages:update', {});
+        this.isLoading = true;
+        this.getNoticeMessages().then(data=>{
+            this.isLoading = false;
+        }).catch(err=>{
+            this.isLoading = false;
+        });
+    }
 
-    getNoticeMessages(page) {
-        this.userProvider.getNoticeMessages(page, this.perPage).then((data) => {
+    /**
+     * 获取通知
+     * @param {boolean} isRefresh
+     * @returns {Promise<Promise<Response>>}
+     */
+    getNoticeMessages(isRefresh=false) {
+        let offset:number = 0;
+
+        if(isRefresh) {
+            offset = this.messages.length;
+        }
+
+        return this.userProvider.getNoticeMessages(this.perPage,offset).then((data) => {
             if (data) {
-                if (this.messages.length == 0) {
+                if (offset == 0) {
                     this.messages = data;
                 } else {
                     this.messages = this.messages.concat(data);
@@ -40,31 +55,44 @@ export class MessageNoticePage {
         });
     }
 
+    /**
+     * 下拉刷新
+     * @param refresher
+     */
     doRefresh(refresher) {
-
-        this.getNoticeMessages(1);
-
         setTimeout(() => {
             refresher.complete();
-        }, 2000);
+        }, 10000);
+
+        this.getNoticeMessages(true).then(data=>{
+            refresher.complete();
+        }).catch(err=>{
+            refresher.complete();
+        });
     }
 
+    /**
+     * 上拉加载
+     * @param refresher
+     */
     doInfinite(infiniteScroll) {
-
-        var num = this.messages.length;
-
-        if (num > 0 && num % this.perPage == 0) {
-            var page = Math.floor(this.messages.length / 20) + 1;
-            this.getNoticeMessages(page);
-        }
-
         setTimeout(() => {
             infiniteScroll.complete();
-        }, 2000);
+        }, 10000);
+
+        this.getNoticeMessages().then(data=>{
+            infiniteScroll.complete();
+        }).catch(err=>{
+            infiniteScroll.complete();
+        });
     }
 
+    /**
+     * 跳转到消息详情
+     * @param message
+     */
     goMessageDetail(message) {
-      this.navCtrl.push('message-detail',{id:message.id});
+        this.navCtrl.push('message-detail', {id: message.id});
     }
 
 

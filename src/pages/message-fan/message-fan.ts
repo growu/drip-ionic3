@@ -13,7 +13,8 @@ import {UserProvider} from '../../providers/user/user'
 export class MessageFanPage {
 
     public messages: any = [];
-    private perPage: number = 20;
+    private perPage: number = 10;
+    public isLoading:boolean;
 
     constructor(public navCtrl: NavController,
                 public navParams: NavParams,
@@ -22,18 +23,38 @@ export class MessageFanPage {
     }
 
     ionViewDidLoad() {
-        this.events.publish('messages:update', {});
-        this.getFanMessages(1);
+        // this.events.publish('messages:update', {});
+        this.isLoading = true;
+        this.getFanMessages().then(data=>{
+            this.isLoading = false;
+        }).catch(err=>{
+            this.isLoading = false;
+        });
     }
 
+    /**
+     * 跳转到用户主页
+     * @param user
+     */
     goUserHomePage(user) {
         this.navCtrl.push("user-home", {'id': user.id});
     }
 
-    getFanMessages(page) {
-        this.userProvider.getFanMessages(page, this.perPage).then((data) => {
+    /**
+     *
+     * @param page
+     */
+    getFanMessages(isRefresh=false) {
+
+        let offset:number = 0;
+
+        if(!isRefresh) {
+            offset = this.messages.length;
+        }
+
+        return this.userProvider.getFanMessages(this.perPage,offset).then((data) => {
             if (data) {
-                if (this.messages.length == 0) {
+                if (offset == 0) {
                     this.messages = data;
                 } else {
                     this.messages = this.messages.concat(data);
@@ -42,27 +63,38 @@ export class MessageFanPage {
         });
     }
 
+    /**
+     * 下拉刷新
+     * @param refresher
+     */
     doRefresh(refresher) {
-
-        this.getFanMessages(1);
 
         setTimeout(() => {
             refresher.complete();
-        }, 2000);
+        }, 10000);
+
+        this.getFanMessages(true).then(data=>{
+            refresher.complete();
+        }).catch(err=>{
+            refresher.complete();
+        });
     }
 
+    /**
+     * 上拉加载
+     * @param infiniteScroll
+     */
     doInfinite(infiniteScroll) {
-
-        var num = this.messages.length;
-
-        if (num > 0 && num % this.perPage == 0) {
-            var page = Math.floor(this.messages.length / 20) + 1;
-            this.getFanMessages(page);
-        }
 
         setTimeout(() => {
             infiniteScroll.complete();
-        }, 2000);
+        }, 10000);
+
+        this.getFanMessages().then(data=>{
+            infiniteScroll.complete();
+        }).catch(err=>{
+            infiniteScroll.complete();
+        });
     }
 
 }

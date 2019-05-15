@@ -1,47 +1,53 @@
-<!--
-  Generated template for the ChateDetailPage page.
-
-  See http://ionicframework.com/docs/components/#navigation for more info on
-  Ionic pages and navigation.
--->
 <ion-header>
-
-  <ion-navbar>
-    <ion-title>与{{toUser.nickname}}聊天中</ion-title>
-  </ion-navbar>
-
+    <ion-navbar color="white">
+        <ion-title>与{{toUser?.nickname}}聊天中</ion-title>
+    </ion-navbar>
 </ion-header>
 
 
 <ion-content padding>
-  <div class="message-wrap">
+    <ion-refresher (ionRefresh)="doRefresh($event)">
+        <ion-refresher-content
+                pullingIcon="arrow-dropdown"
+                pullingText="下拉刷新"
+                refreshingSpinner="circles"
+                refreshingText="加载中...">
+        </ion-refresher-content>
+    </ion-refresher>
 
-    <div *ngFor="let message of messages"
-         class="message"
-         [class.left]=" message.from_user == toUser.id"
-         [class.right]=" message.from_user == user.id ">
-      <img class="user-img" [src]="toUser.avatar_url" *ngIf="message.from_user == toUser.id">
-      <img class="user-img" [src]="user.avatar_url" *ngIf="message.from_user == user.id">
-      <!-- <ion-spinner name="dots" *ngIf="msg.status === 'pending'"></ion-spinner> -->
-      <div class="msg-detail">
-        <div class="msg-info">
-          <p>
-            {{message.created_at}}</p>
+    <div class="message-wrap">
+        <div *ngFor="let message of messages"
+             class="message"
+             [class.left]=" message.from_user == toUser?.id"
+             [class.right]=" message.from_user == user?.id ">
+            <img class="user-img" [src]="toUser?.avatar_url" *ngIf="message.from_user == toUser.id">
+            <img class="user-img" [src]="user?.avatar_url" *ngIf="message.from_user == user.id">
+            <!-- <ion-spinner name="dots" *ngIf="msg.status === 'pending'"></ion-spinner> -->
+            <div class="msg-detail">
+                <div class="msg-info">
+                    <p>
+                        {{message.created_at}}</p>
+                </div>
+                <div class="msg-content">
+                    <span class="triangle"></span>
+                    <p class="line-breaker" [innerHtml]="message.content"></p>
+                </div>
+            </div>
         </div>
-        <div class="msg-content">
-          <span class="triangle"></span>
-          <p class="line-breaker" [innerHtml]="message.content"></p>
-        </div>
-      </div>
     </div>
 
-  </div>
+    <ion-infinite-scroll (ionInfinite)="doInfinite($event)">
+        <ion-infinite-scroll-content
+                loadingSpinner="bubbles"
+                loadingText="加载更多">
+        </ion-infinite-scroll-content>
+    </ion-infinite-scroll>
 </ion-content>
 
 <ion-footer style="height:50px;">
     <ion-toolbar>
-        <ion-item >
-            <ion-input type="text"  clearInput #commentInput [(ngModel)]="content"></ion-input>
+        <ion-item>
+            <ion-input type="text" clearInput #commentInput [(ngModel)]="content"></ion-input>
             <button ion-button item-end (click)="doComment()">发送</button>
         </ion-item>
     </ion-toolbar>

@@ -33,41 +33,15 @@ export class MyThirdLoginComponent {
 }
 
   doQQLogin() {
-      this.userProvider.doQQLogin().then((response) => {
-          this.successLogin(response);
-      }).catch((err) => {
-      });
+      this.userProvider.doQQLogin();
   }
 
   doWeiboLogin() {
-      this.userProvider.doWeiboLogin().then((response) => {
-          this.successLogin(response);
-      }).catch((err) => {
-      });
+      this.userProvider.doWeiboLogin();
   }
 
   doWechatLogin() {
-      this.userProvider.doWechatLogin().then((response) => {
-          this.successLogin(response);
-      }).catch((err) => {
-      });
+      this.userProvider.doWechatLogin();
   }
 
-  private successLogin(response) {
-
-    this.storage.set('token', response.token);
-    this.storage.set('user', response.user);
-    swal({
-        title: '登录成功',
-        // text: '欢迎回来',
-        type: 'success',
-        timer: 2000,
-        showConfirmButton: false,
-        width: '60%'
-    }).then(() => {
-        this.navCtrl.push('main');
-    }, dismiss => {
-        this.navCtrl.push('main');
-    });
-  }
 }

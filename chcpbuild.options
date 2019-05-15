@@ -3,6 +3,6 @@
     "config-file": "http://file.growu.me/dev/www/chcp.json"
   },
   "production": {
-    "config-file": "http://file.growu.me/www/chcp.json"
+    "config-file": "https://drip.growu.me/www/chcp.json"
   }
 }

@@ -106,6 +106,11 @@ export class EventPage {
      */
     doRefresh(refresher) {
 
+        if(this.isLoading) {
+            refresher.complete();
+            return;
+        }
+
         setTimeout(() => {
             refresher.complete();
         }, 10000);
@@ -123,6 +128,11 @@ export class EventPage {
      * @param infiniteScroll
      */
     doInfinite(infiniteScroll) {
+
+        if(this.isLoading) {
+            infiniteScroll.complete();
+            return;
+        }
 
         setTimeout(() => {
             infiniteScroll.complete();

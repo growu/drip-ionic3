@@ -143,8 +143,7 @@ export class GoalCreatePage {
                 if (data) {
                     this.toastProvider.show("创建成功", 'success');
                     this.events.publish('goals:update', {});
-                    this.navCtrl.push('home', {id: data.id});
-
+                    this.navCtrl.setRoot('home', {id: data.id});
                     // swal({
                     //     title: '创建成功',
                     //     text: '开始打卡吧!',

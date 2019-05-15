@@ -1,6 +1,5 @@
 <ion-header>
-
-  <ion-navbar color="primary">
+  <ion-navbar color="white">
     <ion-title>查找用户</ion-title>
   </ion-navbar>
 
@@ -8,7 +7,7 @@
 
 
 <ion-content>
-  <ion-searchbar [(ngModel)]="searchText" (ionInput)="getUsers($event)"></ion-searchbar>
+  <ion-searchbar [(ngModel)]="searchText" (ionInput)="getUsers($event)" placeholder="请输入用户昵称"></ion-searchbar>
   <ion-list>
     <ion-item *ngFor="let user of users">
       <ion-avatar item-start >
@@ -16,8 +15,8 @@
       </ion-avatar>
       <h2>{{user.nickname || '还没有昵称'}}</h2>
       <p>{{user.signature}}</p>
-      <button small round item-end ion-button (click)="doFollow(user,$event)" *ngIf="!user.is_follow">关注</button>
-      <button small round item-end ion-button outline (click)="doUnFollow(user,$event)"  *ngIf="user.is_follow">已关注</button>
+      <my-follow-button [followStatus]="user.is_following" [followUser]="user.id"
+                        item-end ></my-follow-button>
     </ion-item>
   </ion-list>
 

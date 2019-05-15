@@ -12,7 +12,7 @@ import {UserProvider} from "../../providers/user/user";
 })
 export class UserHomeEventsPage {
     public events: any = [];
-    private perPage: number = 20;
+    private perPage: number = 10;
     public isLoading: boolean = false;
 
     constructor(public navCtrl: NavController,
@@ -37,7 +37,7 @@ export class UserHomeEventsPage {
     getUserEvents() {
         let id = this.navParams.get('id');
 
-        return this.userProvider.getEvents(id, this.perPage, this.events).then((data) => {
+        return this.userProvider.getEvents(id, this.perPage, this.events.length).then((data) => {
             if (data) {
                 if (this.events.length == 0) {
                     this.events = data;
