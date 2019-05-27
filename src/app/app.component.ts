@@ -48,13 +48,13 @@ export class MyApp {
             this.keyboard.disableScroll(true);
             this.backgroundMode.enable();
 
-            // 初始化数据
-            this.versionProvider.init();
-            this.jpushProvider.init();
-
             // this.backgroundMode.overrideBackButton();
 
             if (platform.is('cordova')) {
+
+                // 初始化数据
+                this.versionProvider.init();
+                this.jpushProvider.init();
 
                 localNotifications.hasPermission().then(granted => {
                     if (granted) {

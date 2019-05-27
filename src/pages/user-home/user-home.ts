@@ -18,7 +18,7 @@ export class UserHomePage {
 
     @ViewChild(Content) content: Content;
 
-    public user: any = {};
+    public user: any;
     public mode:string = "more";
     public followStatus:boolean = false;
 

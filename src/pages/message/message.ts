@@ -3,6 +3,7 @@ import {IonicPage, NavController, NavParams} from 'ionic-angular';
 import {UserProvider} from '../../providers/user/user';
 import {Storage} from '@ionic/storage';
 import {HttpProvider} from "../../providers/http/http";
+import {PostProvider} from "../../providers/post/post";
 
 @IonicPage({
     name: 'message',
@@ -21,23 +22,17 @@ export class MessagePage {
         notice_count:0
     };
 
-    public articles = [];
+    public posts = [];
 
     constructor(public navCtrl: NavController,
                 public navParams: NavParams,
                 public storage: Storage,
-                public httpProvider: HttpProvider,
+                public postProvider: PostProvider,
                 public userProvider: UserProvider) {
     }
 
     ionViewDidLoad() {
-        // TODO make as provider
-        // 获取文章列表
-        this.httpProvider.httpGetWithAuth('/posts',null).then(
-            (data)=>{
-                this.articles = data;
-            }
-        )
+        this.getPosts();
     }
 
     ionViewDidEnter() {
@@ -49,9 +44,21 @@ export class MessagePage {
         });
     }
 
-    // 跳转页面
+    /**
+     * 获取文章列表
+     */
+    protected getPosts() {
+        this.postProvider.getAll().then(data=>{
+            this.posts = data;
+        });
+    }
+
+    /**
+     * 跳转页面
+     * @param page
+     * @param {any} params
+     */
     goPage(page,params=null) {
         this.navCtrl.push(page, params);
     }
-
 }

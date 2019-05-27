@@ -2,7 +2,7 @@
   <ion-toolbar color="white">
     <ion-title>我</ion-title>
     <ion-buttons end>
-      <button ion-button icon-only (click)="goSettingPage()">
+      <button ion-button icon-only (click)="goPage('setting')">
         <ion-icon name="settings"></ion-icon>
       </button>
     </ion-buttons>
@@ -11,60 +11,38 @@
 </ion-header>
 
 <ion-content class="page-my">
-  <!--<ion-list class="profile-list" no-lines>-->
-    <!--<ion-item (click)="goUserHomePage()">-->
-      <!--<ion-avatar item-start>-->
-      <!--<img src="{{user.avatar_url || 'assets/img/default-avatar.jpg'}}">-->
-      <!--</ion-avatar >-->
-      <!--<h2>-->
-        <!--<span ion-text>{{user.nickname || '还没有昵称'}}</span>-->
-        <!--&lt;!&ndash;<i class="iconfont icon-professional-hexagon" ion-text [color]="user.is_vip?'orange':'gray'" (click)="goVipPage($event)"></i>&ndash;&gt;-->
-
-        <!--&lt;!&ndash;<i class="iconfont icon-vip-copy" ion-text [color]="user.is_vip?'danger':'gray'" (click)="goVipPage($event)"></i>&ndash;&gt;-->
-        <!--<ion-badge [color]="user.is_vip?'yellow':'gray'" (click)="goVipPage($event)">PRO</ion-badge>-->
-      <!--</h2>-->
-      <!--<p><ion-icon name="water" color="white" item-start> 30232水滴币</ion-icon></p>-->
-      <!--<ion-note item-end>-->
-        <!--<ion-icon name="arrow-forward"></ion-icon>-->
-      <!--</ion-note>-->
-    <!--</ion-item>-->
-  <!--</ion-list>-->
       <ion-list class="avatar-list">
         <ion-item>
           <ion-avatar item-start (click)="goUserHomePage()">
-          <img src="{{user.avatar_url || 'assets/img/default-avatar.jpg'}}">
+          <img src="{{user?.avatar_url || 'assets/img/default-avatar.jpg'}}">
            </ion-avatar>
           <h2>
-            {{user.nickname || '还没有昵称'}}
-            <!--<ion-badge [color]="user.is_vip?'gray':'gray'">PRO会员</ion-badge>-->
-            <!--<i class="iconfont icon-professional-hexagon" ion-text [color]="user.is_vip?'gray':'gray'" (click)="goVipPage($event)"></i>-->
+            {{user?.nickname || '还没有昵称'}}
           </h2>
-          <p (click)="goWalletPage()">
+          <p (click)="goWalletPage()" *ngIf="!isAudit">
             <svg class="icon svg-iconfont" aria-hidden="true" *ngIf="user?.is_vip">
               <use xlink:href="#icon-jinbi">
               </use>
             </svg>
             {{user?.coin || '0'}}
           </p>
-          <!--<p (click)="goWalletPage()" ion-text color="light">水滴币：{{user.coin || '0'}}</p>-->
-          <button ion-button item-end color="yellow" *ngIf="user.is_vip" (click)="goPage('vip')">PRO</button>
-          <button ion-button item-end color="gray" *ngIf="!user.is_vip" (click)="goPage('vip')">FREE</button>
-          <ion-icon name="arrow-forward" item-end></ion-icon>
+          <dp-vip-button item-end [user]="user" [showFree]="true"></dp-vip-button>
+          <!--<ion-icon name="arrow-forward" item-end></ion-icon>-->
         </ion-item>
       </ion-list>
 
 
   <ion-row class="follow-row">
     <ion-col text-center (click)="goUserFollowingPage()">
-      <strong ion-text class="num">{{user.follow_count || '0'}}</strong>
+      <strong ion-text class="num">{{user?.follow_count || '0'}}</strong>
       <ion-note>关注</ion-note>
     </ion-col>
     <ion-col text-center (click)="goUserFollowerPage()">
-      <strong ion-text class="num" >{{user.fans_count || '0'}}</strong>
+      <strong ion-text class="num" >{{user?.fans_count || '0'}}</strong>
       <ion-note>粉丝</ion-note>
     </ion-col>
     <ion-col text-center (click)="goUserHomePage()">
-      <strong ion-text class="num">{{user.event_count || '0'}}</strong>
+      <strong ion-text class="num">{{user?.event_count || '0'}}</strong>
       <ion-note>动态</ion-note>
     </ion-col>
   </ion-row>
@@ -144,32 +122,6 @@
         </ion-card>
       </ion-col>
     </ion-row>
-
-    <!--<ion-item (click)="goWalletPage()">-->
-      <!--<ion-icon name="water" item-start></ion-icon>-->
-      <!--水滴币-->
-      <!--<ion-note clear item-end>-->
-        <!--<ion-note ion-text class="num"> {{user.coin || '0'}} </ion-note>-->
-        <!--<ion-icon name="arrow-forward" color="dark"></ion-icon>-->
-      <!--</ion-note>-->
-    <!--</ion-item>-->
-    <!--<ion-item>-->
-      <!--<ion-icon name="ribbon" item-start></ion-icon>-->
-      <!--徽章-->
-      <!--<ion-note clear item-end>-->
-        <!--<ion-note ion-text class="num"> 0 </ion-note>-->
-        <!--<ion-icon name="arrow-forward"></ion-icon>-->
-      <!--</ion-note>-->
-    <!--</ion-item>-->
-
-    <!--<ion-item>-->
-      <!--<ion-icon name="ribbon" item-start></ion-icon>-->
-      <!--排行榜-->
-      <!--<ion-note clear item-end>-->
-        <!--<ion-note ion-text class="num"> 0 </ion-note>-->
-        <!--<ion-icon name="arrow-forward"></ion-icon>-->
-      <!--</ion-note>-->
-    <!--</ion-item>-->
   </ion-list>
   </div>
 </ion-content>

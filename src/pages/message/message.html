@@ -98,16 +98,16 @@
     </ion-list>
     <div>
         <ion-list>
-            <ion-card (click)="goPage('article-detail',{'id':article.id,'article':article})" *ngFor="let article of articles">
+            <ion-card (click)="goPage('post-detail',{'id':post.id,'post':post})" *ngFor="let post of posts">
                 <ion-card-content>
                     <ion-card-title>
-                        {{article.title}}
+                        {{post.title}}
                     </ion-card-title>
                     <p>
-                        {{article.subtitle}}
+                        {{post.subtitle}}
                     </p>
                 </ion-card-content>
-                <img [src]="article.image"/>
+                <img [src]="post.image"/>
             </ion-card>
         </ion-list>
     </div>

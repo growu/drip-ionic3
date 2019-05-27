@@ -8,6 +8,8 @@ import {IonicImageViewerModule} from "ionic-img-viewer";
 import {KeyboardProvider} from "../../providers/AppProvider";
 import {KeyboardAttachDirective} from "../../directives/keyboard-attach.directive";
 import {MyLoaderComponentModule} from '../../components/my-loader/my-loader.module';
+import {DpCommentComponentModule} from '../../components/dp-comment/dp-comment.module';
+import {DpCommentToolbarComponentModule} from "../../components/dp-comment-toolbar/dp-comment-toolbar.module";
 
 @NgModule({
     declarations: [
@@ -20,7 +22,9 @@ import {MyLoaderComponentModule} from '../../components/my-loader/my-loader.modu
         MyFollowButtonComponentModule,
         MyShareModule,
         IonicImageViewerModule,
-        MyLoaderComponentModule
+        MyLoaderComponentModule,
+        DpCommentComponentModule,
+        DpCommentToolbarComponentModule
     ],
     providers:[
         KeyboardProvider

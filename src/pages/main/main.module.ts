@@ -4,7 +4,6 @@
 import {NgModule} from '@angular/core';
 import {IonicPageModule} from 'ionic-angular';
 import {MainPage} from "./main";
-import {UpdateProvider} from "../../providers/update/update";
 import {InAppBrowser} from '@ionic-native/in-app-browser';
 
 @NgModule({
@@ -22,7 +21,6 @@ import {InAppBrowser} from '@ionic-native/in-app-browser';
     ],
     providers:[
         InAppBrowser,
-        UpdateProvider
     ]
 })
 export class MainPageModule {

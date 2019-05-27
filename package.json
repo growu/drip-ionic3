@@ -49,6 +49,7 @@
     "@ionic-native/native-audio": "^4.20.0",
     "@ionic-native/native-page-transitions": "^4.20.0",
     "@ionic-native/native-storage": "^4.20.0",
+    "@ionic-native/open-native-settings": "^4.20.0",
     "@ionic-native/photo-library": "^4.20.0",
     "@ionic-native/social-sharing": "4.5.2",
     "@ionic-native/splash-screen": "4.5.2",

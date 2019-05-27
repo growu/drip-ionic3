@@ -18,11 +18,11 @@ export class WelcomePage {
 
     // public days: any = ['0', '0', '0', '0'];
     public days: any =0;
-
     public today = moment(new Date()).format("YYYY-MM-DD");
-    
     public week:any;
     public time:any = 'morning';
+    public timer:any;
+    public second:number = 5;
 
     constructor(public navCtrl: NavController,
                 public navParams: NavParams,
@@ -64,13 +64,23 @@ export class WelcomePage {
             }
         });
 
+        setInterval(()=>{
+            this.second--;
+        },1000);
+
         // 5s 后进入首页
-        setTimeout(()=>{
-            this.navCtrl.push('main');
+        this.timer = setTimeout(()=>{
+            this.navCtrl.setRoot('main');
         },5000);
     }
 
-    goHome() {
+    /**
+     * 跳转到主页
+     *
+     */
+    goHomePage() {
+        this.clean();
+
         let options: NativeTransitionOptions = {
             direction: 'up',
             duration: 500,
@@ -84,7 +94,7 @@ export class WelcomePage {
         
          this.nativePageTransitions.fade(options);
 
-        this.navCtrl.push('main',{});
+        this.navCtrl.setRoot('main');
     }
 
     doShare() {
@@ -108,11 +118,15 @@ export class WelcomePage {
         
     }
 
-    // ionViewCanEnter(): boolean {
-    //   return false;
-    // }
+    ionViewDidLeave() {
+       this.clean();
+    }
 
-    ionViewDidLoad() {
+    protected clean() {
+        if(this.timer) {
+            this.timer = null;
+            clearTimeout(this.timer);
+        }
     }
 
     pad(num: number, size: number): string {
@@ -123,7 +137,7 @@ export class WelcomePage {
 
     swipeEvent($event) {
         if($event.direction == Hammer.DIRECTION_UP) {
-            this.goHome();
+            this.goHomePage();
         }
     }
 

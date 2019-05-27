@@ -1,0 +1,48 @@
+<ion-header no-border>
+    <ion-navbar>
+        <ion-title>{{post?.title}}</ion-title>
+    </ion-navbar>
+</ion-header>
+
+<ion-content>
+
+    <p padding [innerHtml]="post?.content" style="min-height: 500px;"></p>
+
+    <!--<ion-row>-->
+        <!--<ion-col>-->
+            <!--<button ion-button clear small text-left (click)="goPage()">-->
+                <!--阅读原文-->
+            <!--</button>-->
+        <!--</ion-col>-->
+        <!--<ion-col>-->
+
+        <!--</ion-col>-->
+        <!--<ion-col center text-center text-right (click)="doLike()" *ngIf="!post?.is_liked">-->
+            <!--<ion-icon name="ios-thumbs-up-outline" color="gray"></ion-icon>-->
+            <!--<span ion-text> {{post?.like_count}}</span>-->
+        <!--</ion-col>-->
+        <!--<ion-col center text-center text-right (click)="doUnLike()" *ngIf="post?.is_liked">-->
+            <!--<ion-icon name="ios-thumbs-up" color="primary"></ion-icon>-->
+            <!--<span ion-text> {{post?.like_count}}</span>-->
+        <!--</ion-col>-->
+    <!--</ion-row>-->
+
+    <div class="light-content" margin-top>
+        <!--<div text-center>-->
+            <!--<button ion-button clear (click)="isComment = !isComment">写评论</button>-->
+        <!--</div>-->
+    <dp-comment [comments]="comments" (reply)="onReplyChange($event)"></dp-comment>
+    </div>
+
+    <ion-infinite-scroll (ionInfinite)="doInfinite($event)">
+        <ion-infinite-scroll-content
+                loadingSpinner="bubbles"
+                loadingText="加载更多">
+        </ion-infinite-scroll-content>
+    </ion-infinite-scroll>
+
+</ion-content>
+
+<ion-footer>
+    <dp-comment-toolbar [source]="post" [replyComment]="replyComment" (like)="doLike($event)" (favorite)="doFavorite()" (comment)="doComment($event)" *ngIf="post"></dp-comment-toolbar>
+</ion-footer>

@@ -1,0 +1,12 @@
+<ion-list>
+  <ion-item *ngFor="let user of _users" class="like-item" (click)="goUserHomePage(like.user)">
+    <ion-avatar item-start >
+      <img [src]="like.user.avatar_url || 'assets/img/default-avatar.jpg'">
+    </ion-avatar>
+    <h2>{{like.user.nickname || '还没有昵称'}}</h2>
+    <p>{{like.user.signature}}</p>
+
+    <my-follow-button [followStatus]="like.user.is_following" [followUser]="like.user.id"
+                      item-end ></my-follow-button>
+  </ion-item>
+</ion-list>

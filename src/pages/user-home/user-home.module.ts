@@ -4,6 +4,7 @@ import {UserHomePage} from './user-home';
 import {IonicImageViewerModule} from "ionic-img-viewer";
 import { SuperTabsModule } from 'ionic2-super-tabs';
 import { SuperTabsController } from "ionic2-super-tabs/dist/index";
+import {DpVipButtonComponentModule} from "../../components/dp-vip-button/dp-vip-button.module";
 
 @NgModule({
     declarations: [
@@ -12,7 +13,8 @@ import { SuperTabsController } from "ionic2-super-tabs/dist/index";
     imports: [
         IonicPageModule.forChild(UserHomePage),
         IonicImageViewerModule,
-        SuperTabsModule
+        SuperTabsModule,
+        DpVipButtonComponentModule
     ],
     providers:[
         SuperTabsController

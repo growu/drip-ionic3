@@ -1,7 +1,8 @@
-    import {Component} from '@angular/core';
+import {Component} from '@angular/core';
 import {Events, IonicPage, NavController, NavParams} from 'ionic-angular';
 import {Storage} from '@ionic/storage';
 import {UserProvider} from "../../providers/user/user";
+import {VersionProvider} from "../../providers/version/version";
 
 @IonicPage({
     name: 'my',
@@ -12,59 +13,42 @@ import {UserProvider} from "../../providers/user/user";
     templateUrl: 'my.html',
 })
 export class MyPage {
-    public user: any = {};
-    public messageCount: number = 0;
+    public user: any;
+    public isAudit:boolean;
 
     constructor(public navCtrl: NavController,
                 public navParams: NavParams,
                 private events: Events,
+                public versionProvider: VersionProvider,
                 private userProvider: UserProvider,
                 private storage: Storage) {
 
         events.subscribe('messages:update', () => {
             console.log("messages:update");
-            this.getMessageCount();
         });
     }
 
     ionViewDidLoad() {
+        this.isAudit = this.versionProvider.getAudit();
     }
 
     ionViewDidEnter() {
-
-        this.getMessageCount();
-
-        this.userProvider.getUserInfo().then((data) => {
+        this.userProvider.getUserInfo().then(data=>{
             this.user = data;
-        }).catch(err => {
-
+            this.userProvider.setLocalUser(data);
         });
     }
 
-    getMessageCount() {
-        this.storage.get('messages').then((data) => {
-            if (data) {
-                this.messageCount = data.total_count;
-            }
-        });
-    }
-
-    goSettingPage() {
-        this.navCtrl.push("setting");
-    }
-
+    /**
+     * 跳转页面
+     * @param url
+     */
     goPage(url) {
         this.navCtrl.push(url);
     }
 
-    goVipPage($event) {
-        $event.preventDefault();
-        $event.stopPropagation();
-        this.navCtrl.push("vip");
-    }
-
     goUserHomePage() {
-        this.navCtrl.push("user-home", {'id': this.user.id,'rootNavCtrl':this.navCtrl});
+        this.navCtrl.push("user-home", {'id': this.user.id, 'rootNavCtrl': this.navCtrl});
     }
 
     goWalletPage() {
@@ -73,11 +57,11 @@ export class MyPage {
 
     // 跳转到用户关注列表
     goUserFollowingPage() {
-        this.navCtrl.push("user-following",{id:this.user.id,user:this.user});
+        this.navCtrl.push("user-following", {id: this.user.id, user: this.user});
     }
 
     // 跳转到用户粉丝列表
     goUserFollowerPage() {
-        this.navCtrl.push("user-follower",{id:this.user.id,user:this.user});
+        this.navCtrl.push("user-follower", {id: this.user.id, user: this.user});
     }
 }

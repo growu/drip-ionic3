@@ -19,8 +19,8 @@ import {PhotoLibrary} from '@ionic-native/photo-library';
 import {Media} from '@ionic-native/media';
 import {MediaCapture} from '@ionic-native/media-capture';
 import {StreamingMedia} from '@ionic-native/streaming-media';
-import { NativePageTransitions} from '@ionic-native/native-page-transitions';
-
+import {NativePageTransitions} from '@ionic-native/native-page-transitions';
+import {OpenNativeSettings} from '@ionic-native/open-native-settings';
 
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 
@@ -38,10 +38,9 @@ import {MyShareModule} from '../components/my-share/my-share.module';
 import {TopProvider} from '../providers/top/top';
 import {TopicProvider} from '../providers/topic/topic';
 import {MallProvider} from '../providers/mall/mall';
-import {UpdateProvider} from '../providers/update/update';
-import {AppConfigProvider} from '../providers/appconfig/appconfig';
-import {VersionProvider } from '../providers/version/version';
-import {JpushProvider } from '../providers/jpush/jpush';
+import {VersionProvider} from '../providers/version/version';
+import {JpushProvider} from '../providers/jpush/jpush';
+import {PostProvider} from '../providers/post/post';
 
 @NgModule({
     declarations: [
@@ -87,6 +86,7 @@ import {JpushProvider } from '../providers/jpush/jpush';
         StreamingMedia,
         LocalNotifications,
         NativePageTransitions,
+        OpenNativeSettings,
         {provide: ErrorHandler, useClass: IonicErrorHandler},
         {
             provide: HAMMER_GESTURE_CONFIG,
@@ -102,10 +102,9 @@ import {JpushProvider } from '../providers/jpush/jpush';
         TopProvider,
         TopicProvider,
         MallProvider,
-        UpdateProvider,
-        AppConfigProvider,
-    VersionProvider,
-    JpushProvider,
+        VersionProvider,
+        JpushProvider,
+        PostProvider,
     ]
 })
 export class AppModule {

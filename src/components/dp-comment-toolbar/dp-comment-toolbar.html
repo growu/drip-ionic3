@@ -1,0 +1,34 @@
+<ion-toolbar text-center *ngIf="!isComment">
+  <ion-row>
+    <ion-col (click)="doLike()">
+      <button ion-button clear icon-left>
+        <ion-icon name="ios-thumbs-up-outline" color="gray" *ngIf="!_source?.is_liked">
+        </ion-icon>
+        <ion-icon name="ios-thumbs-up" color="primary" *ngIf="_source?.is_liked">
+        </ion-icon>
+        <span class="num">{{_source?.like_count}}</span>
+      </button>
+    </ion-col>
+    <ion-col (click)="showComment()">
+      <button ion-button clear icon-left>
+        <ion-icon name="ios-chatboxes-outline" color="gray">
+        </ion-icon>
+        <span class="num">{{_source?.comment_count}}</span>
+      </button>
+    </ion-col>
+    <ion-col (click)="doFavorite()">
+      <button ion-button clear icon-left>
+        <ion-icon name="ios-star-outline" color="gray">
+        </ion-icon>
+        <span class="num">{{_source?.favorite_count}}</span>
+      </button>
+    </ion-col>
+  </ion-row>
+</ion-toolbar>
+<ion-toolbar *ngIf="isComment">
+  <ion-item no-border no-lines>
+    <ion-input type="text" clearInput #commentInput [(ngModel)]="content"
+               [placeholder]="_replyComment?'回复'+_replyComment.user?.nickname||''+': ':'说说你的看法.'"></ion-input>
+    <button ion-button item-end (click)="doComment()">发布</button>
+  </ion-item>
+</ion-toolbar>

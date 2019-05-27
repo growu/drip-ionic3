@@ -20,6 +20,9 @@ declare var QQSDK;
 @Injectable()
 export class UserProvider {
 
+    protected localUser:any;
+    protected token:any;
+
     constructor(public httpProvider: HttpProvider,
                 private storage: Storage,
                 private device: Device,
@@ -118,9 +121,17 @@ export class UserProvider {
         if(!data || !data.user || !data.token) return;
 
         this.storage.set('token', data.token);
-        this.storage.set('user', data.user);
+        this.setLocalUser(data.user);
         // 设置别名
         this.jpushProvider.setAlias(data.user);
+        // 设置渠道标签
+        if(this.versionProvider.getAppVersion()) {
+            this.jpushProvider.setTag(this.versionProvider.getAppVersion());
+        }
+        // 设置渠道标签
+        if(this.jpushProvider.getChannel()) {
+            this.jpushProvider.setTag(this.jpushProvider.getChannel());
+        }
         // 跳转至欢迎界面
         this.app.getRootNav().setRoot('main');
     }
@@ -779,6 +790,51 @@ export class UserProvider {
     share(param) {
         let body = JSON.stringify(param);
         return this.httpProvider.httpPostWithAuth("/user/share", body);
+    }
+
+    /**
+     * 更新本地用户
+     * @param user
+     * @returns {Promise<void>}
+     */
+    async setLocalUser(user:any) {
+        if(!user) return;
+        this.localUser = user;
+        this.storage.set('user',user);
+    }
+
+    async getLocalUser() {
+        if(!this.localUser) {
+            this.localUser = await this.storage.get('user');
+        }
+
+        if(!this.localUser) {
+            this.localUser = await this.getUserInfo();
+        }
+
+        console.log(this.localUser);
+
+        return this.localUser;
+    }
+
+    /**
+     * 获取TOKEN
+     * @returns {Promise<any>}
+     */
+    async getToken() {
+        if(this.token) {
+            return this.token.access_token;
+        }
+
+        this.token = await this.storage.get("token");
+
+        if(this.token) {
+            return this.token.access_token;
+        }
+
+        // TODO 跳转到登录页面
+
+        return null;
     }
 
 }

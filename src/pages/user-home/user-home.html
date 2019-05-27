@@ -2,8 +2,8 @@
     <ion-navbar color="primary">
         <ion-title *ngIf="mode == 'more'"></ion-title>
         <ion-title *ngIf="mode == 'less'">
-            <img src="{{user.avatar_url || 'assets/img/default-avatar.jpg'}}">
-            <span>{{user.nickname || '还没有昵称'}}</span>
+            <img src="{{user?.avatar_url || 'assets/img/default-avatar.jpg'}}">
+            <span>{{user?.nickname || '还没有昵称'}}</span>
         </ion-title>
     </ion-navbar>
 
@@ -11,91 +11,84 @@
 
 <ion-content id="content">
     <!--<ion-refresher (ionRefresh)="doRefresh($event)">-->
-        <!--<ion-refresher-content></ion-refresher-content>-->
+    <!--<ion-refresher-content></ion-refresher-content>-->
     <!--</ion-refresher>-->
 
     <ion-row text-center class="profile-row">
         <ion-col>
-            <img src="{{user.avatar_url || 'assets/img/default-avatar.jpg'}}" imageViewer>
+            <img src="{{user?.avatar_url || 'assets/img/default-avatar.jpg'}}" imageViewer>
             <h3>
-                <span ion-text>{{user.nickname || '还没有昵称'}}</span>
-                <!--<i class="iconfont icon-professional-hexagon icon-with-bg2"  *ngIf="user.is_vip" ion-text style="color:#ffa502;font-size: 18px!important;"></i>-->
+                <span ion-text>{{user?.nickname || '还没有昵称'}}</span>
 
-                <svg class="icon svg-iconfont" aria-hidden="true" *ngIf="user.sex==2" >
+                <svg class="icon svg-iconfont" aria-hidden="true" *ngIf="user?.sex==2">
                     <use xlink:href="#icon-nv2">
                     </use>
                 </svg>
 
-                <svg class="icon svg-iconfont" aria-hidden="true" *ngIf="user.sex==1">
+                <svg class="icon svg-iconfont" aria-hidden="true" *ngIf="user?.sex==1">
                     <use xlink:href="#icon-nan2"></use>
                 </svg>
 
-                <!--<svg class="icon svg-iconfont" aria-hidden="true" *ngIf="user?.is_vip">-->
-                    <!--<use xlink:href="#icon-zuanshi">-->
-                    <!--</use>-->
-                <!--</svg>-->
-
-                <button *ngIf="user?.vip_type==1" ion-button item-end color="yellow" class="vip-btn" (click)="goPage('vip')">PRO</button>
-
+                <dp-vip-button item-end [user]="user"></dp-vip-button>
             </h3>
-            <p *ngIf="user.verified_type == 0">{{user.signature || ' '}}</p>
-            <p *ngIf="user.verified_type > 0">
+            <p *ngIf="user?.verified_type == 0">{{user?.signature || ' '}}</p>
+            <p *ngIf="user?.verified_type > 0">
                 <svg class="icon svg-iconfont" aria-hidden="true">
                     <use xlink:href="#icon-renzheng3"></use>
                 </svg>
                 <!--<i class="iconfont icon-renzheng2 icon-with-bg"  ion-text color="primary"></i>-->
-                水滴认证： {{user.verified_reason}}
+                水滴认证： {{user?.verified_reason}}
             </p>
 
         </ion-col>
     </ion-row>
     <ion-row class="follow-row" no-border>
-        <ion-col text-center (click)="goUserFollowingPage(user?.id)">
-            <strong ion-text class="num" color="dark">{{user.following_count || '0'}}</strong>
+        <ion-col text-center (click)="goUserFollowingPage()">
+            <strong ion-text class="num" color="dark">{{user?.following_count || '0'}}</strong>
             <br>
             <ion-note>关注</ion-note>
         </ion-col>
-        <ion-col text-center (click)="goUserFanPage(user?.id)">
-            <strong ion-text class="num" color="dark">{{user.follower_count || '0' }}</strong>
+        <ion-col text-center (click)="goUserFanPage()">
+            <strong ion-text class="num" color="dark">{{user?.follower_count || '0' }}</strong>
             <br>
             <ion-note>粉丝</ion-note>
         </ion-col>
         <ion-col text-center>
-            <strong ion-text class="num" color="dark">{{user.event_count || '0' }}</strong>
+            <strong ion-text class="num" color="dark">{{user?.event_count || '0' }}</strong>
             <br>
             <ion-note>动态</ion-note>
         </ion-col>
     </ion-row>
-        <super-tabs scrollTabs tabsPlacement="top" selectedTabIndex="0">
-            <super-tab [root]="page1" [rootParams]="navParams" title="动态"></super-tab>
-            <super-tab [root]="page2" [rootParams]="navParams" title="目标"></super-tab>
-            <super-tab [root]="page3" [rootParams]="navParams" title="相册"></super-tab>
-        </super-tabs>
+    <super-tabs scrollTabs tabsPlacement="top" selectedTabIndex="0">
+        <super-tab [root]="page1" [rootParams]="navParams" title="动态"></super-tab>
+        <super-tab [root]="page2" [rootParams]="navParams" title="目标"></super-tab>
+        <super-tab [root]="page3" [rootParams]="navParams" title="相册"></super-tab>
+    </super-tabs>
 </ion-content>
 
 <ion-footer>
-        <ion-toolbar text-center class="action-bar" *ngIf="!isComment">
-            <ion-row>
-                    <ion-col (click)="doFollow()" *ngIf="!followStatus">
-                        <button ion-button clear icon-left color="dark">
-                            <ion-icon name="add"  ></ion-icon>
-                            <span class="num" *ngIf="!followStatus">关注</span>
-                        </button>
-                    </ion-col>
-                    <ion-col (click)="doUnFollow()" *ngIf="followStatus">
-                            <button ion-button clear icon-left color="dark">
-                                <ion-icon name="ios-checkmark"  *ngIf="followStatus"></ion-icon>
-                                <span class="num" *ngIf="followStatus">已关注</span>
-                            </button>
-                        </ion-col>
-                    <ion-col (click)="goChatPage()">
-                        <button ion-button clear icon-left>
-                        <ion-icon name="ios-chatboxes-outline">
-                        </ion-icon>
-                        <span class="num">聊天</span>
-                        </button>
-                    </ion-col>
-                
-                </ion-row>
-        </ion-toolbar>
+    <ion-toolbar text-center class="action-bar" *ngIf="!isComment">
+        <ion-row>
+            <ion-col (click)="doFollow()" *ngIf="!followStatus">
+                <button ion-button clear icon-left color="dark">
+                    <ion-icon name="add"></ion-icon>
+                    <span class="num" *ngIf="!followStatus">关注</span>
+                </button>
+            </ion-col>
+            <ion-col (click)="doUnFollow()" *ngIf="followStatus">
+                <button ion-button clear icon-left color="dark">
+                    <ion-icon name="ios-checkmark" *ngIf="followStatus"></ion-icon>
+                    <span class="num" *ngIf="followStatus">已关注</span>
+                </button>
+            </ion-col>
+            <ion-col (click)="goChatPage()">
+                <button ion-button clear icon-left>
+                    <ion-icon name="ios-chatboxes-outline">
+                    </ion-icon>
+                    <span class="num">聊天</span>
+                </button>
+            </ion-col>
+
+        </ion-row>
+    </ion-toolbar>
 </ion-footer>

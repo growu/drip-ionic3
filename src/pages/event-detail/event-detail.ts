@@ -5,6 +5,7 @@ import {MyShareController} from '../../components/my-share/my-share.controller'
 import {ToastProvider} from "../../providers/toast/toast";
 import {CommentProvider} from "../../providers/comment/comment";
 import {Storage} from '@ionic/storage';
+import {UserProvider} from "../../providers/user/user";
 
 declare var Keyboard;
 
@@ -21,9 +22,8 @@ export class EventDetailPage {
     private event: any;
     private likes: any[] = [];
     private comments: any[] = [];
-    public isComment:boolean = false;
     public content:string;
-    public reply_comment:any;
+    public replyComment:any;
     public user;
     public isLoading:boolean = false;
 
@@ -35,26 +35,15 @@ export class EventDetailPage {
                 private platform: Platform,
                 private storage: Storage,
                 public eventProvider: EventProvider,
+                public userProvider: UserProvider,
                 private toastProvider: ToastProvider,
-                private commentProvider: CommentProvider,
                 public actionSheetCtrl: ActionSheetController,
                 private myShareCtrl: MyShareController) {
 
-        // this.keyboard.onKeyboardHide().subscribe(() =>{
-        //     this.content = null;
-        //     this.reply_comment = null;
-        //     this.isComment = false;
-        // });
+        this.userProvider.getLocalUser().then(data=>{
+            this.user = data;
+        })
 
-        window.addEventListener('keyboardDidHide', () => {
-            this.content = null;
-            this.reply_comment = null;
-            this.isComment = false;
-        });
-
-        this.storage.get('user').then(data=>{
-           this.user = data;
-        });
 
     }
 
@@ -76,6 +65,7 @@ export class EventDetailPage {
 
     /**
      * 获取动态详情
+     *
      * @returns {Promise<Response>}
      */
     getEventDetail() {
@@ -87,6 +77,7 @@ export class EventDetailPage {
 
     /**
      * 跳转到动态点赞页面
+     *
      * @returns {Promise<Response>}
      */
     goEventLikePage() {
@@ -96,6 +87,7 @@ export class EventDetailPage {
 
     /**
      * 跳转到目标主页
+     *
      * @returns {Promise<Response>}
      */
     goGoalHomePage(id) {
@@ -104,12 +96,17 @@ export class EventDetailPage {
 
     /**
      * 跳转到用户主页页面
+     *
      * @returns {Promise<Response>}
      */
     goUserHomePage(user) {
         this.navCtrl.push('user-home', {'id': user.id});
     }
 
+    /**
+     * 分享
+     *
+     */
     doShare(){
         let image = null;
         if (this.event.attachs.length > 0) {
@@ -134,31 +131,16 @@ export class EventDetailPage {
         myShare.present();
     }
 
-
-
-    showComment(){
-        this.isComment = true;
-
-        // if(this.platform.is('cordova')) {
-        //     Keyboard.show();
-        // }
-
-        setTimeout(() => {
-            this.commentInput.setFocus();
-        },1000);
-    }
-
-    doComment() {
-
-        let body = {
-            content:this.content,
-            reply_id:this.reply_comment?this.reply_comment.id:null
-        };
-
-        this.eventProvider.comment(this.event.id,body).then((data) => {
+    /**
+     * 评论
+     *
+     * @param comment
+     */
+    doComment(comment) {
+        this.eventProvider.comment(this.event.id,comment).then((data) => {
             this.toastProvider.show("评论成功",'success');
+            //TODO refresh page
             this.comments.unshift(data);
-
             if(this.platform.is('cordova')) {
                 Keyboard.close();
             }
@@ -168,9 +150,12 @@ export class EventDetailPage {
         });
     }
 
-
-    doLikeEvent(){
-        if (this.event.is_like) {
+    /**
+     * 点赞
+     *
+     */
+    doLike(){
+        if (this.event.is_liked) {
             this.eventProvider.unLike(this.event.id).then((data) => {
                 this.event.is_like = false;
                 this.event.like_count -= 1;
@@ -187,98 +172,43 @@ export class EventDetailPage {
         }
     }
 
-    doLikeComment(comment,$event){
-        $event.stopPropagation();
-
-        let index = this.comments.indexOf(comment);
-
-        if (comment.is_like) {
-            this.commentProvider.unLike(comment.id).then((data) => {
-                this.comments[index].is_like = false;
-                this.comments[index].like_count -= 1;
-            }).catch((err) => {
-
-            });
-        } else {
-            this.commentProvider.like(comment.id).then((data) => {
-                this.comments[index].is_like = true;
-                this.comments[index].like_count += 1;
-            }).catch((err) => {
-
-            });
-        }
-    }
-
+    /**
+     * 收藏动态
+     *
+     */
     doFavorite() {
         this.toastProvider.show("该功能正在开发中...","success");
     }
 
-    showCommentMenu(comment) {
-        let actionSheet = this.actionSheetCtrl.create({
-            title: '',
-            buttons: [
-                {
-                    text: '回复',
-                    role: 'destructive',
-                    handler: () => {
-                        this.showReplyComment(comment,null);
-                    }
-                },{
-                    text: '举报',
-                    handler: () => {
-                        this.toastProvider.show("程序小哥正在加紧开发中...","success");
-                    }
-                },{
-                    text: '取消',
-                    role: 'cancel',
-                    handler: () => {
-                    }
-                }
-            ]
-        });
-        actionSheet.present();
+    /**
+     * 监听回复评论
+     *
+     * @param comment
+     */
+    onReplyChange(comment) {
+        this.replyComment = comment;
     }
 
-    showReplyComment(comment,$event) {
-
-        if($event) {
-            $event.stopPropagation();
-        }
-
-        this.isComment = true;
-        this.reply_comment = comment;
-
-        // if(this.platform.is('cordova')) {
-        //     Keyboard.show();
-        // }
-
-        setTimeout(() => {
-            this.commentInput.setFocus();
-        },1000);
-
-    }
-
-    hideComment(){
-        this.isComment = false;
-        this.reply_comment = null;
-        this.content = null;
-    }
-
-    // 显示菜单
+    /**
+     * 显示更多操作
+     *
+     */
     showMenu() {
-        let actionSheet = this.actionSheetCtrl.create({
-            title: '我的动态',
-            buttons: [
-                {
-                    text: '转为私密',
-                    handler: () => {
-                       this.eventProvider.updateEvent(this.event,{'is_public':0}).then(data=>{
-                            if(data) {
-                                this.toastProvider.show("操作成功","success");
-                            }
-                       }).catch(err=>{});
-                    }
-                },
+        let buttons = [
+
+        ];
+
+        if(this.user.id == this.event.user_id) {
+            buttons = [{
+                text: '转为私密',
+                handler: () => {
+                    this.eventProvider.updateEvent(this.event,{'is_public':0}).then(data=>{
+                        if(data) {
+                            this.toastProvider.show("操作成功","success");
+                        }
+                    }).catch(err=>{});
+                }
+            },
                 {
                     text: '删除',
                     role: 'destructive',
@@ -290,14 +220,32 @@ export class EventDetailPage {
                             }
                         }).catch(err=>{})
                     }
-                },
-                {
-                    text: '取消',
-                    role: 'cancel',
-                    handler: () => {
-                    }
+                }];
+        } else {
+            buttons = [{
+                text: '举报',
+                handler: () => {
+                    this.eventProvider.updateEvent(this.event,{'is_public':0}).then(data=>{
+                        if(data) {
+                            this.toastProvider.show("操作成功","success");
+                        }
+                    }).catch(err=>{
+
+                    });
                 }
-            ]
+            }];
+        }
+
+        buttons.push({
+            text: '取消',
+            role: 'cancel',
+            handler: () => {
+            }
+        });
+
+        let actionSheet = this.actionSheetCtrl.create({
+            title: '我的动态',
+            buttons: buttons
         });
 
         actionSheet.present();

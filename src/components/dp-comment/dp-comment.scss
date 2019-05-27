@@ -1,0 +1,28 @@
+dp-comment {
+
+  .comment-card {
+    border-bottom: 0.55px solid map-get($colors,light-gray);
+    box-shadow:none;
+    margin:0;
+    width: 100%;
+    .card-content {
+      padding-left:64px;
+    }
+
+    ion-icon {
+      font-size:1.6rem;
+    }
+
+    .reply-content {
+      background-color: 0.55px solid map-get($colors,light-gray);
+      margin: 10px 0;
+      padding:5px;
+    }
+
+    .reply-list {
+      padding:5px 0;
+    }
+
+  }
+
+}

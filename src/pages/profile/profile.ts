@@ -31,8 +31,7 @@ export class ProfilePage {
                 private storage: Storage,
                 private userProvider: UserProvider,
                 private toolProvider: ToolProvider,
-                private toastProvider: ToastProvider,
-                ) {
+                private toastProvider: ToastProvider,) {
 
         this.cityColumns = <any>citise;
     }
@@ -52,9 +51,9 @@ export class ProfilePage {
     }
 
     onChangeAvatar($event) {
-        this.toolProvider.choosePic($event).then((ret)=>{
+        this.toolProvider.choosePic($event).then((ret) => {
             this.profile.avatar_url = ret.url;
-        }).catch((err)=>{
+        }).catch((err) => {
 
         });
     }
@@ -62,7 +61,7 @@ export class ProfilePage {
     saveProfile() {
         this.userProvider.updateUserInfo(this.profile).then((data) => {
             this.storage.set("user", data);
-            this.toastProvider.show("更新成功","success");
+            this.toastProvider.show("更新成功", "success");
         }).catch((err) => {
         });
     }

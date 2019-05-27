@@ -1,0 +1,36 @@
+ <ion-list *ngIf="_comments.length>0">
+    <ion-list-header>
+      <div item-start><strong>{{_comments.length}}</strong> 评论</div>
+    </ion-list-header>
+    <ion-card class="comment-card" *ngFor="let comment of _comments" no-shadow>
+      <ion-item (click)="showMenu(comment)">
+        <ion-avatar small item-start>
+          <img [src]="comment.user.avatar_url">
+        </ion-avatar>
+        <h2>{{comment.user.nickname}}</h2>
+        <p>{{comment.created_at | amLocale:"zh_cn" | amUtc | amTimeAgo }}</p>
+        <ion-icon name="ios-redo-outline"  color="gray" item-end (click)="doReply(comment,$event)"></ion-icon>
+        <ion-icon name="ios-thumbs-up-outline" color="gray" item-end (click)="doLike(comment,$event)" *ngIf="!comment.is_liked">
+          {{comment.like_count}}
+        </ion-icon>
+          <ion-icon name="ios-thumbs-up" color="primary" item-end (click)="doLike(comment,$event)" *ngIf="comment.is_liked">
+              {{comment.like_count}}
+          </ion-icon>
+      </ion-item>
+      <ion-card-content>
+        <p>{{comment.content}}</p>
+        <blockquote *ngIf="comment.replies.length>0">
+            <div *ngFor="let reply of comment.replies" class="reply-list">
+                <a>{{reply.user.nickname}}</a>
+                <span *ngIf="reply.reply">回复 <a>{{reply.reply.user.nickname}}</a></span>
+                :
+                {{reply.content}}
+            </div>
+        </blockquote>
+      </ion-card-content>
+    </ion-card>
+  </ion-list>
+
+ <div class="my-blank" *ngIf="_comments.length==0">
+     暂无评论
+ </div>
