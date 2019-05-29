@@ -49,16 +49,16 @@ export class MyEventComponent {
 
         let index = this._eventSource.indexOf(event);
 
-        if (event.is_like) {
+        if (event.is_liked) {
             this.eventProvider.unLike(event.id).then((data) => {
-                this._eventSource[index].is_like = false;
+                this._eventSource[index].is_liked = false;
                 this._eventSource[index].like_count -= 1;
             }).catch((err) => {
 
             });
         } else {
             this.eventProvider.like(event.id).then((data) => {
-                this._eventSource[index].is_like = true;
+                this._eventSource[index].is_liked = true;
                 this._eventSource[index].like_count += 1;
             }).catch((err) => {
 
@@ -74,11 +74,11 @@ export class MyEventComponent {
                     text: '分享',
                     role: 'destructive',
                     handler: () => {
-                        console.log(event.attachs);
+                        console.log(event.attaches);
 
                         let image = null;
-                        if (event.attachs.length > 0) {
-                            let attach = event.attachs[0];
+                        if (event.attaches.length > 0) {
+                            let attach = event.attaches[0];
                             if (attach.url) {
                                 image = attach.url;
                             }

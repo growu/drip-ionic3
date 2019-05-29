@@ -21,6 +21,7 @@ export class UserHomePage {
     public user: any;
     public mode:string = "more";
     public followStatus:boolean = false;
+    public isLocalUser:boolean = false;
 
     page1: any = "user-home-events";
     page2: any = "user-home-goals";
@@ -39,6 +40,8 @@ export class UserHomePage {
                 this.user = data;
             }
         });
+
+        this.isLocalUser = this.userProvider.isLocalUser(this.navParams.get('id'));
     }
 
     doRefresh() {

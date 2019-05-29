@@ -157,14 +157,14 @@ export class EventDetailPage {
     doLike(){
         if (this.event.is_liked) {
             this.eventProvider.unLike(this.event.id).then((data) => {
-                this.event.is_like = false;
+                this.event.is_liked = false;
                 this.event.like_count -= 1;
             }).catch((err) => {
 
             });
         } else {
             this.eventProvider.like(this.event.id).then((data) => {
-                this.event.is_like = true;
+                this.event.is_liked = true;
                 this.event.like_count += 1;
             }).catch((err) => {
 

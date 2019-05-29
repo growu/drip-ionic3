@@ -17,17 +17,17 @@
 
   <ion-list>
     <ion-card *ngFor="let message of messages">
-      <ion-item  (click)="goUserHomePage(message.user)">
+      <ion-item  (click)="goUserHomePage(message.data.sender.id)">
         <ion-avatar item-start >
-          <img [src]="message.user.avatar_url">
+          <img [src]="message.data.sender.avatar_url">
         </ion-avatar>
-        <h2>{{message.user.nickname}}</h2>
+        <h2>{{message.data.sender.nickname}}</h2>
         <p>{{message.created_at}}</p>
-        <my-follow-button [followStatus]="message.user.is_following" [followUser]="message.user.id" item-end></my-follow-button>
+        <!--<my-follow-button [followStatus]="message.user.is_following" [followUser]="message.user.id" item-end></my-follow-button>-->
       </ion-item>
       <ion-card-content>
         <p>点赞了你的动态</p>
-        <blockquote (click)="goEventDetailPage(message.like.event_id)">{{message.like?.source | slice:0:20}}</blockquote>
+        <blockquote (click)="goEventDetailPage(message.data.resource.id)"></blockquote>
       </ion-card-content>
     </ion-card>
   </ion-list>

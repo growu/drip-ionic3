@@ -837,4 +837,21 @@ export class UserProvider {
         return null;
     }
 
+    /**
+     * 是否为当前用户
+     *
+     * @param id
+     * @returns {boolean}
+     */
+    isLocalUser(id) {
+
+        if(this.localUser) {
+            if(this.localUser.id == id) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
 }

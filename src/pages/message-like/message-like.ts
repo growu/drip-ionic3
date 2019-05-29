@@ -80,8 +80,8 @@ export class MessageLikePage {
    * 进入动态详情
    * @param id
    */
-  goUserHomePage(user) {
-      this.navCtrl.push("user-home",{'id':user.id});
+  goUserHomePage(id) {
+      this.navCtrl.push("user-home",{'id':id});
   }
 
 

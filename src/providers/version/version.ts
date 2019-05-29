@@ -69,6 +69,9 @@ export class VersionProvider {
         params.set('app_version', this.version.appVersion);
         params.set('web_version', this.version.currentWebVersion);
         params.set('channel', this.jpushProvider.getChannel());
+        // params.set('app_version', '3.0.1');
+        // params.set('web_version',null);
+        // params.set('channel','appstore');
         return this.httpProvider.httpGetWithAuth("/version", params);
     }
 

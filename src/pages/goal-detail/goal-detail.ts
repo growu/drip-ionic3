@@ -80,7 +80,7 @@ export class GoalDetailPage {
                 text: '编辑目标',
                 role: 'perssive',
                 handler: () => {
-                    this.navCtrl.push('goal-edit', {id: this.goal.id, goal: this.goal});
+                    this.navCtrl.push('goal-create', {id: this.goal.id, goal: this.goal,action:'update'})
                 }
             },{
                 text: '归档目标',

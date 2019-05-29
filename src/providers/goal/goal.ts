@@ -13,6 +13,7 @@ export class GoalProvider {
 
     /**
      * 创建目标
+     *
      * @param goal
      * @returns {Promise<any>}
      */
@@ -20,12 +21,24 @@ export class GoalProvider {
         return this.httpProivder.httpPostWithAuth("/goals", goal);
     }
 
+    /**
+     * 更新目标
+     *
+     * @param id
+     * @param param
+     * @returns {Promise<Promise<Response>>}
+     */
     updateGoal(id, param) {
         let body = JSON.stringify(param);
-        return this.httpProivder.httpPatchWithAuth("/user/goal/" + id, body);
+        return this.httpProivder.httpPatchWithAuth("/user/goals/" + id, body);
     }
 
-    // 制定目标
+    /**
+     * 制定目标
+     *
+     * @param id
+     * @returns {Promise<Promise<Response>>}
+     */
     doFollowGoal(id) {
         return this.httpProivder.httpPutWithAuth("/goal/" + id + "/follow", null);
     }

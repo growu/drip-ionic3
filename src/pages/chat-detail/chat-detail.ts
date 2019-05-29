@@ -104,6 +104,7 @@ export class ChatDetailPage {
         this.userProvider.sendPrivateMessage(body).then((data) => {
             this.toastProvider.show("发送成功", "success")
             this.messages.unshift(data);
+            this.content = null;
         }).catch((err) => {
 
         });

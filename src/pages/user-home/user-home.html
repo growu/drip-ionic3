@@ -67,18 +67,18 @@
 </ion-content>
 
 <ion-footer>
-    <ion-toolbar text-center class="action-bar" *ngIf="!isComment">
+    <ion-toolbar text-center class="action-bar" *ngIf="!isLocalUser">
         <ion-row>
-            <ion-col (click)="doFollow()" *ngIf="!followStatus">
+            <ion-col (click)="doFollow()" *ngIf="!user?.is_following">
                 <button ion-button clear icon-left color="dark">
                     <ion-icon name="add"></ion-icon>
-                    <span class="num" *ngIf="!followStatus">关注</span>
+                    <span class="num">关注</span>
                 </button>
             </ion-col>
-            <ion-col (click)="doUnFollow()" *ngIf="followStatus">
+            <ion-col (click)="doUnFollow()" *ngIf="user?.is_following">
                 <button ion-button clear icon-left color="dark">
-                    <ion-icon name="ios-checkmark" *ngIf="followStatus"></ion-icon>
-                    <span class="num" *ngIf="followStatus">已关注</span>
+                    <ion-icon name="ios-checkmark"></ion-icon>
+                    <span class="num">已关注</span>
                 </button>
             </ion-col>
             <ion-col (click)="goChatPage()">

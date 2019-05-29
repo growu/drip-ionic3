@@ -285,7 +285,7 @@ ion-content {
   重写segment wp 样式
  */
 .segment-wp {
-  padding:10px;
+  //padding:10px;
   justify-content: center;
   .segment-button {
     font-size:1.8rem!important;
@@ -382,3 +382,10 @@ ion-navbar:not([color="white"]) .toolbar-background {
   //}
 }
 
+/**
+
+ */
+
+.dp-swal-confirm-button {
+  background-color: color($colors,primary)!important;
+}
