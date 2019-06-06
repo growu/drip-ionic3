@@ -28,7 +28,7 @@ export class HttpProvider {
     public httpGetNoAuth(url: string, params: URLSearchParams) {
         var headers = new Headers();
         headers.append('Content-Type', 'application/json');
-        headers.append('Accept', 'application/x.drip.v3+json');
+        headers.append('Accept', 'application/x.drip.v1+json');
         let options = new RequestOptions({headers: headers, search: params});
         return this.http.get(this.API_URL + url, options).toPromise()
             .then(this.extractData)

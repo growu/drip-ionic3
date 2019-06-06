@@ -34,8 +34,13 @@ export class UserHomePhotosPage {
           });
       }
 
-      getUsersPhotos() {
-          return this.userProvider.getUsersPhotos(this.userId,this.photos.length,this.perPage).then((data) => {
+    /**
+     * 获取用户相册
+     *
+     * @returns {Promise<Promise<Response>>}
+     */
+    getUsersPhotos() {
+          return this.userProvider.getUsersPhotos(this.userId,this.perPage,this.photos.length).then((data) => {
               if(this.photos.length == 0) {
                   this.photos = data;
               } else {

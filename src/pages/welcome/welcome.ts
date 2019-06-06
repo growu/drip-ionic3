@@ -5,6 +5,7 @@ import * as moment from 'moment'
 import { NativePageTransitions, NativeTransitionOptions } from '@ionic-native/native-page-transitions';
 import {MyShareController} from "../../components/my-share/my-share.controller";
 import {UserProvider} from "../../providers/user/user";
+import {HttpProvider} from "../../providers/http/http";
 
 @IonicPage({
     name: 'welcome',
@@ -17,17 +18,20 @@ import {UserProvider} from "../../providers/user/user";
 export class WelcomePage {
 
     // public days: any = ['0', '0', '0', '0'];
+    public info:any;
     public days: any =0;
     public today = moment(new Date()).format("YYYY-MM-DD");
     public week:any;
     public time:any = 'morning';
     public timer:any;
     public second:number = 5;
+    public image = '../assets/img/welcome_bg.jpg';
 
     constructor(public navCtrl: NavController,
                 public navParams: NavParams,
                 private myShareCtrl:MyShareController,
                 private userProvider:UserProvider,
+                private httpProvider:HttpProvider,
                 private nativePageTransitions: NativePageTransitions,
                 private storage: Storage) {
         let weeks = ['一', '二', '三', '四', '五', '六', '日'];
@@ -42,6 +46,12 @@ export class WelcomePage {
         }
     }
 
+    ionViewDidEnter() {
+        this.httpProvider.httpGetWithAuth('/welcome',null).then(data=>{
+            this.info = data;
+        });
+    }
+
     ionViewWillEnter() {
         this.storage.get('user').then((data) => {
             if (data) {
@@ -50,17 +60,8 @@ export class WelcomePage {
                     var end = moment(data.created_at);
                     var duration = moment.duration(now.diff(end));
                     this.days = Math.ceil(duration.asDays());
-                    // this.days = this.pad(Math.ceil(duration.asDays()), 4).split('');
                 }
-
-                // setTimeout(() => {
-                //     if(this.navCtrl.length() == 1){
-                //         this.navCtrl.push('main');
-                //     }
-                // }, 1000);
-
             } else {
-                // this.navCtrl.push('login');
             }
         });
 
@@ -82,14 +83,14 @@ export class WelcomePage {
         this.clean();
 
         let options: NativeTransitionOptions = {
-            direction: 'up',
+            // direction: 'up',
             duration: 500,
-            slowdownfactor: 3,
-            slidePixels: 20,
-            iosdelay: 100,
-            androiddelay: 150,
-            fixedPixelsTop: 0,
-            fixedPixelsBottom: 60
+            // slowdownfactor: 3,
+            // slidePixels: 20,
+            // iosdelay: 100,
+            // androiddelay: 150,
+            // fixedPixelsTop: 0,
+            // fixedPixelsBottom: 60
            };
         
          this.nativePageTransitions.fade(options);
@@ -97,12 +98,12 @@ export class WelcomePage {
         this.navCtrl.setRoot('main');
     }
 
+    /**
+     * 分享日签
+     *
+     */
     doShare() {
-        let params = {
-            days:this.days
-        };
-
-        this.userProvider.share(params).then((res)=>{
+        this.httpProvider.httpPostWithAuth('/welcome/share',null).then((res)=>{
             let myShare = this.myShareCtrl.create({
                 data: {
                     type: 'image',
@@ -124,8 +125,8 @@ export class WelcomePage {
 
     protected clean() {
         if(this.timer) {
-            this.timer = null;
             clearTimeout(this.timer);
+            this.timer = null;
         }
     }
 

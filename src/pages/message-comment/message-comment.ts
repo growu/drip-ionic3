@@ -13,7 +13,7 @@ import {CommentProvider} from '../../providers/comment/comment'
 })
 export class MessageCommentPage {
     public messages: any = [];
-    private perPage: number = 20;
+    private perPage: number = 10;
     public isShowReply: boolean = false;
     public replyMessage = {
         'comment': {
@@ -21,7 +21,6 @@ export class MessageCommentPage {
         },
     };
     public replyContent: string = '';
-
 
     constructor(public navCtrl: NavController,
                 public navParams: NavParams,
@@ -32,15 +31,32 @@ export class MessageCommentPage {
 
     ionViewDidLoad() {
         this.events.publish('messages:update', {});
-        this.getCommentMessages(1);
+        this.getCommentMessages(true).then(data=>{
+
+        });
     }
 
-    goUserHomePage(user) {
-        this.navCtrl.push("user-home", {'id': user.id});
+    /**
+     * 跳转到用户ID
+     *
+     * @param id
+     */
+    goUserHomePage(id) {
+        this.navCtrl.push("user-home", {'id': id});
     }
 
-    getCommentMessages(page) {
-        this.userProvider.getCommentMessages(page, this.perPage).then((data) => {
+    /**
+     * 获取评论消息
+     *
+     * @param {boolean} isRefresh
+     * @returns {Promise<Promise<Response>>}
+     */
+    getCommentMessages(isRefresh:boolean = false) {
+        if(isRefresh) {
+            this.messages = [];
+        }
+
+        return this.userProvider.getCommentMessages(this.perPage,this.messages.length).then((data) => {
             if (data) {
                 if (this.messages.length == 0) {
                     this.messages = data;
@@ -51,35 +67,55 @@ export class MessageCommentPage {
         });
     }
 
+    /**
+     * 刷新
+     *
+     * @param refresher
+     */
     doRefresh(refresher) {
-
-        this.getCommentMessages(1);
 
         setTimeout(() => {
             refresher.complete();
-        }, 2000);
+        }, 10000);
+
+        this.getCommentMessages(true).then(data=>{
+            refresher.complete();
+        });
     }
 
+    /**
+     * 加载
+     *
+     * @param infiniteScroll
+     */
     doInfinite(infiniteScroll) {
-
-        var num = this.messages.length;
-
-        if (num > 0 && num % this.perPage == 0) {
-            var page = Math.floor(this.messages.length / 20) + 1;
-            this.getCommentMessages(page);
-        }
 
         setTimeout(() => {
             infiniteScroll.complete();
-        }, 2000);
+        }, 10000);
+
+        this.getCommentMessages().then(data=>{
+            infiniteScroll.complete();
+        });
+
     }
 
+    /**
+     * 点击回复
+     *
+     * @param message
+     * @param $event
+     */
     doReply(message, $event) {
         $event.stopPropagation();
         this.isShowReply = true;
         this.replyMessage = message;
     }
 
+    /**
+     * 提价回复
+     *
+     */
     submitReply() {
         this.commentProvider.reply(this.replyMessage.comment.id, this.replyContent).then((data) => {
             this.isShowReply = false;

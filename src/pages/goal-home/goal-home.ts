@@ -42,10 +42,14 @@ export class GoalHomePage {
         this.getGoalRank(1);
     }
 
-    followGoal() {
-        this.goalProvider.doFollowGoal(this.goal.id).then(data => {
+    /**
+     * 制定目标
+     *
+     */
+    formulateGoal() {
+        this.goalProvider.doFormulateGoal(this.goal.id).then(data => {
             if(data) {
-                this.navCtrl.push('goal-edit', {'id':this.goal.id,'disableBack':true});
+                this.navCtrl.push('goal-create', {'id':this.goal.id,'goal':this.goal,'disableBack':true,'action':'update'});
             }
         }).catch(err => {
         });

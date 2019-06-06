@@ -57,19 +57,18 @@
       <ion-row >
         <ion-col col-6 *ngFor="let event of hotEvents" class="event-col" (click)="goEventDetailPage(event)">
           <ion-card class="event-card">
-            <div class="event-image">
-              <p><img [src]="attach.url" *ngFor="let attach of event.attaches"/></p>
+            <div class="event-image" *ngIf="event.checkin">
+              <p><img [src]="attach.url" *ngFor="let attach of event.checkin.attaches"/></p>
             </div>
-            <ion-card-content>
-              <h2>{{event.goal.name}}</h2>
-              <p [innerHTML]="event.content"></p>
+            <ion-card-content *ngIf="event.checkin">
+              <h2>{{event.checkin.user_goal.name}}</h2>
+              <p [innerHTML]="event.checkin.content"></p>
             </ion-card-content>
             <ion-item class="event-footer">
               <ion-avatar item-start>
                 <img [src]="event.user?.avatar_url|| 'assets/img/default-avatar.jpg'">
               </ion-avatar>
               <h2 ion-text color="dark">{{event.user?.nickname || '水滴用户'}}</h2>
-              <!--<h2 ion-text [color]="event.user.is_vip?'danger':'dark'">{{event.user?.nickname || '还没有昵称'}}</h2>-->
               <ion-note item-end><ion-icon name="thumbs-up"></ion-icon> {{event.like_count}}</ion-note>
             </ion-item>
           </ion-card>

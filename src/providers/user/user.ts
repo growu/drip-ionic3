@@ -646,13 +646,27 @@ export class UserProvider {
         return this.httpProvider.httpGetWithAuth("/user/messages/fan", params);
     }
 
-    getCommentMessages(page, perPage) {
+    /**
+     * 获取评论消息
+     *
+     * @param limit
+     * @param offset
+     * @returns {Promise<Promise<Response>>}
+     */
+    getCommentMessages(limit, offset) {
         var params = new URLSearchParams();
-        params.set('page', page);
-        params.set('per_page', perPage);
+        params.set('limit', limit);
+        params.set('offset', offset);
         return this.httpProvider.httpGetWithAuth("/user/messages/comment", params);
     }
 
+    /**
+     * 获取私信消息
+     *
+     * @param limit
+     * @param offset
+     * @returns {Promise<Promise<Response>>}
+     */
     getPrivateMessages(page, perPage) {
         var params = new URLSearchParams();
         params.set('page', page);

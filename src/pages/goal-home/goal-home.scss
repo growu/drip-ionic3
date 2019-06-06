@@ -5,11 +5,12 @@ page-goal-home {
     background-color: #fff;
   }
 
-  .follow-btn {
+  .formulate-btn {
     position: fixed;
     bottom: 20px;
     left:0;
     right:0;
+    z-index: 1000;
   }
 
   ion-item {

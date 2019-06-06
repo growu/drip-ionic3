@@ -98,6 +98,8 @@ export class GoalCheckinPage {
                     showCancelButton: true,
                     confirmButtonText:'分享打卡',
                     cancelButtonText:'回到主页',
+                    confirmButtonClass:'dp-swal-confirm-button',
+                    cancelButtonClass:'dp-swal-cancel-button',
                     // width: '80%',
                     padding: 0
                 }).then((result) => {

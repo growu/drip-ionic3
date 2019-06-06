@@ -7,7 +7,7 @@
 
 
 <ion-content no-bounce>
-  <div text-center padding-bottom>
+  <div text-center padding-bottom margin-top>
     <img src="assets/icon/drip.png">
     <h2>水滴打卡</h2>
     <p>版本号：{{appVersion}}（{{webVersion}}）</p>
@@ -17,11 +17,11 @@
   <ion-list>
     <ion-item>
       公众号
-      <ion-note clear item-end ngxClipboard cbContent="格吾社区" (cbOnSuccess)="copyCallback()">
-        格吾社区
+      <ion-note clear item-end ngxClipboard cbContent="水滴打卡APP" (cbOnSuccess)="copyCallback()">
+        水滴打卡APP
       </ion-note>
     </ion-item>
-    <ion-item (click)="openUrl('https://weibo.com/growu')">
+    <ion-item (click)="openUrl('https://weibo.com/u/6165059346','_system')">
       新浪微博
       <ion-note clear item-end>
         @格吾社区

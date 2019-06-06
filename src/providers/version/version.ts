@@ -59,6 +59,24 @@ export class VersionProvider {
     }
 
     /**
+     * 获取WEB VERSION
+     * @returns {any | string}
+     */
+    getWebVersion(format:boolean = false) {
+        if(this.version) {
+            let version =  this.version.currentWebVersion;
+
+            if(format) {
+                version = version.replace(/-/g, '').replace(/\./g, '');
+            }
+
+            return version;
+        } else {
+            return null;
+        }
+    }
+
+    /**
      * 检查更新
      * @param appVersion
      * @param webVersion

@@ -16,10 +16,10 @@
 
       <!--<span ion-text [color]="event.user?.is_vip?'danger':'dark'">{{event.user?.nickname || '还没有昵称'}}</span>-->
       <!--<i class="iconfont icon-professional-hexagon" *ngIf="event.user?.is_vip" ion-text style="color:#ffa502;font-size: 18px!important;"></i>-->
-      <svg class="icon svg-iconfont" aria-hidden="true" *ngIf="event.user?.is_vip" style="vertical-align: -0.2rem;">
-        <use xlink:href="#icon-zhuanyebanxiaotubiao">
-        </use>
-      </svg>
+      <!--<svg class="icon svg-iconfont" aria-hidden="true" *ngIf="event.user?.is_vip" style="vertical-align: -0.2rem;">-->
+        <!--<use xlink:href="#icon-zhuanyebanxiaotubiao">-->
+        <!--</use>-->
+      <!--</svg>-->
     </h2>
     <p>{{event.created_at | amLocale:"zh_cn" | amUtc | amTimeAgo }}</p>
 
@@ -30,27 +30,30 @@
 
     <!--<ion-icon name="bookmark" color="secondary" *ngIf="event.is_hot" style="position:absolute;top:-2px;right:5px;font-size: 20px;"></ion-icon>-->
   </ion-item>
-
-  <div class="event-image"*ngFor="let attach of event.attaches">
-      <img [src]="attach.url" *ngIf="attach.type==1" imageViewer>
-      <button ion-button outline round small (click)="playAudio(attach)" *ngIf="attach.type==2">{{attach.duration}} s</button>
-      <vg-player *ngIf="attach.type==3">
-          <video [vgMedia]="media" #media  preload="auto" controls crossorigin>
-              <source src="{{attach.url}}" type="video/mp4">
-          </video>
-      </vg-player>
+  <div *ngIf="event.checkin">
+    <div class="event-image" *ngFor="let attach of event.checkin.attaches">
+        <img [src]="attach.url" *ngIf="attach.type==1" imageViewer>
+        <button ion-button outline round small (click)="playAudio(attach)" *ngIf="attach.type==2">{{attach.duration}} s</button>
+        <vg-player *ngIf="attach.type==3">
+            <video [vgMedia]="media" #media  preload="auto" controls crossorigin>
+                <source src="{{attach.url}}" type="video/mp4">
+            </video>
+        </vg-player>
+    </div>
   </div>
 
   <ion-card-content  (click)="goEventDetailPage($event,event.id)">
-    <div [innerHTML]="event.content"></div>
-    <p><a *ngIf="event.content&&event.content.length>100 && !event?.is_full_content" (click)="showFull($event,event)">全文</a></p>
-    <p><a *ngIf="event?.is_full_content" (click)="showHide($event,event)">收起</a></p>
-    <blockquote>
-      <p>完成<a (click)="goGoalHomePage($event,event.goal.id)"> {{event?.goal?.name}} </a>第{{event.checkin?.total_days || 0}}天</p>
-      <p *ngFor="let item of event.items">
-        <ion-icon name="list" color="dark"></ion-icon> {{item.name+item.value+item.unit}}
-      </p>
-    </blockquote>
+    <div *ngIf="event.checkin">
+      <div [innerHTML]="event.checkin.content"></div>
+      <p><a *ngIf="event.checkin.content&&event.checkin.content.length>100 && !event?.is_full_content" (click)="showFull($event,event)">全文</a></p>
+      <p><a *ngIf="event?.is_full_content" (click)="showHide($event,event)">收起</a></p>
+      <blockquote>
+        <p>完成<a (click)="goGoalHomePage($event,event.checkin.user_goal.goal_id)"> {{event?.checkin?.user_goal?.name}} </a>第{{event.checkin?.total_days || 0}}天</p>
+        <p *ngFor="let item of event.checkin.items">
+          <ion-icon name="list" color="dark"></ion-icon> {{item.name+item.value+item.unit}}
+        </p>
+      </blockquote>
+    </div>
   </ion-card-content>
 
   <ion-row class="action-toolbar">
@@ -58,8 +61,8 @@
     </ion-col>
     <ion-col col-2>
       <button ion-button icon-left clear small (click)="doLike(event)">
-        <ion-icon name="ios-thumbs-up-outline" isActive="false" *ngIf="!event.is_like" color="dark-gray"></ion-icon>
-        <ion-icon name="ios-thumbs-up" isActive="true" *ngIf="event.is_like" color="primary"></ion-icon>
+        <ion-icon name="ios-thumbs-up-outline" isActive="false" *ngIf="!event.is_liked" color="dark-gray"></ion-icon>
+        <ion-icon name="ios-thumbs-up" isActive="true" *ngIf="event.is_liked" color="primary"></ion-icon>
         <div>{{event.like_count}}</div>
       </button>
     </ion-col>

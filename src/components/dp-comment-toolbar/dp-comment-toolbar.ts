@@ -92,5 +92,4 @@ export class DpCommentToolbarComponent {
             this.like.emit('add');
         }
     }
-
 }

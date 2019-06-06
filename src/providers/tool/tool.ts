@@ -135,7 +135,7 @@ export class ToolProvider {
                 let options: FileUploadOptions = {
                     fileKey: 'file',
                     fileName: fileUrl.substr(fileUrl.lastIndexOf('/') + 1),
-                    headers: {"Authorization": 'Bearer ' + token, "Accept": 'application/x.drip.v3+json'}
+                    headers: {"Authorization": 'Bearer ' + token, "Accept": 'application/x.drip.v1+json'}
                 }
 
                 // if(type == "audio") {
@@ -156,7 +156,7 @@ export class ToolProvider {
                 const fileTransfer: FileTransferObject = this.transfer.create();
                 const that = this;
 
-                fileTransfer.upload(fileUrl, 'http://drip.growu.me/api/upload/'+type, options)
+                fileTransfer.upload(fileUrl, 'https://drip.growu.me/api/upload/'+type, options)
                     .then((res) => {
                         loading.dismiss();
                         var result = JSON.parse(res.response);

@@ -1,17 +1,19 @@
-<ion-content class="no-scroll" no-bounce (swipe)="swipeEvent($event)">
-  <div class="container">
+<ion-content class="no-scroll" no-bounce (swipe)="swipeEvent($event)" [ngStyle]="{'background-image':'url('+info?.image+')'}">
+    <div class="wrap-mask"></div>
+
+    <div class="container">
     <div class="row date">
         <ion-col text-left>
-            {{today}} 星期五
+            {{info?.date}} {{info?.week}}
           <ion-icon name="sunny" *ngIf="time=='morning'"></ion-icon>
           <ion-icon name="moon" *ngIf="time=='evening'"></ion-icon>
         </ion-col>
-        <ion-col text-right>DAY.{{days}}</ion-col>
+        <ion-col text-right>DAY.{{info?.days}}</ion-col>
     </div>
 
     <ion-row class="quote">
-      <p class="quote-content">时光周而复始，允许重新开始</p>
-      <p class="quote-people">--《左耳》</p>
+      <p class="quote-content" [innerHtml]="info?.word_content"></p>
+      <p class="quote-people">--《{{info?.word_author}}》</p>
 <!--       <ion-icon class="light" name="ios-camera-outline"></ion-icon>
  -->    </ion-row>
 

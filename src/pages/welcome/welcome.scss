@@ -1,14 +1,20 @@
 page-welcome {
-  background-image:url('../assets/img/welcome_bg.jpg');
-  background-repeat: no-repeat;
-  background-size: cover;
+  //background-image:url('../assets/img/welcome_bg.jpg');
+  ion-content {
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-color: rgba(0,0,0,.4);
+  }
+
   //font-family:"Aldrich";
 
   //.container {
   //  height:10%;
   //}
-  ion-content {
-    background: rgba(0,0,0,0.5)!important;
+  .wrap-mask{
+    height:100%;
+    width:100%;
+
   }
 
   .title {
@@ -70,8 +76,8 @@ page-welcome {
   .quote{
     position:absolute;
     top:35%;
-    left:0;
     right:0;
+    left:0;
     color:#fff;
     padding:0 40px;
     font-weight: 800;
@@ -85,6 +91,7 @@ page-welcome {
 
     .quote-people {
       width:100%;
+      text-align: right;
     }
 
   }
@@ -92,8 +99,12 @@ page-welcome {
   .date {
     color:#fff;
     font-weight:700;
-    padding:20px;
+    padding:10px;
     font-family:"Aldrich";
+    position:absolute;
+    top:10px;
+    left:0;
+    right:0;
   }
 
   .action {

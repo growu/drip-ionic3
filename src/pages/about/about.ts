@@ -1,9 +1,9 @@
 import {Component} from '@angular/core';
-import {AlertController, IonicPage, LoadingController, NavController, NavParams} from 'ionic-angular';
+import {IonicPage, NavController, NavParams} from 'ionic-angular';
 import {InAppBrowser} from '@ionic-native/in-app-browser';
 import {Platform} from 'ionic-angular';
 import {ToastProvider} from '../../providers/toast/toast';
-import {ToolProvider} from '../../providers/tool/tool';
+import {VersionProvider} from "../../providers/version/version";
 
 declare var chcp;
 
@@ -19,16 +19,14 @@ export class AboutPage {
     public isUpdate: boolean = false;
     public isInstall: boolean = false;
 
-    public appVersion: string = '2.1';
+    public appVersion: string = '--';
     public webVersion: string = '--';
 
     constructor(public navCtrl: NavController,
-                private loadingCtrl: LoadingController,
                 public navParams: NavParams,
                 private iab: InAppBrowser,
                 private toastProvier: ToastProvider,
-                private toolProvider: ToolProvider,
-                private alertCtrl: AlertController,
+                private versionProvider: VersionProvider,
                 public platform: Platform) {
 
         if (this.platform.is('ios')) {
@@ -41,32 +39,27 @@ export class AboutPage {
     }
 
     ionViewDidLoad() {
-
-            if (this.platform.is('cordova')) {
-
-            chcp.getVersionInfo((err, data) => {
-
-                console.log(err);
-                console.log(data);
-
-                if (data.currentWebVersion) {
-                    this.webVersion = data.currentWebVersion.replace(/-/g, '');
-                    this.webVersion = this.webVersion.replace(/\./g, '');
-                }
-
-                this.appVersion = data.appVersion;
-
-            });
+        // 获取版本号
+        if (this.platform.is('cordova')) {
+            this.appVersion = this.versionProvider.getAppVersion();
+            this.webVersion = this.versionProvider.getWebVersion(true);
         }
-
     }
 
-    openUrl(url: string) {
-        this.iab.create(url, '_blank', 'toolbar=yes');
+    /**
+     * 打卡URL
+     *
+     * @param {string} url
+     */
+    openUrl(url: string,target:string='_blank') {
+        this.iab.create(url, target, 'location=no,toolbar=yes,toolbarposition=top,closebuttoncaption=关闭');
     }
 
+    /**
+     * 执行更新
+     *
+     */
     doUpdate() {
-
         if (this.isInstall) {
             chcp.installUpdate((error) => {
                 if (error) {
@@ -79,6 +72,10 @@ export class AboutPage {
         }
     }
 
+    /**
+     * 复制公众号回调
+     *
+     */
     copyCallback() {
         this.toastProvier.show("公众号已复制到剪贴板", 'success');
     }

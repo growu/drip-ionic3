@@ -48,8 +48,17 @@ export class UserHomeEventsPage {
         });
     }
 
-
+    /**
+     * 加载更多动态
+     *
+     * @param infiniteScroll
+     */
     doInfinite(infiniteScroll) {
+
+        if(this.isLoading) {
+            infiniteScroll.complete();
+            return;
+        }
 
         this.getUserEvents().then(data=>{
             infiniteScroll.complete();

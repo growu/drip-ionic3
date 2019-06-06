@@ -17,17 +17,29 @@
 
   <ion-list>
       <ion-card *ngFor="let message of messages">
-          <ion-item  (click)="goUserHomePage(message.user)">
+          <ion-item  (click)="goUserHomePage(message.sender.id)">
           <ion-avatar item-start >
-            <img [src]="message.user.avatar_url">
+            <img [src]="message.sender.avatar_url">
           </ion-avatar>
-          <h2>{{message.user.nickname}}</h2>
+          <h2>{{message.sender.nickname}}</h2>
           <p>{{message.created_at}}</p>
           <button ion-button outline item-end (click)="doReply(message,$event)">回复</button>
         </ion-item>
           <ion-card-content>
-              <p>评论了你: {{message.comment.content}}</p>
-              <blockquote (click)="goEventDetailPage(message.comment.event_id)">{{message.comment.source | slice:0:50}}</blockquote>
+              <p *ngIf="!message.reply_comment">评论了你: {{message.comment.content}}</p>
+              <p *ngIf="message.reply_comment">回复了你: {{message.comment.content}}</p>
+
+              <blockquote *ngIf="message.reply_comment">
+                  <span ion-text color="primary" (click)="goUserHomePage(message.reply_comment.user?.id)">{{message.reply_comment.user?.nickname}}</span>
+                  {{message.reply_comment.content}}
+              </blockquote>
+
+              <ion-item (click)="goEventDetailPage(message.resource.id)">
+                  <ion-thumbnail item-start *ngIf="message.resource.image">
+                      <img [src]="message.resource.image">
+                  </ion-thumbnail>
+                  <p>{{message.resource.content | slice:0:50}}</p>
+              </ion-item>
           </ion-card-content>
       </ion-card>
   </ion-list>
@@ -44,7 +56,7 @@
 
 <ion-footer>
     <ion-item *ngIf="isShowReply">
-        <ion-input type="text" item-start placeholder="回复 {{replyMessage.user?.nickname}}" [(ngModel)]="replyContent"></ion-input>
+        <ion-input type="text" item-start placeholder="回复 {{replyMessage.sender?.nickname}}" [(ngModel)]="replyContent"></ion-input>
         <button clear ion-button item-end (click)="submitReply()">发布</button>
     </ion-item>
 </ion-footer>

@@ -11,7 +11,7 @@
   <ion-list class="goal-desc">
     <ion-item padding-top padding-bottom no-border no-lines>
       <h2>{{goal?.name}}</h2>
-      <p>{{goal?.follow_nums || 0}}人参与 | {{goal?.checkin_count || 0}}次打卡</p>
+      <p>{{goal?.formulate_nums || 0}}人参与 | {{goal?.checkin_count || 0}}次打卡</p>
     </ion-item>
   </ion-list>
 
@@ -72,5 +72,5 @@
 
 </ion-content>
 
-<button round block ion-button fixed class="follow-btn btn-gradient" *ngIf="!goal.is_follow" (click)="followGoal">制定该目标</button>
+<button round block ion-button fixed class="formulate-btn btn-gradient" *ngIf="!goal.is_formulated" (click)="formulateGoal()">制定该目标</button>
 

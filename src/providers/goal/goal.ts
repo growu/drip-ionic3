@@ -39,8 +39,8 @@ export class GoalProvider {
      * @param id
      * @returns {Promise<Promise<Response>>}
      */
-    doFollowGoal(id) {
-        return this.httpProivder.httpPutWithAuth("/goal/" + id + "/follow", null);
+    doFormulateGoal(id) {
+        return this.httpProivder.httpPostWithAuth("/user/goals/" + id , null);
     }
 
     /**
