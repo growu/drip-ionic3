@@ -1,0 +1,34 @@
+dp-event {
+  .button-clear {
+    color:#ccc;
+  }
+
+  .card-content {
+    padding-bottom:0;
+    padding-top:0;
+    blockquote {
+      background-color: #f4f4f4;
+      padding:10px;
+      margin:10px 0 0 0;
+      color:#999;
+    }
+  }
+
+  .event-image {
+    max-height:400px;
+    overflow: hidden;
+    padding:10px;
+  }
+
+  .action-toolbar {
+    color:#bdbdbd;
+    ion-icon {
+      font-size: 1.8em;
+      font-weight:900;
+    }
+
+    ion-icon:not([color="primary"]) {
+      color: #999;
+    }
+  }
+}

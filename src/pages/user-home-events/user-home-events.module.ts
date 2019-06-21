@@ -1,8 +1,8 @@
 import {NgModule} from '@angular/core';
 import {IonicPageModule} from 'ionic-angular';
 import {UserHomeEventsPage} from './user-home-events';
-import {MyEventComponentModule} from '../../components/my-event/my-event.module';
-import { MyLoaderComponentModule } from '../../components/my-loader/my-loader.module';
+import {DpEventComponentModule} from '../../components/dp-event/dp-event.module';
+import { DpLoaderComponentModule } from '../../components/dp-loader/dp-loader.module';
 
 @NgModule({
     declarations: [
@@ -10,8 +10,8 @@ import { MyLoaderComponentModule } from '../../components/my-loader/my-loader.mo
     ],
     imports: [
         IonicPageModule.forChild(UserHomeEventsPage),
-        MyEventComponentModule,
-        MyLoaderComponentModule
+        DpEventComponentModule,
+        DpLoaderComponentModule
     ],
 })
 export class UserHomeEventsPageModule {

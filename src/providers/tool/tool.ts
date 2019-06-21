@@ -135,7 +135,7 @@ export class ToolProvider {
                 let options: FileUploadOptions = {
                     fileKey: 'file',
                     fileName: fileUrl.substr(fileUrl.lastIndexOf('/') + 1),
-                    headers: {"Authorization": 'Bearer ' + token, "Accept": 'application/x.drip.v1+json'}
+                    headers: {"Authorization": 'Bearer ' + token.access_token, "Accept": 'application/x.drip.v1+json'}
                 }
 
                 // if(type == "audio") {

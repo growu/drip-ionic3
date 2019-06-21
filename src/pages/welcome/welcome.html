@@ -13,7 +13,7 @@
 
     <ion-row class="quote">
       <p class="quote-content" [innerHtml]="info?.word_content"></p>
-      <p class="quote-people">--《{{info?.word_author}}》</p>
+      <p class="quote-people" *ngIf="info?.word_author">--《{{info?.word_author}}》</p>
 <!--       <ion-icon class="light" name="ios-camera-outline"></ion-icon>
  -->    </ion-row>
 

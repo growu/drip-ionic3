@@ -21,10 +21,11 @@ import {MediaCapture} from '@ionic-native/media-capture';
 import {StreamingMedia} from '@ionic-native/streaming-media';
 import {NativePageTransitions} from '@ionic-native/native-page-transitions';
 import {OpenNativeSettings} from '@ionic-native/open-native-settings';
+import { VideoEditor } from '@ionic-native/video-editor';
 
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 
-import {MyHammerConfig} from '../components/MyHammerConfig'
+import {DpHammerConfig} from '../components/DpHammerConfig'
 import {HAMMER_GESTURE_CONFIG} from '@angular/platform-browser';
 import {UserProvider} from '../providers/user/user';
 import {HttpProvider} from '../providers/http/http';
@@ -34,13 +35,14 @@ import {CommentProvider} from '../providers/comment/comment';
 import {ToastProvider} from '../providers/toast/toast';
 import {LoadingProvider} from '../providers/loading/loading';
 import {IonicImageViewerModule} from 'ionic-img-viewer';
-import {MyShareModule} from '../components/my-share/my-share.module';
+import {DpShareModule} from '../components/dp-share/dp-share.module';
 import {TopProvider} from '../providers/top/top';
 import {TopicProvider} from '../providers/topic/topic';
 import {MallProvider} from '../providers/mall/mall';
 import {VersionProvider} from '../providers/version/version';
 import {JpushProvider} from '../providers/jpush/jpush';
 import {PostProvider} from '../providers/post/post';
+import { VerificationProvider } from '../providers/verification/verification';
 
 @NgModule({
     declarations: [
@@ -62,7 +64,7 @@ import {PostProvider} from '../providers/post/post';
             monthShortNames: ['一月', '二月', '三月', '四月', '五月', '六月', '七月', '八月', '九月', '十月', '十一月', '十二月'],
         }),
         IonicImageViewerModule,
-        MyShareModule,
+        DpShareModule,
         BrowserAnimationsModule,
     ],
     bootstrap: [IonicApp],
@@ -87,10 +89,11 @@ import {PostProvider} from '../providers/post/post';
         LocalNotifications,
         NativePageTransitions,
         OpenNativeSettings,
+        VideoEditor,
         {provide: ErrorHandler, useClass: IonicErrorHandler},
         {
             provide: HAMMER_GESTURE_CONFIG,
-            useClass: MyHammerConfig
+            useClass: DpHammerConfig
         },
         UserProvider,
         HttpProvider,
@@ -105,6 +108,7 @@ import {PostProvider} from '../providers/post/post';
         VersionProvider,
         JpushProvider,
         PostProvider,
+    VerificationProvider,
     ]
 })
 export class AppModule {

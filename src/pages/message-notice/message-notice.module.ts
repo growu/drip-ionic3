@@ -3,7 +3,7 @@ import {IonicPageModule} from 'ionic-angular';
 import {MessageNoticePage} from './message-notice';
 import {TimeAgoPipeModule} from '../../pipes/time-ago/time-ago.module';
 import {MomentModule} from 'angular2-moment';
-import {MyLoaderComponentModule} from '../../components/my-loader/my-loader.module';
+import {DpLoaderComponentModule} from '../../components/dp-loader/dp-loader.module';
 
 @NgModule({
     declarations: [
@@ -13,7 +13,7 @@ import {MyLoaderComponentModule} from '../../components/my-loader/my-loader.modu
         IonicPageModule.forChild(MessageNoticePage),
         TimeAgoPipeModule,
         MomentModule,
-        MyLoaderComponentModule
+        DpLoaderComponentModule
     ],
 })
 export class MessageNoticePageModule {

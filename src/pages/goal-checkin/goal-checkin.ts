@@ -1,6 +1,5 @@
 import {Component} from '@angular/core';
-import {App, NavController, NavParams, IonicPage, Events, ModalController} from "ionic-angular";
-import {FormBuilder, FormGroup} from '@angular/forms';
+import {App, NavController, NavParams, IonicPage, Events, ModalController, Platform} from "ionic-angular";
 import {UserProvider} from "../../providers/user/user";
 import {ToolProvider} from "../../providers/tool/tool";
 import * as moment from 'moment'
@@ -9,6 +8,7 @@ import {Storage} from '@ionic/storage';
 import {ToastProvider} from "../../providers/toast/toast";
 import { Media, MediaObject } from '@ionic-native/media';
 import { File } from '@ionic-native/file';
+import { VideoEditor} from '@ionic-native/video-editor';
 import {
     MediaCapture, MediaFile, CaptureError, CaptureImageOptions,
     CaptureVideoOptions,CaptureAudioOptions
@@ -44,6 +44,8 @@ export class GoalCheckinPage {
                 private storage: Storage,
                 private modalCtrl: ModalController,
                 public media: Media,
+                private videoEditor: VideoEditor,
+                private platform: Platform,
                 private mediaCapture: MediaCapture,
                  public file: File,
                 private streamingMedia: StreamingMedia,
@@ -219,26 +221,50 @@ export class GoalCheckinPage {
     //   });
     }
 
-    doFilm() {
+     doFilm() {
       let options: CaptureVideoOptions = { limit: 1,duration:30};
       const that = this;
       this.mediaCapture.captureVideo(options)
         .then(
           (res: MediaFile[]) => {
               console.log(res);
-                that.toolProvider.uploadFile(res[0].fullPath,"video").then((ret) => {
-                    console.log(ret);
-                    that.attachs.push(ret);
-                }).catch((err) => {
-                  that.toastProvider.show("上传失败","error");
-                });
-               
+               that.converToMp4(res[0].fullPath).then((uri)=>{
+                   that.toolProvider.uploadFile(uri,"video").then((ret) => {
+                       console.log(ret);
+                       that.attachs.push(ret);
+                   }).catch((err) => {
+                       that.toastProvider.show("上传失败","error");
+                   });
+               });
           },
           (err: CaptureError) => {
             console.error(err);
             that.toastProvider.show("录制失败","error");
           }
         );
+    }
+
+    converToMp4(uri) {
+
+        if(this.platform.is('ios')) {
+
+            return this.videoEditor.transcodeVideo({
+                fileUri: uri,
+                outputFileName: 'output.mp4',
+                outputFileType: 1
+            })
+                .then((fileUri: string) => {
+                    console.log('video transcode success', fileUri);
+                    return fileUri
+                })
+                .catch((error: any) => {
+                    console.log('video transcode error', error);
+                    return null;
+                });
+        } else {
+            return uri;
+        }
+
     }
 
     removeAttach($event) {

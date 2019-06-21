@@ -1,0 +1,54 @@
+<ion-backdrop (click)="bgClick()">
+</ion-backdrop>
+<div class="dp-share-wrapper">
+    <div class="dp-share-container">
+        <ion-row>
+            <ion-col col-3 class="box" (click)="doWechatShare('TIMELINE')">
+                <svg class="icon" aria-hidden="true">
+                    <use xlink:href="#icon-pengyouquan"></use>
+                </svg>
+                <p>朋友圈</p>
+            </ion-col>
+            <ion-col col-3 class="box" (click)="doWechatShare('SESSION')">
+                <svg class="icon" aria-hidden="true">
+                    <use xlink:href="#icon-weibiaoti---"></use>
+                </svg>                <p>微信好友</p>
+            </ion-col>
+            <ion-col col-3 class="box" (click)="doWeiboShare()">
+                <svg class="icon" aria-hidden="true">
+                    <use xlink:href="#icon-xinlangweibo"></use>
+                </svg>                <p>微博</p>
+            </ion-col>
+
+            <ion-col col-3 class="box" (click)="doQQShare('QQZone')">
+                <svg class="icon" aria-hidden="true">
+                    <use xlink:href="#icon-QQkongjian"></use>
+                </svg>
+                <p>QQ空间</p>
+            </ion-col>
+
+        </ion-row>
+        <ion-row>
+            <ion-col col-3 class="box" (click)="doQQShare('QQ')">
+                <svg class="icon" aria-hidden="true">
+                    <use xlink:href="#icon-qqhaoyou"></use>
+                </svg>                <p>QQ</p>
+            </ion-col>
+
+            <ion-col col-3 class="box" (click)="doImageShare()" *ngIf="_opts.data.type != 'image'">
+                <svg class="icon" aria-hidden="true">
+                    <use xlink:href="#icon-tupian"></use>
+                </svg>
+                <p>生成图片</p>
+            </ion-col>
+
+            <ion-col col-3 class="box" (click)="doMoreShare()">
+                <i class="icon iconfont icon-gengduo"></i>
+                <p>更多</p>
+            </ion-col>
+        </ion-row>
+        <ion-row class="cancle-row">
+            <button ion-button clear color="danger" block (click)="bgClick()">取消</button>
+        </ion-row>
+    </div>
+</div>

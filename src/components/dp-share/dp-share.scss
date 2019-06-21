@@ -1,0 +1,133 @@
+dp-share {
+  top:0;
+  position: absolute;
+  display: block;
+  width: 100%;
+  left: 0;
+  height: 100%;
+  z-index: 10002;
+
+  .dp-share-wrapper {
+    right: 0;
+    bottom: 270px;
+    margin: auto;
+    -webkit-transform: translate3d(0,100%,0);
+    transform: translate3d(0,100%,0);
+    z-index: 10;
+    max-width: 500px;
+    position: absolute;
+    display: block;
+    width: 100%;
+    left: 0;
+
+    .dp-share-container {
+      padding-top: 2rem;
+      background: #fafafa;
+
+      .box {
+        text-align: center;
+        .icon {
+          font-size: 4rem;
+          width: 1em;
+          height: 1em;
+          vertical-align: -0.15em;
+          fill: currentColor;
+          overflow: hidden;
+        }
+      }
+
+      .cancle-row {
+        border-top:1px solid #ccc;
+      }
+
+    }
+  }
+}
+
+
+dp-share-image {
+  ion-content {
+    background-color: #f4f4f4!important;
+
+    .close-btn {
+      position: absolute;
+      top:5px;
+      right:10px;
+      color:#fff;
+      font-size: 3em;
+      font-weight: 900;
+      z-index:9999;
+    }
+
+    .date {
+
+      position: absolute;
+      left:30px;top:20px;
+      font-weight: 900;
+
+      .year{
+        font-size:3rem;
+        color:#f4f4f4;
+        display: block;
+      }
+      .month {
+        font-size:1.5rem;
+        color:#f4f4f4;
+        display: block;
+      }
+      .day {
+        font-size: 4rem;
+        color:#fff;
+        em {
+          font-size:1rem;
+        }
+      }
+    }
+
+    .picture2 {
+      height:270px;
+      background-color: #8e8ee0;
+      overflow: hidden;
+      position:relative;
+
+      .date2 {
+        font: 87.5%/1.5em "Oswald", sans-serif;
+        position:absolute;
+        left:10px;
+        bottom:10%;
+        color:#fff;
+        .day {
+          font-size: 8em;
+          font-weight: 900;
+          line-height: 1em;
+        }
+        .month {
+          font-size: 4em;
+          line-height: 1em;
+        }
+      }
+
+      img {
+        //height: 100%;
+      }
+
+    }
+
+    .picture {
+      max-height:400px;
+      overflow: hidden;
+    }
+
+    ion-card {
+      margin: 0 !important;
+      width:100% !important;
+    }
+
+    #share-logo {
+      ion-label {
+        overflow: visible;
+      }
+    }
+
+  }
+}

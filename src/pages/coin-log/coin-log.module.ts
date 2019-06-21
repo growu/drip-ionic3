@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { IonicPageModule } from 'ionic-angular';
 import { CoinLogPage } from './coin-log';
-import {MyLoaderComponentModule} from '../../components/my-loader/my-loader.module';
+import {DpLoaderComponentModule} from '../../components/dp-loader/dp-loader.module';
 
 @NgModule({
   declarations: [
@@ -9,7 +9,7 @@ import {MyLoaderComponentModule} from '../../components/my-loader/my-loader.modu
   ],
   imports: [
     IonicPageModule.forChild(CoinLogPage),
-      MyLoaderComponentModule
+      DpLoaderComponentModule
   ],
 })
 export class CoinLogPageModule {}

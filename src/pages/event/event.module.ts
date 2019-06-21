@@ -1,9 +1,9 @@
 import {NgModule} from '@angular/core';
 import {IonicPageModule} from 'ionic-angular';
 import {EventPage} from './event';
-import {MyEventComponentModule} from '../../components/my-event/my-event.module';
+import {DpEventComponentModule} from '../../components/dp-event/dp-event.module';
 import {MomentModule} from 'angular2-moment';
-import {MyLoaderComponentModule} from '../../components/my-loader/my-loader.module';
+import {DpLoaderComponentModule} from '../../components/dp-loader/dp-loader.module';
 
 @NgModule({
     declarations: [
@@ -12,8 +12,8 @@ import {MyLoaderComponentModule} from '../../components/my-loader/my-loader.modu
     imports: [
         IonicPageModule.forChild(EventPage),
         MomentModule,
-        MyEventComponentModule,
-        MyLoaderComponentModule
+        DpEventComponentModule,
+        DpLoaderComponentModule
     ],
 })
 export class EventPageModule {

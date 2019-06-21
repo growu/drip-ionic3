@@ -21,7 +21,7 @@ export class RegisterPage {
     public timerText: string = "发送验证码";
     private timerRemainSeconds: number = 60;
     private registerForm: FormGroup;
-
+    public isKeyboardShow: boolean = false;
 
     constructor(public navCtrl: NavController,
                 public navParams: NavParams,
@@ -33,6 +33,14 @@ export class RegisterPage {
             'account': ['', [Validators.required, AccountValidator.isValid]],
             'code': ['', [Validators.required]],
             'password': ['', [Validators.required, Validators.minLength(6), Validators.maxLength(32)]]
+        });
+
+        window.addEventListener('keyboardDidHide', () => {
+            this.isKeyboardShow = false;
+        });
+
+        window.addEventListener('keyboardDidShow', () => {
+            this.isKeyboardShow = true;
         });
     }
 

@@ -3,7 +3,7 @@ import {IonicPage, NavController, NavParams} from 'ionic-angular';
 import {Storage} from '@ionic/storage';
 import * as moment from 'moment'
 import { NativePageTransitions, NativeTransitionOptions } from '@ionic-native/native-page-transitions';
-import {MyShareController} from "../../components/my-share/my-share.controller";
+import {DpShareController} from "../../components/dp-share/dp-share.controller";
 import {UserProvider} from "../../providers/user/user";
 import {HttpProvider} from "../../providers/http/http";
 
@@ -29,7 +29,7 @@ export class WelcomePage {
 
     constructor(public navCtrl: NavController,
                 public navParams: NavParams,
-                private myShareCtrl:MyShareController,
+                private myShareCtrl:DpShareController,
                 private userProvider:UserProvider,
                 private httpProvider:HttpProvider,
                 private nativePageTransitions: NativePageTransitions,

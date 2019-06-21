@@ -2,12 +2,12 @@ import {NgModule} from '@angular/core';
 import {IonicPageModule} from 'ionic-angular';
 import {EventDetailPage} from './event-detail';
 import {MomentModule} from 'angular2-moment';
-import {MyFollowButtonComponentModule} from '../../components/my-follow-button/my-follow-button.module'
-import {MyShareModule} from '../../components/my-share/my-share.module';
+import {DpFollowButtonComponentModule} from '../../components/dp-follow-button/dp-follow-button.module'
+import {DpShareModule} from '../../components/dp-share/dp-share.module';
 import {IonicImageViewerModule} from "ionic-img-viewer";
 import {KeyboardProvider} from "../../providers/AppProvider";
 import {KeyboardAttachDirective} from "../../directives/keyboard-attach.directive";
-import {MyLoaderComponentModule} from '../../components/my-loader/my-loader.module';
+import {DpLoaderComponentModule} from '../../components/dp-loader/dp-loader.module';
 import {DpCommentComponentModule} from '../../components/dp-comment/dp-comment.module';
 import {DpCommentToolbarComponentModule} from "../../components/dp-comment-toolbar/dp-comment-toolbar.module";
 import {VgStreamingModule} from 'videogular2/streaming';
@@ -24,10 +24,10 @@ import {VgBufferingModule} from 'videogular2/buffering';
     imports: [
         IonicPageModule.forChild(EventDetailPage),
         MomentModule,
-        MyFollowButtonComponentModule,
-        MyShareModule,
+        DpFollowButtonComponentModule,
+        DpShareModule,
         IonicImageViewerModule,
-        MyLoaderComponentModule,
+        DpLoaderComponentModule,
         DpCommentComponentModule,
         DpCommentToolbarComponentModule,
         VgCoreModule,

@@ -1,7 +1,8 @@
 import {Component} from '@angular/core';
 import {
     IonicPage, NavController, NavParams, ActionSheetController, App, ModalController,
-    ViewController
+    ViewController,
+    Events,
 } from 'ionic-angular';
 import {Storage} from '@ionic/storage';
 import {UserProvider} from "./../../providers/user/user";
@@ -27,8 +28,16 @@ export class AccountPage {
                 private userProvider: UserProvider,
                 private toastProvider: ToastProvider,
                 private app: App,
+                public events:Events,
                 public actionSheetCtrl: ActionSheetController,
                 private storage: Storage) {
+
+        events.subscribe('user:update', () => {
+            console.log("account:update");
+            this.storage.get('user').then((data) => {
+                this.user = data;
+            });
+        });
     }
 
     ionViewDidLoad() {
@@ -51,21 +60,36 @@ export class AccountPage {
         });
     }
 
-
+    /**
+     * 绑定手机号
+     *
+     */
     doBindPhone() {
-        if (this.user.phone) return;
-        let modal = this.modalCtrl.create('phone-bind');
+        let modal;
+        if (this.user.phone) {
+            modal = this.modalCtrl.create('account-verify',{'provider':'phone','account':this.user.phone});
+        } else {
+            modal = this.modalCtrl.create('account-bind',{'provider':'phone'});
+        }
         modal.present();
     }
 
+    /**
+     * 绑定邮箱
+     *
+     */
     doBindEmail() {
-        if (this.user.email) return;
-        let modal = this.modalCtrl.create('email-bind');
+        let modal;
+        if (this.user.email) {
+            modal = this.modalCtrl.create('account-verify',{'provider':'email','account':this.user.email});
+        } else {
+            modal = this.modalCtrl.create('account-bind',{'provider':'email'});
+        }
         modal.present();
     }
 
     doBindWechat() {
-        if (this.user.wechat.nickname) return;
+        if (this.user.binds.wechat) return;
 
         this.userProvider.doWechatBind().then((ret) => {
             if (ret) {
@@ -77,9 +101,13 @@ export class AccountPage {
         });
     }
 
+    /**
+     * 绑定QQ
+     *
+     */
     doBindQQ() {
 
-        if (this.user.qq.nickname) return;
+        if (this.user.binds.qq) return;
 
         this.userProvider.doQQBind().then((ret) => {
             if (ret) {
@@ -92,9 +120,13 @@ export class AccountPage {
         });
     }
 
+    /**
+     * 绑定微博
+     *
+     */
     doBindWeibo() {
 
-        if (this.user.weibo.nickname) return;
+        if (this.user.binds.weibo) return;
 
         this.userProvider.doWeiboBind().then((ret) => {
             if (ret) {
@@ -151,31 +183,4 @@ export class AccountPage {
         // });
         // actionSheet.present();
     }
-
-    doBind(provider) {
-        if (provider == 'wechat') {
-            this.userProvider.doWechatBind().then((data) => {
-
-            });
-        }
-
-        if (provider == 'qq') {
-            this.userProvider.doWechatBind().then((data) => {
-
-            });
-        }
-
-        if (provider == 'weibo') {
-            this.userProvider.doWechatBind().then((data) => {
-
-            });
-        }
-
-
-    }
-
-    doUnBind(provider) {
-
-    }
-
 }

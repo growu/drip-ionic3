@@ -8,9 +8,9 @@
         </ion-refresher-content>
     </ion-refresher>
 
-    <my-loader *ngIf="isLoading"></my-loader>
+    <dp-loader *ngIf="isLoading"></dp-loader>
 
-    <my-event [eventSource]="events" *ngIf="events.length>0"></my-event>
+    <dp-event [eventSource]="events" *ngIf="events.length>0"></dp-event>
 
     <div text-center style="position: absolute;left: 0;right: 0;top: 40%;" *ngIf="!isLoading&&events.length == 0">
         <!--<p>暂无动态</p>-->

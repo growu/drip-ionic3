@@ -383,16 +383,21 @@ export class UserProvider {
         return this.httpProvider.httpDeleteWithAuth("/users/" + id+"/follow/");
     }
 
-    bind(provider, param) {
+    /**
+     * 绑定
+     * @param provider
+     * @param param
+     * @returns {Promise<never | Response>}
+     */
+    bind(provider,param) {
         let body = JSON.stringify(param);
 
-        return this.httpProvider.httpPostWithAuth("/user/bind/" + provider, body).then(value => {
+        return this.httpProvider.httpPostWithAuth("/user/bind/"+provider, body).then(value => {
             return value;
         }).catch(e => {
             console.log(e)
         });
     }
-
 
 
     getGoals(data, is_archive = "0") {

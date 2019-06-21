@@ -27,7 +27,7 @@
 
     <div [ngSwitch]="page">
       <div class="" *ngSwitchCase="'events'">
-        <my-event [eventSource]="events" *ngIf="events.length>0"></my-event>
+        <dp-event [eventSource]="events" *ngIf="events.length>0"></dp-event>
 
         <div text-center style="position: absolute;left: 0;right: 0;top: 40%;">
             <p *ngIf="events.length==0&&!isLoading">暂时还没有动态</p>

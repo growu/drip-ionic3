@@ -1,0 +1,37 @@
+$primary: color($colors,primary);
+$timing: .3s;
+$ease: ease-out;
+
+dp-week-selector {
+
+  ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    line-height: 1;
+    font-size: 85%;
+    font-family: "DIN Alternate";
+  }
+  li {
+    background: #dedede;
+    padding: 1em;
+    border-radius: 50%;
+    position: relative;
+    cursor: pointer;
+    transition: background $timing $ease;
+    &.selected {
+      background: $primary;
+    }
+  }
+  span {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color:#fff;
+  }
+
+}

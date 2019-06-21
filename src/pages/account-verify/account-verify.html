@@ -1,0 +1,46 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>
+      验证手机号/邮箱
+    </ion-title>
+    <ion-buttons start>
+      <button ion-button (click)="dismiss()">
+        <!--<span ion-text color="primary" showWhen="ios">取消</span>-->
+        <ion-icon name="close"></ion-icon>
+      </button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content padding>
+  <ion-list>
+    <form [formGroup]="verifyForm" (ngSubmit)="doVerify()">
+
+      <ion-list no-lines>
+        <ion-item>
+          <ion-label>
+            <ion-icon name="md-phone-portrait" color="light"></ion-icon>
+          </ion-label>
+          <ion-input type="text" placeholder="" disabled clearInput formControlName="account" [ngModel]="account"></ion-input>
+        </ion-item>
+
+        <ion-item>
+          <ion-label>
+            <ion-icon name="ios-color-filter" color="light"></ion-icon>
+          </ion-label>
+          <ion-input type="text" placeholder="验证码" clearInput formControlName="code"></ion-input>
+
+          <button ion-button clear item-right (click)="sendCode($event)" #sendBtn [disabled]="isTimerStart">
+            {{timerText}}
+          </button>
+
+        </ion-item>
+
+      </ion-list>
+
+      <ion-row padding>
+        <button block round ion-button>下一步</button>
+      </ion-row>
+    </form>
+  </ion-list>
+</ion-content>

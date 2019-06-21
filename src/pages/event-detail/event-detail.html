@@ -21,8 +21,8 @@
                 </ion-avatar>
                 <h2>{{event?.user.nickname}}</h2>
                 <p>{{event?.created_at | amLocale:"zh_cn" | amUtc | amTimeAgo }}</p>
-                <my-follow-button [followStatus]="event?.user.is_following" [followUser]="event?.user.id"
-                                  item-end></my-follow-button>
+                <dp-follow-button [followStatus]="event?.user.is_following" [followUser]="event?.user.id"
+                                  item-end></dp-follow-button>
             </ion-item>
             <div *ngIf="event?.checkin.attaches.length>0" class="event-image row">
                 <div class="" *ngFor="let attach of event?.checkin.attaches">
@@ -71,7 +71,7 @@
     </ion-list>
 
     <div class="white-content">
-        <my-loader *ngIf="isLoading"></my-loader>
+        <dp-loader *ngIf="isLoading"></dp-loader>
         <dp-comment [comments]="comments" (reply)="onReplyChange($event)"></dp-comment>
     </div>
 

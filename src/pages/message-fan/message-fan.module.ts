@@ -1,8 +1,8 @@
 import {NgModule} from '@angular/core';
 import {IonicPageModule} from 'ionic-angular';
 import {MessageFanPage} from './message-fan';
-import {MyFollowButtonComponentModule} from '../../components/my-follow-button/my-follow-button.module'
-import {MyLoaderComponentModule} from '../../components/my-loader/my-loader.module';
+import {DpFollowButtonComponentModule} from '../../components/dp-follow-button/dp-follow-button.module'
+import {DpLoaderComponentModule} from '../../components/dp-loader/dp-loader.module';
 
 @NgModule({
     declarations: [
@@ -10,8 +10,8 @@ import {MyLoaderComponentModule} from '../../components/my-loader/my-loader.modu
     ],
     imports: [
         IonicPageModule.forChild(MessageFanPage),
-        MyFollowButtonComponentModule,
-        MyLoaderComponentModule
+        DpFollowButtonComponentModule,
+        DpLoaderComponentModule
     ],
 })
 export class MessageFanPageModule {

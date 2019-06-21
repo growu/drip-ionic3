@@ -14,7 +14,7 @@
     </ion-refresher-content>
   </ion-refresher>
 
-  <my-loader *ngIf="isLoading"></my-loader>
+  <dp-loader *ngIf="isLoading"></dp-loader>
 
   <ion-list>
     <ion-item *ngFor="let message of messages" (click)="goUserHomePage(message.user)">
@@ -23,7 +23,7 @@
       </ion-avatar>
       <h2>{{message.user.nickname}} 关注了你</h2>
       <p>{{message.created_at}}</p>
-      <my-follow-button [followStatus]="message.user?.is_following" [followUser]="message.user.id" item-end></my-follow-button>
+      <dp-follow-button [followStatus]="message.user?.is_following" [followUser]="message.user.id" item-end></dp-follow-button>
     </ion-item>
   </ion-list>
 

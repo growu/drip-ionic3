@@ -1,7 +1,7 @@
 import {Component, ElementRef, ViewChild} from '@angular/core';
 import {ActionSheetController, App, IonicPage, NavController, NavParams, Platform} from 'ionic-angular';
 import {EventProvider} from '../../providers/event/event'
-import {MyShareController} from '../../components/my-share/my-share.controller'
+import {DpShareController} from '../../components/dp-share/dp-share.controller'
 import {ToastProvider} from "../../providers/toast/toast";
 import {CommentProvider} from "../../providers/comment/comment";
 import {Storage} from '@ionic/storage';
@@ -38,7 +38,7 @@ export class EventDetailPage {
                 public userProvider: UserProvider,
                 private toastProvider: ToastProvider,
                 public actionSheetCtrl: ActionSheetController,
-                private myShareCtrl: MyShareController) {
+                private myShareCtrl: DpShareController) {
 
         this.userProvider.getLocalUser().then(data=>{
             this.user = data;
@@ -244,7 +244,7 @@ export class EventDetailPage {
         });
 
         let actionSheet = this.actionSheetCtrl.create({
-            title: '我的动态',
+            title: '更多操作',
             buttons: buttons
         });
 

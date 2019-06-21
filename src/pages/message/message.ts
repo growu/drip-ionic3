@@ -2,7 +2,6 @@ import {Component} from '@angular/core';
 import {IonicPage, NavController, NavParams} from 'ionic-angular';
 import {UserProvider} from '../../providers/user/user';
 import {Storage} from '@ionic/storage';
-import {HttpProvider} from "../../providers/http/http";
 import {PostProvider} from "../../providers/post/post";
 
 @IonicPage({

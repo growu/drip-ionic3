@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { IonicPageModule } from 'ionic-angular';
 import { UserFollowingPage } from './user-following';
-import {MyFollowButtonComponentModule} from '../../components/my-follow-button/my-follow-button.module'
+import {DpFollowButtonComponentModule} from '../../components/dp-follow-button/dp-follow-button.module'
 
 @NgModule({
   declarations: [
@@ -9,7 +9,7 @@ import {MyFollowButtonComponentModule} from '../../components/my-follow-button/m
   ],
   imports: [
       IonicPageModule.forChild(UserFollowingPage),
-      MyFollowButtonComponentModule
+      DpFollowButtonComponentModule
   ],
 })
 export class UserFollowingPageModule {}

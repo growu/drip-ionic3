@@ -31,7 +31,7 @@
     </ion-refresher-content>
   </ion-refresher>
 
-  <my-loader *ngIf="isLoading"></my-loader>
+  <dp-loader *ngIf="isLoading"></dp-loader>
 
   <div class="my-blank" *ngIf="page=='following'&& hotEvents.length == 0 && !isLoading">
     <img src="assets/img/noevents.png">
@@ -76,7 +76,7 @@
       </ion-row>
     </div>
     <div *ngSwitchCase="'following'">
-      <my-event [eventSource]="followEvents" *ngIf="followEvents.length>0"></my-event>
+      <dp-event [eventSource]="followEvents" *ngIf="followEvents.length>0"></dp-event>
     </div>
   </div>
 

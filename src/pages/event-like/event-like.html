@@ -5,7 +5,7 @@
 </ion-header>
 
 <ion-content>
-  <my-loader *ngIf="isLoading"></my-loader>
+  <dp-loader *ngIf="isLoading"></dp-loader>
 
   <ion-refresher (ionRefresh)="doRefresh($event)">
     <ion-refresher-content
@@ -24,8 +24,8 @@
       <h2>{{like.user.nickname || '还没有昵称'}}</h2>
       <p>{{like.user.signature}}</p>
 
-      <my-follow-button [followStatus]="like.user.is_following" [followUser]="like.user.id"
-                        item-end ></my-follow-button>
+      <dp-follow-button [followStatus]="like.user.is_following" [followUser]="like.user.id"
+                        item-end ></dp-follow-button>
     </ion-item>
   </ion-list>
 

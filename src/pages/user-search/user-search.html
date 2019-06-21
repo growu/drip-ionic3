@@ -15,8 +15,8 @@
       </ion-avatar>
       <h2>{{user.nickname || '还没有昵称'}}</h2>
       <p>{{user.signature}}</p>
-      <my-follow-button [followStatus]="user.is_following" [followUser]="user.id"
-                        item-end ></my-follow-button>
+      <dp-follow-button [followStatus]="user.is_following" [followUser]="user.id"
+                        item-end ></dp-follow-button>
     </ion-item>
   </ion-list>
 

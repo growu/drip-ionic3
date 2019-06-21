@@ -9,7 +9,7 @@
 import { NgModule } from '@angular/core';
 import { IonicModule } from 'ionic-angular';
 import { DpUserComponent } from './dp-user';
-import { MyFollowButtonComponentModule } from '../my-follow-button/my-follow-button.module';
+import { DpFollowButtonComponentModule } from '../dp-follow-button/dp-follow-button.module';
 
 @NgModule({
     declarations: [
@@ -17,7 +17,7 @@ import { MyFollowButtonComponentModule } from '../my-follow-button/my-follow-but
     ],
     imports: [
         IonicModule,
-        MyFollowButtonComponentModule
+        DpFollowButtonComponentModule
     ],
     exports: [
         DpUserComponent

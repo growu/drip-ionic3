@@ -1,7 +1,7 @@
 import {NgModule} from '@angular/core';
 import {IonicPageModule} from 'ionic-angular';
 import {GoalHomeEventsPage} from './goal-home-events';
-import {MyEventComponentModule} from '../../components/my-event/my-event.module';
+import {DpEventComponentModule} from '../../components/dp-event/dp-event.module';
 
 @NgModule({
     declarations: [
@@ -9,7 +9,7 @@ import {MyEventComponentModule} from '../../components/my-event/my-event.module'
     ],
     imports: [
         IonicPageModule.forChild(GoalHomeEventsPage),
-        MyEventComponentModule
+        DpEventComponentModule
     ],
 })
 export class GoalHomeEventsPageModule {

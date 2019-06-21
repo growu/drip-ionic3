@@ -14,7 +14,7 @@
     </ion-refresher-content>
   </ion-refresher>
 
-  <my-loader *ngIf="isLoading"></my-loader>
+  <dp-loader *ngIf="isLoading"></dp-loader>
 
   <ion-list *ngIf="logs.length > 0">
     <ion-item *ngFor="let log of logs">

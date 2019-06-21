@@ -1,8 +1,8 @@
 <?xml version='1.0' encoding='utf-8'?>
-<widget id="me.growu.drip" version="3.0.2" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
+<widget id="me.growu.drip" version="3.1.0" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
     <name>水滴打卡</name>
     <description>一款习惯养成和目标管理工具</description>
-    <author email="drip@growu.me" href="http://drip.growu.me/">水滴打卡</author>
+    <author email="drip@growu.me" href="https://drip.growu.me/">水滴打卡</author>
     <content src="index.html" />
     <access origin="*" />
     <allow-navigation href="http://ionic.local/*" />
@@ -173,4 +173,5 @@
     <plugin name="com.telerik.plugins.nativepagetransitions" spec="~0.6.5" />
     <plugin name="cordova-open-native-settings" spec="~1.5.2" />
     <plugin name="cordova-plugin-apprate" spec="~1.4.0" />
+    <plugin name="cordova-plugin-video-editor" spec="~1.1.3" />
 </widget>

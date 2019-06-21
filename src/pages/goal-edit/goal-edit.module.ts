@@ -1,7 +1,7 @@
 import {NgModule} from '@angular/core';
 import {IonicPageModule} from 'ionic-angular';
 import {GoalEditPage} from './goal-edit';
-import {MyWeekSelectorComponentModule} from '../../components/my-week-selector/my-week-selector.module';
+import {DpWeekSelectorComponentModule} from '../../components/dp-week-selector/dp-week-selector.module';
 import {TooltipsModule} from 'ionic-tooltips';
 
 @NgModule({
@@ -10,7 +10,7 @@ import {TooltipsModule} from 'ionic-tooltips';
     ],
     imports: [
         IonicPageModule.forChild(GoalEditPage),
-        MyWeekSelectorComponentModule,
+        DpWeekSelectorComponentModule,
         TooltipsModule
     ],
 })

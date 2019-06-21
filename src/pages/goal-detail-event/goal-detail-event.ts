@@ -14,7 +14,7 @@ import {UserProvider} from '../../providers/user/user'
 export class GoalDetailEventPage {
 
     events: any = [];
-    private perPage: number = 20;
+    private perPage: number = 10;
     public isLoading:boolean;
 
     constructor(public navCtrl: NavController,

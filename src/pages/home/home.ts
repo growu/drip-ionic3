@@ -285,7 +285,7 @@ export class HomePage {
     }
 
     goGoalDetailPage(id) {
-        this.navCtrl.push('goal-detail', {'id': id, 'homePage': this});
+        this.navCtrl.push('goal-detail', {'id': id, 'homePage': this,'rootNavCtrl':this.navCtrl});
     }
 
     // 目标打卡
@@ -380,7 +380,7 @@ export class HomePage {
     goGoalTodayPage(goal) {
 
         // this.navCtrl.push('goal-today', {id: goal.id, goal: goal});
-        this.navCtrl.push('goal-detail', {id: goal.id, goal: goal});
+        this.navCtrl.push('goal-detail', {id: goal.id, goal: goal,'rootNavCtrl':this.navCtrl});
     }
 
     swipeEvent($event) {

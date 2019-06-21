@@ -2,7 +2,7 @@ import {Component} from '@angular/core';
 import {IonicPage, LoadingController, NavController, NavParams, ViewController} from 'ionic-angular';
 import * as html2canvas from 'html2canvas';
 import {ToastProvider} from "../../providers/toast/toast";
-import {MyShareController} from "../../components/my-share/my-share.controller";
+import {DpShareController} from "../../components/dp-share/dp-share.controller";
 import {EventProvider} from "../../providers/event/event";
 import swal from "sweetalert2";
 import { PhotoLibrary } from '@ionic-native/photo-library';
@@ -31,7 +31,7 @@ export class GoalCheckinSuccPage {
     constructor(public navCtrl: NavController,
                 public loadingCtrl: LoadingController,
                 private viewCtrl: ViewController,
-                private myShareCtrl: MyShareController,
+                private myShareCtrl: DpShareController,
                 private photoLibrary: PhotoLibrary,
                 private toastProvider: ToastProvider,
                 private eventProvider: EventProvider,
