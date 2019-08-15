@@ -1,10 +1,12 @@
 <ion-header no-border>
     <ion-navbar color="primary">
-        <ion-title *ngIf="mode == 'more'"></ion-title>
+        <ion-title *ngIf="mode == 'more'">
+        </ion-title>
         <ion-title *ngIf="mode == 'less'">
             <img src="{{user?.avatar_url || 'assets/img/default-avatar.jpg'}}">
             <span>{{user?.nickname || '还没有昵称'}}</span>
         </ion-title>
+        <dp-user-menu [user]="user"></dp-user-menu>
     </ion-navbar>
 
 </ion-header>

@@ -68,12 +68,12 @@
             <li>单目标计数上限1个</li>
             <li>限个人目标</li>
           </ul>
-          <button ion-button small class="buy-btn" color="danger">0币/月</button>
+          <button ion-button small class="buy-btn-year" color="danger">免费</button>
         </ion-card-content>
       </ion-card>
       </ion-row>
-      <ion-row justify-content-center  align-items-center style="height: 100%" >
-        <ion-card (click)="buyVip(1000,1)" class="yellow-card">
+      <ion-row margin-top  margin-bottom justify-content-center  align-items-center style="" >
+        <ion-card class="yellow-card" padding-top>
           <ion-card-content>
             <h2>PRO会员</h2>
             <ul>
@@ -82,13 +82,14 @@
               <li>单目标计数不限</li>
               <li>限个人目标</li>
             </ul>
-            <button ion-button small class="buy-btn" color="danger">1k币/月</button>
+              <button ion-button small class="buy-btn-month" color="light"  (click)="buyVip(19)">9元/月</button>
+              <button ion-button small class="buy-btn-year" color="danger"  (click)="buyVip(20)">99元/年</button>
           </ion-card-content>
         </ion-card>
       </ion-row>
 
-      <ion-row justify-content-center  align-items-center style="height: 100%">
-        <ion-card (click)="buyVip(10000,2)" class="blue-card">
+      <ion-row  margin-top justify-content-center  align-items-center style="height: 100%">
+        <ion-card class="blue-card">
           <ion-card-content>
             <h2>TEAM会员</h2>
             <ul>
@@ -98,7 +99,8 @@
                 <li>个人/小组目标</li>
                 <li>开通收益功能</li>
             </ul>
-            <button ion-button small class="buy-btn" color="danger">10k币/月</button>
+              <button ion-button small class="buy-btn-month" color="light"  (click)="buyVip(21)">99元/月</button>
+              <button ion-button small class="buy-btn-year" color="danger"  (click)="buyVip(22)">999元/年</button>
           </ion-card-content>
         </ion-card>
       </ion-row>

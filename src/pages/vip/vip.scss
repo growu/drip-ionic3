@@ -15,10 +15,18 @@ page-vip {
     color:#fff;
   }
 
-  .buy-btn {
+  .buy-btn-month {
     position: absolute;
     right:10px;
-    top:40%;
+    top:30%;
+    min-width: 80px ;
+  }
+
+  .buy-btn-year {
+    position: absolute;
+    right:10px;
+    top:55%;
+    min-width: 80px ;
   }
 
   .gray-card {

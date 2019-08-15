@@ -20,11 +20,12 @@
             {{user?.nickname || '还没有昵称'}}
           </h2>
           <p (click)="goWalletPage()" *ngIf="!isAudit">
-            <svg class="icon svg-iconfont" aria-hidden="true" *ngIf="user?.is_vip">
-              <use xlink:href="#icon-jinbi">
-              </use>
-            </svg>
-            {{user?.coin || '0'}}
+            <!--<svg class="icon svg-iconfont" aria-hidden="true" *ngIf="user?.is_vip">-->
+              <!--<use xlink:href="#icon-jinbi">-->
+              <!--</use>-->
+            <!--</svg>-->
+              <img src="assets/img/coin.png" style="width: 18px;height: 18px;">
+              <span style="">{{user?.coin || '0'}}</span>
           </p>
           <dp-vip-button item-end [user]="user" [showFree]="true"></dp-vip-button>
           <!--<ion-icon name="arrow-forward" item-end></ion-icon>-->

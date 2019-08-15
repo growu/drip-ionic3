@@ -102,7 +102,7 @@ export class ForgetPage {
         this.userProvider.find(this.forgetForm.value).then(response => {
             if(response) {
                 this.toastProvider.show("密码修改成功",'success');
-                this.navCtrl.push('login-default');
+                this.navCtrl.push('login');
                 // swal({
                 //     title: '密码修改成功',
                 //     // text: '欢迎回来',

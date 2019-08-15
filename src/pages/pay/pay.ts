@@ -3,6 +3,7 @@ import {IonicPage, NavController, NavParams} from 'ionic-angular';
 import {MallProvider} from "../../providers/mall/mall";
 import {ToastProvider} from "../../providers/toast/toast";
 import * as moment from 'moment'
+import {PayProvider} from '../../providers/pay/pay';
 
 declare var Wechat;
 
@@ -20,7 +21,7 @@ export class PayPage {
     private selectRecharge = null;
 
     constructor(public navCtrl: NavController,
-                private mallProvider: MallProvider,
+                private payProvider: PayProvider,
                 private toastProvider: ToastProvider,
                 public navParams: NavParams) {
     }
@@ -29,14 +30,22 @@ export class PayPage {
         this.getRecharges();
     }
 
+    /**
+     * 获取计费点
+     *
+     */
     getRecharges() {
-        this.mallProvider.getRecharges().then(data => {
+        this.payProvider.getRecharges().then(data => {
             this.recharges = data;
         }).catch(err => {
 
         });
     }
 
+    /**
+     * 选中计费点
+     *
+     */
     onClickRecharge(recharge) {
         this.recharges.forEach((value,key,arr)=>{
            this.recharges[key].isSelected = false;
@@ -57,7 +66,7 @@ export class PayPage {
             id:this.selectRecharge.id
         }
 
-        this.mallProvider.pay(body).then(data => {
+        this.payProvider.order(body).then(data => {
 
             var params = {
                 partnerid: data.partnerid, // merchant id

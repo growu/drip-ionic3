@@ -812,6 +812,27 @@ export class UserProvider {
     }
 
     /**
+     * 设置黑名单
+     *
+     * @param param
+     * @returns {Promise<Promise<Response>>}
+     */
+    blacklistUser(id) {
+        return this.httpProvider.httpPutWithAuth("/users/"+id+"/blacklist",null);
+    }
+
+    /**
+     * 举报
+     *
+     * @param param
+     * @returns {Promise<Promise<Response>>}
+     */
+    reportUser(id,body) {
+        return this.httpProvider.httpPostWithAuth("/users/"+id+"/report", body);
+    }
+
+
+    /**
      * 更新本地用户
      * @param user
      * @returns {Promise<void>}

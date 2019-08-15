@@ -8,26 +8,20 @@ export class MallProvider {
   }
 
     getGoods() {
-        return this.httpProvider.httpGetWithAuth("/mall/goods", null);
+        return this.httpProvider.httpGetWithAuth("/mall", null);
     }
 
     getGoodDetail(id) {
-        return this.httpProvider.httpGetWithAuth("/mall/good/"+id, null);
+        return this.httpProvider.httpGetWithAuth("/mall/goods/"+id, null);
     }
 
     doExchangeGood(id) {
         return this.httpProvider.httpPostWithAuth("/mall/good/"+id+"/exchange", null);
     }
 
-    getExchanges() {
+    getOrders() {
         return this.httpProvider.httpGetWithAuth("/mall/exchanges", null);
     }
 
-    getRecharges() {
-        return this.httpProvider.httpGetWithAuth("/wechat/recharges", null);
-    }
 
-    pay(body) {
-        return this.httpProvider.httpPostWithAuth("/wechat/pay", body);
-    }
 }

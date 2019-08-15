@@ -43,6 +43,7 @@ import {VersionProvider} from '../providers/version/version';
 import {JpushProvider} from '../providers/jpush/jpush';
 import {PostProvider} from '../providers/post/post';
 import { VerificationProvider } from '../providers/verification/verification';
+import { PayProvider } from '../providers/pay/pay';
 
 @NgModule({
     declarations: [
@@ -109,6 +110,7 @@ import { VerificationProvider } from '../providers/verification/verification';
         JpushProvider,
         PostProvider,
     VerificationProvider,
+    PayProvider,
     ]
 })
 export class AppModule {

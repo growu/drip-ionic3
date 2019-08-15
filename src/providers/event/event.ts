@@ -85,7 +85,7 @@ export class EventProvider {
 
     share(id, param) {
         let body = JSON.stringify(param);
-        return this.httpProvider.httpPostWithAuth("/event/" + id + "/share", body);
+        return this.httpProvider.httpPostWithAuth("/events/" + id + "/share", body);
     }
 
     // 删除动态
@@ -96,6 +96,17 @@ export class EventProvider {
     // 更新动态
     updateEvent(event, params) {
         return this.httpProvider.httpPatchWithAuth("/event/" + event.id, params);
+    }
+
+
+    /**
+     * 举报
+     *
+     * @param param
+     * @returns {Promise<Promise<Response>>}
+     */
+    report(id,body) {
+        return this.httpProvider.httpPostWithAuth("/events/"+id+"/report", body);
     }
 
 }

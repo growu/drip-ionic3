@@ -1,10 +1,11 @@
 import {Component, ElementRef, ViewChild} from '@angular/core';
-import {ActionSheetController, App, IonicPage, NavController, NavParams, Platform} from 'ionic-angular';
+import {
+    ActionSheetController, AlertController, App, IonicPage, NavController, NavParams,
+    Platform
+} from 'ionic-angular';
 import {EventProvider} from '../../providers/event/event'
 import {DpShareController} from '../../components/dp-share/dp-share.controller'
 import {ToastProvider} from "../../providers/toast/toast";
-import {CommentProvider} from "../../providers/comment/comment";
-import {Storage} from '@ionic/storage';
 import {UserProvider} from "../../providers/user/user";
 
 declare var Keyboard;
@@ -33,11 +34,11 @@ export class EventDetailPage {
     constructor(public navCtrl: NavController,
                 public navParams: NavParams,
                 private platform: Platform,
-                private storage: Storage,
                 public eventProvider: EventProvider,
                 public userProvider: UserProvider,
                 private toastProvider: ToastProvider,
                 public actionSheetCtrl: ActionSheetController,
+                private alertCtrl: AlertController,
                 private myShareCtrl: DpShareController) {
 
         this.userProvider.getLocalUser().then(data=>{
@@ -100,7 +101,7 @@ export class EventDetailPage {
      * @returns {Promise<Response>}
      */
     goUserHomePage(user) {
-        this.navCtrl.push('user-home', {'id': user.id});
+        this.navCtrl.push('user-home', {'id': user.id,'rootNavCtrl':this.navCtrl});
     }
 
     /**
@@ -225,13 +226,7 @@ export class EventDetailPage {
             buttons = [{
                 text: '举报',
                 handler: () => {
-                    this.eventProvider.updateEvent(this.event,{'is_public':0}).then(data=>{
-                        if(data) {
-                            this.toastProvider.show("操作成功","success");
-                        }
-                    }).catch(err=>{
-
-                    });
+                   this.setReport();
                 }
             }];
         }
@@ -240,6 +235,7 @@ export class EventDetailPage {
             text: '取消',
             role: 'cancel',
             handler: () => {
+
             }
         });
 
@@ -249,6 +245,59 @@ export class EventDetailPage {
         });
 
         actionSheet.present();
+    }
+
+    /**
+     * 举报
+     *
+     */
+    setReport() {
+
+        let alert = this.alertCtrl.create();
+        alert.setTitle('请选择举报的原因！');
+
+        alert.addInput({
+            type: 'radio',
+            label: '色情/低俗内容',
+            value: '1',
+            checked: true
+        });
+
+        alert.addInput({
+            type: 'radio',
+            label: '广告推销',
+            value: '2',
+        });
+
+        alert.addInput({
+            type: 'radio',
+            label: '反动/政治问题',
+            value: '3',
+        });
+
+        alert.addInput({
+            type: 'radio',
+            label: '其他',
+            value: '4',
+        });
+
+
+        alert.addButton('取消');
+        alert.addButton({
+            text: '确定',
+            handler: data => {
+
+                let body = {
+                    reason: data
+                };
+
+                this.eventProvider.report(this.event.id, body).then((data) => {
+                    this.toastProvider.show("操作成功", 'success');
+                }).catch((err) => {
+                });
+            }
+        });
+        alert.present();
     }
 
 

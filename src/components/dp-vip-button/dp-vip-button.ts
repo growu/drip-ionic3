@@ -31,6 +31,9 @@ export class DpVipButtonComponent {
         } else if(user.vip_type == 2) {
             this.color = 'primary';
             this.text = 'TEAM';
+        } else if(user.vip_type == 0) {
+            this.color = 'gray';
+            this.text = 'FREE';
         } else {
             if (!this.isAudit) {
                 this.isShow = false;
@@ -52,7 +55,7 @@ export class DpVipButtonComponent {
      * 跳转到VIP页面
      */
     goVipPage() {
-        this.navCtrl.push("user-follower", {});
+        this.navCtrl.push("vip", {});
     }
 
 }

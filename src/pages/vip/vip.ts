@@ -4,6 +4,9 @@ import {Storage} from '@ionic/storage';
 import {ToastProvider} from "../../providers/toast/toast";
 import {UserProvider} from "../../providers/user/user";
 import {MallProvider} from "../../providers/mall/mall";
+import {PayProvider} from '../../providers/pay/pay';
+
+declare var Wechat;
 
 @IonicPage({
     name: 'vip',
@@ -21,7 +24,7 @@ export class VipPage {
               private alertCtrl: AlertController,
               private storage: Storage,
               private userProvider: UserProvider,
-              private mallProvider: MallProvider,
+              private payProvider: PayProvider,
               private toastProvider: ToastProvider,
               public navParams: NavParams) {
   }
@@ -35,34 +38,52 @@ export class VipPage {
       });
   }
 
-  buyVip(num,good_id){
+  buyVip(good_id){
 
-    const confirm = this.alertCtrl.create({
-      title: '确认兑换？',
-      message: '确定使用 '+num+'水滴币兑换此商品？',
-      buttons: [
-        {
-          text: '取消',
-          handler: () => {
-            console.log('Disagree clicked');
+      let body = {
+          id:good_id
+      };
+
+      this.payProvider.order(body).then(data=>{
+          if(data) {
+              const that = this;
+              Wechat.sendPaymentRequest(data, function () {
+                  that.toastProvider.show("购买成功", "success");
+              }, function (reason) {
+                  console.log(reason);
+                  that.toastProvider.show("购买失败：" + reason, "error");
+              });
+          } else {
+              this.toastProvider.show("购买失败","error");
           }
-        },
-        {
-          text: '确认',
-          handler: () => {
-            this.mallProvider.doExchangeGood(good_id).then(data=>{
-                if(data) {
-                  this.toastProvider.show("兑换成功","success");
-                  this.storage.set('user',data);
-                } else {
-                    this.toastProvider.show("兑换失败","error");
-                }
-            }).catch(err=>{});
-          }
-        }
-      ]
-    });
-    confirm.present();
+      }).catch(err=>{});
+
+    // const confirm = this.alertCtrl.create({
+    //   title: '确认兑换？',
+    //   message: '确定使用 '+num+'水滴币兑换此商品？',
+    //   buttons: [
+    //     {
+    //       text: '取消',
+    //       handler: () => {
+    //         console.log('Disagree clicked');
+    //       }
+    //     },
+    //     {
+    //       text: '确认',
+    //       handler: () => {
+    //         this.mallProvider.doExchangeGood(good_id).then(data=>{
+    //             if(data) {
+    //               this.toastProvider.show("兑换成功","success");
+    //               this.storage.set('user',data);
+    //             } else {
+    //                 this.toastProvider.show("兑换失败","error");
+    //             }
+    //         }).catch(err=>{});
+    //       }
+    //     }
+    //   ]
+    // });
+    // confirm.present();
 
 
       // this.navCtrl.push('mall');

@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='utf-8'?>
-<widget id="me.growu.drip" version="3.1.0" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
+<widget id="me.growu.drip" version="3.2.0" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
     <name>水滴打卡</name>
     <description>一款习惯养成和目标管理工具</description>
     <author email="drip@growu.me" href="https://drip.growu.me/">水滴打卡</author>
@@ -94,47 +94,53 @@
         <auto-download enabled="false" />
         <auto-install enabled="false" />
     </chcp>
-    <plugin name="jpush-phonegap-plugin" spec="^3.2.13">
-        <variable name="APP_KEY" value="46becc0d96be0a46d601867f" />
-    </plugin>
-    <plugin name="cordova-plugin-nativestorage" spec="^2.2.2" />
-    <plugin name="cordova-sqlite-storage" spec="^2.1.4" />
-    <plugin name="cordova-plugin-splashscreen" spec="^4.1.0" />
-    <plugin name="cordova-plugin-inappbrowser" spec="^1.7.2" />
-    <plugin name="cordova-plugin-weibosdk" spec="^0.6.1">
-        <variable name="WEIBO_APP_ID" value="415534840" />
-    </plugin>
-    <plugin name="cordova-plugin-device" spec="^1.1.7" />
-    <plugin name="cordova-plugin-camera" spec="^2.4.1">
-        <variable name="CAMERA_USAGE_DESCRIPTION" value="水滴打卡需要你的同意才能访问相机" />
-        <variable name="PHOTOLIBRARY_USAGE_DESCRIPTION" value="水滴打卡需要你的同意才能访问相册" />
-    </plugin>
-    <plugin name="cordova-plugin-file-transfer" spec="^1.7.0" />
-    <plugin name="cordova-plugin-whitelist" spec="^1.3.3" />
-    <plugin name="cordova-plugin-nativeaudio" spec="^3.0.9" />
+    <allow-navigation href="http://192.168.2.220:8100" />
+    <allow-navigation href="http://192.168.2.220:8101" />
+    <allow-navigation href="http://192.168.2.220:8102" />
+    <allow-navigation href="http://192.168.2.220:8103" />
+    <allow-navigation href="http://192.168.1.4:8104" />
+    <engine name="ios" spec="4.4.0" />
+    <engine name="android" spec="~6.1.2" />
     <plugin name="cordova-plugin-datepicker" spec="^0.9.3" />
     <plugin name="cordova-plugin-console" spec="^1.1.0" />
     <plugin name="com.synconset.imagepicker" spec="^2.1.10">
-        <variable name="PHOTO_LIBRARY_USAGE_DESCRIPTION" value="水滴打卡需要你的同意才能访问相册" />
+        <variable name="PHOTO_LIBRARY_USAGE_DESCRIPTION" value=" " />
     </plugin>
     <plugin name="cordova-plugin-crop" spec="^0.4.0" />
-    <plugin name="cordova-plugin-wechat" spec="^2.1.0">
+    <plugin name="cordova-plugin-wechat" spec="^2.8.0">
         <variable name="WECHATAPPID" value="wxac31b5ac3e65915a" />
     </plugin>
-    <plugin name="cordova-plugin-qqsdk" spec="^0.9.6">
+    <plugin name="cordova-plugin-qqsdk" spec="^0.9.7">
         <variable name="QQ_APP_ID" value="1106192747" />
     </plugin>
-    <plugin name="cordova-plugin-statusbar" spec="^2.4.1" />
+    <plugin name="cordova-plugin-statusbar" spec="^2.4.2" />
     <plugin name="cordova-hot-code-push-plugin" spec="^1.5.3" />
-    <plugin name="cordova-plugin-x-socialsharing" spec="^5.2.1" />
-    <plugin name="cordova-plugin-ionic-webview" spec="^1.1.16" />
-    <plugin name="cordova-plugin-ionic-keyboard" spec="^2.0.5" />
-    <engine name="android" spec="~6.1.2" />
-    <plugin name="cordova-plugin-file" spec="~4.3.3" />
-    <plugin name="cordova-plugin-bugly-sdk" spec="~0.0.4">
+    <plugin name="cordova-plugin-bugly-sdk" spec="0.0.1">
         <variable name="ANDROID_APPID" value="a3f4bd261d" />
         <variable name="IOS_APPID" value="986c38f567" />
     </plugin>
+    <plugin name="cordova-plugin-x-socialsharing" spec="^5.4.4" />
+    <plugin name="cordova-plugin-ionic-webview" spec="^1.2.1" />
+    <plugin name="cordova-plugin-ionic-keyboard" spec="^2.1.3" />
+    <plugin name="jpush-phonegap-plugin" spec="^3.6.4">
+        <variable name="APP_KEY" value="46becc0d96be0a46d601867f" />
+    </plugin>
+    <plugin name="cordova-plugin-nativestorage" spec="^2.3.2" />
+    <plugin name="cordova-sqlite-storage" spec="^2.6.0" />
+    <plugin name="cordova-plugin-splashscreen" spec="^4.1.0" />
+    <plugin name="cordova-plugin-inappbrowser" spec="^1.7.2" />
+    <plugin name="cordova-plugin-weibosdk" spec="^0.6.4">
+        <variable name="WEIBO_APP_ID" value="3987556016" />
+    </plugin>
+    <plugin name="cordova-plugin-device" spec="^1.1.7" />
+    <plugin name="cordova-plugin-camera" spec="^2.4.1">
+        <variable name="CAMERA_USAGE_DESCRIPTION" value=" " />
+        <variable name="PHOTOLIBRARY_USAGE_DESCRIPTION" value=" " />
+    </plugin>
+    <plugin name="cordova-plugin-file-transfer" spec="^1.7.1" />
+    <plugin name="cordova-plugin-file" spec="^4.3.3" />
+    <plugin name="cordova-plugin-whitelist" spec="^1.3.3" />
+    <plugin name="cordova-plugin-nativeaudio" spec="^3.0.9" />
     <plugin name="ionic-plugin-deeplinks" spec="~1.0.15">
         <variable name="URL_SCHEME" value="drip" />
         <variable name="DEEPLINK_SCHEME" value="https" />
@@ -160,7 +166,6 @@
     <plugin name="cordova-plugin-photo-library" spec="~2.1.1">
         <variable name="PHOTO_LIBRARY_USAGE_DESCRIPTION" value="水滴打卡需要你的同意才能访问相册" />
     </plugin>
-    <engine name="ios" spec="~4.3.1" />
     <plugin name="cordova-plugin-media" spec="~3.0.1">
         <variable name="MICROPHONE_USAGE_DESCRIPTION" value="水滴打卡需要你的同意才能访问麦克风" />
     </plugin>

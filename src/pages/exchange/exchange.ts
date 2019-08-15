@@ -20,11 +20,16 @@ export class ExchangePage {
   }
 
   ionViewDidLoad() {
-    this.getExchanges();
+    this.getOrders();
   }
 
-    getExchanges() {
-    this.mallProvider.getExchanges().then(data=>{
+    /**
+     * 获取订单
+     *
+     */
+
+    getOrders() {
+    this.mallProvider.getOrders().then(data=>{
           this.logs = data;
     })
   }

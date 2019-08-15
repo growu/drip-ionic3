@@ -83,7 +83,7 @@ export class DpEventComponent {
                         console.log(event.attaches);
 
                         let image = null;
-                        if (event.attaches.length > 0) {
+                        if (event.attaches && event.attaches.length > 0) {
                             let attach = event.attaches[0];
                             if (attach.url) {
                                 image = attach.url;
