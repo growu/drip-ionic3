@@ -64,7 +64,7 @@
     "angular-svg-round-progressbar": "^1.2.1",
     "angular2-moment": "^1.9.0",
     "autoprefixer": "^7.2.6",
-    "chart.js": "^2.8.0",
+    "chart.js": "^2.9.4",
     "com.synconset.imagepicker": "^2.1.10",
     "cordova-hot-code-push-plugin": "^1.5.3",
     "cordova-ios": "4.4.0",
